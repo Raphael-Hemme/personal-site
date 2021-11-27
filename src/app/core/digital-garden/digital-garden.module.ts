@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LabPageComponent } from './lab-page/lab-page.component';
+import { DigitalGardenPageComponent } from './digital-garden-page/digital-garden-page.component';
 
 
 
 @NgModule({
   declarations: [
-    LabPageComponent
+    DigitalGardenPageComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class LabModule { }
+export class ProjectsModule { }

@@ -1,24 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UiMainComponent } from './ui-components/ui-main/ui-main.component';
-import { UiNavigationComponent } from './ui-components/ui-navigation/ui-navigation.component';
-import { UiHeaderComponent } from './ui-components/ui-header/ui-header.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatListModule } from "@angular/material/list";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 
 
 
 @NgModule({
   declarations: [
-    UiMainComponent,
-    UiNavigationComponent,
-    UiHeaderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
-    UiMainComponent,
-    UiNavigationComponent,
-    UiHeaderComponent
   ]
 })
 export class SharedModule { }

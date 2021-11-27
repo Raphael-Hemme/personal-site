@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectsPageComponent } from './projects-page.component';
+import { DigitalGardenPageComponent } from './digital-garden-page.component';
 
 describe('ProjectsPageComponent', () => {
-  let component: ProjectsPageComponent;
-  let fixture: ComponentFixture<ProjectsPageComponent>;
+  let component: DigitalGardenPageComponent;
+  let fixture: ComponentFixture<DigitalGardenPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProjectsPageComponent ]
+      declarations: [ DigitalGardenPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectsPageComponent);
+    fixture = TestBed.createComponent(DigitalGardenPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
