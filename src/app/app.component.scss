@@ -1,3 +1,15 @@
-.menu-dark {
+.menu-dark,
+.sidenav-dark {
   background-color: rgb(50, 50, 51);
+}
+
+.nav-item-dark {
+  color: #26a69a;
+  background-color: rgb(50, 50, 51);
+}
+
+a,
+button,
+span {
+  color: #26a69a;
 }

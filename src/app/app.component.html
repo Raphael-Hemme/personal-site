@@ -21,12 +21,12 @@
   </mat-toolbar>
 
   <mat-sidenav-container style="height: 90%;">
-    <mat-sidenav #sidenav>
+    <mat-sidenav #sidenav class="sidenav-dark" mode="over">
       <mat-nav-list>
-        <a (click)="sidenav.toggle()" mat-list-item>Close</a>
-        <a [routerLink]="['/io-garden']" mat-list-item>I/O-GARDEN</a>
-        <a [routerLink]="['/blog']" mat-list-item>BLOG</a>
-        <a [routerLink]="['/about']" mat-list-item>ABOUT</a>
+        <a (click)="sidenav.toggle()" mat-list-item class="nav-item-dark">Close</a>
+        <a [routerLink]="['/blog']" mat-list-item class="nav-item-dark">BLOG</a>
+        <a [routerLink]="['/io-garden']" mat-list-item class="nav-item-dark">I/O-GARDEN</a>
+        <a [routerLink]="['/about']" mat-list-item class="nav-item-dark">ABOUT</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content style="height: 90%;">
