@@ -5,6 +5,23 @@
   background-color: #353a40;
 }
 
+.menu-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-nav-items-container {
+  @media (max-width: 720px) {
+    display: none;
+  }
+}
+
+.menu-burger {
+  @media (min-width: 721px) {
+    display: none;
+  }
+}
+
 .nav-item-dark {
   color: #26a69a;
   background-color: #353a40;

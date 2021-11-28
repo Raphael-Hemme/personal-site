@@ -1,7 +1,7 @@
 <div style="height: 100vh;">
   <header>
     <mat-toolbar class="menu-dark">
-      <mat-toolbar-row>
+      <mat-toolbar-row class="menu-container">
         <div class="menu-logo-container">
           <div class="logo-bg-rotating-gradient-small"></div>
           <img
@@ -10,20 +10,21 @@
           alt=""/>
         </div>
 
-        <button
-          mat-icon-button
-          (click)="sidenav.toggle()"
-          class="menu-burger"
-        >
-          <mat-icon>menu</mat-icon>
-        </button>
         <!-- <span class="header-name">Raphael Hemme</span>-->
-        <span class="menu-spacer"></span>
-        <div>
+        <!-- <span class="menu-spacer"></span> -->
+        <div class="top-nav-items-container">
           <a [routerLink]="['/io-garden']" class="nav-item-dark" mat-button>I/O-GARDEN</a>
           <a [routerLink]="['/blog']" class="nav-item-dark" mat-button>BLOG</a>
           <a [routerLink]="['/about']" class="nav-item-dark" mat-button>ABOUT</a>
         </div>
+
+        <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        class="menu-burger"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
       </mat-toolbar-row>
     </mat-toolbar>
   </header>
