@@ -1,3 +1,5 @@
+// ----- top menu
+
 .menu-dark,
 .sidenav-dark {
   background-color: #353a40;
@@ -54,6 +56,9 @@
     transform: rotate(360deg);
   }
 }
+
+
+// ----- Sidenav
 
 .sidenav-container {
   height: calc(100% - 64px);
