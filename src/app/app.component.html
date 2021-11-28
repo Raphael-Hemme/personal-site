@@ -21,7 +21,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container style="height: 90%;">
-    <mat-sidenav #sidenav class="sidenav-dark" mode="over">
+    <mat-sidenav #sidenav class="sidenav-dark" mode="over" [autoFocus]="false">
       <mat-nav-list>
         <a (click)="sidenav.toggle()" mat-list-item class="nav-item-dark">Close</a>
         <a [routerLink]="['/blog']" mat-list-item class="nav-item-dark">BLOG</a>
