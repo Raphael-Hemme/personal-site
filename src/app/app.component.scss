@@ -1,15 +1,97 @@
 .menu-dark,
 .sidenav-dark {
-  background-color: rgb(50, 50, 51);
+  background-color: #353a40;
 }
 
 .nav-item-dark {
   color: #26a69a;
-  background-color: rgb(50, 50, 51);
+  background-color: #353a40;
+  // background-color: rgb(50, 50, 51);
+  // This color generally seems nicer to me than the slightly buish gray
+  // currently used but I had to change the logo image color itself first.
 }
 
-a,
-button,
-span {
+.header-name,
+.menu-burger {
   color: #26a69a;
 }
+
+// ----- Logo
+
+.menu-logo-container {
+  height: 90%;
+}
+.logo-negative-small {
+  position: relative;
+  height: 57px;
+  top: -54px;
+  left: 1px;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.logo-bg-rotating-gradient-small {
+  position: relative;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  height: 55px;
+  width: 55px;
+  z-index: 9;
+  background-image: linear-gradient(
+    to right,
+    rgb(43, 175, 147),
+    rgb(124, 101, 211)
+  );
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.sidenav-container {
+  height: calc(100% - 64px);
+}
+
+.sidenav-content-container {
+  height: 100%;
+
+  background-color: rgb(240, 240, 240);
+}
+
+.main-content-container {
+  width: 100%;
+  height: 100%;
+  padding: 25px;
+}
+
+
+
+/* ----- Background gradient and dot-overlay ----- */
+
+/* .colorGradient {
+  position: relative;
+  top: 0px;
+  min-height: auto;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(30, 180, 143),
+    rgb(8, 84, 94)
+  );
+}
+
+.dotOverlay {
+  min-height: 100vh;
+  background-size: 3px 3px;
+  background-image: radial-gradient(
+    circle,
+    #3a3a3a 0.2px,
+    rgba(173, 25, 25, 0) 1px
+  );
+} */

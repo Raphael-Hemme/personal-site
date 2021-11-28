@@ -1,36 +1,49 @@
 <!-- <h1>test</h1>
 <ui-main></ui-main> -->
 
-<div style="height: 100%;">
-  <mat-toolbar class="menu-dark">
-    <mat-toolbar-row>
-      <button
-      mat-icon-button
-      (click)="sidenav.toggle()"
-      >
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Raphael Hemme</span>
-      <span class="menu-spacer"></span>
-      <div>
-        <a [routerLink]="['/io-garden']" mat-button>I/O-GARDEN</a>
-        <a [routerLink]="['/blog']" mat-button>BLOG</a>
-        <a [routerLink]="['/about']" mat-button>ABOUT</a>
-      </div>
-    </mat-toolbar-row>
-  </mat-toolbar>
+<div style="height: 100vh;">
+  <header>
+    <mat-toolbar class="menu-dark">
+      <mat-toolbar-row>
+        <div class="menu-logo-container">
+          <div class="logo-bg-rotating-gradient-small"></div>
+          <img
+          src="../assets/images/own-logo/RH-Logo-05-negative-small-night.png"
+          class="logo-negative-small"/>
+        </div>
 
-  <mat-sidenav-container style="height: 90%;">
+        <button
+          mat-icon-button
+          (click)="sidenav.toggle()"
+          class="menu-burger"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <!-- <span class="header-name">Raphael Hemme</span>-->
+        <span class="menu-spacer"></span>
+        <div>
+          <a [routerLink]="['/io-garden']" class="nav-item-dark" mat-button>I/O-GARDEN</a>
+          <a [routerLink]="['/blog']" class="nav-item-dark" mat-button>BLOG</a>
+          <a [routerLink]="['/about']" class="nav-item-dark" mat-button>ABOUT</a>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </header>
+
+
+  <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav class="sidenav-dark" mode="over" [autoFocus]="false">
       <mat-nav-list>
-        <a (click)="sidenav.toggle()" mat-list-item class="nav-item-dark">Close</a>
-        <a [routerLink]="['/blog']" mat-list-item class="nav-item-dark">BLOG</a>
-        <a [routerLink]="['/io-garden']" mat-list-item class="nav-item-dark">I/O-GARDEN</a>
-        <a [routerLink]="['/about']" mat-list-item class="nav-item-dark">ABOUT</a>
+        <a (click)="sidenav.toggle()" class="nav-item-dark" mat-list-item>Close</a>
+        <a [routerLink]="['/blog']" class="nav-item-dark" mat-list-item>BLOG</a>
+        <a [routerLink]="['/io-garden']" class="nav-item-dark"mat-list-item>I/O-GARDEN</a>
+        <a [routerLink]="['/about']" class="nav-item-dark" mat-list-item>ABOUT</a>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content style="height: 90%;">
-      <router-outlet></router-outlet>
+    <mat-sidenav-content class="sidenav-content-container">
+      <main class="main-content-container">
+        <router-outlet></router-outlet>
+      </main>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
