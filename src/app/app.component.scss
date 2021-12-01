@@ -42,20 +42,25 @@
 }
 .logo-negative-small {
   position: relative;
-  height: 57px;
-  top: -54px;
-  left: 1px;
+  height: 52px;
+  top: -52px;
+  left: 7px;
   border-radius: 10px;
   z-index: 10;
+  @media (min-width: 600px) {
+    height: 57px;
+    top: -54px;
+    left: 9px;
+  }
 }
 
 .logo-bg-rotating-gradient-small {
   position: relative;
-  top: 2px;
-  left: 2px;
+  top: -1px;
+  left: 7px;
   border-radius: 50%;
-  height: 55px;
-  width: 55px;
+  height: 51px;
+  width: 51px;
   z-index: 9;
   background-image: linear-gradient(
     to right,
@@ -63,6 +68,13 @@
     rgb(124, 101, 211)
   );
   animation: spin 10s linear infinite;
+
+  @media (min-width: 600px) {
+    height: 55px;
+    width: 55px;
+    top: 2px;
+    left: 10px;
+  }
 }
 
 @keyframes spin {
