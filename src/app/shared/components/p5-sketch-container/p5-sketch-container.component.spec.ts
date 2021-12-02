@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AboutComponent } from './about.component';
+import { P5SketchContainerComponent } from './p5-sketch-container.component';
 
-describe('AboutComponent', () => {
-  let component: AboutComponent;
-  let fixture: ComponentFixture<AboutComponent>;
+describe('P5SketchContainerComponent', () => {
+  let component: P5SketchContainerComponent;
+  let fixture: ComponentFixture<P5SketchContainerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AboutComponent ]
+      declarations: [ P5SketchContainerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AboutComponent);
+    fixture = TestBed.createComponent(P5SketchContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

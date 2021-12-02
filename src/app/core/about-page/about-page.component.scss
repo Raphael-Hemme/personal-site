@@ -1,0 +1,50 @@
+* {
+  color: rgb(42, 42, 42);
+}
+
+h1 {
+  font-family: 'Comfortaa', cursive;
+  font-size: 4rem;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+h2 {
+  font-family: 'Comfortaa', cursive;
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 40px 0;
+}
+
+h3 {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 0 0 30px 0;
+}
+
+p {
+  font-family: 'EB Garamond', serif;
+}
+
+.about-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.about-henings-and-text {
+  width: 66%;
+}
+
+.about-image {
+  width: 33%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.prifile-picture {
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+}

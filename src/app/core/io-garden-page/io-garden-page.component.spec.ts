@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DigitalGardenPageComponent } from './digital-garden-page.component';
+import { IoGardenPageComponent } from './io-garden-page.component';
 
-describe('ProjectsPageComponent', () => {
-  let component: DigitalGardenPageComponent;
-  let fixture: ComponentFixture<DigitalGardenPageComponent>;
+describe('IoGardenPageComponent', () => {
+  let component: IoGardenPageComponent;
+  let fixture: ComponentFixture<IoGardenPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DigitalGardenPageComponent ]
+      declarations: [ IoGardenPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DigitalGardenPageComponent);
+    fixture = TestBed.createComponent(IoGardenPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
