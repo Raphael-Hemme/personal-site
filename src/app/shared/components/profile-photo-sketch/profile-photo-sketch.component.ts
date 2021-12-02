@@ -28,11 +28,15 @@ export class ProfilePhotoSketchComponent implements OnInit {
 
         img.loadPixels();
 
-        s.tint(43, 175, 147, 200);
+        // s.tint(43, 175, 147, 200);
         s.image(img, 0, 0, 300, 300);
-        // s.filter(s.GRAY);
+        s.filter(s.GRAY);
 
-        s.frameRate(10);
+        s.strokeWeight(1);
+        s.stroke(43, 175, 147)
+        s.noFill();
+        s.circle(s.width / 2, s.height / 2, 290);
+        // s.frameRate(10);
       };
 
       s.draw = () => {};
