@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
-// const p5 = require('p5');
 
 @Component({
   selector: 'app-profile-photo-sketch',
@@ -15,16 +14,19 @@ export class ProfilePhotoSketchComponent implements OnInit {
 
   ngOnInit() {
     const sketch = (s: any) => {
+      // Inspired by this sketch.
+
       let img: any;
       s.preload = () => {
-        img = s.loadImage('./../../../../../assets/images/profile-photo-01.jpg')
+        img = s.loadImage('./../../../../../assets/images/photos/profile-photo-01-medium.jpg')
       }
 
       s.setup = () => {
         let canvas2 = s.createCanvas(300, 300);
-        canvas2.parent('sketch-wrapper');
+        canvas2.parent('profile-photo-sketch-wrapper');
 
-        s.background(23, 18, 43, 255);
+        s.pixelDensity(1);
+        // s.background(23, 18, 43, 255);
 
         img.loadPixels();
 
@@ -36,7 +38,6 @@ export class ProfilePhotoSketchComponent implements OnInit {
         s.stroke(43, 175, 147)
         s.noFill();
         s.circle(s.width / 2, s.height / 2, 290);
-        // s.frameRate(10);
       };
 
       s.draw = () => {};

@@ -9,20 +9,23 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon"; */
 import { P5SketchContainerComponent } from './components/p5-sketch-container/p5-sketch-container.component';
 import { ProfilePhotoSketchComponent } from './components/profile-photo-sketch/profile-photo-sketch.component';
+import { HorizontalGlitchSketchComponent } from './components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
 
 
 
 @NgModule({
   declarations: [
     P5SketchContainerComponent,
-    ProfilePhotoSketchComponent
+    ProfilePhotoSketchComponent,
+    HorizontalGlitchSketchComponent
   ],
   imports: [
     CommonModule,
   ],
   exports: [
     P5SketchContainerComponent,
-    ProfilePhotoSketchComponent
+    ProfilePhotoSketchComponent,
+    HorizontalGlitchSketchComponent
   ]
 })
 export class SharedModule { }
