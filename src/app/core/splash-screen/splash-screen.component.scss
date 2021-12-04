@@ -4,6 +4,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkorchid;
+  // background-color: rgb(30, 67, 68);
   overflow: hidden;
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+}
+
+.splash-screen-fade {
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
 }

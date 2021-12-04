@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SplashScreenComponent implements OnInit {
 
+  public startSplashScreenFade = false
+  private splashScreenFadeTimeout: any;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.splashScreenFadeTimeout = setTimeout(() => this.startSplashScreenFade = true, 4000)
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.splashScreenFadeTimeout)
   }
 
 }
