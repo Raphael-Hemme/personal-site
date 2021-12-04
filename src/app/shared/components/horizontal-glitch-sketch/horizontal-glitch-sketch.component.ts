@@ -23,12 +23,16 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const sketch = (s: any) => {
-
+      console.log('test')
       let img: any;
       let imgXStart = 0;
       let imgYStart = 0;
       const imgWidth = 500;
       const imgHeight = 500;
+
+      // const bgColor = [53, 30, 87];
+      const bgColor = [35, 14, 59];
+      // const bgColor = [8, 84, 94];
 
       s.preload = () => {
         img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-05.png')
@@ -45,40 +49,74 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         s.frameRate(15)
         s.pixelDensity(1);
 
-        s.background(30, 67, 68)
-        s.image(img, imgXStart, imgYStart, imgWidth, imgHeight);
+        s.background(...bgColor);
       };
 
       s.draw = () => {
+
         if (this.forceExit) {
-          return;
+          s.remove();
         }
 
-        s.background(30, 67, 68)
+        s.background(...bgColor)
         s.image(img, imgXStart, imgYStart, imgWidth, imgHeight);
 
-        if (s.random(1) > 0.85) {
+        if (s.random(1) > 0.95) {
           const randSlicesCount = s.int(s.random(5, 30))
           for (let i = 0; i <= randSlicesCount; i++) {
             const currSliceDataObj = s.generateRandomSlice();
-            console.log(currSliceDataObj);
-              const currImgSlice = s.get(
-                currSliceDataObj.sliceXStart,
-                currSliceDataObj.sliceYStart,
-                currSliceDataObj.sliceWidth,
-                currSliceDataObj.sliceHeight,
-              )
-              s.image(
-                currImgSlice,
+            const currImgSlice = s.get(
+              currSliceDataObj.sliceXStart,
+              currSliceDataObj.sliceYStart,
+              currSliceDataObj.sliceWidth,
+              currSliceDataObj.sliceHeight,
+            )
+            s.image(
+              currImgSlice,
+              s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, 200),
+              currSliceDataObj.sliceYStart,
+              currSliceDataObj.sliceWidth,
+              currSliceDataObj.sliceHeight
+            )
+          };
+/*           for (let i = 0; i <= randSlicesCount / 2; i++) {
+            const currSliceDataObj = s.generateRandomSlice();
+              s.noStroke()
+              s.fill(100, 40)
+              s.rect(
                 s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart),
                 currSliceDataObj.sliceYStart,
                 currSliceDataObj.sliceWidth,
                 currSliceDataObj.sliceHeight
               )
-          };
+          }; */
+          /* for (let i = 0; i <= randSlicesCount / 4; i++) {
+            const currSliceDataObj = s.generateRandomSlice();
+              s.noStroke()
+              s.fill(bgColor)
+              s.rect(
+                s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart),
+                currSliceDataObj.sliceYStart,
+                currSliceDataObj.sliceWidth,
+                currSliceDataObj.sliceHeight
+              )
+          }; */
         }
 
-
+        if (s.random(1) > 0.98) {
+          const randSlicesCount = s.int(s.random(5, 10))
+          for (let i = 0; i <= randSlicesCount; i++) {
+            const currSliceDataObj = s.generateRandomSlice();
+            s.noStroke()
+            s.fill(100, 40)
+            s.rect(
+              s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, 600),
+              currSliceDataObj.sliceYStart,
+              currSliceDataObj.sliceWidth,
+              currSliceDataObj.sliceHeight
+            )
+          };
+        }
       };
 
       s.generateRandomSlice = (): RandomSlice => {
@@ -92,9 +130,9 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         }
       }
 
-      s.generateSliceShiftXStartPosition = (currXStart: number): number => {
+      s.generateSliceShiftXStartPosition = (currXStart: number, maxDist: number): number => {
         // shiftedXStart
-        const randShiftLength = s.int(s.random(50, 200));
+        const randShiftLength = s.int(s.random(50, maxDist));
         return s.random(1) > 0.5
         ? currXStart + randShiftLength
         : currXStart - randShiftLength;
@@ -106,6 +144,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.forceExit = true;
+    console.log('test')
   }
 
 }
