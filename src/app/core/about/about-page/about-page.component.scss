@@ -30,24 +30,41 @@ p {
 .about-section {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+  @media (min-width: 576px) {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }
 
-.about-henings-and-text {
-  width: 66%;
+.about-headings-and-text {
+  width: 100%;
+  @media (min-width: 576px) {
+    width: 66%;
+  }
 }
 
 .about-image {
-  width: 33%;
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  @media (min-width: 576px) {
+    width: 33%;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 .prifile-picture {
-  width: 300px;
-  height: 300px;
-/*   border-radius: 15px;
-  overflow: hidden; */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  @media (min-width: 576px) {
+    width: 300px;
+    height: 300px;
+  }
 }
 
 .profile-photo-sketch {

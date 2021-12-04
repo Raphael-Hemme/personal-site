@@ -17,6 +17,10 @@ export class ProfilePhotoSketchComponent implements OnInit {
       // Inspired by this sketch.
 
       let img: any;
+      let currWidth = 0;
+      let currHeight = 0;
+
+
       s.preload = () => {
         img = s.loadImage('./../../../../../assets/images/photos/profile-photo-01-medium.jpg')
       }
@@ -40,7 +44,14 @@ export class ProfilePhotoSketchComponent implements OnInit {
         s.circle(s.width / 2, s.height / 2, 290);
       };
 
-      s.draw = () => {};
+      s.draw = () => {
+
+      };
+
+      s.windowResized = () => {
+/*         console.log('window-resize')
+        s.resizeCanvas((300 * s.windowWidth) / 100, (300 * s.windowWidth) / 100); */
+      }
     };
 
     this.canvas = new p5(sketch);
