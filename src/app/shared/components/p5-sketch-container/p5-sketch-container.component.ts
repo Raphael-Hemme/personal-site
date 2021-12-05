@@ -20,8 +20,6 @@ export class P5SketchContainerComponent implements OnInit, OnDestroy {
         canvas2.parent('sketch-wrapper');
 
         s.background(23, 18, 43, 255);
-
-        // s.rect(0, 0, s.width, s.height);
       };
 
       s.draw = () => {
