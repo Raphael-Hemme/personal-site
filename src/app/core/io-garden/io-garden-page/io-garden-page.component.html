@@ -12,5 +12,5 @@
   <p class="io-garden-explanation two-col-p-on-lg" *ngIf="ioExplanationIsShown">{{ ioNameExplainer }}</p>
 </section>
 <section class="io-garden-bench">
-  <app-io-garden-experiment-preview></app-io-garden-experiment-preview>
+  <app-io-garden-experiment-preview [experimentpreviewData]="ioExperimentDataArr[0]"></app-io-garden-experiment-preview>
 </section>
