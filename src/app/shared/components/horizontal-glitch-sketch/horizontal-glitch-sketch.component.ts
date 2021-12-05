@@ -17,13 +17,12 @@ interface RandomSlice {
 export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   public canvas: any;
-  private forceExit = false;
+  // private forceExit = false;
 
   constructor() {}
 
   ngOnInit() {
     const sketch = (s: any) => {
-      console.log('test')
       let img: any;
       let imgXStart = 0;
       let imgYStart = 0;
@@ -53,11 +52,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       };
 
       s.draw = () => {
-
-        if (this.forceExit) {
-          s.remove();
-        }
-
         s.background(...bgColor)
         s.image(img, imgXStart, imgYStart, imgWidth, imgHeight);
 
@@ -143,8 +137,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.forceExit = true;
-    console.log('test')
+    // this.forceExit = true;
+    this.canvas.remove();
   }
 
 }

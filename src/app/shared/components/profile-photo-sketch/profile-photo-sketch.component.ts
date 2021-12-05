@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 
 @Component({
@@ -6,7 +6,7 @@ import * as p5 from 'p5';
   templateUrl: './profile-photo-sketch.component.html',
   styleUrls: ['./profile-photo-sketch.component.scss']
 })
-export class ProfilePhotoSketchComponent implements OnInit {
+export class ProfilePhotoSketchComponent implements OnInit, OnDestroy {
 
   public canvas: any;
 
@@ -44,9 +44,7 @@ export class ProfilePhotoSketchComponent implements OnInit {
         s.circle(s.width / 2, s.height / 2, 290);
       };
 
-      s.draw = () => {
-
-      };
+      s.draw = () => {};
 
       s.windowResized = () => {
 /*         console.log('window-resize')
@@ -55,6 +53,10 @@ export class ProfilePhotoSketchComponent implements OnInit {
     };
 
     this.canvas = new p5(sketch);
+  }
+
+  ngOnDestroy(): void {
+    this.canvas.remove();
   }
 
 }

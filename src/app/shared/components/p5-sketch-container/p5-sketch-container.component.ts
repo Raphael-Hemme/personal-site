@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 // const p5 = require('p5');
 
@@ -7,7 +7,7 @@ import * as p5 from 'p5';
   templateUrl: './p5-sketch-container.component.html',
   styleUrls: ['./p5-sketch-container.component.scss']
 })
-export class P5SketchContainerComponent implements OnInit {
+export class P5SketchContainerComponent implements OnInit, OnDestroy {
 
   public canvas: any;
 
@@ -44,6 +44,10 @@ export class P5SketchContainerComponent implements OnInit {
     };
 
     this.canvas = new p5(sketch);
+  }
+
+  ngOnDestroy(): void {
+    this.canvas.remove();
   }
 
 }
