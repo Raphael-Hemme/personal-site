@@ -5,6 +5,7 @@ import { BlogPageComponent } from './blog/blog-page/blog-page.component';
 import { IoGardenPageComponent } from './io-garden/io-garden-page/io-garden-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { SplashScreenComponent } from './splash-screen/splash-screen.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { SplashScreenComponent } from './splash-screen/splash-screen.component';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    MatButtonModule
   ],
   exports: [
     SplashScreenComponent,

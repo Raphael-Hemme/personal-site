@@ -9,3 +9,12 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.two-col-p-on-lg {
+  column-count: unset;
+  column-gap: unset;
+  @media (min-width: 992px) {
+    column-count: 2;
+    column-gap: 50px;
+  }
+}

@@ -1,3 +1,8 @@
 <h1>Io-Garden</h1>
-<h2>{{ ioWelcome }}</h2>
-<p>{{ ioNameExplainer }}</p>
+<h2>{{ ioWelcomeMain }}</h2>
+<h3>{{ ioWelcomeSub }}</h3>
+<div class="io-garden-abstract-container">
+  <p class="io-garden-abstract two-col-p-on-lg">{{ ioAbstract }}</p>
+  <button mat-flat-button color="accent" (click)="toggleIoGardenExplanation()">read more</button>
+</div>
+<p class="io-garden-explanation two-col-p-on-lg" *ngIf="ioExplanationIsShown">{{ ioNameExplainer }}</p>
