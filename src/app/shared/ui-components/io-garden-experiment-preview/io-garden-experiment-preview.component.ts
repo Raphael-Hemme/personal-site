@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-type ImgOrientation = 'top' | 'down' | 'left' | 'right';
+type ImgOrientation = 'top' | 'left' | 'right';
 interface ExperimentPreviewData {
   title: string;
   subtitle: string;
@@ -16,7 +16,7 @@ interface ExperimentPreviewData {
 })
 export class IoGardenExperimentPreviewComponent implements OnInit {
 
-  @Input() imageOrientation: ImgOrientation = 'top';
+  @Input() imgPosition: ImgOrientation = 'top';
   @Input() experimentpreviewData: ExperimentPreviewData = {
     title: '',
     subtitle: '',
@@ -25,8 +25,24 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
     previewImgUrl: ''
   };
 
+  public previewOrintationClass = ''
+
   constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    switch (this.imgPosition) {
+      case ('top'):
+        this.previewOrintationClass = 'image-top-preview-card';
+        break;
+      case ('left'):
+        this.previewOrintationClass = 'image-left-preview-card';
+        break;
+      case ('right'):
+        this.previewOrintationClass = 'image-right-preview-card';
+        break;
+      default:
+        this.previewOrintationClass = 'image-top-preview-card';
+    }
+  }
 
 }

@@ -1,7 +1,9 @@
-<div class="experiment-preview-card image-left-preview-card">
-  <div class="experiment-preview-card-header">
-    <div mat-card-avatar class="experiment-preview-header-phase-icon"></div>
+<div class="experiment-preview-card image-left-preview-card" [ngClass]="previewOrintationClass">
+  <div class="experiment-preview-card-title">
     <h2>{{ experimentpreviewData.title }}</h2>
+    <div class="experiment-preview-phase-icon"></div>
+  </div>
+  <div class="experiment-preview-card-subtitle">
     <h3>{{ experimentpreviewData.subtitle}}</h3>
   </div>
   <div class="experiment-preview-image-container">
