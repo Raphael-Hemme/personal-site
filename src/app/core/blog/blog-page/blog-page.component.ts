@@ -7,6 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogPageComponent implements OnInit {
 
+
+  public myMarkdown = `
+  #test
+
+  \`\`\`javascript
+  const a = 'test';
+  const myFunc = () => {
+    console.log(a);
+  }
+  \`\`\`
+  `
+
   constructor() { }
 
   ngOnInit(): void {
