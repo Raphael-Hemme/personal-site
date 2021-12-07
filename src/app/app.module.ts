@@ -30,9 +30,7 @@ import { SecurityContext } from '@angular/core';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    MarkdownModule.forRoot({
-      sanitize: SecurityContext.NONE
-    })
+    MarkdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
