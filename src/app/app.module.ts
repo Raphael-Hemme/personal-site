@@ -12,6 +12,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { CoreModule } from './core/core.module';
 
+import { MarkdownModule } from 'ngx-markdown';
+import { SecurityContext } from '@angular/core';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -27,6 +30,7 @@ import { CoreModule } from './core/core.module';
     MatListModule,
     MatIconModule,
     MatButtonModule,
+    MarkdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

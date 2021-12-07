@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 import { MatButtonModule } from '@angular/material/button';
 
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     SharedModule,
-    MatButtonModule
+    MatButtonModule,
+    MarkdownModule
   ],
   exports: [
     SplashScreenComponent,
