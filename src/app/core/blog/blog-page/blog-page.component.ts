@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { post } from 'src/assets/blog-posts/2021-01-06-hello-gh-pages-world'
+
 @Component({
   selector: 'app-blog-page',
   templateUrl: './blog-page.component.html',
@@ -7,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogPageComponent implements OnInit {
 
+  constructor(){}
 
-  public myMarkdown = `
+  public myMarkdown = post;
+
+/*   `
   #test
 
   \`\`\`javascript
@@ -17,11 +22,9 @@ export class BlogPageComponent implements OnInit {
     console.log(a);
   }
   \`\`\`
-  `
+  ` */
 
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

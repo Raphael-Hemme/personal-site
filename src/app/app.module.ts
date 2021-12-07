@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+// import { SecurityContext } from '@angular/core';
+
+import { MarkdownModule } from 'ngx-markdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,8 +16,6 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { CoreModule } from './core/core.module';
 
-import { MarkdownModule } from 'ngx-markdown';
-import { SecurityContext } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { SecurityContext } from '@angular/core';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    MarkdownModule.forRoot()
+    HttpClientModule,
+    MarkdownModule.forRoot({ loader: HttpClient }),
   ],
   providers: [],
   bootstrap: [AppComponent]
