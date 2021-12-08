@@ -8,6 +8,8 @@ import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MarkdownModule } from 'ngx-markdown';
+import { BlogPostPreviewComponent } from './blog/components/blog-post-preview/blog-post-preview.component';
+import { BlogPostComponent } from './blog/components/blog-post/blog-post.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { MarkdownModule } from 'ngx-markdown';
     BlogPageComponent,
     IoGardenPageComponent,
     SplashScreenComponent,
+    BlogPostPreviewComponent,
+    BlogPostComponent,
   ],
   imports: [
     CommonModule,

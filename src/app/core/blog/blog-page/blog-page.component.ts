@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { BlogService } from 'src/app/shared/services/blog-service/blog.service';
 
-import { post } from 'src/assets/blog-posts/2021-01-06-hello-gh-pages-world'
+// import { post } from 'src/assets/blog-posts/2021-01-06-hello-gh-pages-world'
 
 @Component({
   selector: 'app-blog-page',
@@ -9,9 +10,13 @@ import { post } from 'src/assets/blog-posts/2021-01-06-hello-gh-pages-world'
 })
 export class BlogPageComponent implements OnInit {
 
-  constructor(){}
+  // public myMarkdown: any;
 
-  public myMarkdown = post;
+  constructor(
+    private blogService: BlogService
+  ){}
+
+  // public myMarkdown = post;
 
 /*   `
   #test
@@ -25,6 +30,14 @@ export class BlogPageComponent implements OnInit {
   ` */
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+/*     this.blogService
+      .getBlogPost('http://localhost:4200/test.md')
+      .subscribe(res => {
+        console.log(res)
+        this.myMarkdown = res
+      }
+    ); */
+  }
 
 }
