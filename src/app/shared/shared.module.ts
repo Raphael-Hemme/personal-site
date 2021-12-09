@@ -22,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
     P5SketchContainerComponent,
     ProfilePhotoSketchComponent,
     HorizontalGlitchSketchComponent,
-    IoGardenExperimentPreviewComponent
+    IoGardenExperimentPreviewComponent,
   ],
   imports: [
     CommonModule,

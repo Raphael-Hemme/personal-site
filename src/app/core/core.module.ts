@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MarkdownModule } from 'ngx-markdown';
 import { BlogPostPreviewComponent } from './blog/components/blog-post-preview/blog-post-preview.component';
 import { BlogPostComponent } from './blog/components/blog-post/blog-post.component';
+import { HomePageComponent } from './home/home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { BlogPostComponent } from './blog/components/blog-post/blog-post.compone
     SplashScreenComponent,
     BlogPostPreviewComponent,
     BlogPostComponent,
+    HomePageComponent,
   ],
   imports: [
     CommonModule,
