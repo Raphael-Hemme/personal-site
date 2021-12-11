@@ -2,9 +2,13 @@
   <header>
     <mat-toolbar class="menu-dark">
       <mat-toolbar-row class="menu-container">
+
         <div class="menu-logo-container">
+
           <div class="logo-bg-rotating-gradient-small"></div>
+
           <img
+          [routerLink]="['/']"
           src="../assets/images/own-logo/RH-Logo-05-negative-small-night.png"
           class="logo-negative-small"
           alt=""/>
@@ -47,4 +51,4 @@
   </mat-sidenav-container>
 </div>
 
-<app-splash-screen class="splash-screen" *ngIf="splashScreenIsVisible"></app-splash-screen>
+<app-splash-screen class="splash-screen" *ngIf="splashScreenStatus === 'on'"></app-splash-screen>

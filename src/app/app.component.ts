@@ -10,8 +10,7 @@ import { SplashScreenService } from './shared/services/splash-screen-service/spl
 export class AppComponent implements OnInit, OnDestroy {
 
   public title = 'raphaelhemme';
-  public splashScreenIsVisible = true;
-  // private splashScreenTimeOut: any;
+  public splashScreenStatus = 'on';
   private subscriptions: Subscription = new Subscription()
 
   constructor(
@@ -20,15 +19,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.splashScreenService.splashScreenTimer$.subscribe(() => {
-        this.splashScreenIsVisible = false;
+      this.splashScreenService.startTimerAndHandleStatus().subscribe(res => {
+        console.log(res);
+        this.splashScreenStatus = res
       })
     )
-    // this.splashScreenTimeOut = setTimeout(() => this.splashScreenIsVisible = false, 5000)
   }
 
   ngOnDestroy(): void {
-    // clearTimeout(this.splashScreenTimeOut);
     this.subscriptions.unsubscribe();
   }
 

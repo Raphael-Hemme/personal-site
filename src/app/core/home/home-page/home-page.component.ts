@@ -16,11 +16,11 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.subscriptions.add(
-      this.splashScreenService.splashScreenTimer$.subscribe(() => {
-        this.splashScreenService.setSplashScreenIsInvisible(false);
-      })
+      this.splashScreenService.splashScreenTimer$.subscribe(next => {
+        this.splashScreenService.splashScreenStatus.next('off');
+      }
+      )
     )
     // this.splashScreenTimeOut = setTimeout(() => this.splashScreenIsVisible = false, 5000)
   }
