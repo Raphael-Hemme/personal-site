@@ -1,21 +1,3 @@
----
-title: "Situated Watching: The Virtual Vortex of Ethnography Videos"
-categories:
-  - Blog
-  - cultures of computing
-tags:
-  - ethnography
-  - teaching
-  - talks
-  - videos
-  - HCI
-  - situated action
-  - cognitive science
-  - AI
-  - Interaction design
-
----
-
 Preparing my course on "Ethnographies of Computing Environments", today, I found a fantastic TEDxBroadway talk by [Ellen Isaacs](http://izix.com) on ethnography.
 
 I was just searching for a short clip to watch with my students in order to complement the discussion of the otherwise purely text based introduction to ethnography (see my post from last [week](https://raphael-hemme.github.io/blog/cultures%20of%20computing/excerpts/excerpt-hirschauer-putting-things-into-words)).  

@@ -1,13 +1,3 @@
----
-title: "Combining Anguar and p5.js"
-categories:
-  - Blog
-  - coding practice
-tags:
-  - resources
-
----
-
 ## The Problem
 
 When trying to use p5.js inside an Angular app a week or so ago, I struggled to find instructions or tutorials on the matter that were working and up-to-date. One of the tutorials was a bit outdated but still very helpful once I figured out how to get rid of the error messages that immediately poped up when trying to set it up with a more recent Angular version (12.2).

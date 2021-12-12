@@ -1,3 +1,10 @@
-<h3>{{ data.title }} </h3>
-<p>{{ data.dateOriginal }}</p>
-<hr>
+<div class="blog-post-preview-card image-left-blog-post-preview-card">
+  <div class="blog-post-preview-image-container">
+    coming soon
+  </div>
+  <div class="blog-post-preview-card-title">
+    <h3 *ngIf="metaData.title">{{ metaData.title }} </h3>
+  </div>
+  <p *ngIf="metaData.dateOriginal">{{ metaData.dateOriginal }}</p>
+</div>
+

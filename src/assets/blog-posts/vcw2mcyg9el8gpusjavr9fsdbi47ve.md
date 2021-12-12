@@ -1,21 +1,3 @@
----
-title: "Excerpt - Putting Things into Words"
-categories:
-  - Blog
-  - cultures of computing
-  - excerpts
-tags:
-  - ethnography
-  - praxeography
-  - the silent
-  - interviews
-  - language
-  - anthropocentrism
-  - translation
-  - HCI
-
----
-
 ## Context
 I'm currently preparing a course on "Ethnographies of Computing Environments" at Ruhr University Bochum. As part of that, I need to introduce students to the general concepts of ethnography. I usually really enjoy that part.  
 But I have not been entirely happy with the reading I assigned for that general intro to ethnography because even though I think it is a valid introductory text, I think it approaches "culture" too much through language and the taxonomic ordering of our everyday interactions. In that, the text is strongly influenced by cognitive anthropology / ethnoscience while I would like to introduce students also to a more practice oriented way of doing (or at least understanding) ethnography (-> praxeogrphy / praxiography).

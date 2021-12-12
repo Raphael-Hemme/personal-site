@@ -1,13 +1,3 @@
----
-title: "Learning RxJS - Taming an Electric Eel"
-categories:
-  - Blog
-  - coding practice
-tags:
-  - resources
-
----
-
 ## Where to start
 
 I am currently learning Angular. And with Angular comes RxJS which is a library to process asynchronous data streams.

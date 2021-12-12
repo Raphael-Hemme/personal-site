@@ -1,16 +1,3 @@
----
-title: "JS arrays don't like to be copied"
-categories:
-  - Blog
-  - coding practice
-tags:
-  - javascript
-  - arrays
-  - variable reassignment
-  - debugging
-
----
-
 Yesterday, I was reminded that arrays in JavaScript really don't like to be copied but love to take all the names they can get for themselves.
 
 I was going through a few vanilla JavaScript projects on codecademy to refresh and consolidate the basics and I got stuck for quite a long time on an issue I had where the program gave me as its output completely new arrays with values nowhere present in the "raw data". And the program did that even though I was expecting it just to push those arrays that pass a test into a new array.

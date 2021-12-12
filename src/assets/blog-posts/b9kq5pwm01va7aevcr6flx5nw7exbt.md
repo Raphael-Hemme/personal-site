@@ -1,20 +1,8 @@
----
-title: "Cultivating a Digital Garden in my Zettelkasten"
-categories:
-  - Blog
-  - cultures of computing
-  - excerpts
-tags:
-  - digital gardening
-  - seedling
-
----
-
 ## "Organizing" knowledge - From operating 'machines of imagination' to cultivating and tending a "digital garden"
 
 A long time ago, when I was still living in Berlin, focussing on cognitive anthropology and cognitive science more generally, taking long walks exploring the urban city-scape with my wife - who still was my girlfriend back then - we visited one of our favorite book stores where I found a fantastic coffee table book that became the starting point of a long fascination with artefacts for storing or organizing knowledge and ideas.
 
-The book was titled: "Zettelkästen. Maschinen der Phantasie" which I would translate as "Zettelkaesten. Machines of Imagination". *Writing it down, I recognize that the German title - aside from a different conotation of "Phantasie" vs. "phantasy" - might be relatively self explanatory for English speakers.*
+The book was titled: "Zettelkästen. Maschinen der Phantasie" which I would translate as "Zettelkaesten. Machines of Imagination". *Writing it down, I recognize that the German title - aside from a different connotation of "Phantasie" vs. "phantasy" - might be relatively self explanatory for English speakers.*
 
 This book had one chapter about Niklas Luhmann's Zettelkasten that especially peaked my interest. Not only did the photos of this analog artefact make the creative tension between chaos and order almost tangible, but the accomodating essay by Luhmann himself spoke to me. In it, he explains the meticulous system of numbering and "tagging" his individual slips of paper and how this process of ordering allows him to essentially let his Zettelkasten do the work of writing his essays and books for him.
 

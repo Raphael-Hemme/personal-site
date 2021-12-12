@@ -1,23 +1,3 @@
----
-title: "Ethnographies of Infrastructure or 'The Society of People Interested in Boring Things'"
-categories:
-  - Blog
-  - cultures of computing
-  - excerpts
-tags:
-  - ethnography
-  - boring things
-  - categories
-  - infrastructure
-  - standards
-  - materiality
-  - IT
-  - information studies
-  - invisible work
-  - the silent
-
----
-
 ## 'The Society of People Interested in Boring Things'
 
 

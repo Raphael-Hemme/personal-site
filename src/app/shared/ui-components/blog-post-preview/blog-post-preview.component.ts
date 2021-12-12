@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BlogPostMetaData } from '../../services/blog-service/blog.service';
 
 @Component({
   selector: 'app-blog-post-preview',
@@ -7,7 +8,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BlogPostPreviewComponent implements OnInit {
 
-  @Input() data: any;
+  @Input() metaData: BlogPostMetaData = {
+    'id': '',
+    'title': '',
+    'subtitle': '',
+    'dateOriginal': '',
+    'dateLastEdited': '',
+    'state': 0,
+    'postPath': '',
+    'thumbnailPath': '',
+    'tags': []
+  };
 
   constructor() { }
 
