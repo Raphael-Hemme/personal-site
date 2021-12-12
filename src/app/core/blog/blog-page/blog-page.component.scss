@@ -1,0 +1,21 @@
+.blog-posts-preview-display {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 992px) {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+.blog-posts-preview-card {
+  width: 100%;
+  height: 200px;
+  margin: 0 0 10px 0;
+  @media (min-width: 992px) {
+    min-width: 47%;
+    height: 300px;
+  }
+}

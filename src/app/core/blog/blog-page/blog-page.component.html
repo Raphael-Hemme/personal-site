@@ -1,6 +1,7 @@
-<!-- <app-blog-post [postId]="'test'"></app-blog-post> -->
-
-<app-blog-post-preview
-  *ngFor="let post of blogPostsMetaDataSortetByDate"
-  [metaData]="post">
-</app-blog-post-preview>
+<div class="blog-posts-preview-display">
+  <app-blog-post-preview
+    *ngFor="let post of blogPostsMetaDataSortetByDate"
+    [metaData]="post"
+    class="blog-posts-preview-card">
+  </app-blog-post-preview>
+</div>
