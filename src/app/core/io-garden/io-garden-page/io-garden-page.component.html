@@ -7,12 +7,13 @@
 
   <div class="io-garden-abstract-container">
     <p class="io-garden-abstract two-col-p-on-lg paragraph-regular">{{ ioAbstract }}</p>
-<!-- <button mat-flat-button color="accent" (click)="toggleIoGardenExplanation()">READ MORE</button> -->
-    <button (click)="toggleIoGardenExplanation()" class="btn-primary-outline">READ MORE</button>
+    <p class="io-garden-explanation two-col-p-on-lg paragraph-regular" *ngIf="ioExplanationIsShown">{{ ioNameExplainer }}</p>
 
+    <button (click)="toggleIoGardenExplanation()" class="btn-primary-outline">{{ ioExplanationIsShown ? '-' : '+'}}</button>
   </div>
-  <p class="io-garden-explanation two-col-p-on-lg" *ngIf="ioExplanationIsShown">{{ ioNameExplainer }}</p>
 </section>
 <section class="io-garden-bench">
-  <app-io-garden-experiment-preview [experimentpreviewData]="ioExperimentDataArr[0]" [imgPosition]="'left'"></app-io-garden-experiment-preview>
+  <div class="io-garden-experiment-card">
+    <app-io-garden-experiment-preview [experimentpreviewData]="ioExperimentDataArr[0]" [imgPosition]="'left'"></app-io-garden-experiment-preview>
+  </div>
 </section>

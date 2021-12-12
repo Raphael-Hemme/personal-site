@@ -8,8 +8,8 @@ import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MarkdownModule } from 'ngx-markdown';
-import { BlogPostPreviewComponent } from './blog/components/blog-post-preview/blog-post-preview.component';
-import { BlogPostComponent } from './blog/components/blog-post/blog-post.component';
+import { BlogPostPreviewComponent } from '../shared/ui-components/blog-post-preview/blog-post-preview.component';
+import { BlogPostComponent } from '../shared/ui-components/blog-post/blog-post.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
 
 @NgModule({
