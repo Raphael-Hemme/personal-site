@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogService } from 'src/app/shared/services/blog-service/blog.service';
-
-import blogPostsMetaData from 'src/assets/blog-posts/blog-posts-data.json';
+import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-blog-page',
@@ -10,10 +9,17 @@ import blogPostsMetaData from 'src/assets/blog-posts/blog-posts-data.json';
 })
 export class BlogPageComponent implements OnInit {
 
-  public postsData = blogPostsMetaData;
+  public postsData: BlogPostMetaData[];
+  public blogPostsMetaDataSortetByDate: BlogPostMetaData[];
 
-  constructor(){}
+  constructor(
+    private blogService: BlogService
+  ) {
+    this.postsData = this.blogService.getBlogPostsMetaData()
+    this.blogPostsMetaDataSortetByDate = _.sortBy(this.postsData, (el: BlogPostMetaData): string | undefined => el.dateOriginal)
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
 }
