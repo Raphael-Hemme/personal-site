@@ -1,1 +1,6 @@
-<app-blog-post [postId]="'test'"></app-blog-post>
+<!-- <app-blog-post [postId]="'test'"></app-blog-post> -->
+
+<app-blog-post-preview
+  *ngFor="let post of postsData"
+  [data]="post">
+</app-blog-post-preview>
