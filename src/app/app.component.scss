@@ -1,3 +1,4 @@
+@import '/src/colors.scss';
 // ----- top menu
 
 .menu-dark,
@@ -23,7 +24,8 @@
 }
 
 .nav-item-dark {
-  color: #26a69a;
+  // color: #26a69a;
+  color: $brand;
   background-color: #353a40;
   // background-color: rgb(50, 50, 51);
   // This color generally seems nicer to me than the slightly buish gray
@@ -32,7 +34,8 @@
 
 .header-name,
 .menu-burger {
-  color: #26a69a;
+  // color: #26a69a;
+  color: $brand;
 }
 
 // ----- Logo
@@ -63,10 +66,15 @@
   height: 51px;
   width: 51px;
   z-index: 9;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right,
     rgb(43, 175, 147),
     rgb(124, 101, 211)
+  ); */
+  background-image: linear-gradient(
+    to right,
+    $brand,
+    $subtle-one
   );
   animation: spin 10s linear infinite;
 

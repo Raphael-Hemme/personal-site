@@ -30,8 +30,10 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       const imgHeight = 500;
 
       // const bgColor = [53, 30, 87];
-      const bgColor = [35, 14, 59];
       // const bgColor = [8, 84, 94];
+
+      const bgColor = [70, 129, 137]
+      //const bgColor = [35, 14, 59];
 
       s.preload = () => {
         img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-05.png')
@@ -53,6 +55,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
       s.draw = () => {
         s.background(...bgColor)
+        s.tint(186, 255, 41);
         s.image(img, imgXStart, imgYStart, imgWidth, imgHeight);
 
         if (s.random(1) > 0.95) {
