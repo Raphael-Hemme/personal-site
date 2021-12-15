@@ -19,8 +19,7 @@ export class HomePageComponent implements OnInit {
     this.subscriptions.add(
       this.splashScreenService.splashScreenTimer$.subscribe(next => {
         this.splashScreenService.splashScreenStatus.next('off');
-      }
-      )
+      })
     )
     // this.splashScreenTimeOut = setTimeout(() => this.splashScreenIsVisible = false, 5000)
   }

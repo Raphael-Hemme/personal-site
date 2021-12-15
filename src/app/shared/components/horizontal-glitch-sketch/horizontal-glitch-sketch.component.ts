@@ -36,7 +36,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       //const bgColor = [35, 14, 59];
 
       s.preload = () => {
-        img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-05.png')
+        img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-06-green.png')
         // img = s.loadImage('./../../../../../assets/images/photos/profile-photo-01-glitch-500.jpg')
       }
 
@@ -55,7 +55,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
       s.draw = () => {
         s.background(...bgColor)
-        s.tint(186, 255, 41);
+        // s.tint(186, 255, 41);
         s.image(img, imgXStart, imgYStart, imgWidth, imgHeight);
 
         if (s.random(1) > 0.95) {
