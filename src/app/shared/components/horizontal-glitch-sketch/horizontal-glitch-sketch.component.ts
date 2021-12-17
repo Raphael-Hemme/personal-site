@@ -137,7 +137,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       s.generateBackgroundGradient = () => {
         let c1,c2;
         c1 = s.color(70, 129, 137);
-        c2 = s.color(63, 191, 191);
+        c2 = s.color(119, 172, 162);
 
         for(let y=0; y < s.height; y++){
           let n = s.map(y, 0, s.height, 0, 1);

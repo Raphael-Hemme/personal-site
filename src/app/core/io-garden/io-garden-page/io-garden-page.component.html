@@ -6,18 +6,18 @@
   </header>
 
   <div class="io-garden-abstract-container">
-    <p class="io-garden-abstract two-col-p-on-lg paragraph-regular">
+    <p class="io-garden-abstract paragraph-regular">
       {{ ioAbstract }}
     </p>
-    <p class="io-garden-explanation two-col-p-on-lg paragraph-regular"
+    <p class="io-garden-explanation paragraph-regular"
       *ngIf="ioExplanationIsShown">
       {{ ioNameExplainer }}
     </p>
 
     <button
       (click)="toggleIoGardenExplanation()"
-      class="btn-primary-flat">
-        {{ ioExplanationIsShown ? '-' : '+'}}
+      class="toggle-read-more btn-primary-flat">
+        {{ ioExplanationIsShown ? 'got it' : 'read more'}}
     </button>
   </div>
 </section>
