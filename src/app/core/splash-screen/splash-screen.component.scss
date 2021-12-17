@@ -3,11 +3,11 @@
   height: 100%;
   /* background: rgb(70,70,70);
   background: linear-gradient(180deg, rgb(49, 49, 49) 0%, rgb(124, 124, 124) 100%); */
-  background-image: linear-gradient(
+/*   background-image: linear-gradient(
     to bottom,
     rgb(72, 33, 116),
     rgb(48, 19, 80)
-  );
+  ); */
   opacity: 1;
 }
 
@@ -19,7 +19,8 @@
   align-items: center;
   // background-color: rgb(30, 67, 68);
   overflow: hidden;
-  opacity: 0.8;
+  // opacity: 0.8;
+  opacity: 1;
   transition: opacity .25s ease-in-out;
 }
 

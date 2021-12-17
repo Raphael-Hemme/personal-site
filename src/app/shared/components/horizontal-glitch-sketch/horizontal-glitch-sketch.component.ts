@@ -17,7 +17,6 @@ interface RandomSlice {
 export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   public canvas: any;
-  // private forceExit = false;
 
   constructor() {}
 
@@ -31,9 +30,9 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
       // const bgColor = [53, 30, 87];
       // const bgColor = [8, 84, 94];
+      // const bgColor = [35, 14, 59];
 
       const bgColor = [70, 129, 137]
-      //const bgColor = [35, 14, 59];
 
       s.preload = () => {
         img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-06-green.png')
@@ -50,12 +49,13 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         s.frameRate(15)
         s.pixelDensity(1);
 
-        s.background(...bgColor);
+        // s.background(...bgColor);
+        s.generateBackgroundGradient();
       };
 
       s.draw = () => {
-        s.background(...bgColor)
-        // s.tint(186, 255, 41);
+        // s.background(...bgColor)
+        s.generateBackgroundGradient();
         s.image(img, imgXStart, imgYStart, imgWidth, imgHeight);
 
         if (s.random(1) > 0.95) {
@@ -128,11 +128,24 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       }
 
       s.generateSliceShiftXStartPosition = (currXStart: number, maxDist: number): number => {
-        // shiftedXStart
         const randShiftLength = s.int(s.random(50, maxDist));
         return s.random(1) > 0.5
         ? currXStart + randShiftLength
         : currXStart - randShiftLength;
+      }
+
+      s.generateBackgroundGradient = () => {
+        let c1,c2;
+        c1 = s.color(70, 129, 137);
+        c2 = s.color(63, 191, 191);
+
+        for(let y=0; y < s.height; y++){
+          let n = s.map(y, 0, s.height, 0, 1);
+          let newc = s.lerpColor(c1, c2, n);
+          s.stroke(newc);
+          s.line(0, y, s.width, y);
+        }
+
       }
     };
 
@@ -140,7 +153,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.forceExit = true;
     this.canvas.remove();
   }
 
