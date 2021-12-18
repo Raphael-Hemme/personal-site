@@ -1,10 +1,23 @@
+<!-- <div class="blog-post-preview-card image-left-blog-post-preview-card" [ngStyle]="{'background-color': hslBgColorString}"> -->
 <div class="blog-post-preview-card image-left-blog-post-preview-card">
   <div class="blog-post-preview-image-container">
-    coming soon
+    <img
+      [src]="metaData.previewImageUrl"
+      alt="procedurally generated preview artwork for blog post"
+      class="blog-post-preview-img">
   </div>
   <div class="blog-post-preview-card-title">
     <h2 *ngIf="metaData.title">{{ metaData.title }} </h2>
   </div>
-  <p *ngIf="metaData.dateOriginal">{{ metaData.dateOriginal }}</p>
+  <div class="blog-post-preview-header">
+    <p
+      *ngIf="metaData.dateOriginal"
+      class="blog-post-preview-date">
+      {{ metaData.dateOriginal }}
+    </p>
+    <div class="blog-post-preview-phase-indicator-container">
+      <div class="blog-post-preview-phase-indicator"></div>
+    </div>
+  </div>
 </div>
 

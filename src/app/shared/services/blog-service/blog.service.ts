@@ -11,7 +11,7 @@ export interface BlogPostMetaData {
   'dateLastEdited'?: string;
   'state': number;
   'postPath': string;
-  'thumbnailPath': string;
+  'previewImageUrl': string;
   'tags'?: any[];
 }
 
