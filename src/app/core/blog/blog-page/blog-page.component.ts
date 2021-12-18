@@ -16,7 +16,11 @@ export class BlogPageComponent implements OnInit {
     private blogService: BlogService
   ) {
     this.postsData = this.blogService.getBlogPostsMetaData()
-    this.blogPostsMetaDataSortetByDate = _.sortBy(this.postsData, (el: BlogPostMetaData): string | undefined => el.dateOriginal)
+/*     this.blogPostsMetaDataSortetByDate = _.sortBy(
+      this.postsData,
+      (el: BlogPostMetaData): string | undefined => el.dateOriginal
+    ) */
+    this.blogPostsMetaDataSortetByDate = _.orderBy(this.postsData, 'dateOriginal', 'desc')
   }
 
   ngOnInit(): void {

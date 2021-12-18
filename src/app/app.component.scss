@@ -84,14 +84,20 @@
 
 .sidenav-content-container {
   height: 100%;
-
-  background-color: rgb(240, 240, 240);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  // background-color: rgb(240, 240, 240);
 }
 
 .main-content-container {
-  width: 100%;
   min-height: 100%;
-  padding: 25px 50px;
+  width: 100%;
+  padding: 25px 25px;
+  @media (min-width: 992px) {
+    width: 66%;
+    padding: 25px 0;
+  }
 }
 
 .splash-screen {
