@@ -1,7 +1,7 @@
 @import '/src/styles.scss';
 
 .blog-post-preview-card {
-  border: 1px solid rgb(163, 163, 163);
+  border: 1px solid rgb(199, 199, 199);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -32,7 +32,7 @@
 }
 
 .blog-post-preview-phase-indicator-container {
-  width: 20%;
+  width: 100%;
   display: flex;
   padding: 10px 0 0 0;
   justify-content: flex-end;
@@ -42,14 +42,14 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: $subtle-one;
+  background-color: $subtle-two;
 }
 
 .blog-post-preview-date {
-  width: 80%;
+  width: 100%;
   display: flex;
   justify-content: flex-end;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .blog-post-preview-card-title {
@@ -91,7 +91,7 @@
 }
 
 .blog-post-preview-read-btn {
-  width: 80%;
+  width: 70px;
   height: 30px;
 }
 

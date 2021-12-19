@@ -11,6 +11,8 @@ export class BlogPageComponent implements OnInit {
 
   public postsData: BlogPostMetaData[];
   public blogPostsMetaDataSortetByDate: BlogPostMetaData[];
+  public isShowingOverview = true;
+  public currSelectedPostId = '';
 
   constructor(
     private blogService: BlogService
@@ -19,7 +21,16 @@ export class BlogPageComponent implements OnInit {
     this.blogPostsMetaDataSortetByDate = _.orderBy(this.postsData, 'dateOriginal', 'desc')
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  public handleBlogPreviewReadBtnEvent(id: string) {
+    this.isShowingOverview = false;
+    this.currSelectedPostId = id;
+  }
+
+  public handleBlogPostBackBtnEvent() {
+    this.isShowingOverview = true;
+    this.currSelectedPostId = '';
   }
 
 }

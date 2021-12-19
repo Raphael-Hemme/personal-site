@@ -20,7 +20,12 @@
     <h2 *ngIf="metaData.title">{{ metaData.title }} </h2>
   </div>
   <div class="blog-post-preview-actions">
-    <button type="button" class="btn-primary-flat blog-post-preview-read-btn">read</button>
+    <button
+      (click)="handleBlogPostPreviewReadBtn(metaData.id)"
+      type="button"
+      class="btn-primary-flat blog-post-preview-read-btn">
+        read
+    </button>
   </div>
 </div>
 

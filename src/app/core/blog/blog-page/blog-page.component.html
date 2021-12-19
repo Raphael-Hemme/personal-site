@@ -1,9 +1,14 @@
-<div class="blog-posts-preview-display">
+<div *ngIf="isShowingOverview" class="blog-posts-preview-display">
   <app-blog-post-preview
     *ngFor="let post of blogPostsMetaDataSortetByDate"
     [metaData]="post"
-    class="blog-posts-preview-card">
+    class="blog-posts-preview-card"
+    (blogPostReadBtnEvent)="handleBlogPreviewReadBtnEvent($event)">
   </app-blog-post-preview>
 </div>
 
-<app-blog-post postId="graetmdd5t1lxz3ep5n3dst4j7y9ay"></app-blog-post>
+<app-blog-post
+  *ngIf="!isShowingOverview"
+  [postId]="currSelectedPostId"
+  (blogPostBackBtnEvent)="handleBlogPostBackBtnEvent()">
+</app-blog-post>

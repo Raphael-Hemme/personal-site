@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { EventEmitter, Component, Input, OnInit, Output } from '@angular/core';
+
 import { BlogPostMetaData } from '../../services/blog-service/blog.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class BlogPostPreviewComponent implements OnInit {
     'previewImageUrl': '',
     'tags': []
   };
+  @Output() blogPostReadBtnEvent: EventEmitter<string> = new EventEmitter();
 
   public hslBgColorString: string = ''
 
@@ -35,6 +37,11 @@ export class BlogPostPreviewComponent implements OnInit {
     removedPath = removedPath.replace('.png', '');
     const hslArr = removedPath.split('-');
     return `hsl(${hslArr[0]}, ${hslArr[1]}%, ${hslArr[2]}%)`;
+  }
+
+  public handleBlogPostPreviewReadBtn(id: string) {
+    console.log('inpreview.component: ', id);
+    this.blogPostReadBtnEvent.emit(id);
   }
 
 }
