@@ -114,6 +114,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/assets/blog-posts",
               {
                 "glob": "*.md",
                 "input": ".",
@@ -133,3 +134,4 @@
   },
   "defaultProject": "raphaelhemme"
 }
+

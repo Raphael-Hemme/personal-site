@@ -1,4 +1,4 @@
-// @import 'src/colors.scss';
+@import '/src/styles.scss';
 
 .blog-post-preview-card {
   border: 1px solid rgb(163, 163, 163);
@@ -10,47 +10,56 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 80px 2fr 3fr;
-  grid-template-rows: 1fr 2fr 1fr 3fr 1fr;
+  grid-template-columns: 120px 0.5fr 3fr 1fr;
+  grid-template-rows: 1fr 3fr 2fr;
   grid-template-areas:
-    "preview-img . preview-header"
-    "preview-img . preview-title"
-    "preview-img . preview-subtitle"
-    "preview-img . preview-body"
-    "preview-img . preview-footer";
+  // "preview-img . preview-header preview-meta"
+    "preview-img . .                preview-meta"
+    "preview-img . preview-title    preview-meta"
+    "preview-img . preview-subtitle preview-actions";
+  // "preview-img . preview-footer preview-actions";
   // column-gap: 20px;
 }
 
-.blog-post-preview-header {
-  grid-area: preview-header;
-  padding: 10px 10px 10px 0px;
+.blog-post-preview-meta-container {
+  grid-area: preview-meta;
+  padding: 10px 20px 10px 0px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  // background-color: $subtle-one;
 }
 
 .blog-post-preview-phase-indicator-container {
-  width: 40%;
+  width: 20%;
+  display: flex;
+  padding: 10px 0 0 0;
+  justify-content: flex-end;
 }
 
 .blog-post-preview-phase-indicator {
-  width: 5px;
-  height: 5px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background-color: blue;
+  background-color: $subtle-one;
 }
 
 .blog-post-preview-date {
-  width: 60%;
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 12px;
 }
 
 .blog-post-preview-card-title {
   grid-area: preview-title;
-  padding: 10px 10px 10px 0;
+  padding: 10px 20px 10px 0;
 }
 
 .blog-post-preview-card-subtitle {
   grid-area: preview-subtitle;
-  padding: 10px;
+  padding: 10px 20px 10px 0;
 }
 
 .blog-post-preview-image-container {
@@ -75,6 +84,17 @@
 }
 
 .blog-post-preview-actions {
-  grid-area: preview-footer;
-  padding: 10px;
+  grid-area: preview-actions;
+  padding: 10px 20px 10px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.blog-post-preview-read-btn {
+  width: 80%;
+  height: 30px;
+}
+
+h2 {
+  margin: 0;
 }

@@ -6,10 +6,7 @@
       alt="procedurally generated preview artwork for blog post"
       class="blog-post-preview-img">
   </div>
-  <div class="blog-post-preview-card-title">
-    <h2 *ngIf="metaData.title">{{ metaData.title }} </h2>
-  </div>
-  <div class="blog-post-preview-header">
+  <div class="blog-post-preview-meta-container">
     <p
       *ngIf="metaData.dateOriginal"
       class="blog-post-preview-date">
@@ -18,6 +15,12 @@
     <div class="blog-post-preview-phase-indicator-container">
       <div class="blog-post-preview-phase-indicator"></div>
     </div>
+  </div>
+  <div class="blog-post-preview-card-title">
+    <h2 *ngIf="metaData.title">{{ metaData.title }} </h2>
+  </div>
+  <div class="blog-post-preview-actions">
+    <button type="button" class="btn-primary-flat blog-post-preview-read-btn">read</button>
   </div>
 </div>
 
