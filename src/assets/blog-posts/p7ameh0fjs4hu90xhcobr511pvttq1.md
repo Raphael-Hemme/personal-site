@@ -24,7 +24,9 @@ const validateCred = (creditCard) => {
     }
     internalArr[i] = currentValue;
   }
-  let sum = internalArr.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  let sum = internalArr.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue, 0
+  });
   
   if (sum % 10 === 0) {
     return true;

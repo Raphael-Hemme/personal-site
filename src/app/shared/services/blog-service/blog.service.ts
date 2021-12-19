@@ -24,8 +24,28 @@ export class BlogService {
 
   constructor() { }
 
-  public getBlogPostsMetaData(): BlogPostMetaData[] {
+  public getAllBlogPostsMetaData(): BlogPostMetaData[] {
     return this.postsMetaData;
   }
+
+  public getBlogPostMetaDataById(id: string): BlogPostMetaData {
+    const postIndex = this.postsMetaData.findIndex(el => el.id === id);
+    if (postIndex === -1) {
+      throw new Error('There was a problem with the provided blog post id.');
+/*       return {
+        'id': '',
+        'title': '',
+        'subtitle': '',
+        'dateOriginal': '',
+        'dateLastEdited': '',
+        'state': 0,
+        'postPath': '',
+        'previewImageUrl': '',
+        'tags': []
+      }; */
+    }
+    return this.postsMetaData[postIndex];
+  }
+
 
 }

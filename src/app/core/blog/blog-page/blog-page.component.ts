@@ -17,7 +17,7 @@ export class BlogPageComponent implements OnInit {
   constructor(
     private blogService: BlogService
   ) {
-    this.postsData = this.blogService.getBlogPostsMetaData()
+    this.postsData = this.blogService.getAllBlogPostsMetaData()
     this.blogPostsMetaDataSortetByDate = _.orderBy(this.postsData, 'dateOriginal', 'desc')
   }
 

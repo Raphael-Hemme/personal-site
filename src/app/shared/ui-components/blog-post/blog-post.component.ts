@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { BlogPostMetaData, BlogService } from '../../services/blog-service/blog.service';
 
 @Component({
   selector: 'app-blog-post',
@@ -12,17 +13,30 @@ export class BlogPostComponent implements OnInit {
   // @Output() blogPostBackBtnEvent: EventEmitter<boolean> = new EventEmitter()
 
   public currPath = '';
-  public currPostId: string | null = '';
+  public currPostId: string = '';
+  public currPostMetaData: BlogPostMetaData = {
+    'id': '',
+    'title': '',
+    'subtitle': '',
+    'dateOriginal': '',
+    'dateLastEdited': '',
+    'state': 0,
+    'postPath': '',
+    'previewImageUrl': '',
+    'tags': []
+  };
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private blogService: BlogService
   ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.currPostId = params.get('id')
-      console.log(this.currPostId)
+    this.route.params.subscribe(params => {
+      this.currPostId = params['id']
+      this.currPostMetaData = this.blogService.getBlogPostMetaDataById(this.currPostId);
+      console.log('this.currPostId', this.currPostId, 'this.currPostMetaData', this.currPostMetaData)
     });
 
 
