@@ -90,3 +90,5 @@ And this time, it did work. I could finish the rest of the project without any t
 Retrospectively, I could have become more suspicious of the fact that I might be reassigning new values to the original arrays when presented with that 8 at the start of at least one number, since part of the operation in the Luhn algorithm is multiplying every second digit by two (starting from the end) and a 4 was, of course, present at the zero index of at least one number. But that did not occur to me in time... Too bad.
 
 But I will remember: JavaScript arrays don't like copycats and if they can, they will take all the names for all the fames.
+
+Update 19.12.2021: There are other ways of copying a JS array. The easies alternative to the `array.map()` method is probably the `array.slice()` method without prividing arguments.

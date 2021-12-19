@@ -1,11 +1,36 @@
+<nav class="blog-post-nav-bar">
+  <button
+    type="button"
+    class="btn-accent-flat"
+    (click)="handleBlogPostBackBtn()">
+      back
+  </button>
+</nav>
+
+<div class="blog-post-meta-info-container">
+  <h4 class="meta-label">tags</h4>
+  <div class="blog-post-tag-container">
+    <div
+      class="blog-post-tag-item"
+      *ngFor="let tagItem of currPostMetaData.tags">
+        {{ tagItem }}
+    </div>
+  </div>
+  <div class="published-updated-container">
+    <div>
+      <h4 class="meta-label">published:</h4>
+      <P>{{ currPostMetaData.dateLastEdited }}</P>
+    </div>
+    <div>
+      <h4 class="meta-label" *ngIf="currPostMetaData.dateOriginal">last updated:</h4>
+      <p>{{ currPostMetaData.dateOriginal }}</p>
+    </div>
+  </div>
+
+</div>
+
 <h2>{{ currPostMetaData.title }}</h2>
 
-<button
-  type="button"
-  class="btn-accent-flat"
-  (click)="handleBlogPostBackBtn()">
-    back
-</button>
 <markdown
   [src]="currPath"
   class="blog-post-markdown">
