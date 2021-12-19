@@ -1,31 +1,4 @@
-* {
-  color: rgb(42, 42, 42);
-}
-
-h1 {
-  font-family: 'Comfortaa', cursive;
-  font-size: 4rem;
-  line-height: 1.5;
-  font-weight: bold;
-}
-
-h2 {
-  font-family: 'Comfortaa', cursive;
-  font-size: 2rem;
-  line-height: 1.2;
-  margin: 0 0 40px 0;
-}
-
-h3 {
-  font-family: 'Comfortaa', cursive;
-  font-size: 1.5rem;
-  line-height: 1.2;
-  margin: 0 0 30px 0;
-}
-
-p {
-  font-family: 'EB Garamond', serif;
-}
+@import '/src/styles.scss';
 
 .about-section {
   width: 100%;
