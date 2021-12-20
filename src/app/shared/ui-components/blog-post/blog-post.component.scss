@@ -36,14 +36,23 @@
   margin: 10px 5px;
 }
 
-.published-updated-container {
-  display: flex;
-  flex-direction: column;
-  & div {
-    display: flex;
-    flex-direction: row;
-    & p {
-      margin: 0 0 0 20px;
+
+.blog-post-meta-date-table {
+  width: 100%;
+  margin: 0;
+  & .blog-post-meta-date-label {
+    width: 90px;
+    @media (min-width: 992) {
+      width: 120px;
+    }
+  }
+  & .blog-post-meta-date-value {
+    width: auto;
+    @media (min-width: 992) {
+      width: auto;
     }
   }
 }
+
+
+
