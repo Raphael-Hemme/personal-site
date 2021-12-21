@@ -11,6 +11,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { BlogPostPreviewComponent } from '../shared/ui-components/blog-post-preview/blog-post-preview.component';
 import { BlogPostComponent } from '../shared/ui-components/blog-post/blog-post.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
+import { TeA001Component } from './io-garden/components/te-a001/te-a001.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HomePageComponent } from './home/home-page/home-page.component';
     BlogPostPreviewComponent,
     BlogPostComponent,
     HomePageComponent,
+    TeA001Component,
   ],
   imports: [
     CommonModule,
