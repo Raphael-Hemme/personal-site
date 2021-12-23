@@ -23,7 +23,7 @@ export class BlogPageComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public handleBlogPreviewReadBtnEvent(id: string) {
+/*   public handleBlogPreviewReadBtnEvent(id: string) {
     this.isShowingOverview = false;
     this.currSelectedPostId = id;
   }
@@ -31,6 +31,6 @@ export class BlogPageComponent implements OnInit {
   public handleBlogPostBackBtnEvent() {
     this.isShowingOverview = true;
     this.currSelectedPostId = '';
-  }
+  } */
 
 }

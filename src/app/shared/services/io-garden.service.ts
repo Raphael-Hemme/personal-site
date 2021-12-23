@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import blogPostsMetaData from 'src/assets/blog-posts-meta-data.json';
 
 
-export interface BlogPostMetaData {
+export interface IoGardenPostMetaData {
   'id': string;
   'title': string;
   'subtitle'?: string;
@@ -18,20 +18,19 @@ export interface BlogPostMetaData {
 @Injectable({
   providedIn: 'root'
 })
-export class BlogService {
-
+export class IoGardenService {
   private postsMetaData = blogPostsMetaData;
 
   constructor() { }
 
-  public getAllBlogPostsMetaData(): BlogPostMetaData[] {
+  public getAllBlogPostsMetaData(): IoGardenPostMetaData[] {
     return this.postsMetaData;
   }
 
-  public getBlogPostMetaDataById(id: string): BlogPostMetaData {
+  public getBlogPostMetaDataById(id: string): IoGardenPostMetaData {
     const postIndex = this.postsMetaData.findIndex(el => el.id === id);
     if (postIndex === -1) {
-      throw new Error('There has been a problem with the provided blog post id.');
+      throw new Error('There has been a problem with the provided experiment id.');
 /*       return {
         'id': '',
         'title': '',

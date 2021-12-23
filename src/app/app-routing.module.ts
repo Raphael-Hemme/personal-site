@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'blog', component: BlogPageComponent},
   { path: 'blog/post/:id', component: BlogPostComponent },
   { path: 'io-garden', component: IoGardenPageComponent},
+  { path: 'io-garden/experiments/:id', component: BlogPostComponent },
   { path: '', component: HomePageComponent}
 ];
 
