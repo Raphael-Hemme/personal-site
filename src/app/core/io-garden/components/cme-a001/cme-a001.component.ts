@@ -6,25 +6,27 @@ import * as p5 from 'p5';
   templateUrl: './cme-a001.component.html',
   styleUrls: ['./cme-a001.component.scss']
 })
-export class CmeA001Component implements OnInit {
+export class CmeA001Component implements OnInit, OnDestroy {
 
   public canvWidth = 800;
   public canvHeight = 500;
 
   public canvas: any;
 
+  public curs: any;
+
   constructor() {}
 
   ngOnInit() {
     const sketch = (s: any) => {
 
-      let cursorArr: any;
-      let curs: any;
-      const currMultiplyerXArr = [];
-      const currMultiplyerYArr = [];
+      const cursorArr: any[] = [];
+
+      const currMultiplyerXArr: any[] = [];
+      const currMultiplyerYArr: any[] = [];
 
       s.preload = () => {
-        curs = s.loadImage('assets/images/io-garden-assets/cursor_img_2.png');
+        this.curs = s.loadImage('assets/images/io-garden-assets/cursor_img_2.png');
       }
 
       s.setup = () => {
@@ -32,7 +34,10 @@ export class CmeA001Component implements OnInit {
         canvas2.parent('cme-a001-sketch-wrapper');
 
         s.frameRate(60);
-        cursorArr = s.makeDots(70, this.canvHeight / 2);
+        let intermediateCursorArr = s.makeDots(70, this.canvHeight / 2);
+        for (let cursor of intermediateCursorArr) {
+          cursorArr.push(cursor);
+        }
         for (let el of cursorArr) {
           currMultiplyerXArr.push(1)
           currMultiplyerYArr.push(1)
@@ -46,7 +51,7 @@ export class CmeA001Component implements OnInit {
         for (let i = 0; i < cursorArr.length; i++){
           s.fill(163, 118, 21);
           s.noStroke();
-          s.image(curs, cursorArr[i].x, cursorArr[i].y, 34, 35);
+          s.image(this.curs, cursorArr[i].x, cursorArr[i].y, 21, 22);
           s.moveCursor(i)
         }
       }
@@ -87,6 +92,8 @@ export class CmeA001Component implements OnInit {
         let movementX = s.abs(s.winMouseX - s.pwinMouseX);
         let movementY = s.abs(s.winMouseY - s.pwinMouseY);
 
+        console.log('movementX, movementY: ', movementX, movementY)
+
         // Completely crazy mode
         if (s.random(1) > 0.8) {
           const intermediary = [movementX, movementY];
@@ -96,11 +103,15 @@ export class CmeA001Component implements OnInit {
         // end
 
         if (movementX !== 0) {
-          const speedX = movementX * s.currMultiplyerXArr[currCursorIndex] + currRandDeviation;
+          console.log('entered last x condition')
+          const speedX = movementX * currMultiplyerXArr[currCursorIndex] + currRandDeviation;
+          console.log(speedX)
           cursorArr[currCursorIndex].x = cursorArr[currCursorIndex].x + speedX;
         }
         if (movementY !== 0) {
-          const speedY = movementY * s.currMultiplyerYArr[currCursorIndex] + currRandDeviation;
+          console.log('entered last y condition')
+          const speedY = movementY * currMultiplyerYArr[currCursorIndex] + currRandDeviation;
+          console.log(speedY)
           cursorArr[currCursorIndex].y = cursorArr[currCursorIndex].y + speedY;
         }
       }
