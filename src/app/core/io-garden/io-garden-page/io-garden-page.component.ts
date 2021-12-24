@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IoGardenService, IoGardenExperimentMetaData } from 'src/app/shared/services/io-garden-service/io-garden.service';
 
 @Component({
   selector: 'app-io-garden-page',
@@ -22,19 +23,15 @@ export class IoGardenPageComponent implements OnInit {
 
   public ioExplanationIsShown = false;
 
-  ioExperimentDataArr = [
-    {
-      title: 'Test',
-      subtitle: 'This is a test',
-      abstract: 'I \'m just testing the wiring of this component and data etc. Lots to do still.',
-      phase: 'seedling',
-      previewImgUrl: 'https://images.unsplash.com/photo-1573709386836-c54798c06761?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
-    }
-  ]
+  public ioExperimentDataArr: IoGardenExperimentMetaData[] = [];
 
-  constructor() { }
+  constructor(
+    private ioGardenService: IoGardenService
+  ) { }
 
   ngOnInit(): void {
+    this.ioExperimentDataArr = this.ioGardenService.getAllBlogPostsMetaData()
+
   }
 
   public toggleIoGardenExplanation(): void {

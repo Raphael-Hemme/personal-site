@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BlogPostMetaData, BlogService } from '../../services/blog-service/blog.service';
 
 @Component({
@@ -8,9 +8,6 @@ import { BlogPostMetaData, BlogService } from '../../services/blog-service/blog.
   styleUrls: ['./blog-post.component.scss']
 })
 export class BlogPostComponent implements OnInit {
-
-  // @Input() postId = '';
-  // @Output() blogPostBackBtnEvent: EventEmitter<boolean> = new EventEmitter()
 
   public currPath = '';
   public currPostId: string = '';
@@ -44,7 +41,6 @@ export class BlogPostComponent implements OnInit {
     this.currPath = '/assets/blog-posts/' + this.currPostId + '.md';
   }
   public handleBlogPostBackBtn() {
-    // this.blogPostBackBtnEvent.emit(true);
     this.router.navigate(['/blog']);
   }
 

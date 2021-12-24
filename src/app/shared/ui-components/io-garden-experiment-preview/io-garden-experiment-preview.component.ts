@@ -1,13 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { IoGardenExperimentMetaData, IoGardenService } from '../../services/io-garden-service/io-garden.service';
 
 type ImgOrientation = 'top' | 'left' | 'right';
-interface ExperimentPreviewData {
-  title: string;
-  subtitle: string;
-  abstract: string;
-  phase: string;
-  previewImgUrl: string;
-}
 
 @Component({
   selector: 'app-io-garden-experiment-preview',
@@ -17,17 +13,26 @@ interface ExperimentPreviewData {
 export class IoGardenExperimentPreviewComponent implements OnInit {
 
   @Input() imgPosition: ImgOrientation = 'top';
-  @Input() experimentpreviewData: ExperimentPreviewData = {
-    title: '',
-    subtitle: '',
-    abstract: '',
-    phase: '',
-    previewImgUrl: ''
+  @Input() experimentMetaData: IoGardenExperimentMetaData = {
+    'id': '',
+    'title': '',
+    'subtitle': '',
+    'abstract': '',
+    'dateOriginal': '',
+    'dateLastEdited': '',
+    'state': 0,
+    'selector': '',
+    'previewImageUrl': '',
+    'tags': []
   };
 
-  public previewOrintationClass = ''
+  public previewOrintationClass = '';
 
-  constructor() { }
+
+  constructor(
+    private ioGardenService: IoGardenService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     switch (this.imgPosition) {
@@ -45,4 +50,7 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
     }
   }
 
+  public handleExamineBtn(id: string): void {
+    this.router.navigate(['/io-garden', id, id]);
+  }
 }

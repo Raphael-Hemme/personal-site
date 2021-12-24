@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import blogPostsMetaData from 'src/assets/blog-posts-meta-data.json';
+import ioGardenExperimentMetaData from 'src/assets/io-garden-experiment-meta-data.json';
 
 
-export interface IoGardenPostMetaData {
+export interface IoGardenExperimentMetaData {
   'id': string;
   'title': string;
   'subtitle'?: string;
+  'abstract': string;
   'dateOriginal'?: string;
   'dateLastEdited'?: string;
   'state': number;
-  'postPath': string;
+  'selector': string;
   'previewImageUrl': string;
   'tags'?: any[];
 }
@@ -19,17 +20,17 @@ export interface IoGardenPostMetaData {
   providedIn: 'root'
 })
 export class IoGardenService {
-  private postsMetaData = blogPostsMetaData;
+  private experimentMetaData = ioGardenExperimentMetaData;
 
   constructor() { }
 
-  public getAllBlogPostsMetaData(): IoGardenPostMetaData[] {
-    return this.postsMetaData;
+  public getAllBlogPostsMetaData(): IoGardenExperimentMetaData[] {
+    return this.experimentMetaData;
   }
 
-  public getBlogPostMetaDataById(id: string): IoGardenPostMetaData {
-    const postIndex = this.postsMetaData.findIndex(el => el.id === id);
-    if (postIndex === -1) {
+  public getBlogPostMetaDataById(id: string): IoGardenExperimentMetaData {
+    const experimentIndex = this.experimentMetaData.findIndex(el => el.id === id);
+    if (experimentIndex === -1) {
       throw new Error('There has been a problem with the provided experiment id.');
 /*       return {
         'id': '',
@@ -43,8 +44,6 @@ export class IoGardenService {
         'tags': []
       }; */
     }
-    return this.postsMetaData[postIndex];
+    return this.experimentMetaData[experimentIndex];
   }
-
-
 }

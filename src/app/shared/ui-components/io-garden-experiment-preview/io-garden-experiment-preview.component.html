@@ -1,20 +1,25 @@
 <div class="experiment-preview-card image-left-preview-card" [ngClass]="previewOrintationClass">
   <div class="experiment-preview-card-title">
-    <h2>{{ experimentpreviewData.title }}</h2>
+    <h2>{{ experimentMetaData.title }}</h2>
     <div class="experiment-preview-phase-icon"></div>
   </div>
   <div class="experiment-preview-card-subtitle">
-    <h3>{{ experimentpreviewData.subtitle}}</h3>
+    <h3>{{ experimentMetaData.subtitle}}</h3>
   </div>
   <div class="experiment-preview-image-container">
-    <img class="experiment-preview-image" [src]="experimentpreviewData.previewImgUrl" alt="example" />
+    <img class="experiment-preview-image" [src]="experimentMetaData.previewImageUrl" alt="example" />
   </div>
   <div class="experiment-preview-body">
     <p>
-      {{ experimentpreviewData.abstract }}
+      {{ experimentMetaData.abstract }}
     </p>
   </div>
   <div class="experiment-preview-actions">
-    <button type="button" class="btn-accent-flat">EXAMINE</button>
+    <button
+      type="button"
+      class="btn-accent-flat"
+      (click)="handleExamineBtn(experimentMetaData.id)">
+        EXAMINE
+    </button>
   </div>
 </div>

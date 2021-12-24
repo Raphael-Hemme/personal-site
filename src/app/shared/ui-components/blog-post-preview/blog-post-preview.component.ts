@@ -1,4 +1,4 @@
-import { EventEmitter, Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { BlogPostMetaData } from '../../services/blog-service/blog.service';
@@ -31,9 +31,9 @@ export class BlogPostPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.metaData.previewImageUrl);
+    // console.log(this.metaData.previewImageUrl);
     this.hslBgColorString = this.generateHslBgColorString(this.metaData.previewImageUrl);
-    console.log(this.hslBgColorString);
+    // console.log(this.hslBgColorString);
   }
 
   private generateHslBgColorString(inputString: string): string {
@@ -44,7 +44,7 @@ export class BlogPostPreviewComponent implements OnInit {
   }
 
   public handleBlogPostPreviewReadBtn(id: string) {
-    console.log('inpreview.component: ', id);
+    // console.log('inpreview.component: ', id);
     this.router.navigate(['/blog/post', id]);
     // this.blogPostReadBtnEvent.emit(id);
   }
