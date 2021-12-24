@@ -12,6 +12,7 @@ import { BlogPostPreviewComponent } from '../shared/ui-components/blog-post-prev
 import { BlogPostComponent } from '../shared/ui-components/blog-post/blog-post.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { TeA001Component } from './io-garden/components/te-a001/te-a001.component';
+import { CmeA001Component } from './io-garden/components/cme-a001/cme-a001.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TeA001Component } from './io-garden/components/te-a001/te-a001.componen
     BlogPostComponent,
     HomePageComponent,
     TeA001Component,
+    CmeA001Component,
   ],
   imports: [
     CommonModule,
