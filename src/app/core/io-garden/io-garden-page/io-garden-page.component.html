@@ -21,10 +21,12 @@
     </button>
   </div>
 </section>
+
 <section class="io-garden-bench">
   <div class="io-garden-experiment-card">
     <app-io-garden-experiment-preview
-      [experimentMetaData]="ioExperimentDataArr[0]"
+      *ngFor="let experiment of ioExperimentDataArr"
+      [experimentMetaData]="experiment"
       [imgPosition]="'left'">
     </app-io-garden-experiment-preview>
   </div>

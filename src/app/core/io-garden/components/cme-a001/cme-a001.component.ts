@@ -45,7 +45,7 @@ export class CmeA001Component implements OnInit, OnDestroy {
       }
 
       s.draw = () => {
-        s.background(100);
+        s.background(80);
         s.colorMode('RGBA')
 
         for (let i = 0; i < cursorArr.length; i++){
@@ -65,7 +65,6 @@ export class CmeA001Component implements OnInit, OnDestroy {
           var newDot = {x: x, y: y};
           internalDotArr.push(newDot);
         }
-        console.log(internalDotArr)
         return internalDotArr;
       }
 
@@ -92,8 +91,6 @@ export class CmeA001Component implements OnInit, OnDestroy {
         let movementX = s.abs(s.winMouseX - s.pwinMouseX);
         let movementY = s.abs(s.winMouseY - s.pwinMouseY);
 
-        console.log('movementX, movementY: ', movementX, movementY)
-
         // Completely crazy mode
         if (s.random(1) > 0.8) {
           const intermediary = [movementX, movementY];
@@ -103,15 +100,11 @@ export class CmeA001Component implements OnInit, OnDestroy {
         // end
 
         if (movementX !== 0) {
-          console.log('entered last x condition')
           const speedX = movementX * currMultiplyerXArr[currCursorIndex] + currRandDeviation;
-          console.log(speedX)
           cursorArr[currCursorIndex].x = cursorArr[currCursorIndex].x + speedX;
         }
         if (movementY !== 0) {
-          console.log('entered last y condition')
           const speedY = movementY * currMultiplyerYArr[currCursorIndex] + currRandDeviation;
-          console.log(speedY)
           cursorArr[currCursorIndex].y = cursorArr[currCursorIndex].y + speedY;
         }
       }
