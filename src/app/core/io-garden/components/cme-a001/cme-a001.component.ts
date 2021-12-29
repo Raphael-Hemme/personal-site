@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
+import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
 @Component({
   selector: 'app-cme-a001',
@@ -8,16 +9,20 @@ import * as p5 from 'p5';
 })
 export class CmeA001Component implements OnInit, OnDestroy {
 
-  public canvWidth = 800;
+  public canvWidth = 500;
   public canvHeight = 500;
 
   public canvas: any;
-
   public curs: any;
 
-  constructor() {}
+  constructor(
+    private windowSizeService: WindowSizeService
+  ) {}
 
   ngOnInit() {
+
+    this.setCanvasSizeVariablesAccordingToHost();
+
     const sketch = (s: any) => {
 
       const cursorArr: any[] = [];
@@ -34,7 +39,7 @@ export class CmeA001Component implements OnInit, OnDestroy {
         canvas2.parent('cme-a001-sketch-wrapper');
 
         s.frameRate(60);
-        let intermediateCursorArr = s.makeDots(70, this.canvHeight / 2);
+        let intermediateCursorArr = s.makeDots(50, this.canvHeight / 2);
         for (let cursor of intermediateCursorArr) {
           cursorArr.push(cursor);
         }
@@ -115,6 +120,18 @@ export class CmeA001Component implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+  }
+
+  private setCanvasSizeVariablesAccordingToHost() {
+    const currWindowInnerWidth = this.windowSizeService.getCurrentWindowInnerWidth()
+    if (currWindowInnerWidth >= 992) {
+      this.canvWidth = this.windowSizeService.getCurrentMainContainerWidth();
+      this.canvHeight = this.canvWidth / 3;
+    } else {
+      this.canvWidth = this.windowSizeService.getCurrentMainContainerWidth() - 60;
+      this.canvHeight = this.canvWidth * 2;
+    }
+
   }
 
 }

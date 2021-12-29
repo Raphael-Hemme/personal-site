@@ -25,8 +25,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       let img: any;
       let imgXStart = 0;
       let imgYStart = 0;
-      const imgWidth = 500;
-      const imgHeight = 500;
+      let imgWidth = 500;
+      let imgHeight = 500;
 
       // const bgColor = [53, 30, 87];
       // const bgColor = [8, 84, 94];
@@ -42,9 +42,14 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       s.setup = () => {
         let canvas2 = s.createCanvas(s.windowWidth, s.windowHeight);
         canvas2.parent('horizontal-glitch-sketch-wrapper');
+        const currSketchWidth = s.width;
+        if (currSketchWidth < 600) {
+          imgWidth = currSketchWidth / 10 * 6;
+          imgHeight = currSketchWidth / 10 * 6;
+        }
 
-        imgXStart = s.width / 2 -250;
-        imgYStart = s.height / 2 -250;
+        imgXStart = s.width / 2 - imgWidth / 2;
+        imgYStart = s.height / 2 - imgHeight / 2;
 
         s.frameRate(15)
         s.pixelDensity(1);
@@ -107,7 +112,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
             s.noStroke()
             s.fill(100, 40)
             s.rect(
-              s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, 600),
+/*            s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, 600), */
+              s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, s.width - s.width / 6),
               currSliceDataObj.sliceYStart,
               currSliceDataObj.sliceWidth,
               currSliceDataObj.sliceHeight
