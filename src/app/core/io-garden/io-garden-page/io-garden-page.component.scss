@@ -33,7 +33,7 @@
   white-space: pre-line;
   padding: 20px;
   align-self: flex-end;
-  @media (max-width: 992px) {
+    @media (max-width: 992px) {
     width: 100%;
   }
 }
@@ -45,14 +45,24 @@
 
 .io-garden-bench {
   width: 100%;
+  padding: 25px 0;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 992px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
 
 .io-garden-experiment-card {
   width: 100%;
   height: 250px;
+  margin: 10px 0;
   @media (min-width: 992px) {
-    width: 500px;
+    width: 48%;
     height: 300px;
+    margin: 20px 0;
   }
 }
 

@@ -23,11 +23,12 @@
 </section>
 
 <section class="io-garden-bench">
-  <div class="io-garden-experiment-card">
-    <app-io-garden-experiment-preview
-      *ngFor="let experiment of ioExperimentDataArr"
-      [experimentMetaData]="experiment"
-      [imgPosition]="'left'">
-    </app-io-garden-experiment-preview>
+  <div
+    class="io-garden-experiment-card"
+    *ngFor="let experiment of ioExperimentDataArr">
+      <app-io-garden-experiment-preview
+        [experimentMetaData]="experiment"
+        [imgPosition]="'left'">
+      </app-io-garden-experiment-preview>
   </div>
 </section>
