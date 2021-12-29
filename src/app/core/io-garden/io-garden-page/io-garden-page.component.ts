@@ -13,7 +13,7 @@ export class IoGardenPageComponent implements OnInit {
   public ioWelcomeSub = `Leave the void behind and enter my humble glasshouse,\n take a look around, have a chat but don't throw rocks.`;
 
   public ioAbstract = `Io-Garden is a space for growing and experimenting with ideas and concepts, algorithms and impressions.\n
-    Freshly planted seeds and seedlings, as well as shrubs, trees and vines can evolve and flourish und the special greenhouse construction that shields this digital garden from Io's atmosphere. Io-Garden is my extraterrestrial research lab and open studio.`;
+    Freshly planted seeds and seedlings, as well as shrubs, trees and vines can evolve and flourish under the special greenhouse construction that shields this digital garden from Io's atmosphere. Io-Garden is my extraterrestrial research lab and open studio.`;
 
   public ioNameExplainer = `Why build a laboratory greenhouse on Io?\n
     Well, born on (or in?) Europa, I felt, Io was underrated and a welcome change. Property was affordable and, having figured out a way to utilize the strong electro magnetic interference, I was able to significantly lower my energy costs.\n

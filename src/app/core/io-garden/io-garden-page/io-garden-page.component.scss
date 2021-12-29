@@ -22,6 +22,9 @@
   margin: 0 0 20px 0;
   padding: 20px;
   align-self: flex-start;
+  @media (max-width: 992px) {
+    width: 100%;
+  }
 }
 
 .io-garden-explanation {
@@ -30,6 +33,9 @@
   white-space: pre-line;
   padding: 20px;
   align-self: flex-end;
+  @media (max-width: 992px) {
+    width: 100%;
+  }
 }
 
 .toggle-read-more {
