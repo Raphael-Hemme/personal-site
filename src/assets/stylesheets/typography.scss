@@ -14,7 +14,7 @@
   font-family: Roboto, "Helvetica Neue", sans-serif;
 } */
 
-* {
+body {
   color: #40514e;
 }
 
@@ -23,19 +23,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-
   // font-family: 'Titillium Web', sans-serif;
-  font-size: 4rem;
+  font-size: 3rem;
   line-height: 1.5;
   font-weight: 400;
   text-transform: uppercase;
 }
 
 h2 {
-  font-size: 2rem;
-  line-height: 1.2;
+  font-size: 1.7rem;
+  line-height: 1.1;
   margin: 0 0 40px 0;
-  font-weight: 400;
+  font-weight: 500;
   color: $accent;
 }
 
@@ -53,6 +52,22 @@ table,
 span,
 div {
   font-family: 'Titillium Web', sans-serif;
+}
+
+@media (min-width: 992px) {
+  h1 {
+    font-size: 4rem;
+    line-height: 1.5;
+  }
+  h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin: 0 0 40px 0;
+  }
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
 }
 
 p {

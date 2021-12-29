@@ -10,32 +10,42 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 120px 0.5fr 3fr 1fr;
-  grid-template-rows: 1fr 3fr 2fr;
+  grid-template-columns: 60px 0.5fr 4fr 3fr;
+  grid-template-rows: 1fr 4fr 2fr;
   grid-template-areas:
-  // "preview-img . preview-header preview-meta"
-    "preview-img . .                preview-meta"
+    "preview-img . preview-title    preview-meta"
     "preview-img . preview-title    preview-meta"
     "preview-img . preview-subtitle preview-actions";
-  // "preview-img . preview-footer preview-actions";
-  // column-gap: 20px;
+  @media (min-width: 992px) {
+    grid-template-columns: 120px 0.5fr 3fr 1fr;
+    grid-template-rows: 1fr 4fr 2fr;
+    grid-template-areas:
+      "preview-img . .                preview-meta"
+      "preview-img . preview-title    preview-meta"
+      "preview-img . preview-subtitle preview-actions";
+  }
 }
 
 .blog-post-preview-meta-container {
   grid-area: preview-meta;
-  padding: 10px 20px 10px 0px;
+  padding: 10px 10px 5px 0px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
-  // background-color: $subtle-one;
+  @media (min-width: 992px) {
+    padding: 10px 20px 10px 0px;
+  }
 }
 
 .blog-post-preview-phase-indicator-container {
   width: 100%;
   display: flex;
-  padding: 10px 0 0 0;
+  padding: 5px 0 0 0;
   justify-content: flex-end;
+  @media (min-width: 992px) {
+    padding: 10px 0 0 0;
+  }
 }
 
 .blog-post-preview-phase-indicator {
@@ -49,17 +59,27 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  font-size: 14px;
+  font-size: 12px;
+  color: #40514e;
+  @media (min-width: 992px) {
+    font-size: 14px;
+  }
 }
 
 .blog-post-preview-card-title {
   grid-area: preview-title;
-  padding: 10px 20px 10px 0;
+  padding: 5px 5px 5px 5px;
+  @media (min-width: 992px) {
+    padding: 10px 20px 10px 0;
+  }
 }
 
 .blog-post-preview-card-subtitle {
   grid-area: preview-subtitle;
-  padding: 10px 20px 10px 0;
+  padding: 5px 5px 5px 5px;
+  @media (min-width: 992px) {
+    padding: 10px 20px 10px 0;
+  }
 }
 
 .blog-post-preview-image-container {
@@ -85,9 +105,12 @@
 
 .blog-post-preview-actions {
   grid-area: preview-actions;
-  padding: 10px 20px 10px 0;
+  padding: 10px 10px 10px 0;
   display: flex;
   justify-content: flex-end;
+  @media (min-width: 992px) {
+    padding: 10px 20px 10px 0;
+  }
 }
 
 .blog-post-preview-read-btn {
