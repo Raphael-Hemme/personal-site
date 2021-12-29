@@ -35,7 +35,7 @@ export class IoGardenExperimentContainerComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.currExperimentId = params['id']
-      this.currexperimentMetaData = this.ioGardenService.getBlogPostMetaDataById(this.currExperimentId);
+      this.currexperimentMetaData = this.ioGardenService.getIoGardenMetaDataById(this.currExperimentId);
     });
   }
 

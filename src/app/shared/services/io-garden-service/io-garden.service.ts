@@ -24,11 +24,11 @@ export class IoGardenService {
 
   constructor() { }
 
-  public getAllBlogPostsMetaData(): IoGardenExperimentMetaData[] {
+  public getAllIoGardenExperimentsMetaData(): IoGardenExperimentMetaData[] {
     return this.experimentMetaData;
   }
 
-  public getBlogPostMetaDataById(id: string): IoGardenExperimentMetaData {
+  public getIoGardenMetaDataById(id: string): IoGardenExperimentMetaData {
     const experimentIndex = this.experimentMetaData.findIndex(el => el.id === id);
     if (experimentIndex === -1) {
       throw new Error('There has been a problem with the provided experiment id.');

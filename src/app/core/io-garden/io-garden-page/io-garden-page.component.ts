@@ -30,7 +30,7 @@ export class IoGardenPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.ioExperimentDataArr = this.ioGardenService.getAllBlogPostsMetaData()
+    this.ioExperimentDataArr = this.ioGardenService.getAllIoGardenExperimentsMetaData()
 
   }
 
