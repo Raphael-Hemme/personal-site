@@ -34,5 +34,23 @@
         "ui-framework",
         "unusable interface"
       ]
+    },
+    {
+      "id": "le-a001",
+      "title": "Lichen Experiment A001",
+      "subtitle": "",
+      "abstract": "",
+      "dateOriginal": "2021-10-25",
+      "dateLastEdited": "2021-12-29",
+      "state": 1,
+      "selector": "",
+      "previewImageUrl": "assets/images/io-garden-preview-images/le-a001-preview.png",
+      "tags": [
+        "coding",
+        "javascript",
+        "p5.js",
+        "ui-framework",
+        "unusable interface"
+      ]
     }
   ]
