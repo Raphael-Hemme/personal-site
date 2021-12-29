@@ -1,34 +1,37 @@
-<section>
-  <header class="io-garden-header">
-    <h1>Io-Garden</h1>
-    <h2>{{ ioWelcomeMain }}</h2>
-    <h3>{{ ioWelcomeSub }}</h3>
-  </header>
+<div>
+  <section>
+    <header class="io-garden-header">
+      <h1>Io-Garden</h1>
+      <h2>{{ ioWelcomeMain }}</h2>
+      <h3>{{ ioWelcomeSub }}</h3>
+    </header>
 
-  <div class="io-garden-abstract-container">
-    <p class="io-garden-abstract paragraph-regular">
-      {{ ioAbstract }}
-    </p>
-    <p class="io-garden-explanation paragraph-regular"
-      *ngIf="ioExplanationIsShown">
-      {{ ioNameExplainer }}
-    </p>
+    <div class="io-garden-abstract-container">
+      <p class="io-garden-abstract paragraph-regular">
+        {{ ioAbstract }}
+      </p>
+      <p class="io-garden-explanation paragraph-regular"
+        *ngIf="ioExplanationIsShown">
+        {{ ioNameExplainer }}
+      </p>
 
-    <button
-      (click)="toggleIoGardenExplanation()"
-      class="toggle-read-more btn-primary-flat">
-        {{ ioExplanationIsShown ? 'got it' : 'read more'}}
-    </button>
-  </div>
-</section>
+      <button
+        (click)="toggleIoGardenExplanation()"
+        class="toggle-read-more btn-primary-flat">
+          {{ ioExplanationIsShown ? 'got it' : 'read more'}}
+      </button>
+    </div>
+  </section>
 
-<section class="io-garden-bench">
-  <div
-    class="io-garden-experiment-card"
-    *ngFor="let experiment of ioExperimentDataArr">
-      <app-io-garden-experiment-preview
-        [experimentMetaData]="experiment"
-        [imgPosition]="'left'">
-      </app-io-garden-experiment-preview>
-  </div>
-</section>
+  <section class="io-garden-bench">
+    <div
+      class="io-garden-experiment-card"
+      *ngFor="let experiment of ioExperimentDataArr">
+        <app-io-garden-experiment-preview
+          [experimentMetaData]="experiment"
+          [imgPosition]="'left'">
+        </app-io-garden-experiment-preview>
+    </div>
+  </section>
+
+</div>

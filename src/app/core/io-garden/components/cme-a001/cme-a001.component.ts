@@ -1,23 +1,28 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import * as p5 from 'p5';
+import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
 @Component({
   selector: 'app-cme-a001',
   templateUrl: './cme-a001.component.html',
   styleUrls: ['./cme-a001.component.scss']
 })
-export class CmeA001Component implements OnInit, OnDestroy {
+export class CmeA001Component implements OnInit, OnDestroy, AfterViewInit {
 
-  public canvWidth = 800;
+  public canvWidth = 500;
   public canvHeight = 500;
 
   public canvas: any;
-
   public curs: any;
 
-  constructor() {}
+  constructor(
+    private windowSizeService: WindowSizeService
+  ) {}
 
   ngOnInit() {
+
+    this.setCanvasSizeVariablesAccordingToHost();
+
     const sketch = (s: any) => {
 
       const cursorArr: any[] = [];
@@ -113,8 +118,21 @@ export class CmeA001Component implements OnInit, OnDestroy {
     this.canvas = new p5(sketch);
   }
 
+  ngAfterViewInit(): void {
+    this.setCanvasSizeVariablesAccordingToHost();
+    console.log('resizing canvas to: ', this.canvWidth, this.canvHeight)
+    console.log('curr width - ', this.windowSizeService.getCurrentIoExperimentHostContainerWidth())
+    this.canvas.resizeCanvas(this.canvWidth, this.canvHeight);
+  }
+
   ngOnDestroy(): void {
     this.canvas.remove();
+  }
+
+  private setCanvasSizeVariablesAccordingToHost() {
+    this.canvWidth = this.windowSizeService.getCurrentIoExperimentHostContainerWidth();
+    this.canvHeight = this.canvWidth / 3;
+    console.log('this.canvWidth: ', this.canvWidth)
   }
 
 }

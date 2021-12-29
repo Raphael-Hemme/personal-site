@@ -1,20 +1,23 @@
-<nav class="io-garden-container-nav-bar">
-  <button
-    type="button"
-    class="btn-primary-flat"
-    (click)="handleReturnToExperimentSelectionBtn()">
-      back
-  </button>
-</nav>
+<div class="io-garden-experiment-container">
+  <nav class="io-garden-container-nav-bar">
+    <button
+      type="button"
+      class="btn-primary-flat"
+      (click)="handleReturnToExperimentSelectionBtn()">
+        back
+    </button>
+  </nav>
 
 
 
-<h2>
-<!--   <span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span> -->
-<span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span>
+  <h2>
+  <!--   <span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span> -->
+  <span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span>
 
-</h2>
+  </h2>
 
 
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+
+</div>

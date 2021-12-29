@@ -26,7 +26,7 @@ export class IoGardenPageComponent implements OnInit {
   public ioExperimentDataArr: IoGardenExperimentMetaData[] = [];
 
   constructor(
-    private ioGardenService: IoGardenService
+    private ioGardenService: IoGardenService,
   ) { }
 
   ngOnInit(): void {
@@ -37,5 +37,4 @@ export class IoGardenPageComponent implements OnInit {
   public toggleIoGardenExplanation(): void {
     this.ioExplanationIsShown = !this.ioExplanationIsShown;
   }
-
 }
