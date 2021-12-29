@@ -1,9 +1,20 @@
+<nav class="io-garden-container-nav">
+  <button
+    type="button"
+    class="btn-primary-flat"
+    (click)="handleReturnToExperimentSelectionBtn()">
+      back
+  </button>
+</nav>
 
-<button
-  type="button"
-  class="btn-primary-flat"
-  (click)="handleReturnToExperimentSelectionBtn()">
-    back
-</button>
+
+
+<h2>
+<!--   <span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span> -->
+<span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span>
+
+</h2>
+
+
 
 <router-outlet></router-outlet>

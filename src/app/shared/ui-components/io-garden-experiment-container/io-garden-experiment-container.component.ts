@@ -25,6 +25,7 @@ export class IoGardenExperimentContainerComponent implements OnInit {
     'previewImageUrl': '',
     'tags': []
   };
+  public currExperimentIdAsArr: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,7 @@ export class IoGardenExperimentContainerComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.currExperimentId = params['id']
       this.currexperimentMetaData = this.ioGardenService.getIoGardenMetaDataById(this.currExperimentId);
+      this.currExperimentIdAsArr = this.currexperimentMetaData.id.split('');
     });
   }
 
