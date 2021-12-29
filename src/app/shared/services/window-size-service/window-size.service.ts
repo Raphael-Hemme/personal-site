@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class WindowSizeService {
 
-  private currIoExperimentHostContainer = 0;
+  private currMainContainerWidth = 0;
 
   constructor() { }
 
@@ -13,11 +13,11 @@ export class WindowSizeService {
     return window.innerWidth;
   }
 
-  public setCurrentIoExperimentHostContainerWidth(value: number): void {
-    this.currIoExperimentHostContainer = value;
+  public setCurrentMainContainerWidth(value: number): void {
+    this.currMainContainerWidth = value;
   }
 
-  public getCurrentIoExperimentHostContainerWidth(): number {
-    return this.currIoExperimentHostContainer;
+  public getCurrentMainContainerWidth(): number {
+    return this.currMainContainerWidth;
   }
 }

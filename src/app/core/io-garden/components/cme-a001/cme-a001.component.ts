@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
@@ -7,7 +7,7 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
   templateUrl: './cme-a001.component.html',
   styleUrls: ['./cme-a001.component.scss']
 })
-export class CmeA001Component implements OnInit, OnDestroy, AfterViewInit {
+export class CmeA001Component implements OnInit, OnDestroy {
 
   public canvWidth = 500;
   public canvHeight = 500;
@@ -39,7 +39,7 @@ export class CmeA001Component implements OnInit, OnDestroy, AfterViewInit {
         canvas2.parent('cme-a001-sketch-wrapper');
 
         s.frameRate(60);
-        let intermediateCursorArr = s.makeDots(70, this.canvHeight / 2);
+        let intermediateCursorArr = s.makeDots(50, this.canvHeight / 2);
         for (let cursor of intermediateCursorArr) {
           cursorArr.push(cursor);
         }
@@ -118,21 +118,20 @@ export class CmeA001Component implements OnInit, OnDestroy, AfterViewInit {
     this.canvas = new p5(sketch);
   }
 
-  ngAfterViewInit(): void {
-    this.setCanvasSizeVariablesAccordingToHost();
-    console.log('resizing canvas to: ', this.canvWidth, this.canvHeight)
-    console.log('curr width - ', this.windowSizeService.getCurrentIoExperimentHostContainerWidth())
-    this.canvas.resizeCanvas(this.canvWidth, this.canvHeight);
-  }
-
   ngOnDestroy(): void {
     this.canvas.remove();
   }
 
   private setCanvasSizeVariablesAccordingToHost() {
-    this.canvWidth = this.windowSizeService.getCurrentIoExperimentHostContainerWidth();
-    this.canvHeight = this.canvWidth / 3;
-    console.log('this.canvWidth: ', this.canvWidth)
+    const currWindowInnerWidth = this.windowSizeService.getCurrentWindowInnerWidth()
+    if (currWindowInnerWidth >= 992) {
+      this.canvWidth = this.windowSizeService.getCurrentMainContainerWidth();
+      this.canvHeight = this.canvWidth / 3;
+    } else {
+      this.canvWidth = this.windowSizeService.getCurrentMainContainerWidth() - 60;
+      this.canvHeight = this.canvWidth * 2;
+    }
+
   }
 
 }

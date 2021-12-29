@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     console.log('setting width in service to: ', this.mainContentContainer.nativeElement.offsetWidth);
-    this.windowSizeService.setCurrentIoExperimentHostContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
+    this.windowSizeService.setCurrentMainContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
   }
 
   ngOnDestroy(): void {
