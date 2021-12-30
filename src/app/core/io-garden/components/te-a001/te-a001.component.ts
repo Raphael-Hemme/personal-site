@@ -59,8 +59,56 @@ export class TeA001Component implements OnInit, OnDestroy {
         x: {},
         y: {},
         z: {},
+        'ß': {},
+        'ä': {},
+        'á': {},
+        'é': {},
+        'è': {},
+        'ì': {},
+        'ö': {},
+        'ü': {},
+        '0': {},
+        '1': {},
+        '2': {},
+        '3': {},
+        '4': {},
+        '5': {},
+        '6': {},
+        '7': {},
+        '8': {},
+        '9': {},
         space: 'space',
-        return: 'return'
+        return: 'return',
+        '!': {},
+        '@': {},
+        '#': {},
+        '$': {},
+        '%': {},
+        '^': {},
+        '&': {},
+        '*': {},
+        '(': {},
+        ')': {},
+        '-': {},
+        '_': {},
+        '+': {},
+        '=': {},
+        '[': {},
+        ']': {},
+        '{': {},
+        '}': {},
+        ',': {},
+        '.': {},
+        '?': {},
+        '/': {},
+        '<': {},
+        '>': {},
+        '~': {},
+        '`': {},
+        '"': {},
+        "'": {},
+        "|": {},
+        "\\": {},
       }
 
       let ioStringArr: any[] = [];
@@ -98,16 +146,19 @@ export class TeA001Component implements OnInit, OnDestroy {
         s.generateAlphabet();
 
         s.background(50);
-        s.frameRate(60);
+        s.frameRate(20);
 
         s.fill(237, 34, 93);
         s.noStroke();
       }
 
       s.draw = () => {
-      /*     push();
-            translate(100, yOffset)
-          pop(); */
+        s.frameCount === 1 ?? s.translate(0, 10);
+
+        s.background(50);
+        ioStringArr.splice(0, ioStringArr.length);
+        ioStringArr = s.translateInputStringIntoIoArr(this.inputText);
+
         s.drawString(ioStringArr);
       }
 
@@ -140,17 +191,6 @@ export class TeA001Component implements OnInit, OnDestroy {
       }
 
       s.generateLetter= () => {
-        // Old shape-data generation:
-        /*   const pointCount = random(5, 10)
-        const points = [];
-        for (let i = 0; i < pointCount; i++) {
-          points.push({
-            x: random(5, 95),
-            y: random(5, 95)
-          })
-        }
-        return points; */
-
         // New shape-data generation:
         const horizontalBarCount = s.random(0, 5);
         const dotTriplet = new DotTriplet(s.int(s.random(10, 91)), s.int(s.random(10, 91)));
@@ -162,7 +202,7 @@ export class TeA001Component implements OnInit, OnDestroy {
         }
       }
 
-      s.generateAlphabet =() => {
+      s.generateAlphabet = () => {
         for (let char in chars) {
           if (char === 'space' ||  char === 'return') {
             //chars[char] = char;
@@ -174,13 +214,6 @@ export class TeA001Component implements OnInit, OnDestroy {
       }
 
       s.drawChar = (charPointArr: any) => {
-        // old drawing function:
-        /* beginShape();
-          for (let point of charPointArr) {
-            vertex(point.x, point.y);
-          }
-          vertex(charPointArr[0].x, charPointArr[0].y)
-        endShape(); */
 
         // new drawing function: charPointArr is not renamed to be less confusing if old function
         // is restored. It is an object however.
@@ -252,24 +285,24 @@ export class TeA001Component implements OnInit, OnDestroy {
 
       };
 
-      s.keyTyped = () => {
-        if (s.key === ' ') {
-          ioStringArr.push('space')
-        } else if (s.key === 'Enter') {
-          ioStringArr.push('return');
-        } else {
-          const currKey = s.key;
-          currKey.toLowerCase(); // ToDo: not working
-          ioStringArr.push(currKey)
-        }
-      };
-
-      s.keyPressed = () => {
-        if (s.keyCode === s.BACKSPACE) {
-          s.ioStringArr.pop()
-          s.background(50);
-        };
-      };
+      s.translateInputStringIntoIoArr = (inputStr: string): any[] => {
+        const strAsArr = inputStr.split('');
+        const outputArr = strAsArr.map(char => {
+          let switchedChar = ''
+          switch (char) {
+            case '\n':
+              switchedChar = 'return';
+              break;
+            case ' ':
+              switchedChar = 'space';
+              break;
+            default:
+              switchedChar = char.toLowerCase();
+          }
+          return switchedChar;
+        })
+        return outputArr
+      }
 
     };
 

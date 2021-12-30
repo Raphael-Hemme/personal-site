@@ -1,0 +1,21 @@
+@import '/src/styles.scss';
+
+.te-a001-sketch-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+textarea {
+  resize: none;
+  border: 1px solid rgb(199, 199, 199);
+  border-radius: 5px;
+  width: 100%;
+  padding: 5px;
+}
+
+textarea:active,
+textarea:focus {
+  border: 1px solid $accent;
+  outline: none;
+}

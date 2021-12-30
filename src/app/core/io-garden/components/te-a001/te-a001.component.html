@@ -2,5 +2,12 @@
   <div id="te-a001-sketch-wrapper"></div>
 </div>
 
-<textarea [(ngModel)]="inputText" placeholder="Enter your text here."></textarea>
+<label for="userTextArea">Your Text</label>
+<textarea
+  id="userTextArea"
+  name="userTextArea"
+  rows="5"
+  [(ngModel)]="inputText"
+  placeholder="Enter your text here.">
+</textarea>
 <p>{{ inputText }}</p>
