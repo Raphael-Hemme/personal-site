@@ -5,7 +5,7 @@
       "subtitle": "",
       "abstract": "",
       "dateOriginal": "2021-11-14",
-      "dateLastEdited": "2021-12-23",
+      "dateLastEdited": "2021-12-30",
       "state": 1,
       "selector": "<app-te-a001></app-te-a001>",
       "previewImageUrl": "assets/images/io-garden-preview-images/te-a001-preview.png",
@@ -49,8 +49,9 @@
         "coding",
         "javascript",
         "p5.js",
-        "ui-framework",
-        "unusable interface"
+        "procedural design",
+        "lichen",
+        "algorithmic organism"
       ]
     }
   ]
