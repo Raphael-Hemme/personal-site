@@ -14,6 +14,7 @@ import { HomePageComponent } from './home/home-page/home-page.component';
 import { TeA001Component } from './io-garden/components/te-a001/te-a001.component';
 import { CmeA001Component } from './io-garden/components/cme-a001/cme-a001.component';
 import { LeA001Component } from './io-garden/components/le-a001/le-a001.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LeA001Component } from './io-garden/components/le-a001/le-a001.componen
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     MatButtonModule,
     MarkdownModule

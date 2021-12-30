@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
+import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
 @Component({
   selector: 'app-te-a001',
@@ -8,17 +9,28 @@ import * as p5 from 'p5';
 })
 export class TeA001Component implements OnInit, OnDestroy {
 
-  @Input() componentWidth: number = 1000;
-  @Input() componentHeight: number = 600;
+  public canvWidth = 500;
+  public canvHeight = 500;
 
-  public canvWidth = (this.componentWidth / 100) * 80;
-  public canvHeight = (this.componentHeight / 100) * 90;
+  public inputText = '';
 
   public canvas: any;
 
-  constructor() {}
+  constructor(
+    private windowSizeService: WindowSizeService
+  ) {}
 
   ngOnInit() {
+
+    const calculatedCanvSize = this.windowSizeService.calcCanvasSizeRelToMainContainerWidth({
+      wPercentL: 100,
+      wPercentS: 100,
+      hPercentL: 50,
+      hPercentS: 60
+    })
+    this.canvWidth = calculatedCanvSize.width;
+    this.canvHeight = calculatedCanvSize.height;
+
     const sketch = (s: any) => {
       const chars: { [key: string]: {} } = {
         a: {},
