@@ -1,3 +1,5 @@
+### Description
+
 Cursor Madness Experiment - A001 (`CME-A001`) aka 'The Curse of the Cursor' is part of **the** emerging *UI-Framework* (short for: Unbearable Interface Framework). It gives you a pleasant sensation of pure madness.
 
 ```typescript

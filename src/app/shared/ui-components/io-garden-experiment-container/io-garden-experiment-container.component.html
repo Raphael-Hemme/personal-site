@@ -12,18 +12,21 @@
 
   <h2>
   <!--   <span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span> -->
-  <span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span>
+    <span
+      *ngFor="let char of currExperimentIdAsArr; let i = index"
+      [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{char}}</span>
 
   </h2>
 
+  <div class="sketch-container">
+    <router-outlet></router-outlet>
+  </div>
 
-
-  <router-outlet></router-outlet>
 
   <markdown
     *ngIf="currexperimentMetaData.descriptionUrl"
     [src]="currexperimentMetaData.descriptionUrl"
-    class="blog-post-markdown">
+    class="experiment-description-markdown">
   </markdown>
 
 </div>

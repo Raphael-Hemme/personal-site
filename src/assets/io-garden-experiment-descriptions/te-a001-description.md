@@ -1,3 +1,5 @@
+### Description
+
 Typography Experiment - A001 (`TE-A001`) is the first in a series of experiments to procedurally generate alphabetic characters and enable users to enter text in an input field that is then translated into strings of those procedurally generated characters.
 
 This sketch is a prototype. It does not produce a coherent, aesthetically refined or even generally usable alphabetic character set. But it might be a step in that direction.
