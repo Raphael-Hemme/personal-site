@@ -20,4 +20,10 @@
 
   <router-outlet></router-outlet>
 
+  <markdown
+    *ngIf="currexperimentMetaData.descriptionUrl"
+    [src]="currexperimentMetaData.descriptionUrl"
+    class="blog-post-markdown">
+  </markdown>
+
 </div>

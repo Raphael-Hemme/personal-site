@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { IoGardenExperimentMetaData, IoGardenService } from '../../services/io-garden-service/io-garden.service';
-import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 
 @Component({
   selector: 'app-io-garden-experiment-container',
