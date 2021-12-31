@@ -18,6 +18,7 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
     'title': '',
     'subtitle': '',
     'abstract': '',
+    'descriptionUrl': '',
     'dateOriginal': '',
     'dateLastEdited': '',
     'state': 0,

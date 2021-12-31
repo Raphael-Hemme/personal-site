@@ -19,6 +19,7 @@ export class IoGardenExperimentContainerComponent implements OnInit {
     'title': '',
     'subtitle': '',
     'abstract': '',
+    'descriptionUrl': '',
     'dateOriginal': '',
     'dateLastEdited': '',
     'state': 0,

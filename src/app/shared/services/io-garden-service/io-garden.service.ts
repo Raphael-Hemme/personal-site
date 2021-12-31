@@ -7,7 +7,8 @@ export interface IoGardenExperimentMetaData {
   'id': string;
   'title': string;
   'subtitle'?: string;
-  'abstract': string;
+  'abstract'?: string;
+  'descriptionUrl'?: string;
   'dateOriginal'?: string;
   'dateLastEdited'?: string;
   'state': number;
@@ -36,6 +37,8 @@ export class IoGardenService {
         'id': '',
         'title': '',
         'subtitle': '',
+        'abstract': '';
+        'descriptionUrl': '';
         'dateOriginal': '',
         'dateLastEdited': '',
         'state': 0,
