@@ -15,43 +15,44 @@
             role="presentation"/>
         </div>
 
-        <!-- <span class="header-name">Raphael Hemme</span>-->
-        <!-- <span class="menu-spacer"></span> -->
-        <ul class="top-nav-items-container">
+        <ul class="topnav-items-container">
           <li><a [routerLink]="['/io-garden']" class="nav-item-dark">I/O-GARDEN</a></li>
           <li><a [routerLink]="['/blog']" class="nav-item-dark">BLOG</a></li>
           <li><a [routerLink]="['/about']" class="nav-item-dark">ABOUT</a></li>
         </ul>
 
-        <!-- <button
-        mat-icon-button
-        (click)="sidenav.toggle()"
-        class="menu-burger"
-      >
-        <mat-icon>menu</mat-icon>
-      </button> -->
+        <button
+          (click)="toggleSidenavVisibility()"
+          class="menu-burger">
+            <span class="material-icons">
+            menu
+            </span>
+        </button>
     </nav>
   </div>
   </header>
 
 
-  <div class="sidenav-container">
+  <div class="sidenav-container" *ngIf="sidenavIsVisible">
     <div class="sidenav-dark">
-      <nav>
-        <ul>
-          <!-- <a (click)="sidenav.toggle()" class="nav-item-dark" mat-list-item>Close</a> -->
+      <nav class="sidenav">
+        <ul class="sidenav-items-container">
+          <li><a (click)="toggleSidenavVisibility()" class="nav-item-dark" mat-list-item>Close</a></li>
           <li><a [routerLink]="['/blog']" class="nav-item-dark" >BLOG</a></li>
           <li><a [routerLink]="['/io-garden']" class="nav-item-dark">I/O-GARDEN</a></li>
           <li><a [routerLink]="['/about']" class="nav-item-dark">ABOUT</a></li>
         </ul>
       </nav>
     </div>
-    <div class="sidenav-content-container">
-      <main class="main-content-container" #mainContentContainer>
-        <router-outlet></router-outlet>
-      </main>
-    </div>
+    <div class="background-blur" (click)="toggleSidenavVisibility()"></div>
   </div>
+
+  <div class="sidenav-content-container">
+    <main class="main-content-container" #mainContentContainer>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
 </div>
 
 <app-splash-screen class="splash-screen" *ngIf="splashScreenStatus === 'on'"></app-splash-screen>

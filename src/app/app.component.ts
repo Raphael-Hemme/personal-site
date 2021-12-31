@@ -14,6 +14,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public title = 'raphaelhemme';
   public splashScreenStatus = 'on';
+  public sidenavIsVisible = false;
+
   private subscriptions: Subscription = new Subscription()
 
   constructor(
@@ -39,6 +41,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  public toggleSidenavVisibility(): void {
+    this.sidenavIsVisible = !this.sidenavIsVisible;
   }
 
 }
