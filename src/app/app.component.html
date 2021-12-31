@@ -1,54 +1,57 @@
 <div style="height: 100vh;">
   <header>
-    <mat-toolbar class="menu-dark">
-      <mat-toolbar-row class="menu-container">
+    <div class="menu-dark">
+      <nav class="menu-container">
 
         <div class="menu-logo-container">
 
           <div class="logo-bg"></div>
 
           <img
-          [routerLink]="['/']"
-          src="../assets/images/own-logo/RH-Logo-05-negative-small-night.png"
-          class="logo-negative-small"
-          alt=""/>
+            [routerLink]="['/']"
+            src="../assets/images/own-logo/RH-Logo-05-negative-small-night.png"
+            class="logo-negative-small"
+            alt="logo"
+            role="presentation"/>
         </div>
 
         <!-- <span class="header-name">Raphael Hemme</span>-->
         <!-- <span class="menu-spacer"></span> -->
-        <div class="top-nav-items-container">
-          <a [routerLink]="['/io-garden']" class="nav-item-dark" mat-button>I/O-GARDEN</a>
-          <a [routerLink]="['/blog']" class="nav-item-dark" mat-button>BLOG</a>
-          <a [routerLink]="['/about']" class="nav-item-dark" mat-button>ABOUT</a>
-        </div>
+        <ul class="top-nav-items-container">
+          <li><a [routerLink]="['/io-garden']" class="nav-item-dark">I/O-GARDEN</a></li>
+          <li><a [routerLink]="['/blog']" class="nav-item-dark">BLOG</a></li>
+          <li><a [routerLink]="['/about']" class="nav-item-dark">ABOUT</a></li>
+        </ul>
 
-        <button
+        <!-- <button
         mat-icon-button
         (click)="sidenav.toggle()"
         class="menu-burger"
       >
         <mat-icon>menu</mat-icon>
-      </button>
-      </mat-toolbar-row>
-    </mat-toolbar>
+      </button> -->
+    </nav>
+  </div>
   </header>
 
 
-  <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav class="sidenav-dark" mode="over" [autoFocus]="false">
-      <mat-nav-list>
-        <a (click)="sidenav.toggle()" class="nav-item-dark" mat-list-item>Close</a>
-        <a [routerLink]="['/blog']" class="nav-item-dark" mat-list-item>BLOG</a>
-        <a [routerLink]="['/io-garden']" class="nav-item-dark"mat-list-item>I/O-GARDEN</a>
-        <a [routerLink]="['/about']" class="nav-item-dark" mat-list-item>ABOUT</a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content class="sidenav-content-container">
+  <div class="sidenav-container">
+    <div class="sidenav-dark">
+      <nav>
+        <ul>
+          <!-- <a (click)="sidenav.toggle()" class="nav-item-dark" mat-list-item>Close</a> -->
+          <li><a [routerLink]="['/blog']" class="nav-item-dark" >BLOG</a></li>
+          <li><a [routerLink]="['/io-garden']" class="nav-item-dark">I/O-GARDEN</a></li>
+          <li><a [routerLink]="['/about']" class="nav-item-dark">ABOUT</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="sidenav-content-container">
       <main class="main-content-container" #mainContentContainer>
         <router-outlet></router-outlet>
       </main>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    </div>
+  </div>
 </div>
 
 <app-splash-screen class="splash-screen" *ngIf="splashScreenStatus === 'on'"></app-splash-screen>

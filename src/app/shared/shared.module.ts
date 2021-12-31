@@ -8,7 +8,6 @@ import { P5SketchContainerComponent } from './components/p5-sketch-container/p5-
 import { ProfilePhotoSketchComponent } from './components/profile-photo-sketch/profile-photo-sketch.component';
 import { HorizontalGlitchSketchComponent } from './components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
 import { IoGardenExperimentPreviewComponent } from './ui-components/io-garden-experiment-preview/io-garden-experiment-preview.component';
-import { MatButtonModule } from '@angular/material/button';
 import { IoGardenExperimentContainerComponent } from './ui-components/io-garden-experiment-container/io-garden-experiment-container.component';
 
 import { MarkdownModule } from 'ngx-markdown';
@@ -24,7 +23,6 @@ import { MarkdownModule } from 'ngx-markdown';
   ],
   imports: [
     CommonModule,
-    MatButtonModule,
     RouterModule,
     AppRoutingModule,
     MarkdownModule
