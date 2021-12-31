@@ -68,7 +68,7 @@
   left: 7px;
   border-radius: 10px;
   z-index: 10;
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     height: 57px;
     top: -54px;
     left: 9px;
@@ -85,7 +85,7 @@
   z-index: 9;
   background-color: $brand;
 
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     height: 55px;
     width: 55px;
     top: 2px;
