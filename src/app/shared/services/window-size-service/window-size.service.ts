@@ -48,7 +48,8 @@ export class WindowSizeService {
       let canvHeight = 0;
 
       if (window.innerWidth >= 992) {
-        canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentL;
+        // Subtract 10px from actual width * percent to handle padding-right of 10px and have a fluid canvas
+        canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentL - 10;
         canvHeight = this.currMainContainerHeight / 100 * canvasSizeParamObj.hPercentL;
       } else {
         canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentS;

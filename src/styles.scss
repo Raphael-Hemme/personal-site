@@ -36,7 +36,7 @@ li {
 }
 
 .btn-primary-flat {
-  // color: #ffffff;
+  // color: $white;
   // background-color: rgb(31, 124, 104);
   color: #40514e;
   background-color: $brand;
@@ -44,7 +44,7 @@ li {
 }
 
 .btn-primary-shadow {
-  // color: #ffffff;
+  // color: $white;
   // background-color: rgb(31, 124, 104);
   color: #40514e;
   background-color: $brand;
@@ -61,13 +61,13 @@ li {
 }
 
 .btn-accent-flat {
-  color: #ffffff;
+  color: $white;
   background-color: $accent;
   border: none;
 }
 
 .btn-accent-shadow {
-  color: #ffffff;
+  color: $white;
   background-color: $accent;
   border: none;
   box-shadow: 0 0 2em #adadad;

@@ -23,7 +23,7 @@ export class CmeA001Component implements OnInit, OnDestroy {
 
     const calculatedCanvSize = this.windowSizeService.calcCanvasSizeRelToMainContainerWidth({
       wPercentL: 100,
-      wPercentS: 90,
+      wPercentS: 100,
       hPercentL: 50,
       hPercentS: 80
     })

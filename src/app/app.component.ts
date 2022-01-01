@@ -50,7 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public handleLogoClick() {
-    this.toggleSidenavVisibility();
+    this.sidenavIsVisible = false;
     this.router.navigate(['/'])
   }
 
