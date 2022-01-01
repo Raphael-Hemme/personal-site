@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SplashScreenService } from './shared/services/splash-screen-service/splash-screen.service';
 import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private splashScreenService: SplashScreenService,
-    private windowSizeService: WindowSizeService
+    private windowSizeService: WindowSizeService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +47,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public toggleSidenavVisibility(): void {
     this.sidenavIsVisible = !this.sidenavIsVisible;
+  }
+
+  public handleLogoClick() {
+    this.toggleSidenavVisibility();
+    this.router.navigate(['/'])
   }
 
 }
