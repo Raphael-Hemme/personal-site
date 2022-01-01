@@ -4,21 +4,18 @@
       <nav class="menu-container">
 
         <div class="menu-logo-container">
-
-          <div class="logo-bg"></div>
-
           <img
             [routerLink]="['/']"
-            src="../assets/images/own-logo/RH-Logo-05-negative-small-night.png"
+            src="assets/images/own-logo/rh-logo-06-green-small.png"
             class="logo-negative-small"
             alt="logo"
             role="presentation"/>
         </div>
 
         <ul class="topnav-items-container">
-          <li><a [routerLink]="['/io-garden']" class="nav-item-dark">I/O-GARDEN</a></li>
-          <li><a [routerLink]="['/blog']" class="nav-item-dark">BLOG</a></li>
-          <li><a [routerLink]="['/about']" class="nav-item-dark">ABOUT</a></li>
+          <li><a [routerLink]="['/io-garden']" class="nav-item">I/O-GARDEN</a></li>
+          <li><a [routerLink]="['/blog']" class="nav-item">BLOG</a></li>
+          <li><a [routerLink]="['/about']" class="nav-item">ABOUT</a></li>
         </ul>
 
         <button
@@ -37,10 +34,10 @@
     <div class="sidenav-dark">
       <nav class="sidenav">
         <ul class="sidenav-items-container">
-          <li><a (click)="toggleSidenavVisibility()" class="nav-item-dark" mat-list-item>Close</a></li>
-          <li><a [routerLink]="['/blog']" class="nav-item-dark" >BLOG</a></li>
-          <li><a [routerLink]="['/io-garden']" class="nav-item-dark">I/O-GARDEN</a></li>
-          <li><a [routerLink]="['/about']" class="nav-item-dark">ABOUT</a></li>
+          <li><a (click)="toggleSidenavVisibility()" class="nav-item" mat-list-item>Close</a></li>
+          <li><a [routerLink]="['/blog']" class="nav-item" >BLOG</a></li>
+          <li><a [routerLink]="['/io-garden']" class="nav-item">I/O-GARDEN</a></li>
+          <li><a [routerLink]="['/about']" class="nav-item">ABOUT</a></li>
         </ul>
       </nav>
     </div>
