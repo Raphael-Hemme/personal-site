@@ -1,8 +1,11 @@
+@import 'src/styles.scss';
+
 .io-garden-experiment-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: $light;
 }
 
 .io-garden-container-nav-bar {

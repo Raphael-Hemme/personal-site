@@ -1,7 +1,7 @@
 @import '/src/assets/stylesheets/colors.scss';
 // ----- top menu
 
-.menu-dark {
+.menu {
   height: 52px;
   width: 100%;
   @media (min-width: 720px) {
@@ -10,8 +10,8 @@
   }
 }
 
-.menu-dark,
-.sidenav-dark {
+.menu,
+.sidenav {
   background-color: $subtle-one;
 }
 
@@ -62,8 +62,9 @@
 // ----- Logo
 
 .menu-logo-container {
-  height: 90%;
+  height: 100%;
 }
+
 .logo-negative-small {
   cursor: pointer;
   height: 48px;
@@ -113,6 +114,9 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  @media (min-width: 720px) {
+    height: calc(100% - 60px);
+  }
 }
 
 .main-content-container {
