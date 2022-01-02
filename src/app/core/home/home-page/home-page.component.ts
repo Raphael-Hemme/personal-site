@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { SplashScreenService } from 'src/app/shared/services/splash-screen-service/splash-screen.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class HomePageComponent implements OnInit {
   private subscriptions: Subscription = new Subscription()
 
   constructor(
-    private splashScreenService: SplashScreenService
+    private splashScreenService: SplashScreenService,
+    private ioGardenService: IoGardenService
   ) {}
 
   ngOnInit(): void {
@@ -22,6 +24,8 @@ export class HomePageComponent implements OnInit {
       })
     )
     // this.splashScreenTimeOut = setTimeout(() => this.splashScreenIsVisible = false, 5000)
+
+    this.ioGardenService.getRandomIoGardenExperimentMetaData();
   }
 
   ngOnDestroy(): void {

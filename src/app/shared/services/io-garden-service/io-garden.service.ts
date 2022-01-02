@@ -49,4 +49,11 @@ export class IoGardenService {
     }
     return this.experimentMetaData[experimentIndex];
   }
+
+  public getRandomIoGardenExperimentMetaData(): IoGardenExperimentMetaData {
+    const randomIndex = Math.floor(Math.random() * this.experimentMetaData.length);
+/*     console.log('this.experimentMetaData.length', this.experimentMetaData.length);
+    console.log('randomIndex', randomIndex); */
+    return this.experimentMetaData[randomIndex]
+  }
 }

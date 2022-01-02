@@ -29,6 +29,7 @@
 } */
 
 body {
+  min-height: 100vh;
   background: $subtle-one;
   background: linear-gradient(180deg, $subtle-one 0%, $subtle-two 100%);
 }
