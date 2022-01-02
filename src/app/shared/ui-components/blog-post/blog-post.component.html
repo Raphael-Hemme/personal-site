@@ -1,40 +1,50 @@
-<nav class="blog-post-nav-bar">
-  <button
-    type="button"
-    class="btn-accent-flat"
-    (click)="handleBlogPostBackBtn()">
-      back
-  </button>
-</nav>
+<div class="blog-post-container">
 
-<div class="blog-post-meta-info-container">
-  <p class="meta-label">tags</p>
-  <div class="blog-post-tag-container">
-    <div
-      class="blog-post-tag-item"
-      *ngFor="let tagItem of currPostMetaData.tags">
-        {{ tagItem }}
+  <nav class="blog-post-nav-bar">
+    <button
+      type="button"
+      class="btn-dark-flat"
+      (click)="handleBlogPostBackBtn()">
+        back
+    </button>
+  </nav>
+  <article>
+    <div class="blog-post-meta-info-container">
+      <p class="meta-label">tags</p>
+      <!-- <div class="blog-post-tag-container">
+        <div
+          class="blog-post-tag-item"
+          *ngFor="let tagItem of currPostMetaData.tags">
+            {{ tagItem }}
+        </div>
+      </div> -->
+      <app-tag-list
+        *ngIf="currPostMetaData.tags"
+        [tags]="currPostMetaData.tags">
+      </app-tag-list>
+
+      <div class="published-updated-container">
+        <table class="blog-post-meta-date-table">
+          <tr>
+            <td class="blog-post-meta-date-label">published:</td>
+            <td class="blog-post-meta-date-value">{{ currPostMetaData.dateLastEdited }}</td>
+          </tr>
+          <tr>
+            <td class="blog-post-meta-date-label">last updated:</td>
+            <td class="blog-post-meta-date-value">{{ currPostMetaData.dateOriginal }}</td>
+          </tr>
+        </table>
+
+      </div>
     </div>
-  </div>
-  <div class="published-updated-container">
-    <table class="blog-post-meta-date-table">
-      <tr>
-        <td class="blog-post-meta-date-label">published:</td>
-        <td class="blog-post-meta-date-value">{{ currPostMetaData.dateLastEdited }}</td>
-      </tr>
-      <tr>
-        <td class="blog-post-meta-date-label">last updated:</td>
-        <td class="blog-post-meta-date-value">{{ currPostMetaData.dateOriginal }}</td>
-      </tr>
-    </table>
 
-  </div>
+    <h2>{{ currPostMetaData.title }}</h2>
+
+    <markdown
+      [src]="currPath"
+      class="blog-post-markdown">
+    </markdown>
+  </article>
+
 
 </div>
-
-<h2>{{ currPostMetaData.title }}</h2>
-
-<markdown
-  [src]="currPath"
-  class="blog-post-markdown">
-</markdown>

@@ -1,8 +1,13 @@
+@import 'src/styles.scss';
+
 .io-garden-experiment-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: $white;
+  border-radius: 10px;
+  margin: 0 0 20px 0;
 }
 
 .io-garden-container-nav-bar {
@@ -17,7 +22,8 @@
   border-width: 1px 0 0 0;
   border-style: solid;
   border-color: rgb(199, 199, 199);
-  padding: 20px 0 20px 0;
+  width: 100%;
+  padding: 20px 10px 10px 10px;
   margin: 20px 0 0 0;
 }
 
@@ -26,5 +32,5 @@ h2 {
 }
 
 .sketch-container {
-  align-self: flex-start;
+  width: 100%;
 }

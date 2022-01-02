@@ -1,98 +1,158 @@
 @import '/src/assets/stylesheets/colors.scss';
+
+/* .app-component-container {
+  min-height: 100%;
+} */
+
 // ----- top menu
 
-.menu-dark,
-.sidenav-dark {
-  background-color: #353a40;
+.menu {
+  height: 52px;
+  width: 100%;
+  @media (min-width: 720px) {
+    height: 60px;
+    width: 100%;
+  }
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  border-bottom: 1px solid rgba(240, 240, 240, 0.1)
+}
+
+.menu,
+.sidenav {
+  // background-color: $subtle-one;
+  background-color: rgba(70, 129, 137, 0.7);
+  backdrop-filter: blur(5px);
 }
 
 .menu-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 2px 20px;
 }
 
-.top-nav-items-container {
-  @media (max-width: 720px) {
-    display: none;
+.topnav-items-container {
+  display: none;
+  @media (min-width: 720px) {
+    display: flex;
+    ul, li {
+      list-style-type: none;
+    }
+    a {
+      text-decoration: none;
+    }
   }
 }
 
 .menu-burger {
-  @media (min-width: 721px) {
+  background-color: transparent;
+  border: none;
+  height: 32px;
+  .material-icons {
+    // color: $white;
+    color: $subtle-three;
+    font-size: 2rem;
+  }
+  @media (min-width: 720px) {
     display: none;
   }
 }
 
-.nav-item-dark {
-  // color: #26a69a;
-  color: $accent;
-  background-color: #353a40;
-  // background-color: rgb(50, 50, 51);
-  // This color generally seems nicer to me than the slightly bluish gray
-  // currently used but I had to change the logo image color itself first.
+.nav-item {
+  // color: $white;
+  color: $subtle-three;
+  // background-color: $subtle-one;
+  font-size: 1.3rem;
+  font-weight: 400;
+  @media (min-width: 720px) {
+    font-size: 1rem;
+    font-weight: 600;
+  }
 }
 
-.header-name,
-.menu-burger {
-  // color: #26a69a;
-  color: $accent;
+.nav-item:hover,
+.nav-item:active {
+  color: $brand;
 }
 
 // ----- Logo
 
 .menu-logo-container {
-  height: 90%;
+  height: 100%;
 }
+
 .logo-negative-small {
   cursor: pointer;
-  position: relative;
-  height: 52px;
-  top: -52px;
-  left: 7px;
+  height: 48px;
   border-radius: 10px;
-  z-index: 10;
-  @media (min-width: 600px) {
-    height: 57px;
-    top: -54px;
-    left: 9px;
-  }
-}
-
-.logo-bg {
-  position: relative;
-  top: -1px;
-  left: 7px;
-  border-radius: 50%;
-  height: 51px;
-  width: 51px;
-  z-index: 9;
-  background-color: $brand;
-
-  @media (min-width: 600px) {
-    height: 55px;
-    width: 55px;
-    top: 2px;
-    left: 10px;
+  @media (min-width: 720px) {
+    height: 56px;
   }
 }
 
 // ----- Sidenav
 
 .sidenav-container {
-  height: calc(100% - 64px);
+  height: calc(100% - 52px);
+  width: 100%;
+  position: fixed;
+  top: 52px;
+  z-index: 200;
+  display: flex;
+  @media (min-width: 720px) {
+    display: none;
+  }
+}
+
+.sidenav {
+  width: 40%;
+  height: 100%;
+  // border-bottom: 1px solid rgba(240, 240, 240, 0.1)
+}
+
+.background-blur {
+  min-width: 60%;
+  height: 100%;
+  border-left: 1px solid rgba(172, 172, 172, 0.7);
+  background-color: rgba(60, 60, 60, 0.5);
+  backdrop-filter: blur(5px);
+  overflow: hidden;
+}
+
+.sidenav-items-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  li {
+    list-style-type: none;
+    margin: 10px 0 0 20px;
+  }
+  a {
+    text-decoration: none;
+  }
 }
 
 .sidenav-content-container {
+  // height: calc(100% - 52px);
   height: 100%;
   width: 100%;
   display: flex;
+  padding: 100px 0 0 0;
   justify-content: center;
-  // background-color: rgb(240, 240, 240);
+  @media (min-width: 720px) {
+    // height: calc(100% - 60px);
+    padding: 60px 0 0 0;
+  }
 }
 
 .main-content-container {
-  min-height: 100%;
+  // min-height: calc(100% - 52px);
   width: 100%;
+  height: 100%;
   padding: 20px 10px;
   @media (min-width: 992px) {
     width: 66%;
@@ -101,67 +161,11 @@
 }
 
 .splash-screen {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left:0;
-  z-index: 10;
+  overflow: hidden;
+  z-index: 300;
 }
-
-/* ----- Background gradient and dot-overlay ----- */
-
-/* .colorGradient {
-  position: relative;
-  top: 0px;
-  min-height: auto;
-  background-image: linear-gradient(
-    to bottom,
-    rgb(30, 180, 143),
-    rgb(8, 84, 94)
-  );
-}
-
-.dotOverlay {
-  min-height: 100vh;
-  background-size: 3px 3px;
-  background-image: radial-gradient(
-    circle,
-    #3a3a3a 0.2px,
-    rgba(173, 25, 25, 0) 1px
-  );
-}
-
-
-
-.logo-bg-rotating-gradient-small {
-  position: relative;
-  top: -1px;
-  left: 7px;
-  border-radius: 50%;
-  height: 51px;
-  width: 51px;
-  z-index: 9;
-  background-image: linear-gradient(
-    to right,
-    $brand,
-    $subtle-one
-  );
-  animation: spin 10s linear infinite;
-
-  @media (min-width: 600px) {
-    height: 55px;
-    width: 55px;
-    top: 2px;
-    left: 10px;
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}*/

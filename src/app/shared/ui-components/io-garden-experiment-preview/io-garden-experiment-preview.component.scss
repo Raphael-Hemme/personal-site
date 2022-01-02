@@ -1,7 +1,10 @@
+@import 'src/styles.scss';
+
 .experiment-preview-card {
-  border: 1px solid rgb(163, 163, 163);
+  border: none;
   border-radius: 10px;
   overflow: hidden;
+  background-color: $white;
 }
 
 .image-left-preview-card {

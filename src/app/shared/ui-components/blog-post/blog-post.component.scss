@@ -1,5 +1,12 @@
 @import 'src/styles.scss';
 
+.blog-post-container {
+  width: 100%;
+  background-color: $white;
+  padding: 25px 10px;
+  border-radius: 10px;
+}
+
 .blog-post-nav-bar {
   width: 100%;
   // border-radius: 10px;
@@ -21,7 +28,7 @@
   margin: 0;
 }
 
-.blog-post-tag-container{
+/* .blog-post-tag-container{
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -34,7 +41,7 @@
   border-radius: 5px;
   padding: 5px;
   margin: 10px 5px;
-}
+} */
 
 
 .blog-post-meta-date-table {
