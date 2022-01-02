@@ -9,6 +9,7 @@ h3, p {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  // padding: 0 0 30px 0;
   @media (min-width: 576px) {
     width: 100%;
     flex-direction: row;

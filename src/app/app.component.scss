@@ -1,8 +1,8 @@
 @import '/src/assets/stylesheets/colors.scss';
 
-.app-component-container {
+/* .app-component-container {
   height: 100vh;
-}
+} */
 
 // ----- top menu
 
@@ -51,6 +51,7 @@
 .menu-burger {
   background-color: transparent;
   border: none;
+  height: 32px;
   .material-icons {
     // color: $white;
     color: $subtle-three;
