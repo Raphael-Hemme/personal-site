@@ -5,6 +5,8 @@ Typography Experiment - A001 (`TE-A001`) is the first in a series of experiments
 This sketch is a prototype. It does not produce a coherent, aesthetically refined or even generally usable alphabetic character set. But it might be a step in that direction.
 
 What I found really surpring, however, was that the 'live text' feature in iOS automatically recognized characters in a photo I took of the output a few weeks back, to share with a friend. If you are curious, to see if that works in your operating system, OCR app or photo app aswell, go ahead and take a picture.
+<br />
+<br />
 
 ```typescript
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';

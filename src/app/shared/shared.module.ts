@@ -11,6 +11,7 @@ import { IoGardenExperimentPreviewComponent } from './ui-components/io-garden-ex
 import { IoGardenExperimentContainerComponent } from './ui-components/io-garden-experiment-container/io-garden-experiment-container.component';
 
 import { MarkdownModule } from 'ngx-markdown';
+import { TagListComponent } from './ui-components/tag-list/tag-list.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MarkdownModule } from 'ngx-markdown';
     HorizontalGlitchSketchComponent,
     IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
+    TagListComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { MarkdownModule } from 'ngx-markdown';
     P5SketchContainerComponent,
     ProfilePhotoSketchComponent,
     HorizontalGlitchSketchComponent,
-    IoGardenExperimentPreviewComponent
+    IoGardenExperimentPreviewComponent,
+    TagListComponent,
   ]
 })
 export class SharedModule { }
