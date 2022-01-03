@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
+import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
+import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { SplashScreenService } from 'src/app/shared/services/splash-screen-service/splash-screen.service';
 
 @Component({
@@ -12,9 +13,36 @@ export class HomePageComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription()
 
+  public featuredBlogPost: BlogPostMetaData = {
+    'id': '',
+    'title': '',
+    'subtitle': '',
+    'dateOriginal': '',
+    'dateLastEdited': '',
+    'state': 0,
+    'postPath': '',
+    'previewImageUrl': '',
+    'tags': []
+  };
+
+  public featuredIoGardenExperiment: IoGardenExperimentMetaData = {
+    'id': '',
+    'title': '',
+    'subtitle': '',
+    'abstract': '',
+    'descriptionUrl': '',
+    'dateOriginal': '',
+    'dateLastEdited': '',
+    'state': 0,
+    'selector': '',
+    'previewImageUrl': '',
+    'tags': []
+  };
+
   constructor(
     private splashScreenService: SplashScreenService,
-    private ioGardenService: IoGardenService
+    private ioGardenService: IoGardenService,
+    private blogService: BlogService
   ) {}
 
   ngOnInit(): void {
@@ -23,13 +51,12 @@ export class HomePageComponent implements OnInit {
         this.splashScreenService.splashScreenStatus.next('off');
       })
     )
-    // this.splashScreenTimeOut = setTimeout(() => this.splashScreenIsVisible = false, 5000)
 
-    this.ioGardenService.getRandomIoGardenExperimentMetaData();
+    this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
+    this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
   }
 
   ngOnDestroy(): void {
-    // clearTimeout(this.splashScreenTimeOut);
     this.subscriptions.unsubscribe();
   }
 

@@ -47,5 +47,12 @@ export class BlogService {
     return this.postsMetaData[postIndex];
   }
 
+  public getRandomBlogPostMetaData(): BlogPostMetaData {
+    const randomIndex = Math.floor(Math.random() * this.postsMetaData.length);
+/*     console.log('this.experimentMetaData.length', this.experimentMetaData.length);
+    console.log('randomIndex', randomIndex); */
+    return this.postsMetaData[randomIndex]
+  }
+
 
 }

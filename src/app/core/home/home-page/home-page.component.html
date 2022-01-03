@@ -1,1 +1,12 @@
-<p>home-page works!</p>
+<h1>Raphael Hemme</h1>
+<h2>Developer, Cultural Anthropologist, Generative Design & Art Nerd</h2>
+
+<div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
+  <div class="featured-io-garden-experiment">
+    <app-io-garden-experiment-preview [experimentMetaData]="featuredIoGardenExperiment"></app-io-garden-experiment-preview>
+  </div>
+  <div class="featured-blog-post">
+    <app-blog-post-preview [metaData]="featuredBlogPost"></app-blog-post-preview>
+  </div>
+</div>
+
