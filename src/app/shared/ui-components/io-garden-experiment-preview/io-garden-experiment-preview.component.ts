@@ -36,6 +36,7 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // ToDo: Move this here and in blog-post-preview component into method on utilities service or similar
     switch (this.imgPosition) {
       case ('top'):
         this.previewOrintationClass = 'image-top-preview-card';
