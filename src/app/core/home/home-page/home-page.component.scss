@@ -1,5 +1,4 @@
 .featured-container {
-
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -10,3 +9,24 @@
     gap: 10px;
   }
 }
+
+.featured-io-garden-experiment,
+.featured-blog-post {
+  width: 100%;
+  height: 200px;
+  @media (min-width: 992px) {
+    min-width: 48%;
+    height: 200px;
+  }
+}
+
+
+/* .blog-posts-preview-card,
+.io-garden-experiment-card {
+  width: 100%;
+  height: 200px;
+  @media (min-width: 992px) {
+    min-width: 48%;
+    height: 200px;
+  }
+} */
