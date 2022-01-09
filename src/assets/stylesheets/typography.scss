@@ -8,12 +8,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700&display=swap');
 
 
-
-/* body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-} */
-
 * {
   color: #40514e;
 }
@@ -58,6 +52,19 @@ h3 {
     line-height: 1.2;
   }
 }
+
+h4 {
+  font-size: 1.4rem;
+  line-height: 1.2;
+  margin: 0 0 30px 0;
+  font-weight: 600;
+  color: $accent;
+  @media (min-width: 992px) {
+    font-size: 1.7rem;
+    line-height: 1.2;
+  }
+}
+
 
 p,
 button,
