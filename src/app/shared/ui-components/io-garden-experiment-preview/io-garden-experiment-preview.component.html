@@ -1,20 +1,17 @@
-<div class="experiment-preview-card image-left-preview-card" [ngClass]="previewOrintationClass">
-  <div class="experiment-preview-card-title">
+<!-- <div class="preview-card image-left-preview-card" [ngClass]="previewOrintationClass">
+  <div class="preview-card-title">
     <h2>{{ experimentMetaData.title }}</h2>
-    <div class="experiment-preview-phase-icon"></div>
+    <div class="preview-card-phase-icon"></div>
   </div>
-  <div class="experiment-preview-card-subtitle">
-    <h3>{{ experimentMetaData.subtitle}}</h3>
+  <div class="preview-card-image-container">
+    <img class="preview-card-image" [src]="experimentMetaData.previewImageUrl" alt="example" />
   </div>
-  <div class="experiment-preview-image-container">
-    <img class="experiment-preview-image" [src]="experimentMetaData.previewImageUrl" alt="example" />
-  </div>
-  <div class="experiment-preview-body">
+  <div class="preview-card-body">
     <p>
       {{ experimentMetaData.abstract }}
     </p>
   </div>
-  <div class="experiment-preview-actions">
+  <div class="preview-card-actions">
     <button
       type="button"
       class="btn-primary-flat"
@@ -22,4 +19,45 @@
         EXAMINE
     </button>
   </div>
+</div> -->
+
+<div class="preview-card" [ngClass]="previewOrintationClass">
+  <div class="preview-card-image-container">
+    <img
+      [src]="metaData.previewImageUrl"
+      alt="procedurally generated preview artwork for blog post"
+      class="preview-card-img">
+  </div>
+  <div class="preview-card-meta-container">
+    <div class="preview-card-date">
+      <div
+        *ngIf="metaData.dateOriginal"
+        class="preview-card-original-date">
+        <p class="preview-card-date-label">date:</p>
+        <p>{{ metaData.dateOriginal }}</p>
+      </div>
+      <div
+        *ngIf="metaData.dateLastEdited"
+        class="preview-card-updated-date">
+        <p class="preview-card-date-label">updated:</p>
+        <p>{{ metaData.dateLastEdited }}</p>
+      </div>
+    </div>
+
+    <div class="preview-card-phase-indicator-container">
+      <div class="preview-card-phase-indicator"></div>
+    </div>
+  </div>
+  <div class="preview-card-title">
+    <h4 *ngIf="metaData.title">{{ metaData.title }} </h4>
+  </div>
+  <div class="preview-card-actions">
+    <button
+      (click)="handleExperimentPreviewReadBtn(metaData.id)"
+      type="button"
+      class="btn-primary-flat preview-card-read-btn">
+        read
+    </button>
+  </div>
 </div>
+

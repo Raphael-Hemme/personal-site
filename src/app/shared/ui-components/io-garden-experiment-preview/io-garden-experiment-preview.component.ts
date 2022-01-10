@@ -13,7 +13,7 @@ type ImgOrientation = 'top' | 'left' | 'right';
 export class IoGardenExperimentPreviewComponent implements OnInit {
 
   @Input() imgPosition: ImgOrientation = 'top';
-  @Input() experimentMetaData: IoGardenExperimentMetaData = {
+  @Input() metaData: IoGardenExperimentMetaData = {
     'id': '',
     'title': '',
     'subtitle': '',
@@ -52,7 +52,7 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
     }
   }
 
-  public handleExamineBtn(id: string): void {
+  public handleExperimentPreviewReadBtn(id: string): void {
     this.router.navigate(['/io-garden', id, id]);
   }
 }
