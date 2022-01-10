@@ -22,8 +22,9 @@
 .menu,
 .sidenav {
   // background-color: $subtle-one;
-  background-color: rgba(70, 129, 137, 0.7);
-  backdrop-filter: blur(5px);
+  background-color: rgba(70, 129, 137, 0.85);
+  // background-color: rgba(39,45, 55, 0.85);
+  // backdrop-filter: blur(5px);
 }
 
 .menu-container {
@@ -117,9 +118,9 @@
 .background-blur {
   min-width: 60%;
   height: 100%;
-  border-left: 1px solid rgba(172, 172, 172, 0.7);
+  // border-left: 1px solid rgba(172, 172, 172, 0.7);
   background-color: rgba(60, 60, 60, 0.5);
-  backdrop-filter: blur(5px);
+  // backdrop-filter: blur(5px);
   overflow: hidden;
 }
 
