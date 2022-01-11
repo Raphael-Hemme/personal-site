@@ -37,6 +37,7 @@ export class WindowSizeService {
 
   public setCurrentMainContainerHeight(value: number): void {
     this.currMainContainerHeight = value;
+    console.log('setting mainContentHeight to: ', value);
   }
 
   public getCurrentMainContainerHeight(): number {

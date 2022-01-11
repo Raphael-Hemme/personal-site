@@ -156,12 +156,13 @@
   height: 100%;
   padding: 20px 10px;
   @media (min-width: 992px) {
-    width: 66%;
-    padding: 25px 0;
+    // width: 66%;
+    // padding: 25px 0;
+    width: 100%;
   }
 }
 
-.splash-screen {
+/* .splash-screen {
   position: fixed;
   top: 0;
   right: 0;
@@ -169,4 +170,4 @@
   left:0;
   overflow: hidden;
   z-index: 300;
-}
+} */

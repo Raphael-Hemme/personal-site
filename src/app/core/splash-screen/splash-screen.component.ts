@@ -13,11 +13,11 @@ export class SplashScreenComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.splashScreenFadeTimeout = setTimeout(() => this.startSplashScreenFade = true, 4000)
+    // this.splashScreenFadeTimeout = setTimeout(() => this.startSplashScreenFade = true, 4000)
   }
 
   ngOnDestroy(): void {
-    clearTimeout(this.splashScreenFadeTimeout)
+    // clearTimeout(this.splashScreenFadeTimeout)
   }
 
 }

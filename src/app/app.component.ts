@@ -26,12 +26,12 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscriptions.add(
+    /* this.subscriptions.add(
       this.splashScreenService.startTimerAndHandleStatus().subscribe(res => {
         console.log(res);
         this.splashScreenStatus = res
       })
-    )
+    ) */
   }
 
   ngAfterViewInit(): void {
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    /* this.subscriptions.unsubscribe(); */
   }
 
   public toggleSidenavVisibility(): void {

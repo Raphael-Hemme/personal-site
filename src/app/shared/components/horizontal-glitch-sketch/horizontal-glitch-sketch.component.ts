@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
+import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 
 interface RandomSlice {
   sliceXStart: number;
@@ -18,9 +19,23 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   public canvas: any;
 
-  constructor() {}
+  public canvWidth = 500;
+  public canvHeight = 500;
+
+  constructor(
+    private windowSizeService: WindowSizeService
+  ) {}
 
   ngOnInit() {
+    const currWindowWidth = window.innerWidth;
+    const currWindowHeight = window.innerHeight;
+    // ToDo: Use rxjs subscription on behavior subject / subject to be provided in windowSizeService
+    // that emits new events when window is resized instead of fixed window.innerWidth and -Height. Later.
+
+    currWindowWidth < 992 ? this.canvWidth = currWindowWidth - 20 : this.canvWidth = currWindowWidth - 35;
+    this.canvHeight = currWindowHeight;
+
+
     const sketch = (s: any) => {
       let img: any;
       let imgXStart = 0;
@@ -40,7 +55,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       }
 
       s.setup = () => {
-        let canvas2 = s.createCanvas(s.windowWidth, s.windowHeight);
+        let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('horizontal-glitch-sketch-wrapper');
         const currSketchWidth = s.width;
         if (currSketchWidth < 600) {
@@ -54,13 +69,13 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         s.frameRate(15)
         s.pixelDensity(1);
 
-        // s.background(...bgColor);
-        s.generateBackgroundGradient();
+        s.background(...bgColor);
+        // s.generateBackgroundGradient();
       };
 
       s.draw = () => {
-        // s.background(...bgColor)
-        s.generateBackgroundGradient();
+        s.background(...bgColor)
+        // s.generateBackgroundGradient();
         s.image(img, imgXStart, imgYStart, imgWidth, imgHeight);
 
         if (s.random(1) > 0.95) {

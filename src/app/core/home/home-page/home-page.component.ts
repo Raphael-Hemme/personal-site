@@ -46,18 +46,18 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subscriptions.add(
+    /* this.subscriptions.add(
       this.splashScreenService.splashScreenTimer$.subscribe(next => {
         this.splashScreenService.splashScreenStatus.next('off');
       })
-    )
+    ) */
 
     this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    /* this.subscriptions.unsubscribe(); */
   }
 
 }
