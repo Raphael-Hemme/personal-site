@@ -174,6 +174,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    console.log('removing "splash screen"');
     this.canvas.remove();
   }
 

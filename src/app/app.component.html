@@ -1,6 +1,6 @@
 <div class="app-component-container">
   <header>
-    <div class="menu">
+    <!-- <div class="menu">
       <nav class="menu-container">
 
         <div class="menu-logo-container">
@@ -18,21 +18,21 @@
           <li><a [routerLink]="['/about']" class="nav-item">ABOUT</a></li>
         </ul>
 
-        <button
-          (click)="toggleSidenavVisibility()"
-          class="menu-burger">
-            <span class="material-icons">
-            menu
-            </span>
-        </button>
-    </nav>
-  </div>
+      </nav>
+    </div> -->
+    <button
+      (click)="toggleSiteMenuVisibility()"
+      class="menu-burger">
+        <span class="material-icons">
+        menu
+        </span>
+    </button>
   </header>
 
-
+<!--
   <div class="sidenav-container" *ngIf="sidenavIsVisible">
 
-    <nav class="sidenav">
+     <nav class="sidenav">
       <ul class="sidenav-items-container">
         <li><a (click)="toggleSidenavVisibility()" class="nav-item" mat-list-item>Close</a></li>
         <li><a [routerLink]="['/blog']" class="nav-item" >BLOG</a></li>
@@ -42,7 +42,9 @@
     </nav>
 
     <div class="background-blur" (click)="toggleSidenavVisibility()"></div>
-  </div>
+  </div> -->
+
+  <app-site-menu *ngIf="siteMenuIsVisible"></app-site-menu>
 
   <div class="sidenav-content-container">
     <main class="main-content-container" #mainContentContainer>

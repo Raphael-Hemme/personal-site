@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public title = 'raphaelhemme';
   public splashScreenStatus = 'on';
-  public sidenavIsVisible = false;
+  public siteMenuIsVisible = false;
 
   private subscriptions: Subscription = new Subscription()
 
@@ -45,12 +45,12 @@ export class AppComponent implements OnInit, OnDestroy {
     /* this.subscriptions.unsubscribe(); */
   }
 
-  public toggleSidenavVisibility(): void {
-    this.sidenavIsVisible = !this.sidenavIsVisible;
+  public toggleSiteMenuVisibility(): void {
+    this.siteMenuIsVisible = !this.siteMenuIsVisible;
   }
 
   public handleLogoClick() {
-    this.sidenavIsVisible = false;
+    this.siteMenuIsVisible = false;
     this.router.navigate(['/'])
   }
 
