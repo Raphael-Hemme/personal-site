@@ -20,6 +20,16 @@
 
       </nav>
     </div> -->
+
+    <div class="menu-logo-container">
+      <img
+        src="assets/images/own-logo/rh-logo-06-green-small.png"
+        class="logo-negative-small"
+        alt="logo"
+        role="presentation"
+        (click)="handleLogoClick()" />
+    </div>
+
     <button
       (click)="toggleSiteMenuVisibility()"
       class="menu-burger">
@@ -44,7 +54,10 @@
     <div class="background-blur" (click)="toggleSidenavVisibility()"></div>
   </div> -->
 
-  <app-site-menu *ngIf="siteMenuIsVisible"></app-site-menu>
+  <app-site-menu
+    *ngIf="siteMenuIsVisible"
+    (closeSiteMenuEvent)="toggleSiteMenuVisibility()">
+  </app-site-menu>
 
   <div class="sidenav-content-container">
     <main class="main-content-container" #mainContentContainer>

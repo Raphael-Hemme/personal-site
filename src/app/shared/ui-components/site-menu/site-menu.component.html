@@ -1,12 +1,16 @@
-<div class="sidenav-container">
-
-  <nav class="sidenav">
-    <ul class="sidenav-items-container">
-      <li><a (click)="closeSiteMenu()" class="nav-item" mat-list-item>Close</a></li>
-      <li><a [routerLink]="['/blog']" class="nav-item" >BLOG</a></li>
-      <li><a [routerLink]="['/io-garden']" class="nav-item">IO-GARDEN</a></li>
-      <li><a [routerLink]="['/about']" class="nav-item">ABOUT</a></li>
-    </ul>
-  </nav>
-
-</div>
+<nav class="menu-container" (click)="closeSiteMenu()">
+  <ul class="nav-list">
+    <li class="nav-item" (click)="handleBlogBtn()">
+      blog
+    </li>
+    <li class="nav-item" (click)="handleIoGardenBtn()">
+      io-garden
+    </li>
+    <li class="nav-item" (click)="handleAboutBtn()">
+      about
+    </li>
+    <li class="nav-item" (click)="handleCloseBtn()">
+      close
+    </li>
+  </ul>
+</nav>

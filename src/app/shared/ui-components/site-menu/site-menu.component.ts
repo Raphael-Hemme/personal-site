@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-site-menu',
@@ -9,12 +10,33 @@ export class SiteMenuComponent implements OnInit {
 
   @Output() closeSiteMenuEvent: EventEmitter<boolean> = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
-  closeSiteMenu(): void {
+  public closeSiteMenu(): void {
+    this.closeSiteMenuEvent.emit(true);
+  }
+
+  public handleCloseBtn(): void {
+    this.closeSiteMenu()
+  }
+
+  public handleBlogBtn(): void {
+    this.router.navigate(['/blog']);
+    this.closeSiteMenuEvent.emit(true);
+  }
+
+  public handleIoGardenBtn(): void {
+    this.router.navigate(['/io-garden']);
+    this.closeSiteMenuEvent.emit(true);
+  }
+
+  public handleAboutBtn(): void {
+    this.router.navigate(['/about']);
     this.closeSiteMenuEvent.emit(true);
   }
 
