@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { SplashScreenService } from './shared/services/splash-screen-service/splash-screen.service';
 import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
 
@@ -16,6 +16,9 @@ export class AppComponent implements OnInit, OnDestroy {
   public title = 'raphaelhemme';
   public splashScreenStatus = 'on';
   public siteMenuIsVisible = false;
+  public smallLogoIsVisible = false;
+
+  private scrollEventObserver = fromEvent(document, 'scroll');
 
   private subscriptions: Subscription = new Subscription()
 
@@ -32,6 +35,9 @@ export class AppComponent implements OnInit, OnDestroy {
         this.splashScreenStatus = res
       })
     ) */
+    this.subscriptions.add(
+      this.scrollEventObserver.subscribe(() => this.handleScrollEvent(window.scrollY))
+    )
   }
 
   ngAfterViewInit(): void {
@@ -52,6 +58,10 @@ export class AppComponent implements OnInit, OnDestroy {
   public handleLogoClick() {
     this.siteMenuIsVisible = false;
     this.router.navigate(['/'])
+  }
+
+  private handleScrollEvent(currScrollY: number): void {
+    currScrollY >= window.innerHeight ? this.smallLogoIsVisible = true : this.smallLogoIsVisible = false;
   }
 
 }

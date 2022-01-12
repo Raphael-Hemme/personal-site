@@ -21,14 +21,14 @@
       </nav>
     </div> -->
 
-    <div class="menu-logo-container">
+    <button class="menu-logo-btn" *ngIf="smallLogoIsVisible">
       <img
         src="assets/images/own-logo/rh-logo-06-green-small.png"
-        class="logo-negative-small"
-        alt="logo"
+        class="logo-small"
+        alt="logo and home button"
         role="presentation"
         (click)="handleLogoClick()" />
-    </div>
+    </button>
 
     <button
       (click)="toggleSiteMenuVisibility()"

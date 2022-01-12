@@ -21,6 +21,11 @@ export class SiteMenuComponent implements OnInit {
     this.closeSiteMenuEvent.emit(true);
   }
 
+  public handleHomeBtn(): void {
+    this.router.navigate(['/']);
+    this.closeSiteMenuEvent.emit(true);
+  }
+
   public handleCloseBtn(): void {
     this.closeSiteMenu()
   }

@@ -6,49 +6,6 @@
 
 // ----- top menu
 
-/* .menu {
-  height: 52px;
-  width: 100%;
-  @media (min-width: 720px) {
-    height: 60px;
-    width: 100%;
-  }
-  position: fixed;
-  z-index: 200;
-  top: 0;
-  border-bottom: 1px solid rgba(240, 240, 240, 0.1)
-} */
-
-/* .menu,
-.sidenav {
-  // background-color: $subtle-one;
-  background-color: rgba(70, 129, 137, 0.85);
-  // background-color: rgba(39,45, 55, 0.85);
-  // backdrop-filter: blur(5px);
-} */
-
-/* .menu-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  padding: 2px 20px;
-} */
-
-/* .topnav-items-container {
-  display: none;
-  @media (min-width: 720px) {
-    display: flex;
-    ul, li {
-      list-style-type: none;
-    }
-    a {
-      text-decoration: none;
-    }
-  }
-} */
-
 header {
   position: fixed;
   top: 0;
@@ -56,6 +13,10 @@ header {
   width: 70px;
   height: 150px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   @media (min-width: 920px) {
     width: 100px;
   }
@@ -66,23 +27,27 @@ header {
   border: none;
   .material-icons {
     color: $brand;
-    font-size: 2rem;
+    font-size: 40px;
+  }
+  @media (min-width: 720px) {
+    font-size: 40px;
   }
 }
 
 
 // ----- Logo
 
-.menu-logo-container {
-  height: 100%;
+.menu-logo-btn {
+  border: none;
+  background-color: transparent;
 }
 
-.logo-negative-small {
+.logo-small {
   cursor: pointer;
-  height: 48px;
+  height: 40px;
   border-radius: 10px;
   @media (min-width: 720px) {
-    height: 56px;
+    height: 40px;
   }
 }
 
