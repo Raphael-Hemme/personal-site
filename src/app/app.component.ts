@@ -1,8 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { fromEvent, Subscription } from 'rxjs';
-import { SplashScreenService } from './shared/services/splash-screen-service/splash-screen.service';
+import { Location } from '@angular/common';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef } from '@angular/core';
+import { Router, NavigationEnd  } from '@angular/router';
+import {
+  BehaviorSubject,
+  fromEvent,
+  Subscription,
+  switchMap,
+  filter,
+  map } from 'rxjs';
 import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
+
 
 @Component({
   selector: 'app-root',
@@ -19,13 +31,15 @@ export class AppComponent implements OnInit, OnDestroy {
   public smallLogoIsVisible = false;
 
   private scrollEventObserver = fromEvent(document, 'scroll');
+  private currRoute: BehaviorSubject<string> = new BehaviorSubject('');
+  private currScrollY: BehaviorSubject<number> = new BehaviorSubject(0);
 
   private subscriptions: Subscription = new Subscription()
 
   constructor(
-    private splashScreenService: SplashScreenService,
     private windowSizeService: WindowSizeService,
     private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -36,19 +50,51 @@ export class AppComponent implements OnInit, OnDestroy {
       })
     ) */
     this.subscriptions.add(
-      this.scrollEventObserver.subscribe(() => this.handleScrollEvent(window.scrollY))
+      this.scrollEventObserver.subscribe(() => this.currScrollY.next(window.scrollY))
+    )
+    this.subscriptions.add(
+      this.router.events
+        .pipe(
+          filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+          map(e => { return e }))
+        .subscribe(() => {
+          this.currRoute.next(this.location.path());
+      })
+    )
+    this.subscriptions.add(
+      this.currRoute.pipe(
+        switchMap(route => {
+          console.log('route = ', route)
+          if (route) {
+            console.log('route !== ""')
+            console.log('setting smallLogoIsVisible = true')
+            this.smallLogoIsVisible = true;
+            return this.currScrollY
+          } else {
+            return this.currScrollY
+          }
+        })
+      ).subscribe(currScrollY => {
+        console.log('currScrollY = ', currScrollY);
+        console.log('entered actual subscription')
+        if (currScrollY <= window.innerHeight) {
+          console.log('setting smallLogoIsVisible = false')
+          this.smallLogoIsVisible = false;
+        } else {
+          console.log('setting smallLogoIsVisible = true')
+          this.smallLogoIsVisible = true;
+        }
+      })
     )
   }
 
   ngAfterViewInit(): void {
-    // console.log('setting width in service to: ', this.mainContentContainer.nativeElement.offsetWidth);
     this.windowSizeService.setCurrentMainContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
-    // console.log('setting height in service to: ', this.mainContentContainer.nativeElement.offsetHeight);
     this.windowSizeService.setCurrentMainContainerHeight(this.mainContentContainer.nativeElement.offsetHeight)
   }
 
   ngOnDestroy(): void {
-    /* this.subscriptions.unsubscribe(); */
+    this.subscriptions.unsubscribe();
   }
 
   public toggleSiteMenuVisibility(): void {
@@ -60,8 +106,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate(['/'])
   }
 
-  private handleScrollEvent(currScrollY: number): void {
+/*   private handleScrollEvent(currScrollY: number): void {
     currScrollY >= window.innerHeight ? this.smallLogoIsVisible = true : this.smallLogoIsVisible = false;
+  } */
+
+  private handleSmallLogoVisibility(currScrollY: number): void {
+    if (currScrollY >= window.innerHeight) {
+      this.smallLogoIsVisible = false
+    }
   }
 
 }
