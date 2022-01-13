@@ -106,14 +106,4 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate(['/'])
   }
 
-/*   private handleScrollEvent(currScrollY: number): void {
-    currScrollY >= window.innerHeight ? this.smallLogoIsVisible = true : this.smallLogoIsVisible = false;
-  } */
-
-  private handleSmallLogoVisibility(currScrollY: number): void {
-    if (currScrollY >= window.innerHeight) {
-      this.smallLogoIsVisible = false
-    }
-  }
-
 }
