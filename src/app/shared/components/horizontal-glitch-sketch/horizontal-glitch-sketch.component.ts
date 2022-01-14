@@ -22,11 +22,22 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   public canvWidth = 500;
   public canvHeight = 500;
 
+  private imgWidth = 500;
+  private imgHeight = 500;
+
+  private imgXStart: number = this.canvWidth / 2 - 250;
+  private imgYStart: number = this.canvWidth / 2 - 250;
+
   constructor(
     private windowSizeService: WindowSizeService
   ) {}
 
   ngOnInit() {
+
+    this.windowSizeService.windowWidth$.subscribe(() => {
+      this.triggerResize();
+    })
+
     const currWindowWidth = window.innerWidth;
     const currWindowHeight = window.innerHeight;
     // ToDo: Use rxjs subscription on behavior subject / subject to be provided in windowSizeService
@@ -35,13 +46,11 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
     currWindowWidth < 992 ? this.canvWidth = currWindowWidth - 20 : this.canvWidth = currWindowWidth - 35;
     this.canvHeight = currWindowHeight;
 
-
     const sketch = (s: any) => {
       let img: any;
-      let imgXStart = 0;
-      let imgYStart = 0;
-      let imgWidth = 500;
-      let imgHeight = 500;
+/*       let imgXStart = 0;
+      let imgYStart = 0; */
+
 
       // const bgColor = [53, 30, 87];
       // const bgColor = [8, 84, 94];
@@ -58,13 +67,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('horizontal-glitch-sketch-wrapper');
         const currSketchWidth = s.width;
-        if (currSketchWidth < 600) {
-          imgWidth = currSketchWidth / 10 * 6;
-          imgHeight = currSketchWidth / 10 * 6;
-        }
-
-        imgXStart = s.width / 2 - imgWidth / 2;
-        imgYStart = s.height / 2 - imgHeight / 2;
+        this.setImgSize(this.canvWidth, this.canvHeight);
+        this.setCenteredPosition(this.canvWidth, this.canvHeight);
 
         s.frameRate(15)
         s.pixelDensity(1);
@@ -76,7 +80,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       s.draw = () => {
         s.background(...bgColor)
         // s.generateBackgroundGradient();
-        s.image(img, imgXStart, imgYStart, imgWidth, imgHeight);
+        s.image(img, this.imgXStart, this.imgYStart, this.imgWidth, this.imgHeight);
 
         if (s.random(1) > 0.95) {
           const randSlicesCount = s.int(s.random(5, 30))
@@ -141,8 +145,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         const randSliceWidth = s.int(s.random(10, 100));
         const randSliceHeight = s.int(s.random(2, 10));
         return {
-          sliceXStart: s.int(s.random(imgXStart, (imgXStart + (imgWidth - randSliceWidth)))),
-          sliceYStart: s.int(s.random(imgYStart, (imgYStart + (imgHeight - randSliceHeight)))),
+          sliceXStart: s.int(s.random(this.imgXStart, (this.imgXStart + (this.imgWidth - randSliceWidth)))),
+          sliceYStart: s.int(s.random(this.imgYStart, (this.imgYStart + (this.imgHeight - randSliceHeight)))),
           sliceWidth: randSliceWidth,
           sliceHeight: randSliceHeight
         }
@@ -171,6 +175,33 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
     };
 
     this.canvas = new p5(sketch);
+  }
+
+  private triggerResize(): void {
+    window.innerWidth < 992 ? this.canvWidth = window.innerWidth - 20 : this.canvWidth = window.innerWidth - 35;
+    this.canvHeight = window.innerHeight;
+
+    // this.canvas.resizeCanvas(50, 50);
+    this.canvas.resizeCanvas(this.canvWidth, this.canvHeight);
+    this.setImgSize(this.canvWidth, this.canvHeight);
+    this.setCenteredPosition(this.canvWidth, this.canvHeight);
+
+  }
+
+  private setCenteredPosition(canvWidth: number, canvHeight: number): void {
+    this.imgXStart = canvWidth / 2 - this.imgWidth / 2;
+    this.imgYStart = canvHeight / 2 - this.imgHeight / 2;
+    console.log(this.imgXStart, this.imgYStart)
+  }
+
+  private setImgSize(canvWidth: number, canvHeight: number): void {
+    if (canvWidth < 600) {
+      this.imgWidth = canvWidth / 10 * 6;
+      this.imgHeight = canvWidth / 10 * 6;
+    } else {
+      this.imgWidth = 500;
+      this.imgHeight = 500;
+    }
   }
 
   ngOnDestroy(): void {
