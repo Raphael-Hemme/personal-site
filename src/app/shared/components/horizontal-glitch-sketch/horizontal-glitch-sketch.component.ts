@@ -34,14 +34,12 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.windowSizeService.windowWidth$.subscribe(() => {
+    this.windowSizeService.windowResize$.subscribe(() => {
       this.triggerResize();
     })
 
     const currWindowWidth = window.innerWidth;
     const currWindowHeight = window.innerHeight;
-    // ToDo: Use rxjs subscription on behavior subject / subject to be provided in windowSizeService
-    // that emits new events when window is resized instead of fixed window.innerWidth and -Height. Later.
 
     currWindowWidth < 992 ? this.canvWidth = currWindowWidth - 20 : this.canvWidth = currWindowWidth - 35;
     this.canvHeight = currWindowHeight;

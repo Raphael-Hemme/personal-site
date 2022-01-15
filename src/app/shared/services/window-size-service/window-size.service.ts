@@ -22,7 +22,7 @@ export class WindowSizeService {
   private currMainContainerWidth = 0;
   private currMainContainerHeight = 0;
 
-  public windowWidth$: Observable<any> = fromEvent(window, 'resize');
+  public windowResize$: Observable<any> = fromEvent(window, 'resize');
 
   constructor() { }
 

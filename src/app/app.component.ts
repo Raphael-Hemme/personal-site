@@ -11,6 +11,7 @@ import {
   fromEvent,
   Subscription,
   switchMap,
+  combineLatest,
   filter,
   map } from 'rxjs';
 import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
@@ -62,12 +63,9 @@ export class AppComponent implements OnInit, OnDestroy {
       })
     )
     this.subscriptions.add(
-      this.currRoute.pipe(
+      /* this.currRoute.pipe(
         switchMap(route => {
-          console.log('route = ', route)
           if (route) {
-            console.log('route !== ""')
-            console.log('setting smallLogoIsVisible = true')
             this.smallLogoIsVisible = true;
             return this.currScrollY
           } else {
@@ -75,13 +73,18 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         })
       ).subscribe(currScrollY => {
-        console.log('currScrollY = ', currScrollY);
-        console.log('entered actual subscription')
         if (currScrollY <= window.innerHeight) {
-          console.log('setting smallLogoIsVisible = false')
           this.smallLogoIsVisible = false;
         } else {
-          console.log('setting smallLogoIsVisible = true')
+          this.smallLogoIsVisible = true;
+        }
+      }) */
+      combineLatest([this.currRoute, this.currScrollY]).subscribe(([currRoute, currScrollY]) => {
+        if (currRoute) {
+          this.smallLogoIsVisible = true;
+        } else if (!currRoute && currScrollY <= window.innerHeight) {
+          this.smallLogoIsVisible = false;
+        } else {
           this.smallLogoIsVisible = true;
         }
       })
