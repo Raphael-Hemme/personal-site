@@ -1,3 +1,10 @@
+.home-page-container {
+  padding: 0;
+  @media (min-width: 576px) {
+    padding: 20px 80px;
+  }
+}
+
 .featured-container {
   display: flex;
   flex-direction: column;

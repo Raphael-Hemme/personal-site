@@ -1,21 +1,23 @@
 <app-horizontal-glitch-sketch></app-horizontal-glitch-sketch>
+<div class="home-page-container">
+  <h1>Raphael Hemme</h1>
+  <h2>Developer,<br /> Cultural Anthropologist,<br /> Generative Design & Art Nerd</h2>
 
-<h1>Raphael Hemme</h1>
-<h2>Developer,<br /> Cultural Anthropologist,<br /> Generative Design & Art Nerd</h2>
-
-<div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
-  <div class="featured-io-garden-experiment">
-    <app-io-garden-experiment-preview
-      [metaData]="featuredIoGardenExperiment"
-      [imgPosition]="'top'"
-      class="io-garden-experiment-card">
-    </app-io-garden-experiment-preview>
-  </div>
-  <div class="featured-blog-post">
-    <app-blog-post-preview
-      [metaData]="featuredBlogPost"
-      [imgPosition]="'top'"
-      class="blog-posts-preview-card">
-    </app-blog-post-preview>
+  <div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
+    <div class="featured-io-garden-experiment">
+      <app-io-garden-experiment-preview
+        [metaData]="featuredIoGardenExperiment"
+        [imgPosition]="'top'"
+        class="io-garden-experiment-card">
+      </app-io-garden-experiment-preview>
+    </div>
+    <div class="featured-blog-post">
+      <app-blog-post-preview
+        [metaData]="featuredBlogPost"
+        [imgPosition]="'top'"
+        class="blog-posts-preview-card">
+      </app-blog-post-preview>
+    </div>
   </div>
 </div>
+
