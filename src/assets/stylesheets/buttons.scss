@@ -1,0 +1,80 @@
+// Buttons
+
+.btn-primary-flat,
+.btn-primary-shadow,
+.btn-primary-outline,
+.btn-accent-flat,
+.btn-accent-shadow,
+.btn-accent-outline,
+.btn-dark-flat,
+.btn-dark-shadow,
+.btn-dark-outline {
+  min-width: 60px;
+  padding: 0 5px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btn-primary-flat {
+  // color: $white;
+  // background-color: rgb(31, 124, 104);
+  color: #40514e;
+  background-color: $brand;
+  border: none;
+}
+
+.btn-primary-shadow {
+  // color: $white;
+  // background-color: rgb(31, 124, 104);
+  color: #40514e;
+  background-color: $brand;
+  border: none;
+  box-shadow: 0 0 2em #adadad;
+}
+
+.btn-primary-outline {
+  background-color: transparent;
+  // color: rgb(31, 124, 104);
+  // border: 1px solid rgb(31, 124, 104);
+  border: 1px solid $brand;
+  color: $brand;
+}
+
+.btn-accent-flat {
+  color: $white;
+  background-color: $accent;
+  border: none;
+}
+
+.btn-accent-shadow {
+  color: $white;
+  background-color: $accent;
+  border: none;
+  box-shadow: 0 0 2em #adadad;
+}
+
+.btn-accent-outline {
+  background-color: transparent;
+  color: $accent;
+  border: 1px solid $accent;
+}
+
+.btn-dark-flat {
+  color: $white;
+  background-color: $mid-gray;
+  border: none;
+}
+
+.btn-dark-shadow {
+  color: $white;
+  background-color: $mid-gray;
+  border: none;
+  box-shadow: 0 0 2em #adadad;
+}
+
+.btn-dark-outline {
+  background-color: transparent;
+  border: 1px solid $mid-gray;
+  color: $mid-gray;
+}

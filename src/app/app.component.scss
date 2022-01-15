@@ -22,7 +22,22 @@ header {
   }
 }
 
-.menu-burger {
+.header-background {
+  position: fixed;
+  top: 25px;
+  right: 10px;
+  width: 48px;
+  height: 96px;
+  background-color: rgba(51, 51, 51, 0.8);
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* .menu-burger {
   background-color: transparent;
   border: none;
   .material-icons {
@@ -31,6 +46,24 @@ header {
   }
   @media (min-width: 720px) {
     font-size: 40px;
+  }
+} */
+
+.menu-burger {
+  height: 38px;
+  width: 38px;
+  background-color: transparent;
+  border: 0.7px solid $brand;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .material-icons {
+    color: $brand;
+    font-size: 30px;
+    @media (min-width: 720px) {
+      font-size: 40px;
+    }
   }
 }
 

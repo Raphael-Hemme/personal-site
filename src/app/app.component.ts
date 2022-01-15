@@ -63,22 +63,6 @@ export class AppComponent implements OnInit, OnDestroy {
       })
     )
     this.subscriptions.add(
-      /* this.currRoute.pipe(
-        switchMap(route => {
-          if (route) {
-            this.smallLogoIsVisible = true;
-            return this.currScrollY
-          } else {
-            return this.currScrollY
-          }
-        })
-      ).subscribe(currScrollY => {
-        if (currScrollY <= window.innerHeight) {
-          this.smallLogoIsVisible = false;
-        } else {
-          this.smallLogoIsVisible = true;
-        }
-      }) */
       combineLatest([this.currRoute, this.currScrollY]).subscribe(([currRoute, currScrollY]) => {
         if (currRoute) {
           this.smallLogoIsVisible = true;

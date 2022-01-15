@@ -53,12 +53,11 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       // const bgColor = [53, 30, 87];
       // const bgColor = [8, 84, 94];
       // const bgColor = [35, 14, 59];
-
-      const bgColor = [70, 129, 137]
+      // const bgColor = [70, 129, 137]
+      const bgColor = [119, 172, 162];
 
       s.preload = () => {
         img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-06-green.png')
-        // img = s.loadImage('./../../../../../assets/images/photos/profile-photo-01-glitch-500.jpg')
       }
 
       s.setup = () => {
@@ -80,7 +79,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         // s.generateBackgroundGradient();
         s.image(img, this.imgXStart, this.imgYStart, this.imgWidth, this.imgHeight);
 
-        if (s.random(1) > 0.95) {
+        if (s.random(1) > 0.92) {
           const randSlicesCount = s.int(s.random(5, 30))
           for (let i = 0; i <= randSlicesCount; i++) {
             const currSliceDataObj = s.generateRandomSlice();
@@ -98,10 +97,10 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
               currSliceDataObj.sliceHeight
             )
           };
-/*           for (let i = 0; i <= randSlicesCount / 2; i++) {
+          /* for (let i = 0; i <= randSlicesCount / 2; i++) {
             const currSliceDataObj = s.generateRandomSlice();
               s.noStroke()
-              s.fill(100, 40)
+              s.fill(50)
               s.rect(
                 s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart),
                 currSliceDataObj.sliceYStart,
@@ -122,21 +121,34 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
           }; */
         }
 
-        if (s.random(1) > 0.98) {
+/*         if (s.random(1) > 0.96) { // 0.98
           const randSlicesCount = s.int(s.random(5, 10))
           for (let i = 0; i <= randSlicesCount; i++) {
             const currSliceDataObj = s.generateRandomSlice();
             s.noStroke()
-            s.fill(100, 40)
+            // s.fill(100, 40)
+            s.fill(70, 129, 137, 80)
             s.rect(
-/*            s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, 600), */
               s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, s.width - s.width / 6),
               currSliceDataObj.sliceYStart,
               currSliceDataObj.sliceWidth,
               currSliceDataObj.sliceHeight
             )
           };
-        }
+          const randSlicesCount2 = s.int(s.random(5, 10))
+          for (let i = 0; i <= randSlicesCount2; i++) {
+            const currSliceDataObj = s.generateRandomSlice();
+            s.noStroke()
+            // s.fill(100, 40);
+            s.fill(175, 212, 209, 80);
+            s.rect(
+              s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, s.width - s.width / 6),
+              currSliceDataObj.sliceYStart,
+              currSliceDataObj.sliceWidth,
+              currSliceDataObj.sliceHeight
+            );
+          };
+        } */
       };
 
       s.generateRandomSlice = (): RandomSlice => {
