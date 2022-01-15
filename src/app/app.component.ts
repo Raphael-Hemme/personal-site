@@ -76,8 +76,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.windowSizeService.setCurrentMainContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
-    this.windowSizeService.setCurrentMainContainerHeight(this.mainContentContainer.nativeElement.offsetHeight)
+    /* this.windowSizeService.setCurrentMainContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
+    this.windowSizeService.setCurrentMainContainerHeight(this.mainContentContainer.nativeElement.offsetHeight) */
   }
 
   ngOnDestroy(): void {
