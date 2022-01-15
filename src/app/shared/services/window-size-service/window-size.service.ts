@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, fromEvent } from 'rxjs';
+import { BehaviorSubject, Observable, fromEvent, switchMap, startWith, tap } from 'rxjs';
 
 export interface CanvasSizeReturnObj {
   'width': number;
@@ -23,11 +23,24 @@ export class WindowSizeService {
   private currMainContainerHeight = 0;
 
   public windowResize$: Observable<any> = fromEvent(window, 'resize');
+  public currWindowWidth$: BehaviorSubject<number> = new BehaviorSubject(window.innerWidth);
+  public currWindowHeight$: BehaviorSubject<number> = new BehaviorSubject(window.innerHeight);
 
   constructor() { }
 
   public getCurrentWindowInnerWidth(): number {
     return window.innerWidth;
+  }
+
+  public getDynamicWindowInnerWidth(): Observable<number> {
+    return this.windowResize$.pipe(
+      tap(() => {
+        this.currWindowWidth$.next(window.innerWidth)
+      }),
+      switchMap(() => {
+        return this.currWindowWidth$
+      })
+    )
   }
 
   public setCurrentMainContainerWidth(value: number): void {

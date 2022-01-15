@@ -20,6 +20,14 @@
   }
 }
 
+h2 {
+  @media (min-width: 720px) {
+    br {
+      display: none;
+    }
+  }
+}
+
 
 /* .blog-posts-preview-card,
 .io-garden-experiment-card {
