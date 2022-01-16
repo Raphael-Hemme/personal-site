@@ -1,3 +1,5 @@
+@import '/src/styles.scss';
+
 .home-page-container {
   padding: 0;
   @media (min-width: 576px) {
@@ -45,3 +47,22 @@ h2 {
     height: 200px;
   }
 } */
+
+
+.tag-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 0 20px 0;
+  gap: 5px;
+}
+
+.tag-item {
+  background-color: $brand;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0;
+  list-style: none;
+}

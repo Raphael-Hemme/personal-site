@@ -54,5 +54,11 @@ export class BlogService {
     return this.postsMetaData[randomIndex]
   }
 
-
+  public getAllBlogTags(): string[] {
+    const resultArr: string[] = [];
+    this.postsMetaData.forEach(entry => {
+      resultArr.push(...entry.tags)
+    });
+    return resultArr;
+  }
 }

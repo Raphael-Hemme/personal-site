@@ -36,6 +36,7 @@ import { SiteMenuComponent } from './ui-components/site-menu/site-menu.component
     ProfilePhotoSketchComponent,
     HorizontalGlitchSketchComponent,
     IoGardenExperimentPreviewComponent,
+    IoGardenExperimentContainerComponent,
     TagListComponent,
     SiteMenuComponent
   ]

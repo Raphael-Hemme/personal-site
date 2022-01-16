@@ -52,8 +52,14 @@ export class IoGardenService {
 
   public getRandomIoGardenExperimentMetaData(): IoGardenExperimentMetaData {
     const randomIndex = Math.floor(Math.random() * this.experimentMetaData.length);
-/*     console.log('this.experimentMetaData.length', this.experimentMetaData.length);
-    console.log('randomIndex', randomIndex); */
     return this.experimentMetaData[randomIndex]
+  }
+
+  public getAllIoGardenExperimentTags(): string[] {
+    const resultArr: string[] = [];
+    this.experimentMetaData.forEach(entry => {
+      resultArr.push(...entry.tags)
+    });
+    return resultArr;
   }
 }

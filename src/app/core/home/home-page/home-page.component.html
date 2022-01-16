@@ -3,6 +3,7 @@
   <h1>Raphael Hemme</h1>
   <h2>Developer,<br /> Cultural Anthropologist,<br /> Generative Design & Art Nerd</h2>
 
+  <h3>Interested in a randomly picked bolog post or experiment?</h3>
   <div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
     <div class="featured-io-garden-experiment">
       <app-io-garden-experiment-preview
@@ -18,6 +19,16 @@
         class="blog-posts-preview-card">
       </app-blog-post-preview>
     </div>
+  </div>
+
+  <div class="tag-selection-container">
+    <ul class="tag-container">
+      <li
+        class="tag-item"
+        *ngFor="let tagItem of unifiedAndCountedTagsArr">
+          {{ tagItem.name }} | {{tagItem.count}}
+    </li>
+    </ul>
   </div>
 </div>
 

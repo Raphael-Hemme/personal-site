@@ -3,6 +3,15 @@ import { Subscription } from 'rxjs';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { SplashScreenService } from 'src/app/shared/services/splash-screen-service/splash-screen.service';
+import _ from 'lodash';
+
+interface TagObjNameAndCount {
+  name: string;
+  count: number;
+}
+interface CountObj {
+  [key: string]: number;
+}
 
 @Component({
   selector: 'app-home-page',
@@ -11,33 +20,15 @@ import { SplashScreenService } from 'src/app/shared/services/splash-screen-servi
 })
 export class HomePageComponent implements OnInit {
 
-  private subscriptions: Subscription = new Subscription()
+  // private subscriptions: Subscription = new Subscription()
 
-  public featuredBlogPost: BlogPostMetaData = {
-    'id': '',
-    'title': '',
-    'subtitle': '',
-    'dateOriginal': '',
-    'dateLastEdited': '',
-    'state': 0,
-    'postPath': '',
-    'previewImageUrl': '',
-    'tags': []
-  };
+  public featuredBlogPost!: BlogPostMetaData;
 
-  public featuredIoGardenExperiment: IoGardenExperimentMetaData = {
-    'id': '',
-    'title': '',
-    'subtitle': '',
-    'abstract': '',
-    'descriptionUrl': '',
-    'dateOriginal': '',
-    'dateLastEdited': '',
-    'state': 0,
-    'selector': '',
-    'previewImageUrl': '',
-    'tags': []
-  };
+  public featuredIoGardenExperiment!: IoGardenExperimentMetaData;
+
+  public allIoGardenTags: string[] = [];
+  public allBlogTags: string[] = [];
+  public unifiedAndCountedTagsArr!: TagObjNameAndCount[];
 
   constructor(
     private splashScreenService: SplashScreenService,
@@ -54,10 +45,63 @@ export class HomePageComponent implements OnInit {
 
     this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
+
+    this.allIoGardenTags = this.ioGardenService.getAllIoGardenExperimentTags();
+    console.log('this.allIoGardenTags: ', this.allIoGardenTags);
+
+    this.allBlogTags = this.blogService.getAllBlogTags();
+    console.log('this.allBlogTags: ', this.allBlogTags);
+
+    const unorderedUnifiedAndCountedArr = this.unifyAndCountTagArrays(this.allIoGardenTags, this.allBlogTags);
+    this.unifiedAndCountedTagsArr = _.orderBy(unorderedUnifiedAndCountedArr, 'count', 'desc');
+    console.log('this.unifiedAndCountedTagsArr: ', this.unifiedAndCountedTagsArr);
   }
 
   ngOnDestroy(): void {
     /* this.subscriptions.unsubscribe(); */
   }
 
+  private unifyAndCountTagArrays(arr1: string[], arr2: string[]): TagObjNameAndCount[]  {
+    const rawCombinedArr = [...arr1, ...arr2];
+    // console.log('rawCombinedArr: ', rawCombinedArr);
+    const countObj: CountObj = rawCombinedArr.reduce((acc, curr) => ({...acc, [curr]:0}), {});
+    rawCombinedArr.forEach(entry => countObj[entry] += 1);
+    // console.log('countObj: ', countObj);
+    const resultArr = Object.keys(countObj).map(el => {
+      return {
+        name: el,
+        count: countObj[el]
+      }
+    })
+    return resultArr;
+  }
+
 }
+
+
+/* = {
+  'id': '',
+  'title': '',
+  'subtitle': '',
+  'dateOriginal': '',
+  'dateLastEdited': '',
+  'state': 0,
+  'postPath': '',
+  'previewImageUrl': '',
+  'tags': []
+}; */
+
+
+/* = {
+  'id': '',
+  'title': '',
+  'subtitle': '',
+  'abstract': '',
+  'descriptionUrl': '',
+  'dateOriginal': '',
+  'dateLastEdited': '',
+  'state': 0,
+  'selector': '',
+  'previewImageUrl': '',
+  'tags': []
+}; */
