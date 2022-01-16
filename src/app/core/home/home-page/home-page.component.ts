@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+// import { Subscription } from 'rxjs';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { SplashScreenService } from 'src/app/shared/services/splash-screen-service/splash-screen.service';
@@ -74,6 +74,11 @@ export class HomePageComponent implements OnInit {
       }
     })
     return resultArr;
+  }
+
+  public handleRefreshFeaturedBtn() {
+    this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
+    this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
   }
 
 }

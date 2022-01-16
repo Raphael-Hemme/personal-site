@@ -61,4 +61,8 @@ export class BlogService {
     });
     return resultArr;
   }
+
+  public getIoGardenExperimentsByTag(tag: string): BlogPostMetaData[] {
+    return this.postsMetaData.filter(el => el.tags.includes(tag));
+  }
 }

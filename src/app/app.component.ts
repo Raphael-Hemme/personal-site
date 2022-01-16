@@ -10,7 +10,6 @@ import {
   BehaviorSubject,
   fromEvent,
   Subscription,
-  switchMap,
   combineLatest,
   filter,
   map } from 'rxjs';
