@@ -3,32 +3,35 @@
   <h1>Raphael Hemme</h1>
   <h2>Developer,<br /> Cultural Anthropologist,<br /> Generative Design & Art Nerd</h2>
 
-  <h3>Interested in a randomly picked bolog post or experiment?</h3>
-  <div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
-    <div class="featured-io-garden-experiment">
-      <app-io-garden-experiment-preview
-        [metaData]="featuredIoGardenExperiment"
-        [imgPosition]="'top'"
-        class="io-garden-experiment-card">
-      </app-io-garden-experiment-preview>
+  <section>
+    <h3>Interested in a randomly picked bolog post or experiment?</h3>
+    <div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
+      <div class="featured-io-garden-experiment">
+        <app-io-garden-experiment-preview
+          [metaData]="featuredIoGardenExperiment"
+          [imgPosition]="'top'"
+          class="io-garden-experiment-card">
+        </app-io-garden-experiment-preview>
+      </div>
+      <div class="featured-blog-post">
+        <app-blog-post-preview
+          [metaData]="featuredBlogPost"
+          [imgPosition]="'top'"
+          class="blog-posts-preview-card">
+        </app-blog-post-preview>
+      </div>
     </div>
-    <div class="featured-blog-post">
-      <app-blog-post-preview
-        [metaData]="featuredBlogPost"
-        [imgPosition]="'top'"
-        class="blog-posts-preview-card">
-      </app-blog-post-preview>
-    </div>
-  </div>
+  </section>
 
-  <div class="tag-selection-container">
+  <section class="tag-selection-container">
+    <h3>Select a topic of interest</h3>
     <ul class="tag-container">
       <li
         class="tag-item"
         *ngFor="let tagItem of unifiedAndCountedTagsArr">
           {{ tagItem.name }} | {{tagItem.count}}
-    </li>
+      </li>
     </ul>
-  </div>
+  </section>
 </div>
 

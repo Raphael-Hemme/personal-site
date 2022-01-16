@@ -48,6 +48,9 @@ h2 {
   }
 } */
 
+.tag-selection-container {
+  margin: 80px 0 0 0;
+}
 
 .tag-container{
   width: 100%;
@@ -60,9 +63,27 @@ h2 {
 }
 
 .tag-item {
-  background-color: $brand;
+  background-color: $light-gray;
   border-radius: 5px;
   padding: 5px 10px;
   margin: 0;
   list-style: none;
+  cursor: pointer;
 }
+
+.tag-item:hover,
+.tag-item:active {
+  background-color: $brand;
+}
+
+/* .high-count {
+  background-color: $brand;
+}
+
+.medium-count {
+  background-color: $subtle-one;
+}
+
+.low-count {
+  background-color: $light-gray;
+} */
