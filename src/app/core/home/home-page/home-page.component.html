@@ -42,15 +42,18 @@
   </section>
 
   <section class="tag-selection-section">
-    <h3>Select a topic of interest</h3>
-    <ul class="tag-container">
-      <li
-        class="tag-item"
-        *ngFor="let tagItem of unifiedAndCountedTagsArr"
-        (click)="handleTagSelection(tagItem.name)">
-          {{ tagItem.name }} | {{tagItem.count}}
-      </li>
-    </ul>
+    <div class="tag-selection-heading-and-tags">
+      <h3>Select a topic of interest</h3>
+      <ul class="tag-container">
+        <li
+          class="tag-item"
+          *ngFor="let tagItem of unifiedAndCountedTagsArr"
+          (click)="handleTagSelection(tagItem.name)">
+            {{ tagItem.name }} | {{tagItem.count}}
+        </li>
+      </ul>
+    </div>
+
 
     <div
       class="tag-result-container"
