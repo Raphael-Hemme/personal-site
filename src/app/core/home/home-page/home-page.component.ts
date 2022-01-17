@@ -30,6 +30,9 @@ export class HomePageComponent implements OnInit {
   public allBlogTags: string[] = [];
   public unifiedAndCountedTagsArr!: TagObjNameAndCount[];
 
+  public blogPostsAndExperimentsSelectedByTag!: (BlogPostMetaData | IoGardenExperimentMetaData)[];
+
+
   constructor(
     private splashScreenService: SplashScreenService,
     private ioGardenService: IoGardenService,
@@ -81,32 +84,12 @@ export class HomePageComponent implements OnInit {
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
   }
 
+  public handleTagSelection(tag: string): void {
+    const resultArr = [
+      ...this.blogService.getIoGardenExperimentsByTag(tag),
+      ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
+    ]
+    this.blogPostsAndExperimentsSelectedByTag = _.orderBy(resultArr, 'phase' ,'desc')
+  }
+
 }
-
-
-/* = {
-  'id': '',
-  'title': '',
-  'subtitle': '',
-  'dateOriginal': '',
-  'dateLastEdited': '',
-  'state': 0,
-  'postPath': '',
-  'previewImageUrl': '',
-  'tags': []
-}; */
-
-
-/* = {
-  'id': '',
-  'title': '',
-  'subtitle': '',
-  'abstract': '',
-  'descriptionUrl': '',
-  'dateOriginal': '',
-  'dateLastEdited': '',
-  'state': 0,
-  'selector': '',
-  'previewImageUrl': '',
-  'tags': []
-}; */

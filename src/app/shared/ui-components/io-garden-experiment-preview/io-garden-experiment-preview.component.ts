@@ -13,19 +13,7 @@ type ImgOrientation = 'top' | 'left' | 'right';
 export class IoGardenExperimentPreviewComponent implements OnInit {
 
   @Input() imgPosition: ImgOrientation = 'top';
-  @Input() metaData: IoGardenExperimentMetaData = {
-    'id': '',
-    'title': '',
-    'subtitle': '',
-    'abstract': '',
-    'descriptionUrl': '',
-    'dateOriginal': '',
-    'dateLastEdited': '',
-    'state': 0,
-    'selector': '',
-    'previewImageUrl': '',
-    'tags': []
-  };
+  @Input() metaData!: IoGardenExperimentMetaData;
 
   public previewOrintationClass = '';
 

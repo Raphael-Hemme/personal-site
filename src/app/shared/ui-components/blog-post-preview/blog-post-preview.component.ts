@@ -13,17 +13,7 @@ type ImgOrientation = 'top' | 'left' | 'right';
 export class BlogPostPreviewComponent implements OnInit {
 
   @Input() imgPosition: ImgOrientation = 'top';
-  @Input() metaData: BlogPostMetaData = {
-    'id': '',
-    'title': '',
-    'subtitle': '',
-    'dateOriginal': '',
-    'dateLastEdited': '',
-    'state': 0,
-    'postPath': '',
-    'previewImageUrl': '',
-    'tags': []
-  };
+  @Input() metaData!: BlogPostMetaData;
   // @Output() blogPostReadBtnEvent: EventEmitter<string> = new EventEmitter();
 
   public hslBgColorString: string = ''

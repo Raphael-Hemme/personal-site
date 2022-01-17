@@ -11,7 +11,7 @@ export interface IoGardenExperimentMetaData {
   'descriptionUrl'?: string;
   'dateOriginal'?: string;
   'dateLastEdited'?: string;
-  'state': number;
+  'phase': number;
   'selector': string;
   'previewImageUrl': string;
   'tags'?: any[];

@@ -9,7 +9,7 @@ export interface BlogPostMetaData {
   'subtitle'?: string;
   'dateOriginal'?: string;
   'dateLastEdited'?: string;
-  'state': number;
+  'phase': number;
   'postPath': string;
   'previewImageUrl': string;
   'tags'?: any[];
