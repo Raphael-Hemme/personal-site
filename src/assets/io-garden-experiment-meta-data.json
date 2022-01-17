@@ -2,13 +2,11 @@
     {
       "id": "te-a001",
       "title": "Typography Experiment A001",
-      "subtitle": "",
       "abstract": "",
       "descriptionUrl": "assets/io-garden-experiment-descriptions/te-a001-description.md",
       "dateOriginal": "2021-11-14",
       "dateLastEdited": "2021-12-30",
       "phase": 1,
-      "selector": "<app-te-a001></app-te-a001>",
       "previewImageUrl": "assets/images/io-garden-preview-images/te-a001-preview.png",
       "tags": [
         "coding",
@@ -21,13 +19,11 @@
     {
       "id": "cme-a001",
       "title": "Cursor Madness Experiment",
-      "subtitle": "",
       "abstract": "",
       "descriptionUrl": "assets/io-garden-experiment-descriptions/cme-a001-description.md",
       "dateOriginal": "2021-12-16",
       "dateLastEdited": "2021-12-16",
       "phase": 1,
-      "selector": "",
       "previewImageUrl": "assets/images/io-garden-preview-images/cme-a001-preview.png",
       "tags": [
         "coding",
@@ -40,13 +36,11 @@
     {
       "id": "le-a001",
       "title": "Lichen Experiment A001",
-      "subtitle": "",
       "abstract": "",
       "descriptionUrl": "assets/io-garden-experiment-descriptions/le-a001-description.md",
       "dateOriginal": "2021-10-25",
       "dateLastEdited": "2021-12-29",
       "phase": 1,
-      "selector": "",
       "previewImageUrl": "assets/images/io-garden-preview-images/le-a001-preview.png",
       "tags": [
         "coding",

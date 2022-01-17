@@ -55,8 +55,14 @@
     <div
       class="tag-result-container"
       *ngIf="blogPostsAndExperimentsSelectedByTag">
-        <div *ngFor="let result of blogPostsAndExperimentsSelectedByTag">
-          <h4>{{ result.id }}</h4>
+        <div
+          class="tag-selection-result-wrapper"
+          *ngFor="let result of blogPostsAndExperimentsSelectedByTag">
+            <app-blog-post-preview
+              [metaData]="result"
+              [imgPosition]="'left'"
+              class="blog-posts-preview-card">
+            </app-blog-post-preview>
         </div>
     </div>
   </section>

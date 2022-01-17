@@ -85,6 +85,7 @@ export class HomePageComponent implements OnInit {
   }
 
   public handleTagSelection(tag: string): void {
+    this.blogPostsAndExperimentsSelectedByTag = [];
     const resultArr = [
       ...this.blogService.getIoGardenExperimentsByTag(tag),
       ...this.ioGardenService.getIoGardenExperimentsByTag(tag)

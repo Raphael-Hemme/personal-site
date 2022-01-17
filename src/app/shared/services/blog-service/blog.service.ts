@@ -6,11 +6,11 @@ import blogPostsMetaData from 'src/assets/blog-posts-meta-data.json';
 export interface BlogPostMetaData {
   'id': string;
   'title': string;
-  'subtitle'?: string;
+  'abstract'?: string;
+  'descriptionUrl'?: string;
   'dateOriginal'?: string;
   'dateLastEdited'?: string;
   'phase': number;
-  'postPath': string;
   'previewImageUrl': string;
   'tags'?: any[];
 }

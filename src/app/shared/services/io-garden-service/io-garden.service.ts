@@ -6,13 +6,11 @@ import ioGardenExperimentMetaData from 'src/assets/io-garden-experiment-meta-dat
 export interface IoGardenExperimentMetaData {
   'id': string;
   'title': string;
-  'subtitle'?: string;
   'abstract'?: string;
   'descriptionUrl'?: string;
   'dateOriginal'?: string;
   'dateLastEdited'?: string;
   'phase': number;
-  'selector': string;
   'previewImageUrl': string;
   'tags'?: any[];
 }
