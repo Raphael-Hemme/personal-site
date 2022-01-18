@@ -41,7 +41,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
     const currWindowWidth = window.innerWidth;
     const currWindowHeight = window.innerHeight;
 
-    currWindowWidth < 992 ? this.canvWidth = currWindowWidth - 20 : this.canvWidth = currWindowWidth - 35;
+    this.canvWidth = currWindowWidth - 35;
+    // currWindowWidth < 992 ? this.canvWidth = currWindowWidth - 30 : this.canvWidth = currWindowWidth - 35;
     this.canvHeight = currWindowHeight;
 
     const sketch = (s: any) => {
@@ -188,7 +189,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   }
 
   private triggerResize(): void {
-    window.innerWidth < 992 ? this.canvWidth = window.innerWidth - 20 : this.canvWidth = window.innerWidth - 35;
+    this.canvWidth = window.innerWidth - 35;
+    // window.innerWidth < 992 ? this.canvWidth = window.innerWidth - 30 : this.canvWidth = window.innerWidth - 35;
     this.canvHeight = window.innerHeight;
 
     // this.canvas.resizeCanvas(50, 50);
