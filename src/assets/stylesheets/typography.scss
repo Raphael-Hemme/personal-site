@@ -21,6 +21,7 @@ h1 {
   // font-family: 'Titillium Web', sans-serif;
   font-size: 3rem;
   line-height: 1.5;
+  letter-spacing: 0.15rem;
   font-weight: 400;
   text-transform: uppercase;
   color: $brand;
@@ -33,7 +34,8 @@ h1 {
 
 h2 {
   font-size: 1.7rem;
-  line-height: 1.1;
+  line-height: 1.4;
+  letter-spacing: 0.12rem;
   margin: 0 0 40px 0;
   font-weight: 500;
   // color: $accent;
