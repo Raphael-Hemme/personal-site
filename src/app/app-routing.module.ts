@@ -22,7 +22,6 @@ const routes: Routes = [
     { path: 'te-a001', component: TeA001Component },
     { path: 'cme-a001', component: CmeA001Component },
     { path: 'le-a001', component: LeA001Component },
-    /* { path: 'specs', component: Specs } */
   ]
 },
   { path: '', component: HomePageComponent}

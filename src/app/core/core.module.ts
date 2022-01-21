@@ -14,6 +14,7 @@ import { TeA001Component } from './io-garden/components/te-a001/te-a001.componen
 import { CmeA001Component } from './io-garden/components/cme-a001/cme-a001.component';
 import { LeA001Component } from './io-garden/components/le-a001/le-a001.component';
 import { FormsModule } from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     SharedModule,
-    MarkdownModule
+    MarkdownModule,
+    RouterModule
   ],
   exports: [
     SplashScreenComponent,

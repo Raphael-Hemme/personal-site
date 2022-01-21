@@ -6,13 +6,11 @@ import ioGardenExperimentMetaData from 'src/assets/io-garden-experiment-meta-dat
 export interface IoGardenExperimentMetaData {
   'id': string;
   'title': string;
-  'subtitle'?: string;
   'abstract'?: string;
   'descriptionUrl'?: string;
   'dateOriginal'?: string;
   'dateLastEdited'?: string;
-  'state': number;
-  'selector': string;
+  'phase': number;
   'previewImageUrl': string;
   'tags'?: any[];
 }
@@ -52,8 +50,18 @@ export class IoGardenService {
 
   public getRandomIoGardenExperimentMetaData(): IoGardenExperimentMetaData {
     const randomIndex = Math.floor(Math.random() * this.experimentMetaData.length);
-/*     console.log('this.experimentMetaData.length', this.experimentMetaData.length);
-    console.log('randomIndex', randomIndex); */
     return this.experimentMetaData[randomIndex]
+  }
+
+  public getAllIoGardenExperimentTags(): string[] {
+    const resultArr: string[] = [];
+    this.experimentMetaData.forEach(entry => {
+      resultArr.push(...entry.tags)
+    });
+    return resultArr;
+  }
+
+  public getIoGardenExperimentsByTag(tag: string): IoGardenExperimentMetaData[] {
+    return this.experimentMetaData.filter(el => el.tags.includes(tag));
   }
 }

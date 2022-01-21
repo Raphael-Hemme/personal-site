@@ -13,19 +13,7 @@ export class IoGardenExperimentContainerComponent implements OnInit {
   // public experiment: any;
   public currExperiment: any;
   public currExperimentId: string = '';
-  public currexperimentMetaData: IoGardenExperimentMetaData = {
-    'id': '',
-    'title': '',
-    'subtitle': '',
-    'abstract': '',
-    'descriptionUrl': '',
-    'dateOriginal': '',
-    'dateLastEdited': '',
-    'state': 0,
-    'selector': '',
-    'previewImageUrl': '',
-    'tags': []
-  };
+  public currexperimentMetaData!: IoGardenExperimentMetaData;
   public currExperimentIdAsArr: any;
 
   constructor(

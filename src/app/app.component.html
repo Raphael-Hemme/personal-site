@@ -1,48 +1,28 @@
 <div class="app-component-container">
-  <header>
-    <div class="menu">
-      <nav class="menu-container">
+  <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
+    <button class="menu-logo-btn" *ngIf="smallLogoIsVisible">
+      <img
+        src="assets/images/own-logo/rh-logo-06-green-small.png"
+        class="logo-small"
+        alt="logo and home button"
+        role="presentation"
+        (click)="handleLogoClick()" />
+    </button>
 
-        <div class="menu-logo-container">
-          <img
-            src="assets/images/own-logo/rh-logo-06-green-small.png"
-            class="logo-negative-small"
-            alt="logo"
-            role="presentation"
-            (click)="handleLogoClick()" />
-        </div>
-
-        <ul class="topnav-items-container">
-          <li><a [routerLink]="['/io-garden']" class="nav-item">IO-GARDEN</a></li>
-          <li><a [routerLink]="['/blog']" class="nav-item">BLOG</a></li>
-          <li><a [routerLink]="['/about']" class="nav-item">ABOUT</a></li>
-        </ul>
-
-        <button
-          (click)="toggleSidenavVisibility()"
-          class="menu-burger">
-            <span class="material-icons">
-            menu
-            </span>
-        </button>
-    </nav>
-  </div>
+    <button
+      (click)="toggleSiteMenuVisibility()"
+      class="menu-burger"
+      type="button">
+        <span class="material-icons">
+        menu
+        </span>
+    </button>
   </header>
 
-
-  <div class="sidenav-container" *ngIf="sidenavIsVisible">
-
-    <nav class="sidenav">
-      <ul class="sidenav-items-container">
-        <li><a (click)="toggleSidenavVisibility()" class="nav-item" mat-list-item>Close</a></li>
-        <li><a [routerLink]="['/blog']" class="nav-item" >BLOG</a></li>
-        <li><a [routerLink]="['/io-garden']" class="nav-item">IO-GARDEN</a></li>
-        <li><a [routerLink]="['/about']" class="nav-item">ABOUT</a></li>
-      </ul>
-    </nav>
-
-    <div class="background-blur" (click)="toggleSidenavVisibility()"></div>
-  </div>
+  <app-site-menu
+    *ngIf="siteMenuIsVisible"
+    (closeSiteMenuEvent)="toggleSiteMenuVisibility()">
+  </app-site-menu>
 
   <div class="sidenav-content-container">
     <main class="main-content-container" #mainContentContainer>
@@ -52,4 +32,4 @@
 
 </div>
 
-<app-splash-screen class="splash-screen" *ngIf="splashScreenStatus === 'on'"></app-splash-screen>
+<!-- <app-splash-screen class="splash-screen" *ngIf="splashScreenStatus === 'on'"></app-splash-screen> -->

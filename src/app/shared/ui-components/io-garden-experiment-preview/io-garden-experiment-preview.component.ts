@@ -13,19 +13,7 @@ type ImgOrientation = 'top' | 'left' | 'right';
 export class IoGardenExperimentPreviewComponent implements OnInit {
 
   @Input() imgPosition: ImgOrientation = 'top';
-  @Input() experimentMetaData: IoGardenExperimentMetaData = {
-    'id': '',
-    'title': '',
-    'subtitle': '',
-    'abstract': '',
-    'descriptionUrl': '',
-    'dateOriginal': '',
-    'dateLastEdited': '',
-    'state': 0,
-    'selector': '',
-    'previewImageUrl': '',
-    'tags': []
-  };
+  @Input() metaData!: IoGardenExperimentMetaData;
 
   public previewOrintationClass = '';
 
@@ -36,6 +24,7 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // ToDo: Move this here and in blog-post-preview component into method on utilities service or similar
     switch (this.imgPosition) {
       case ('top'):
         this.previewOrintationClass = 'image-top-preview-card';
@@ -51,7 +40,7 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
     }
   }
 
-  public handleExamineBtn(id: string): void {
+  public handleExperimentPreviewReadBtn(id: string): void {
     this.router.navigate(['/io-garden', id, id]);
   }
 }

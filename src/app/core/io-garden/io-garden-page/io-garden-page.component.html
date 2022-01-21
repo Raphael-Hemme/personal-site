@@ -1,4 +1,4 @@
-<div>
+<div class="io-garden-page-container">
   <section>
     <header class="io-garden-header">
       <h1>Io-Garden</h1>
@@ -28,10 +28,9 @@
       class="io-garden-experiment-card"
       *ngFor="let experiment of ioExperimentDataArr">
         <app-io-garden-experiment-preview
-          [experimentMetaData]="experiment"
+          [metaData]="experiment"
           [imgPosition]="'left'">
         </app-io-garden-experiment-preview>
     </div>
   </section>
-
 </div>

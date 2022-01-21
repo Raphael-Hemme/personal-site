@@ -1,1 +1,84 @@
-<p>home-page works!</p>
+<app-horizontal-glitch-sketch></app-horizontal-glitch-sketch>
+<div class="blue-bg">
+  <div class="background-edge-container">
+    <div class="background-edge-bg-1"></div>
+    <div class="background-edge-bg-2"></div>
+    <div class="background-edge-element-1"></div>
+    <div class="background-edge-element-2"></div>
+  </div>
+
+
+<div class="home-page-container">
+  <h1>Raphael Hemme</h1>
+  <h2>Developer,<br /> Cultural Anthropologist,<br /> Generative Art Nerd</h2>
+
+  <section class="featured-section">
+    <div class="featured-section-text">
+      <h3>Interested in a randomly picked blog post or experiment?</h3>
+      <p>
+        Let chance decide what you might read. :)<br />
+      </p>
+      <p>
+        Curious? Use the button below to get a new random selection or go to
+        <a [routerLink]="['/io-garden']">io-garden</a> or <a [routerLink]="['/blog']">blog</a>
+        for a list of all available posts and experiments.
+      </p>
+      <button
+        class="btn-primary-flat refresh-btn"
+        (click)="handleRefreshFeaturedBtn()">
+        <span class="material-icons">
+          refresh
+          </span>
+      </button>
+    </div>
+
+    <div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
+      <div class="featured-io-garden-experiment">
+        <app-io-garden-experiment-preview
+          [metaData]="featuredIoGardenExperiment"
+          [imgPosition]="'top'"
+          class="io-garden-experiment-card">
+        </app-io-garden-experiment-preview>
+      </div>
+      <div class="featured-blog-post">
+        <app-blog-post-preview
+          [metaData]="featuredBlogPost"
+          [imgPosition]="'top'"
+          class="blog-posts-preview-card">
+        </app-blog-post-preview>
+      </div>
+    </div>
+  </section>
+
+  <section class="tag-selection-section">
+    <div class="tag-selection-heading-and-tags">
+      <h3>Select a topic of interest</h3>
+      <ul class="tag-container">
+        <li
+          class="tag-item"
+          *ngFor="let tagItem of unifiedAndCountedTagsArr"
+          (click)="handleTagSelection(tagItem.name)">
+            {{ tagItem.name }} | {{tagItem.count}}
+        </li>
+      </ul>
+    </div>
+
+
+    <div
+      class="tag-result-container"
+      *ngIf="blogPostsAndExperimentsSelectedByTag">
+        <div
+          class="tag-selection-result-wrapper"
+          *ngFor="let result of blogPostsAndExperimentsSelectedByTag">
+            <app-blog-post-preview
+              [metaData]="result"
+              [imgPosition]="'left'"
+              class="blog-posts-preview-card">
+            </app-blog-post-preview>
+        </div>
+    </div>
+  </section>
+
+</div>
+
+</div>

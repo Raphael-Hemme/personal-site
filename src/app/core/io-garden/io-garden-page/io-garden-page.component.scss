@@ -1,5 +1,12 @@
 @import '/src/styles.scss';
 
+.io-garden-page-container {
+  padding: 0;
+  @media (min-width: 576px) {
+    padding: 20px 80px;
+  }
+}
+
 .io-garden-header {
   width: 100%;
   white-space: pre-line;

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, fromEvent, switchMap, startWith, tap } from 'rxjs';
 
 export interface CanvasSizeReturnObj {
   'width': number;
@@ -21,10 +22,25 @@ export class WindowSizeService {
   private currMainContainerWidth = 0;
   private currMainContainerHeight = 0;
 
+  public windowResize$: Observable<any> = fromEvent(window, 'resize');
+  public currWindowWidth$: BehaviorSubject<number> = new BehaviorSubject(window.innerWidth);
+  public currWindowHeight$: BehaviorSubject<number> = new BehaviorSubject(window.innerHeight);
+
   constructor() { }
 
   public getCurrentWindowInnerWidth(): number {
     return window.innerWidth;
+  }
+
+  public getDynamicWindowInnerWidth(): Observable<number> {
+    return this.windowResize$.pipe(
+      tap(() => {
+        this.currWindowWidth$.next(window.innerWidth)
+      }),
+      switchMap(() => {
+        return this.currWindowWidth$
+      })
+    )
   }
 
   public setCurrentMainContainerWidth(value: number): void {
@@ -37,6 +53,7 @@ export class WindowSizeService {
 
   public setCurrentMainContainerHeight(value: number): void {
     this.currMainContainerHeight = value;
+    console.log('setting mainContentHeight to: ', value);
   }
 
   public getCurrentMainContainerHeight(): number {
@@ -50,19 +67,12 @@ export class WindowSizeService {
       console.log(this.currMainContainerWidth)
 
       if (window.innerWidth >= 992) {
-        // Subtract 10px from actual width * percent to handle padding-right of 10px and have a fluid canvas
         canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentL - 10;
-        // canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentL;
         canvHeight = this.currMainContainerHeight / 100 * canvasSizeParamObj.hPercentL;
       } else if (window.innerWidth > 720 && window.innerWidth < 992) {
-        // Subtract 10px from actual width * percent to handle padding-right of 10px and have a fluid canvas
-        console.log(this.currMainContainerWidth)
         canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentL - 35;
-        // canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentL;
         canvHeight = this.currMainContainerHeight / 100 * canvasSizeParamObj.hPercentL;
       } else {
-        // Subtract 20px from actual width * percent to handle padding on both sides of 10px and have a fluid canvas
-        // canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentS - 20;
         canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentS - 20;
         canvHeight = this.currMainContainerHeight / 100 * canvasSizeParamObj.hPercentS;
       }

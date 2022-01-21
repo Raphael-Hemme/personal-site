@@ -1,29 +1,33 @@
-<div class="io-garden-experiment-container">
+<div class="io-garden-experiment">
+  <h1>io-garden</h1>
   <nav class="io-garden-container-nav-bar">
     <button
       type="button"
-      class="btn-primary-flat"
+      class="btn-dark-flat"
       (click)="handleReturnToExperimentSelectionBtn()">
         back
     </button>
   </nav>
 
-  <h2>
-  <!--   <span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span> -->
-    <span
-      *ngFor="let char of currExperimentIdAsArr; let i = index"
-      [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{char}}</span>
+  <div class="io-garden-experiment-container">
+    <h2>
+    <!--   <span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span> -->
+      <span
+        *ngFor="let char of currExperimentIdAsArr; let i = index"
+        [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{char}}</span>
+    </h2>
 
-  </h2>
+    <div class="sketch-container">
+      <router-outlet></router-outlet>
+    </div>
 
-  <div class="sketch-container">
-    <router-outlet></router-outlet>
+    <markdown
+      *ngIf="currexperimentMetaData.descriptionUrl"
+      [src]="currexperimentMetaData.descriptionUrl"
+      class="experiment-description-markdown">
+    </markdown>
+
   </div>
 
-  <markdown
-    *ngIf="currexperimentMetaData.descriptionUrl"
-    [src]="currexperimentMetaData.descriptionUrl"
-    class="experiment-description-markdown">
-  </markdown>
-
 </div>
+

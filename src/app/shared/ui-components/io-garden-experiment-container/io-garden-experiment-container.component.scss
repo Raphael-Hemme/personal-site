@@ -1,5 +1,12 @@
 @import 'src/styles.scss';
 
+.io-garden-experiment {
+  padding: 0;
+  @media (min-width: 576px) {
+    padding: 20px 80px;
+  }
+}
+
 .io-garden-experiment-container {
   width: 100%;
   display: flex;
@@ -29,6 +36,7 @@
 
 h2 {
   align-self: flex-start;
+  margin: 40px 0;
 }
 
 .sketch-container {

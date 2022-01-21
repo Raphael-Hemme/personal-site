@@ -1,8 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { SplashScreenService } from './shared/services/splash-screen-service/splash-screen.service';
+import { Location } from '@angular/common';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef } from '@angular/core';
+import { Router, NavigationEnd  } from '@angular/router';
+import {
+  BehaviorSubject,
+  fromEvent,
+  Subscription,
+  combineLatest,
+  filter,
+  map } from 'rxjs';
 import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
+
 
 @Component({
   selector: 'app-root',
@@ -15,42 +27,68 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public title = 'raphaelhemme';
   public splashScreenStatus = 'on';
-  public sidenavIsVisible = false;
+  public siteMenuIsVisible = false;
+  public smallLogoIsVisible = false;
+
+  private scrollEventObserver = fromEvent(document, 'scroll');
+  private currRoute: BehaviorSubject<string> = new BehaviorSubject('');
+  private currScrollY: BehaviorSubject<number> = new BehaviorSubject(0);
 
   private subscriptions: Subscription = new Subscription()
 
   constructor(
-    private splashScreenService: SplashScreenService,
     private windowSizeService: WindowSizeService,
     private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
-    this.subscriptions.add(
+    /* this.subscriptions.add(
       this.splashScreenService.startTimerAndHandleStatus().subscribe(res => {
         console.log(res);
         this.splashScreenStatus = res
+      })
+    ) */
+    this.subscriptions.add(
+      this.scrollEventObserver.subscribe(() => this.currScrollY.next(window.scrollY))
+    )
+    this.subscriptions.add(
+      this.router.events
+        .pipe(
+          filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+          map(e => { return e }))
+        .subscribe(() => {
+          this.currRoute.next(this.location.path());
+      })
+    )
+    this.subscriptions.add(
+      combineLatest([this.currRoute, this.currScrollY]).subscribe(([currRoute, currScrollY]) => {
+        if (currRoute) {
+          this.smallLogoIsVisible = true;
+        } else if (!currRoute && currScrollY <= window.innerHeight) {
+          this.smallLogoIsVisible = false;
+        } else {
+          this.smallLogoIsVisible = true;
+        }
       })
     )
   }
 
   ngAfterViewInit(): void {
-    // console.log('setting width in service to: ', this.mainContentContainer.nativeElement.offsetWidth);
-    this.windowSizeService.setCurrentMainContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
-    // console.log('setting height in service to: ', this.mainContentContainer.nativeElement.offsetHeight);
-    this.windowSizeService.setCurrentMainContainerHeight(this.mainContentContainer.nativeElement.offsetHeight)
+    /* this.windowSizeService.setCurrentMainContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
+    this.windowSizeService.setCurrentMainContainerHeight(this.mainContentContainer.nativeElement.offsetHeight) */
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  public toggleSidenavVisibility(): void {
-    this.sidenavIsVisible = !this.sidenavIsVisible;
+  public toggleSiteMenuVisibility(): void {
+    this.siteMenuIsVisible = !this.siteMenuIsVisible;
   }
 
   public handleLogoClick() {
-    this.sidenavIsVisible = false;
+    this.siteMenuIsVisible = false;
     this.router.navigate(['/'])
   }
 

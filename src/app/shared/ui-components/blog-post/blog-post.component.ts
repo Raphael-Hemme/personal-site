@@ -11,17 +11,7 @@ export class BlogPostComponent implements OnInit {
 
   public currPath = '';
   public currPostId: string = '';
-  public currPostMetaData: BlogPostMetaData = {
-    'id': '',
-    'title': '',
-    'subtitle': '',
-    'dateOriginal': '',
-    'dateLastEdited': '',
-    'state': 0,
-    'postPath': '',
-    'previewImageUrl': '',
-    'tags': []
-  };
+  public currPostMetaData!: BlogPostMetaData;
 
   constructor(
     private route: ActivatedRoute,

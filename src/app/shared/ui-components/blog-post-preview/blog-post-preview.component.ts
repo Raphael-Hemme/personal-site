@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { BlogPostMetaData } from '../../services/blog-service/blog.service';
 
+type ImgOrientation = 'top' | 'left' | 'right';
+
 @Component({
   selector: 'app-blog-post-preview',
   templateUrl: './blog-post-preview.component.html',
@@ -10,20 +12,12 @@ import { BlogPostMetaData } from '../../services/blog-service/blog.service';
 })
 export class BlogPostPreviewComponent implements OnInit {
 
-  @Input() metaData: BlogPostMetaData = {
-    'id': '',
-    'title': '',
-    'subtitle': '',
-    'dateOriginal': '',
-    'dateLastEdited': '',
-    'state': 0,
-    'postPath': '',
-    'previewImageUrl': '',
-    'tags': []
-  };
+  @Input() imgPosition: ImgOrientation = 'top';
+  @Input() metaData!: BlogPostMetaData;
   // @Output() blogPostReadBtnEvent: EventEmitter<string> = new EventEmitter();
 
   public hslBgColorString: string = ''
+  public previewOrintationClass = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +28,20 @@ export class BlogPostPreviewComponent implements OnInit {
     // console.log(this.metaData.previewImageUrl);
     this.hslBgColorString = this.generateHslBgColorString(this.metaData.previewImageUrl);
     // console.log(this.hslBgColorString);
+
+    switch (this.imgPosition) {
+      case ('top'):
+        this.previewOrintationClass = 'image-top-preview-card';
+        break;
+      case ('left'):
+        this.previewOrintationClass = 'image-left-preview-card';
+        break;
+      case ('right'):
+        this.previewOrintationClass = 'image-right-preview-card';
+        break;
+      default:
+        this.previewOrintationClass = 'image-top-preview-card';
+    }
   }
 
   private generateHslBgColorString(inputString: string): string {

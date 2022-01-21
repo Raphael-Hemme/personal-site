@@ -1,29 +1,39 @@
 <!-- <div class="blog-post-preview-card image-left-blog-post-preview-card" [ngStyle]="{'background-color': hslBgColorString}"> -->
-<div class="blog-post-preview-card image-left-blog-post-preview-card">
-  <div class="blog-post-preview-image-container">
+<div class="preview-card" [ngClass]="previewOrintationClass">
+  <div class="preview-card-image-container">
     <img
       [src]="metaData.previewImageUrl"
       alt="procedurally generated preview artwork for blog post"
-      class="blog-post-preview-img">
+      class="preview-card-img">
   </div>
-  <div class="blog-post-preview-meta-container">
-    <p
-      *ngIf="metaData.dateOriginal"
-      class="blog-post-preview-date">
-      {{ metaData.dateOriginal }}
-    </p>
-    <div class="blog-post-preview-phase-indicator-container">
-      <div class="blog-post-preview-phase-indicator"></div>
+  <div class="preview-card-meta-container">
+    <div class="preview-card-date">
+      <div
+        *ngIf="metaData.dateOriginal"
+        class="preview-card-original-date">
+        <p class="preview-card-date-label">date:</p>
+        <p>{{ metaData.dateOriginal }}</p>
+      </div>
+      <div
+        *ngIf="metaData.dateLastEdited"
+        class="preview-card-updated-date">
+        <p class="preview-card-date-label">updated:</p>
+        <p>{{ metaData.dateLastEdited }}</p>
+      </div>
+    </div>
+
+    <div class="preview-card-phase-indicator-container">
+      <div class="preview-card-phase-indicator"></div>
     </div>
   </div>
-  <div class="blog-post-preview-card-title">
-    <h2 *ngIf="metaData.title">{{ metaData.title }} </h2>
+  <div class="preview-card-title">
+    <h4 *ngIf="metaData.title">{{ metaData.title }} </h4>
   </div>
-  <div class="blog-post-preview-actions">
+  <div class="preview-card-actions">
     <button
       (click)="handleBlogPostPreviewReadBtn(metaData.id)"
       type="button"
-      class="btn-primary-flat blog-post-preview-read-btn">
+      class="btn-accent-flat preview-card-read-btn">
         read
     </button>
   </div>

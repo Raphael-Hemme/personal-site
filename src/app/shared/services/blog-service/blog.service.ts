@@ -6,11 +6,11 @@ import blogPostsMetaData from 'src/assets/blog-posts-meta-data.json';
 export interface BlogPostMetaData {
   'id': string;
   'title': string;
-  'subtitle'?: string;
+  'abstract'?: string;
+  'descriptionUrl'?: string;
   'dateOriginal'?: string;
   'dateLastEdited'?: string;
-  'state': number;
-  'postPath': string;
+  'phase': number;
   'previewImageUrl': string;
   'tags'?: any[];
 }
@@ -47,5 +47,22 @@ export class BlogService {
     return this.postsMetaData[postIndex];
   }
 
+  public getRandomBlogPostMetaData(): BlogPostMetaData {
+    const randomIndex = Math.floor(Math.random() * this.postsMetaData.length);
+/*     console.log('this.experimentMetaData.length', this.experimentMetaData.length);
+    console.log('randomIndex', randomIndex); */
+    return this.postsMetaData[randomIndex]
+  }
 
+  public getAllBlogTags(): string[] {
+    const resultArr: string[] = [];
+    this.postsMetaData.forEach(entry => {
+      resultArr.push(...entry.tags)
+    });
+    return resultArr;
+  }
+
+  public getIoGardenExperimentsByTag(tag: string): BlogPostMetaData[] {
+    return this.postsMetaData.filter(el => el.tags.includes(tag));
+  }
 }
