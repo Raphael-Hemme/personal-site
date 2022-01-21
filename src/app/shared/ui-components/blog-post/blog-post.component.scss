@@ -1,11 +1,11 @@
 @import 'src/styles.scss';
 
-/* .blog-container {
+.blog-container {
   padding: 0;
   @media (min-width: 576px) {
     padding: 20px 80px;
   }
-} */
+}
 
 .blog-post-container {
   width: 100%;
@@ -66,6 +66,10 @@
       width: auto;
     }
   }
+}
+
+.blog-post-title {
+  color: $accent
 }
 
 

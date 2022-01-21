@@ -1,68 +1,5 @@
 @import '/src/styles.scss';
 
-
-
-// experimental
-h1 {
-  margin: 50px 0 0 0
-}
-
-.blue-bg {
-  background-color: $accent;
-  margin: 0 -10px;
-  padding: 0 10px;
-}
-
-.background-edge-container {
-  height: 15px;
-  width: calc(100% + 20px);
-  margin: 0 -10px;
-  // display: flex;
-}
-
-.background-edge-bg-1 {
-  height: 50%;
-  width: 100%;
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  background-color: $subtle-two;
-}
-.background-edge-bg-2 {
-  height: 50%;
-  width: 100%;
-  position: relative;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
-  background-color: $accent;
-}
-
-.background-edge-element-1 {
-  background-color: $subtle-two;
-  height: 100%;
-  width: 30%;
-  border-bottom-right-radius: 10px;
-  position: relative;
-  top: -15px;
-  left: 0;
-  z-index: 1;
-}
-
-.background-edge-element-2 {
-  background-color: $accent;
-  height: 100%;
-  width: 70%;
-  border-top-left-radius: 10px;
-  position: relative;
-  top: -30px;
-  left: 30%;
-  z-index: 1;
-}
-
-// experimental end
-
 .home-page-container {
   padding: 0;
   @media (min-width: 576px) {
@@ -159,12 +96,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 10px;
-/*   @media (min-width: 1200px) {
-
-  } */
   @media (min-width: 1200px) {
-    flex-direction: row-reverse;
-    justify-content: space-between;
     margin: 150px 0 0 0;
   }
 }
@@ -173,9 +105,6 @@ h2 {
   display: flex;
   flex-direction: column;
   width: 100%;
-  @media (min-width: 1200px) {
-    width: 35%;
-  }
 }
 
 .tag-container{
@@ -217,20 +146,17 @@ h2 {
 .tag-result-container {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 10px;
   padding: 20px 0;
-  @media (min-width: 1200px) {
-    padding: 0;
-    width: 60%;
-  }
 }
 
 .tag-selection-result-wrapper {
   width: 100%;
   height: 320px;
   @media (min-width: 992px) {
-    min-width: 48%;
-    height: 180px;
+    width: 48%;
+    height: 210px;
   }
 }
