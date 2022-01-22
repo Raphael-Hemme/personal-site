@@ -21,14 +21,11 @@ export class CmeA001Component implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    const calculatedCanvSize = this.windowSizeService.calcCanvasSizeRelToMainContainerWidth({
-      wPercentL: 100,
-      wPercentS: 100,
-      hPercentL: 50,
-      hPercentS: 80
+    this.windowSizeService.windowResize$.subscribe(() => {
+      this.triggerResize();
     })
-    this.canvWidth = calculatedCanvSize.width;
-    this.canvHeight = calculatedCanvSize.height;
+
+    this.setCorrectCanvSize()
 
     const sketch = (s: any) => {
 
@@ -123,6 +120,21 @@ export class CmeA001Component implements OnInit, OnDestroy {
     };
 
     this.canvas = new p5(sketch);
+  }
+
+  private triggerResize(): void {
+    this.setCorrectCanvSize()
+    this.canvas.resizeCanvas(this.canvWidth, this.canvHeight);
+  }
+
+  private setCorrectCanvSize(): void { 
+    if (window.innerWidth <= 768) {
+      this.canvWidth = window.innerWidth - 35;
+      this.canvHeight = window.innerHeight - 200;
+    } else {
+      this.canvWidth = window.innerWidth - 195;
+      this.canvHeight = window.innerHeight / 2;
+    }
   }
 
   ngOnDestroy(): void {
