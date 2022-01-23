@@ -21,14 +21,21 @@ export class CmeA001Component implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    const calculatedCanvSize = this.windowSizeService.calcCanvasSizeRelToMainContainerWidth({
-      wPercentL: 100,
-      wPercentS: 100,
-      hPercentL: 50,
-      hPercentS: 80
+    const canvasConfig = {
+      'isSquare': false,
+      'wPercentS': 100,
+      'wPercentL': 100,
+      'hPercentS': 80,
+      'hPercentL': 50
+    }
+
+    const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+    this.canvWidth = canvSizeObj.w;
+    this.canvHeight = canvSizeObj.h;
+
+    this.windowSizeService.windowResize$.subscribe(() => {
+      this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
     })
-    this.canvWidth = calculatedCanvSize.width;
-    this.canvHeight = calculatedCanvSize.height;
 
     const sketch = (s: any) => {
 

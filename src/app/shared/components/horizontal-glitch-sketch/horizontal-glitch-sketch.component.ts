@@ -190,14 +190,11 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   private triggerResize(): void {
     this.canvWidth = window.innerWidth - 35;
-    // window.innerWidth < 992 ? this.canvWidth = window.innerWidth - 30 : this.canvWidth = window.innerWidth - 35;
     this.canvHeight = window.innerHeight;
 
-    // this.canvas.resizeCanvas(50, 50);
     this.canvas.resizeCanvas(this.canvWidth, this.canvHeight);
     this.setImgSize(this.canvWidth, this.canvHeight);
     this.setCenteredPosition(this.canvWidth, this.canvHeight);
-
   }
 
   private setCenteredPosition(canvWidth: number, canvHeight: number): void {

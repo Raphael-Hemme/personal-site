@@ -33,8 +33,8 @@ export class LeA001Component implements OnInit {
 
   private dots9: any[] = [];
 
-  public canvasWidth = 300;
-  public canvasHeight = 300;
+  public canvWidth = 300;
+  public canvHeight = 300;
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -42,19 +42,26 @@ export class LeA001Component implements OnInit {
 
   ngOnInit() {
 
-    const currMainContainerWidth = this.windowSizeService.getCurrentMainContainerWidth();
-    if (currMainContainerWidth >= 992) {
-      this.canvasWidth = currMainContainerWidth / 2;
-      this.canvasHeight = this.canvasWidth;
-    } else {
-      this.canvasWidth = currMainContainerWidth - 60;
-      this.canvasHeight = this.canvasWidth;
+    const canvasConfig = {
+      'isSquare': true,
+      'wPercentS': 100,
+      'wPercentL': 70,
+      'hPercentS': 100,
+      'hPercentL': 100
     }
+
+    const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+    this.canvWidth = canvSizeObj.w;
+    this.canvHeight = canvSizeObj.h;
+
+    this.windowSizeService.windowResize$.subscribe(() => {
+      this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+    })
 
     const sketch = (s: any) => {
 
       s.setup = () => {
-        let canvas2 = s.createCanvas(this.canvasWidth, this.canvasHeight);
+        let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('le-a001-sketch-wrapper');
       }
 

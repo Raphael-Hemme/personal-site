@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, fromEvent, switchMap, startWith, tap } from 'rxjs';
 
 export interface CanvasSizeReturnObj {
-  'width': number;
-  'height': number;
+  'w': number;
+  'h': number;
 }
 
-export interface CanvasSizeParamObj {
+export interface CanvasConfigObj {
+  'isSquare': boolean;
   'wPercentS': number;
   'wPercentL': number;
   'hPercentS': number;
@@ -60,7 +61,7 @@ export class WindowSizeService {
     return this.currMainContainerHeight;
   }
 
-  public calcCanvasSizeRelToMainContainerWidth(canvasSizeParamObj: CanvasSizeParamObj): CanvasSizeReturnObj {
+/*   public calcCanvasSizeRelToMainContainerWidth(canvasSizeParamObj: CanvasSizeParamObj): CanvasSizeReturnObj {
       let canvWidth = 0;
       let canvHeight = 0;
 
@@ -78,8 +79,38 @@ export class WindowSizeService {
       }
 
       return {
-        width: canvWidth,
-        height: canvHeight
+        w: canvWidth,
+        h: canvHeight
       }
+  } */
+
+  public triggerCanvasResize(canvas: any, canvasConfig: CanvasConfigObj): void {
+
+    const canvSizeObj = this.calculateCanvasSize(canvasConfig);
+    let canvWidth = canvSizeObj.w;
+    let canvHeight = canvSizeObj.h;
+
+    canvas.resizeCanvas(canvWidth, canvHeight);
+  }
+
+  public calculateCanvasSize(canvasConfig: CanvasConfigObj): CanvasSizeReturnObj {
+    const result = {
+      w: 0,
+      h: 0
+    }
+
+    if (window.innerWidth <= 768) {
+      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentS) - 35;
+      result.h = ((window.innerHeight / 100) * canvasConfig.hPercentS);
+    } else {
+      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
+      result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
+    }
+
+    if (canvasConfig.isSquare) {
+      result.h = result.w;
+    }
+    
+    return result
   }
 }
