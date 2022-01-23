@@ -1,6 +1,6 @@
 ### Description
 
-Lichen Experiment - A001 (`LE-A001`) is a first, `brute force` attempt to approximate the visual appearance of lichen growing on stones ([Caloplaca mariana](https://en.wikipedia.org/wiki/Caloplaca_marina)) using the p5.js library.
+Lichen Experiment - A001 (`LE-A001`) is a first, 'brute force' attempt to approximate the visual appearance of lichen growing on stones ([Caloplaca mariana](https://en.wikipedia.org/wiki/Caloplaca_marina)) using the p5.js library.
 
 The code to generate random points within a circle is adapted from [here](https://editor.p5js.org/zapra/sketches/rjIJR18fT).
 
