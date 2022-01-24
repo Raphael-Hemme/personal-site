@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: space-around;
   // padding: 0 0 30px 0;
-  @media (min-width: 576px) and (min-width: 1200px) {
+  @media (min-width: 768px) and (max-width: 1200px) {
     padding: 20px 80px;
     // flex-direction: column;
   }
