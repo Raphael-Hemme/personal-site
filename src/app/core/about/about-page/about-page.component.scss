@@ -31,9 +31,10 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  @media (min-width: 576px) {
-    display: flex;
+  @media (min-width: 1200px) {
     justify-content: flex-end;
+    align-items: flex-end;
+    width: 40%;
   }
 }
 
@@ -58,5 +59,15 @@
   @media (min-width: 576px) {
     width: 300px;
     height: 300px;
+  }
+}
+
+.social-media-container {
+  width: 100%;
+  display: flex;
+  padding: 20px 0;
+  img {
+    height:25px;
+    margin: 0 20px 0 0;
   }
 }
