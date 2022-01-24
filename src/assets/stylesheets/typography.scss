@@ -6,7 +6,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 // noto sans mono
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700&display=swap');
-
+// koh santepheap
+@import url('https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap');
+// vollkorn
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700;800;900&display=swap');
+// italiana
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+// urbanist
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@100;200;300;400;500;600;700&display=swap');
 
 * {
   // color: #40514e;
@@ -14,25 +21,48 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Dosis', sans-serif;
+  // font-family: 'Dosis', sans-serif;
+  font-family: 'Oswald', sans-serif;
 }
 
 h1 {
   // font-family: 'Titillium Web', sans-serif;
-  font-size: 3rem;
+  // font-family: 'Koh Santepheap', cursive;
+  // font-family: 'Vollkorn', serif;
+  font-family: 'Italiana', serif;
+  font-size: 5rem;
+  // font-size: 3rem;
   line-height: 1.5;
   letter-spacing: 0.15rem;
   font-weight: 400;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   color: $brand;
   // color: $light-gray;
   @media (min-width: 992px) {
-    font-size: 4rem;
+    font-size: 5rem;
     line-height: 1.5;
   }
 }
 
+
 h2 {
+  font-size: 1.7rem;
+  line-height: 1.4;
+  letter-spacing: 0.12rem;
+  margin: 0 0 40px 0;
+  font-weight: 300;
+  font-family: 'Urbanist', sans-serif;
+    // color: $accent;
+  color: $white;
+  @media (min-width: 992px) {
+    font-size: 3rem;
+    font-weight: 100;
+    line-height: 1.2;
+    margin: 0 0 40px 0;
+  }
+}
+
+/* h2 {
   font-size: 1.7rem;
   line-height: 1.4;
   letter-spacing: 0.12rem;
@@ -45,17 +75,17 @@ h2 {
     line-height: 1.2;
     margin: 0 0 40px 0;
   }
-}
+} */
 
 h3 {
   font-size: 1.5rem;
-  line-height: 1.2;
+  line-height: 1.6;
   margin: 0 0 30px 0;
-  font-weight: 500;
-  color: $mid-gray;
+  font-weight: 300;
+  // color: $mid-gray;
+  color: $accent;
   @media (min-width: 992px) {
     font-size: 1.5rem;
-    line-height: 1.2;
   }
 }
 
@@ -63,7 +93,9 @@ h4 {
   font-size: 1.4rem;
   line-height: 1.2;
   margin: 0 0 30px 0;
-  font-weight: 600;
+  // font-weight: 600;
+  font-weight: 300;
+    letter-spacing: 1.7px;
   // color: $accent;
   color: $mid-gray;
   @media (min-width: 992px) {
@@ -79,7 +111,9 @@ ol, ul,
 table,
 span,
 div {
-  font-family: 'Titillium Web', sans-serif;
+  // font-family: 'Titillium Web', sans-serif;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 200;
 }
 
 a {
@@ -97,14 +131,15 @@ p {
   font-weight: 200; */
   font-size: 1rem;
   line-height: 1.4rem;
-  font-weight: 400;
+  color: $white;
+  // font-weight: 400;
 }
 
 button {
   // font-family: 'Titillium Web', sans-serif;
   font-size: 1rem;
   // line-height: 1.1rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .two-col-p-on-lg {

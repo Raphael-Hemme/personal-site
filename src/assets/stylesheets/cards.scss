@@ -110,6 +110,7 @@
   align-items: flex-end;
   p {
     font-size: 13px;
+    font-weight: 100;
     @media (min-width: 992px) {
       font-size: 14px;
     }
@@ -126,6 +127,7 @@
   justify-content: flex-end;
   p {
     font-size: 10px;
+    font-weight: 100;
     padding: 0 0 0 20px;
     @media (min-width: 992px) {
       font-size: 12px;
