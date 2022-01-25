@@ -19,12 +19,19 @@
 
 .about-headings-and-text {
   width: 100%;
-  @media (min-width: 576px) {
+  @media (min-width: 768px) {
     width: 66%;
-    h2 br {
+  }
+  @media (min-width: 992px) {
+    h3 br {
       display: none;
     }
   }
+/*   @media (min-width: 768px) and (max-width: 1400px) {
+    h2 br {
+      display: none;
+    }
+  } */
 }
 
 .about-image {
@@ -63,10 +70,21 @@
 }
 
 .social-media-container {
-  width: 100%;
+  // width: 100%;
+  padding: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  height: 70px;
+  // background-color: $white;
+}
+
+.social-media-link-wrapper {
+  // width: min-content;
   display: flex;
   padding: 20px 0;
-  img {
+  // background-color: $white;
+
+  a img {
     height:25px;
     margin: 0 20px 0 0;
   }
