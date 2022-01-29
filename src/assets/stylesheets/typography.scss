@@ -30,8 +30,8 @@ h1 {
   // font-family: 'Koh Santepheap', cursive;
   // font-family: 'Vollkorn', serif;
   font-family: 'Italiana', serif;
+  // font-size: 5rem;
   font-size: 5rem;
-  // font-size: 3rem;
   line-height: 1.5;
   letter-spacing: 0.15rem;
   font-weight: 400;
@@ -39,9 +39,15 @@ h1 {
   color: $brand;
   // color: $light-gray;
   @media (min-width: 992px) {
-    font-size: 5rem;
+    font-size: 7rem;
     line-height: 1.5;
   }
+
+  // experimental
+/*   text-shadow: -1px -1px 0 #baff29, 1px -1px 0 #baff29, -1px 1px 0 #baff29, 1px 1px 0 #baff29;
+  font-size: 8rem;
+  color: rgb(114 147 172);
+*/
 }
 
 
@@ -78,14 +84,15 @@ h2 {
 } */
 
 h3 {
+  font-family: 'Urbanist', sans-serif;
   font-size: 1.5rem;
-  line-height: 1.6;
+  line-height: 2;
   margin: 0 0 30px 0;
   font-weight: 300;
   // color: $mid-gray;
   color: $accent;
   @media (min-width: 992px) {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -99,7 +106,7 @@ h4 {
   // color: $accent;
   color: $mid-gray;
   @media (min-width: 992px) {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     line-height: 1.2;
   }
 }
@@ -108,10 +115,10 @@ h4 {
 p,
 button,
 ol, ul,
-table,
-span,
-div {
-  font-family: 'Titillium Web', sans-serif;
+table {
+  font-family: 'Roboto', sans-serif;
+  
+  // font-family: 'Titillium Web', sans-serif;
   font-weight: 300;
   font-size: 1.2rem;
   line-height: 1.6rem;
@@ -196,5 +203,17 @@ button {
 
 .blog-post-markdown a {
   color: $info;
+}
+
+.experiment-description-markdown {
+  pre * {
+    font-size: 12px;
+    // margin: 0;
+    line-height: 12px;
+  }
+  p {
+    color: $dark-gray;
+    margin: 40px 0;
+  }
 }
 
