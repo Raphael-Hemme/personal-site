@@ -111,9 +111,12 @@ ol, ul,
 table,
 span,
 div {
-  // font-family: 'Titillium Web', sans-serif;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 200;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  // font-family: 'Oswald', sans-serif;
+  // font-weight: 200;
 }
 
 a {
@@ -129,8 +132,8 @@ p {
   // font-family: 'Titillium Web', sans-serif;
 /*   font-family: 'Oswald', sans-serif;
   font-weight: 200; */
-  font-size: 1rem;
-  line-height: 1.4rem;
+/*   font-size: 1.2rem;
+  line-height: 1.4rem; */
   color: $white;
   // font-weight: 400;
 }
