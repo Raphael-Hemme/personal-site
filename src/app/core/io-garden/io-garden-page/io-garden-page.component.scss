@@ -32,13 +32,13 @@
   background-color: $subtle-one;
   opacity: 0.93;
   display: flex;
-  gap: 40px;
+  // gap: 40px;
 }
 
 .io-garden-abstract {
   width: 50%;
   white-space: pre-line;
-  padding: 40px 0 40px 40px;
+  padding: 40px 20px 40px 40px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -52,7 +52,7 @@
 .io-garden-explanation {
   width: 50%;
   white-space: pre-line;
-  padding: 40px 40px 40px 0;
+  padding: 40px 40px 40px 20px;
   // align-self: center;
   // align-self: flex-end;
     @media (max-width: 992px) {
