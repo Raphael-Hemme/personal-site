@@ -195,6 +195,7 @@ button {
 // scoping issues when not here
 
 .blog-post-markdown p, ul, ol {
+  color: $dark-gray;
   margin: 20px 0;
   @media (min-width: 992px) {
     margin: 30px 0;
