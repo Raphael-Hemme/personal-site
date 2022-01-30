@@ -6,22 +6,34 @@
     </header>
 
     <div class="io-garden-abstract-container">
-      <p class="io-garden-welcome paragraph-regular">
-        {{ ioWelcomeSub }}
-      </p>
-      <p class="io-garden-abstract paragraph-regular">
-        {{ ioAbstract }}
-      </p>
-      <p class="io-garden-explanation paragraph-regular"
-        *ngIf="ioExplanationIsShown">
-        {{ ioNameExplainer }}
-      </p>
+      <div class="io-garden-abstract-container-tint">
 
-      <button
-        (click)="toggleIoGardenExplanation()"
-        class="toggle-read-more btn-primary-flat">
-          {{ ioExplanationIsShown ? 'got it' : 'read more'}}
-      </button>
+        <div class="io-garden-abstract">
+          <p class="paragraph-regular">
+            {{ ioAbstract }}
+          </p>
+          <button
+          (click)="toggleIoGardenExplanation()"
+          class="toggle-read-more-btn btn-primary-flat">
+            <span *ngIf="!ioExplanationIsShown"
+              class="material-icons">
+              expand_more
+            </span>
+            <span *ngIf="ioExplanationIsShown"
+              class="material-icons">
+              expand_less
+            </span>
+          </button>
+        </div>
+
+        <p class="io-garden-explanation paragraph-regular"
+          *ngIf="ioExplanationIsShown">
+          {{ ioNameExplainer }}
+        </p>
+
+        
+      </div>
+      
     </div>
   </section>
 
