@@ -15,9 +15,26 @@
   </div>
 
   <div class="about-text-container">
-    <p>{{ aboutP1 }}</p>
-    <p>{{ aboutP2 }}</p>
-    <p>{{ aboutP3 }}</p>
+    <button
+      (click)="toggleLongAboutIsShown()"
+      class="toggle-long-about-btn btn-primary-flat">
+        <span *ngIf="!longAboutIsShown"
+          class="material-icons">
+          expand_more
+        </span>
+        <span *ngIf="longAboutIsShown"
+          class="material-icons">
+          expand_less
+        </span>
+    </button>
+    <div 
+      *ngIf="longAboutIsShown"
+      class="long-about-paragraphs">
+      <p>{{ aboutP1 }}</p>
+      <p>{{ aboutP2 }}</p>
+      <p>{{ aboutP3 }}</p>
+      <p>{{ aboutP4 }}</p>
+    </div>
 
   </div>
     

@@ -87,6 +87,9 @@
 
 .about-text-container {
   grid-area: text-area;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profile-picture-outline {
@@ -145,4 +148,8 @@
 .tag-container {
   justify-content: flex-start;
   padding: 20px 0;
+}
+
+.long-about-paragraphs {
+  width: 100%;
 }
