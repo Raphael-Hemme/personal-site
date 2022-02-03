@@ -39,6 +39,13 @@
   width: 100%;
   grid-area: headings-area;
   h3 {
+    span {
+      color: unset;
+      font-size: unset;
+      font-weight: unset;
+      font-family: unset;
+      // cursor: unset;
+    }
     br {
       display: block;
     }
@@ -156,4 +163,17 @@
 
 .toggle-long-about-btn {
   margin: 20px 0 40px 0;
+}
+
+.paragraph-anthropology-span,
+.paragraph-dev-span,
+.paragraph-design-span {
+  color: $white;
+}
+
+.highlighted-span {
+  color: $dark-gray;
+  background-color: $brand;
+  // padding: 5px;
+  // font-weight: 400;
 }

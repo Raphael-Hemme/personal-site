@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AboutPageComponent implements OnInit {
 
   public longAboutIsShown = false;
+  public anthropologyIsHighlighted = false;
+  public devIsHighlighted = false;
+  public designIsHighlighted = false;
 
   public aboutP1 = `After having worked a few years as a researcher and lecturer at a German university, 
     focusing on anthropological studies of science and technology in the emerging field of 'affective cumputing', 
@@ -42,6 +45,18 @@ export class AboutPageComponent implements OnInit {
 
   public toggleLongAboutIsShown(): void {
     this.longAboutIsShown = !this.longAboutIsShown;
+  }
+
+  public toggleAnthropologyHighlight(): void {
+    this.anthropologyIsHighlighted = !this.anthropologyIsHighlighted;
+  }
+
+  public toggleDevHighlight(): void {
+    this.devIsHighlighted = !this.devIsHighlighted;
+  }
+
+  public toggleDesignHighlight(): void {
+    this.designIsHighlighted = !this.designIsHighlighted;
   }
 
 }
