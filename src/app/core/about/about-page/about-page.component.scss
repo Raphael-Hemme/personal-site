@@ -35,7 +35,7 @@
   }
 }
 
-.about-headings-and-tagline {
+.about-headings-container {
   width: 100%;
   grid-area: headings-area;
   h3 {
@@ -152,4 +152,8 @@
 
 .long-about-paragraphs {
   width: 100%;
+}
+
+.toggle-long-about-btn {
+  margin: 20px 0 40px 0;
 }
