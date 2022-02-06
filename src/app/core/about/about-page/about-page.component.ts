@@ -14,8 +14,8 @@ export class AboutPageComponent implements OnInit {
 
   public aboutP1 = `After having worked a few years as a researcher and lecturer at a German university, 
     focusing on anthropological studies of science and technology in the emerging field of 'affective cumputing', 
-    I felt the urge to build and practice myself what I was reading and writing about. From an anthropological perspective,
-    I was in the process of 'going native', although not strictly in the field of 'affective computing'.`
+    I felt the urge to build and practice what I was reading and writing about. From an anthropological perspective,
+    I was 'going native', although not strictly in the field of 'affective computing'.`
   public aboutP2 = `The decision to change careers and take up coding as my daily routine and profession was helped by
     the fact that I was drawn to practices with a more immediate, more tangible or at least more visible outcome. 
     While I enjoy the analytical engagement with theory and empirical data, and the shifts in your worldview
