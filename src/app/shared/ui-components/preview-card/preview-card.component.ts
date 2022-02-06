@@ -52,8 +52,13 @@ export class PreviewCardComponent implements OnInit {
     return `hsl(${hslArr[0]}, ${hslArr[1]}%, ${hslArr[2]}%)`;
   } */
 
-  public handleBlogPostPreviewReadBtn(id: string) {
-    this.router.navigate(['/blog/post', id]);
+  public handlePreviewClick(id: string) {
+    const currRouteArr = this.metaData.category === 'post'
+      ? ['/blog/post', id]
+      : ['/io-garden', id, id];
+
+    this.router.navigate([...currRouteArr]);
+    // this.router.navigate(['/blog/post', id]);
     // this.blogPostReadBtnEvent.emit(id);
   }
 
