@@ -15,7 +15,8 @@
         "p5.js",
         "procedural design"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "experiment"
     },
     {
       "id": "cme-a001",
@@ -33,7 +34,8 @@
         "ui-framework",
         "unusable interface"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "experiment"
     },
     {
       "id": "le-a001",
@@ -52,6 +54,7 @@
         "lichen",
         "algorithmic organism"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "experiment"
     }
   ]

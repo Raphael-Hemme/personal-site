@@ -12,7 +12,8 @@
         "code highlighting",
         "javascript"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "post"
     },
     {
       "id": "vcw2mcyg9el8gpusjavr9fsdbi47ve",
@@ -34,7 +35,8 @@
         "cultures of computing",
         "excerpts"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "post"
     },
     {
       "id": "s4dbo9uvtbe1ymozygscajdsimi9mv",
@@ -49,7 +51,8 @@
         "resources",
         "p5.js"
       ],
-      "isPublished": false
+      "isPublished": false,
+      "category": "post"
     },
     {
       "id": "jut15hfhwlu3btyag8h55xdfackix4",
@@ -64,7 +67,8 @@
         "resources",
         "rxjs"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "post"
     },
     {
       "id": "b9kq5pwm01va7aevcr6flx5nw7exbt",
@@ -78,7 +82,8 @@
         "digital gardening",
         "zettelkasten"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "post"
     },
     {
       "id": "b092emtyc8o3an09eu1rpk3asiga5r",
@@ -94,7 +99,8 @@
         "logo design",
         "aesthetics"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "post"
     },
     {
       "id": "graetmdd5t1lxz3ep5n3dst4j7y9ay",
@@ -118,7 +124,8 @@
         "cultures of computing",
         "excerpts"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "post"
     },
     {
       "id": "i58fj1ukorzc0ggz8ush9uvodp6o6x",
@@ -141,7 +148,8 @@
         "AI",
         "interaction design"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "post"
     },
     {
       "id": "p7ameh0fjs4hu90xhcobr511pvttq1",
@@ -158,6 +166,7 @@
         "variable reassignment",
         "debugging"
       ],
-      "isPublished": true
+      "isPublished": true,
+      "category": "post"
     }
   ]

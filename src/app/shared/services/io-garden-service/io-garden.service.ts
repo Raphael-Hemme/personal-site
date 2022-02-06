@@ -14,6 +14,7 @@ export interface IoGardenExperimentMetaData {
   'previewImageUrl': string;
   'tags': any[];
   'isPublished': boolean;
+  'category': string;
 }
 
 @Injectable({

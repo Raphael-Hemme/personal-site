@@ -14,6 +14,7 @@ export class PreviewCardComponent implements OnInit {
 
   @Input() imgPosition: ImgOrientation = 'top';
   @Input() metaData!: BlogPostMetaData;
+//  @Input() routingConfig
   // @Output() blogPostReadBtnEvent: EventEmitter<string> = new EventEmitter();
 
   public hslBgColorString: string = ''
