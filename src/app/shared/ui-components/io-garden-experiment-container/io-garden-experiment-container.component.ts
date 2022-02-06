@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
+import { DataService } from '../../services/data-service/data.service';
 
 import { IoGardenExperimentMetaData, IoGardenService } from '../../services/io-garden-service/io-garden.service';
 
@@ -20,7 +21,10 @@ export class IoGardenExperimentContainerComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private ioGardenService: IoGardenService,
+    private dataService: DataService
   ) { }
+
+  private originUrl = ''
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -28,10 +32,18 @@ export class IoGardenExperimentContainerComponent implements OnInit {
       this.currexperimentMetaData = this.ioGardenService.getIoGardenMetaDataById(this.currExperimentId);
       this.currExperimentIdAsArr = this.currexperimentMetaData.id.split('');
     });
+    this.dataService.originOfNavigation$.subscribe(origin => this.originUrl = origin)
   }
 
-  public handleReturnToExperimentSelectionBtn() {
-    this.router.navigate(['/io-garden']);
+  public handleBackBtn() {
+    const currPath = `/${this.originUrl}`;
+    this.router.navigate([currPath]);
+    /* console.log('this.originUrl: ', this.originUrl)
+    if (this.originUrl === '') {
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['/io-garden']);
+    } */
   }
 
 }

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { BlogPostMetaData } from '../../services/blog-service/blog.service';
+import { DataService } from '../../services/data-service/data.service';
 
 type ImgOrientation = 'top' | 'left' | 'right';
 
@@ -21,8 +22,9 @@ export class PreviewCardComponent implements OnInit {
   public previewOrintationClass = '';
 
   constructor(
-    // private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute,
+    private router: Router,
+    private dataService: DataService
   ) { }
 
   ngOnInit(): void {
@@ -53,6 +55,8 @@ export class PreviewCardComponent implements OnInit {
   } */
 
   public handlePreviewClick(id: string) {
+    const originUrl: string = this.route.snapshot.url.join('');
+    this.dataService.originOfNavigation$.next(originUrl);
     const currRouteArr = this.metaData.category === 'post'
       ? ['/blog/post', id]
       : ['/io-garden', id, id];

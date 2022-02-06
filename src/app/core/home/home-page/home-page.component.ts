@@ -50,14 +50,14 @@ export class HomePageComponent implements OnInit {
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
 
     this.allIoGardenTags = this.ioGardenService.getAllIoGardenExperimentTags();
-    console.log('this.allIoGardenTags: ', this.allIoGardenTags);
+    // console.log('this.allIoGardenTags: ', this.allIoGardenTags);
 
     this.allBlogTags = this.blogService.getAllBlogTags();
-    console.log('this.allBlogTags: ', this.allBlogTags);
+    // console.log('this.allBlogTags: ', this.allBlogTags);
 
     const unorderedUnifiedAndCountedArr = this.unifyAndCountTagArrays(this.allIoGardenTags, this.allBlogTags);
     this.unifiedAndCountedTagsArr = _.orderBy(unorderedUnifiedAndCountedArr, 'count', 'desc');
-    console.log('this.unifiedAndCountedTagsArr: ', this.unifiedAndCountedTagsArr);
+    // console.log('this.unifiedAndCountedTagsArr: ', this.unifiedAndCountedTagsArr);
   }
 
   ngOnDestroy(): void {
