@@ -2,7 +2,7 @@
 
 .home-page-container {
   padding: 0;
-  @media (min-width: 576px) {
+  @media (min-width: 768px) {
     padding: 20px 80px;
   }
   h1, h2 {
@@ -79,8 +79,18 @@
   }
 }
 
+h1 {
+  @media (min-width: 610px) {
+    br {
+      display: none;
+    }
+  }
+}
+
 h2 {
-  @media (min-width: 992px) {
+  margin: 70px 0 0 0;
+  @media (min-width: 1440px) {
+    margin: 0;
     br {
       display: none;
     }

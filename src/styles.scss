@@ -3,6 +3,8 @@
 @import './assets/stylesheets/typography.scss';
 @import './assets/stylesheets/cards.scss';
 @import './assets/stylesheets/buttons.scss';
+@import './assets/stylesheets/tags.scss';
+
 
 * {
   box-sizing: border-box;
@@ -36,6 +38,8 @@ a {
 body {
   min-height: 100vh;
   background: $subtle-two;
+  // background: $subtle-one;
+
   // background: $white;
   // background: linear-gradient(180deg, $subtle-one 0%, $subtle-two 100%);
   // background: $dark-gray;

@@ -1,0 +1,25 @@
+// Tags
+
+.tag-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 0 20px 0;
+  gap: 5px;
+}
+
+.tag-item {
+  background-color: $light-gray;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0;
+  list-style: none;
+  cursor: pointer;
+}
+
+.tag-item:hover,
+.tag-item:active {
+  background-color: $brand;
+}
