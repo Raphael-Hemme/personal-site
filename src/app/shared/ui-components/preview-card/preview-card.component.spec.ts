@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BlogPostPreviewComponent } from './blog-post-preview.component';
+import { PreviewCardComponent } from './preview-card.component';
 
 describe('BlogPostPreviewComponent', () => {
-  let component: BlogPostPreviewComponent;
-  let fixture: ComponentFixture<BlogPostPreviewComponent>;
+  let component: PreviewCardComponent;
+  let fixture: ComponentFixture<PreviewCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BlogPostPreviewComponent ]
+      declarations: [ PreviewCardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BlogPostPreviewComponent);
+    fixture = TestBed.createComponent(PreviewCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

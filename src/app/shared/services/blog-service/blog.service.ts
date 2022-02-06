@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import blogPostsMetaData from 'src/assets/blog-posts-meta-data.json';
 
@@ -12,7 +13,9 @@ export interface BlogPostMetaData {
   'dateLastEdited'?: string;
   'phase': number;
   'previewImageUrl': string;
-  'tags'?: any[];
+  'tags': any[];
+  'isPublished': boolean;
+  'category': string;
 }
 
 @Injectable({
@@ -25,44 +28,35 @@ export class BlogService {
   constructor() { }
 
   public getAllBlogPostsMetaData(): BlogPostMetaData[] {
-    return this.postsMetaData;
+    const resultArr = this.postsMetaData.filter(el => el.isPublished === true)
+    return resultArr;
   }
 
   public getBlogPostMetaDataById(id: string): BlogPostMetaData {
     const postIndex = this.postsMetaData.findIndex(el => el.id === id);
     if (postIndex === -1) {
       throw new Error('There has been a problem with the provided blog post id.');
-/*       return {
-        'id': '',
-        'title': '',
-        'subtitle': '',
-        'dateOriginal': '',
-        'dateLastEdited': '',
-        'state': 0,
-        'postPath': '',
-        'previewImageUrl': '',
-        'tags': []
-      }; */
     }
     return this.postsMetaData[postIndex];
   }
 
   public getRandomBlogPostMetaData(): BlogPostMetaData {
-    const randomIndex = Math.floor(Math.random() * this.postsMetaData.length);
-/*     console.log('this.experimentMetaData.length', this.experimentMetaData.length);
-    console.log('randomIndex', randomIndex); */
-    return this.postsMetaData[randomIndex]
+    const publishedPostsArr = this.getAllBlogPostsMetaData();
+    const randomIndex = Math.floor(Math.random() * publishedPostsArr.length);
+    return publishedPostsArr[randomIndex]
   }
 
   public getAllBlogTags(): string[] {
+    const publishedPostsArr: BlogPostMetaData[] = this.getAllBlogPostsMetaData();
     const resultArr: string[] = [];
-    this.postsMetaData.forEach(entry => {
+    publishedPostsArr.forEach((entry: BlogPostMetaData) => {
       resultArr.push(...entry.tags)
     });
     return resultArr;
   }
 
   public getIoGardenExperimentsByTag(tag: string): BlogPostMetaData[] {
-    return this.postsMetaData.filter(el => el.tags.includes(tag));
+    const publishedPostsArr: BlogPostMetaData[] = this.getAllBlogPostsMetaData();
+    return publishedPostsArr.filter(el => el.tags.includes(tag));
   }
 }

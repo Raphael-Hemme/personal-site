@@ -1,19 +1,21 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { BlogPostMetaData } from '../../services/blog-service/blog.service';
+import { DataService } from '../../services/data-service/data.service';
 
 type ImgOrientation = 'top' | 'left' | 'right';
 
 @Component({
-  selector: 'app-blog-post-preview',
-  templateUrl: './blog-post-preview.component.html',
-  styleUrls: ['./blog-post-preview.component.scss']
+  selector: 'app-preview-card',
+  templateUrl: './preview-card.component.html',
+  styleUrls: ['./preview-card.component.scss']
 })
-export class BlogPostPreviewComponent implements OnInit {
+export class PreviewCardComponent implements OnInit {
 
   @Input() imgPosition: ImgOrientation = 'top';
   @Input() metaData!: BlogPostMetaData;
+//  @Input() routingConfig
   // @Output() blogPostReadBtnEvent: EventEmitter<string> = new EventEmitter();
 
   public hslBgColorString: string = ''
@@ -21,12 +23,13 @@ export class BlogPostPreviewComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dataService: DataService
   ) { }
 
   ngOnInit(): void {
     // console.log(this.metaData.previewImageUrl);
-    this.hslBgColorString = this.generateHslBgColorString(this.metaData.previewImageUrl);
+    // this.hslBgColorString = this.generateHslBgColorString(this.metaData.previewImageUrl);
     // console.log(this.hslBgColorString);
 
     switch (this.imgPosition) {
@@ -44,16 +47,22 @@ export class BlogPostPreviewComponent implements OnInit {
     }
   }
 
-  private generateHslBgColorString(inputString: string): string {
+/*   private generateHslBgColorString(inputString: string): string {
     let removedPath = inputString.replace('assets/images/blog-preview-images/punchCardPattern-','');
     removedPath = removedPath.replace('.png', '');
     const hslArr = removedPath.split('-');
     return `hsl(${hslArr[0]}, ${hslArr[1]}%, ${hslArr[2]}%)`;
-  }
+  } */
 
-  public handleBlogPostPreviewReadBtn(id: string) {
-    // console.log('inpreview.component: ', id);
-    this.router.navigate(['/blog/post', id]);
+  public handlePreviewClick(id: string) {
+    const originUrl: string = this.route.snapshot.url.join('');
+    this.dataService.originOfNavigation$.next(originUrl);
+    const currRouteArr = this.metaData.category === 'post'
+      ? ['/blog/post', id]
+      : ['/io-garden', id, id];
+
+    this.router.navigate([...currRouteArr]);
+    // this.router.navigate(['/blog/post', id]);
     // this.blogPostReadBtnEvent.emit(id);
   }
 

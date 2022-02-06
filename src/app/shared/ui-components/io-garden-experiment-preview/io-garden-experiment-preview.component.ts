@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DataService } from '../../services/data-service/data.service';
 
 import { IoGardenExperimentMetaData, IoGardenService } from '../../services/io-garden-service/io-garden.service';
 
@@ -20,7 +21,9 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
 
   constructor(
     private ioGardenService: IoGardenService,
-    private router: Router
+    private router: Router,
+    private dataService: DataService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +44,8 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
   }
 
   public handleExperimentPreviewReadBtn(id: string): void {
+    const originUrl: string = this.route.snapshot.url.join('');
+    this.dataService.originOfNavigation$.next(originUrl);
     this.router.navigate(['/io-garden', id, id]);
   }
 }

@@ -5,14 +5,18 @@ import {
   OnDestroy,
   ViewChild,
   ElementRef } from '@angular/core';
-import { Router, NavigationEnd  } from '@angular/router';
+import { Router,
+  NavigationEnd,
+  RoutesRecognized } from '@angular/router';
 import {
   BehaviorSubject,
   fromEvent,
   Subscription,
   combineLatest,
   filter,
-  map } from 'rxjs';
+  pairwise,
+  map,
+  tap } from 'rxjs';
 import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
 
 

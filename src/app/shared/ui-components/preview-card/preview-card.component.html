@@ -1,5 +1,8 @@
 <!-- <div class="blog-post-preview-card image-left-blog-post-preview-card" [ngStyle]="{'background-color': hslBgColorString}"> -->
-<div class="preview-card" [ngClass]="previewOrintationClass">
+<div 
+  class="preview-card" 
+  [ngClass]="previewOrintationClass"
+  (click)="handlePreviewClick(metaData.id)">
   <div class="preview-card-image-container">
     <img
       [src]="metaData.previewImageUrl"
@@ -31,7 +34,7 @@
   </div>
   <div class="preview-card-actions">
     <button
-      (click)="handleBlogPostPreviewReadBtn(metaData.id)"
+      (click)="handlePreviewClick(metaData.id)"
       type="button"
       class="btn-accent-flat preview-card-read-btn">
         read
