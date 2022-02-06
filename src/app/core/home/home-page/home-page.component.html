@@ -33,11 +33,11 @@
         </app-io-garden-experiment-preview>
       </div>
       <div class="featured-blog-post">
-        <app-blog-post-preview
+        <app-preview-card
           [metaData]="featuredBlogPost"
           [imgPosition]="'top'"
           class="blog-posts-preview-card">
-        </app-blog-post-preview>
+        </app-preview-card>
       </div>
     </div>
   </section>
@@ -62,11 +62,11 @@
         <div
           class="tag-selection-result-wrapper"
           *ngFor="let result of blogPostsAndExperimentsSelectedByTag">
-            <app-blog-post-preview
+            <app-preview-card
               [metaData]="result"
               [imgPosition]="'left'"
               class="blog-posts-preview-card">
-            </app-blog-post-preview>
+            </app-preview-card>
         </div>
     </div>
   </section>

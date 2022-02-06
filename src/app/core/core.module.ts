@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 
 import { MarkdownModule } from 'ngx-markdown';
-import { BlogPostPreviewComponent } from '../shared/ui-components/blog-post-preview/blog-post-preview.component';
+import { PreviewCardComponent } from '../shared/ui-components/preview-card/preview-card.component';
 import { BlogPostComponent } from '../shared/ui-components/blog-post/blog-post.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { TeA001Component } from './io-garden/components/te-a001/te-a001.component';
@@ -22,7 +22,7 @@ import {RouterModule} from '@angular/router';
     BlogPageComponent,
     IoGardenPageComponent,
     SplashScreenComponent,
-    BlogPostPreviewComponent,
+    PreviewCardComponent,
     BlogPostComponent,
     HomePageComponent,
     TeA001Component,

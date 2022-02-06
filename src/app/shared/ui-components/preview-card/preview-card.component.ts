@@ -6,11 +6,11 @@ import { BlogPostMetaData } from '../../services/blog-service/blog.service';
 type ImgOrientation = 'top' | 'left' | 'right';
 
 @Component({
-  selector: 'app-blog-post-preview',
-  templateUrl: './blog-post-preview.component.html',
-  styleUrls: ['./blog-post-preview.component.scss']
+  selector: 'app-preview-card',
+  templateUrl: './preview-card.component.html',
+  styleUrls: ['./preview-card.component.scss']
 })
-export class BlogPostPreviewComponent implements OnInit {
+export class PreviewCardComponent implements OnInit {
 
   @Input() imgPosition: ImgOrientation = 'top';
   @Input() metaData!: BlogPostMetaData;
