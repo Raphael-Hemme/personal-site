@@ -11,7 +11,8 @@
         "coding practice",
         "code highlighting",
         "javascript"
-      ]
+      ],
+      "isPublished": true
     },
     {
       "id": "vcw2mcyg9el8gpusjavr9fsdbi47ve",
@@ -32,7 +33,8 @@
         "HCI",
         "cultures of computing",
         "excerpts"
-      ]
+      ],
+      "isPublished": true
     },
     {
       "id": "s4dbo9uvtbe1ymozygscajdsimi9mv",
@@ -46,7 +48,8 @@
         "coding practice",
         "resources",
         "p5.js"
-      ]
+      ],
+      "isPublished": false
     },
     {
       "id": "jut15hfhwlu3btyag8h55xdfackix4",
@@ -60,7 +63,8 @@
         "coding practice",
         "resources",
         "rxjs"
-      ]
+      ],
+      "isPublished": true
     },
     {
       "id": "b9kq5pwm01va7aevcr6flx5nw7exbt",
@@ -73,7 +77,8 @@
       "tags": [
         "digital gardening",
         "zettelkasten"
-      ]
+      ],
+      "isPublished": true
     },
     {
       "id": "b092emtyc8o3an09eu1rpk3asiga5r",
@@ -88,7 +93,8 @@
         "design",
         "logo design",
         "aesthetics"
-      ]
+      ],
+      "isPublished": true
     },
     {
       "id": "graetmdd5t1lxz3ep5n3dst4j7y9ay",
@@ -111,7 +117,8 @@
         "the silent",
         "cultures of computing",
         "excerpts"
-      ]
+      ],
+      "isPublished": true
     },
     {
       "id": "i58fj1ukorzc0ggz8ush9uvodp6o6x",
@@ -133,7 +140,8 @@
         "cognitive science",
         "AI",
         "interaction design"
-      ]
+      ],
+      "isPublished": true
     },
     {
       "id": "p7ameh0fjs4hu90xhcobr511pvttq1",
@@ -149,6 +157,7 @@
         "arrays",
         "variable reassignment",
         "debugging"
-      ]
+      ],
+      "isPublished": true
     }
   ]

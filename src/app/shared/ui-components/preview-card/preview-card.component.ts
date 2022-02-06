@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { BlogPostMetaData } from '../../services/blog-service/blog.service';
 
@@ -20,13 +20,13 @@ export class PreviewCardComponent implements OnInit {
   public previewOrintationClass = '';
 
   constructor(
-    private route: ActivatedRoute,
+    // private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     // console.log(this.metaData.previewImageUrl);
-    this.hslBgColorString = this.generateHslBgColorString(this.metaData.previewImageUrl);
+    // this.hslBgColorString = this.generateHslBgColorString(this.metaData.previewImageUrl);
     // console.log(this.hslBgColorString);
 
     switch (this.imgPosition) {
@@ -44,15 +44,14 @@ export class PreviewCardComponent implements OnInit {
     }
   }
 
-  private generateHslBgColorString(inputString: string): string {
+/*   private generateHslBgColorString(inputString: string): string {
     let removedPath = inputString.replace('assets/images/blog-preview-images/punchCardPattern-','');
     removedPath = removedPath.replace('.png', '');
     const hslArr = removedPath.split('-');
     return `hsl(${hslArr[0]}, ${hslArr[1]}%, ${hslArr[2]}%)`;
-  }
+  } */
 
   public handleBlogPostPreviewReadBtn(id: string) {
-    // console.log('inpreview.component: ', id);
     this.router.navigate(['/blog/post', id]);
     // this.blogPostReadBtnEvent.emit(id);
   }

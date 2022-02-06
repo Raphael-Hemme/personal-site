@@ -12,7 +12,8 @@ export interface IoGardenExperimentMetaData {
   'dateLastEdited'?: string;
   'phase': number;
   'previewImageUrl': string;
-  'tags'?: any[];
+  'tags': any[];
+  'isPublished': boolean;
 }
 
 @Injectable({
@@ -24,44 +25,36 @@ export class IoGardenService {
   constructor() { }
 
   public getAllIoGardenExperimentsMetaData(): IoGardenExperimentMetaData[] {
-    return this.experimentMetaData;
+    const resultArr = this.experimentMetaData.filter(el => el.isPublished === true)
+    return resultArr;
   }
 
   public getIoGardenMetaDataById(id: string): IoGardenExperimentMetaData {
-    const experimentIndex = this.experimentMetaData.findIndex(el => el.id === id);
+    const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
+    const experimentIndex = publishedExperimentArr.findIndex(el => el.id === id);
     if (experimentIndex === -1) {
       throw new Error('There has been a problem with the provided experiment id.');
-/*       return {
-        'id': '',
-        'title': '',
-        'subtitle': '',
-        'abstract': '';
-        'descriptionUrl': '';
-        'dateOriginal': '',
-        'dateLastEdited': '',
-        'state': 0,
-        'postPath': '',
-        'previewImageUrl': '',
-        'tags': []
-      }; */
     }
-    return this.experimentMetaData[experimentIndex];
+    return publishedExperimentArr[experimentIndex];
   }
 
   public getRandomIoGardenExperimentMetaData(): IoGardenExperimentMetaData {
-    const randomIndex = Math.floor(Math.random() * this.experimentMetaData.length);
-    return this.experimentMetaData[randomIndex]
+    const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
+    const randomIndex = Math.floor(Math.random() * publishedExperimentArr.length);
+    return publishedExperimentArr[randomIndex]
   }
 
   public getAllIoGardenExperimentTags(): string[] {
+    const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
     const resultArr: string[] = [];
-    this.experimentMetaData.forEach(entry => {
+    publishedExperimentArr.forEach(entry => {
       resultArr.push(...entry.tags)
     });
     return resultArr;
   }
 
   public getIoGardenExperimentsByTag(tag: string): IoGardenExperimentMetaData[] {
-    return this.experimentMetaData.filter(el => el.tags.includes(tag));
+    const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
+    return publishedExperimentArr.filter(el => el.tags.includes(tag));
   }
 }
