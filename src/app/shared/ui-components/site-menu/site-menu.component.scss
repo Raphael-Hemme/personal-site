@@ -30,12 +30,13 @@
   font-size: 2rem;
   font-weight: 200;
   list-style-type: none;
-  margin: 20px 0 0 0;
+  margin: 40px 0 0 0;
   text-transform: uppercase;
   display: flex;
   justify-content: center;
   @media (min-width: 768px) {
     font-size: 2rem;
+    margin: 40px 0 0 0;
   }
 }
 
@@ -55,5 +56,5 @@
 }
 
 .logo-small {
-  height: 50px;
+  height: 100px;
 }
