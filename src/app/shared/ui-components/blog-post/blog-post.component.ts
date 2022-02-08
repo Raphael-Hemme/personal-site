@@ -26,7 +26,7 @@ export class BlogPostComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.currPostId = params['id']
       this.currPostMetaData = this.blogService.getBlogPostMetaDataById(this.currPostId);
-      console.log('this.currPostId', this.currPostId, 'this.currPostMetaData', this.currPostMetaData)
+      // console.log('this.currPostId', this.currPostId, 'this.currPostMetaData', this.currPostMetaData)
     });
     this.dataService.originOfNavigation$.subscribe(origin => this.originUrl = origin);
 

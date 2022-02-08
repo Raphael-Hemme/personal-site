@@ -130,7 +130,7 @@ export class LeA001Component implements OnInit {
         s.strokeWeight(1);
         s.noFill();
 
-        console.log('dots: ', this.dots)
+        // console.log('dots: ', this.dots)
 
         s.noLoop();
       }
