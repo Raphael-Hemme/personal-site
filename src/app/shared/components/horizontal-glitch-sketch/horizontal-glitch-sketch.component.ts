@@ -41,9 +41,13 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
     const currWindowWidth = window.innerWidth;
     const currWindowHeight = window.innerHeight;
 
-    this.canvWidth = currWindowWidth - 35;
+
+
+/*     this.canvWidth = currWindowWidth // - 35;
     // currWindowWidth < 992 ? this.canvWidth = currWindowWidth - 30 : this.canvWidth = currWindowWidth - 35;
-    this.canvHeight = currWindowHeight;
+    this.canvHeight = currWindowHeight; */
+
+    this.setCorrectCanvDimensions();
 
     const sketch = (s: any) => {
       let img: any;
@@ -189,12 +193,25 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   }
 
   private triggerResize(): void {
-    this.canvWidth = window.innerWidth - 35;
-    this.canvHeight = window.innerHeight;
+
+    this.setCorrectCanvDimensions();
 
     this.canvas.resizeCanvas(this.canvWidth, this.canvHeight);
     this.setImgSize(this.canvWidth, this.canvHeight);
     this.setCenteredPosition(this.canvWidth, this.canvHeight);
+  }
+
+  private setCorrectCanvDimensions(): void {
+    if (window.innerWidth <= 768) {
+      this.canvWidth = window.innerWidth - 35;
+      this.canvHeight = window.innerHeight;
+    } else if (window.innerWidth > 768 && window.innerWidth < 1200) {
+      this.canvWidth = window.innerWidth - 160;
+      this.canvHeight = window.innerHeight;
+    } else {
+      this.canvWidth = 1005;
+      this.canvHeight = window.innerHeight;
+    }
   }
 
   private setCenteredPosition(canvWidth: number, canvHeight: number): void {
