@@ -2,8 +2,11 @@
 
 .io-garden-experiment {
   padding: 0;
-  @media (min-width: 768px) {
+  @media (min-width: 768px) and (max-width: 1199px) {
     padding: 20px 80px;
+  }
+  @media (min-width: 1200px) {
+    padding: 20px calc((100% - 1005px) / 2);
   }
 }
 

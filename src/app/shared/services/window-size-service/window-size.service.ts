@@ -99,11 +99,15 @@ export class WindowSizeService {
       h: 0
     }
 
+    
     if (window.innerWidth <= 768) {
       result.w = ((window.innerWidth / 100) * canvasConfig.wPercentS) - 35;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentS);
-    } else {
+    } else if (window.innerWidth > 768 && window.innerWidth < 1200) {
       result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
+      result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
+    } else {
+      result.w = 1005;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
     }
 
