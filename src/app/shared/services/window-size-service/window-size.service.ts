@@ -61,29 +61,6 @@ export class WindowSizeService {
     return this.currMainContainerHeight;
   }
 
-/*   public calcCanvasSizeRelToMainContainerWidth(canvasSizeParamObj: CanvasSizeParamObj): CanvasSizeReturnObj {
-      let canvWidth = 0;
-      let canvHeight = 0;
-
-      console.log(this.currMainContainerWidth)
-
-      if (window.innerWidth >= 992) {
-        canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentL - 10;
-        canvHeight = this.currMainContainerHeight / 100 * canvasSizeParamObj.hPercentL;
-      } else if (window.innerWidth > 720 && window.innerWidth < 992) {
-        canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentL - 35;
-        canvHeight = this.currMainContainerHeight / 100 * canvasSizeParamObj.hPercentL;
-      } else {
-        canvWidth = this.currMainContainerWidth / 100 * canvasSizeParamObj.wPercentS - 20;
-        canvHeight = this.currMainContainerHeight / 100 * canvasSizeParamObj.hPercentS;
-      }
-
-      return {
-        w: canvWidth,
-        h: canvHeight
-      }
-  } */
-
   public triggerCanvasResize(canvas: any, canvasConfig: CanvasConfigObj): void {
 
     const canvSizeObj = this.calculateCanvasSize(canvasConfig);
@@ -99,11 +76,18 @@ export class WindowSizeService {
       h: 0
     }
 
+    
     if (window.innerWidth <= 768) {
       result.w = ((window.innerWidth / 100) * canvasConfig.wPercentS) - 35;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentS);
+    } else if (window.innerWidth > 768 && window.innerWidth < 1200) {
+      // result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
+      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 175;
+      result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
     } else {
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
+      result.w = 1005; 
+      // 1005px is the hard coded size of the main-content-container on windowInnerwidth of 1200 and up. 
+      // 1005 because it is the dynamic size before the breakpoint gets activated -> prevents size glitches. 
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
     }
 

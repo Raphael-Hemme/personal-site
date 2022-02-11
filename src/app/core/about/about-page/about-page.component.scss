@@ -14,7 +14,7 @@
     "tech-stack-area"
     "social-media-area";
   @media (min-width: 768px) and (max-width: 992px) {
-    padding: 20px 80px;
+    // padding: 20px 80px;
     gap: 60px;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: min-content min-content min-content;
@@ -25,7 +25,7 @@
   }
   @media (min-width: 992px) {
     gap: 80px;
-    padding: 20px 80px;
+    // padding: 20px 80px;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: min-content min-content min-content;
     grid-template-areas: 

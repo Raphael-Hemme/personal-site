@@ -18,11 +18,23 @@ There I was, sitting at my desk with this uneasy company of letters. How to conc
 
 At first, I thought: "Okay, let's make them just really bold and set them in italics. But that did not look particularly interesting or recognizable. 
 
-![bold letters](/assets/images/post-images/20210128/post-20210128-img-01.jpeg)
+<p class="blog-post-centered-img-wrapper">
+    <img 
+        src="assets/images/post-images/20210128/post-20210128-img-01.jpeg" 
+        alt="bold letters">
+    </img>
+</p>
+
 
 Next, I decided to try "forcing" the *H* into the same regime of experimental proportions, and variable angles that evolved in the iterative work with the *R*. 
 
-![Series A and B](/assets/images/post-images/20210128/post-20210128-img-02.jpeg)
+<p class="blog-post-centered-img-wrapper">
+    <img 
+        src="assets/images/post-images/20210128/post-20210128-img-02.jpeg" 
+        alt="Series A and B">
+    </img>
+</p>
+
 
 As you can see in the series of sketches labeled with an "A", the *H* does not respond well to being subjected to an asymmetrical change in the tilt angle of just one stem. While I think the small sketch at the bottom with just the lower parts of the stems being (partly) tilted while the upper parts are straight, does almost work. It disrespects the fundamental shape of an *H* too much in my view, though. It almost reminds me of a *k* in some way. So that did not work either.
 
@@ -30,11 +42,16 @@ In the small sectioned off part of the page above that is labeled with a "B", I 
 
 I wanted to find a solution to this puzzle and got back to the line of thought I started earlier with the series of sketches labeled with an "A", worked a bit with a buckled crossbar but still had a strange feeling about the anatomy of the *H*.
 
-![Series B and C](/assets/images/post-images/20210128/post-20210128-img-03.jpeg)
+<p class="blog-post-centered-img-wrapper">
+    <img 
+        src="assets/images/post-images/20210128/post-20210128-img-03.jpeg" 
+        alt="Series B and C">
+    </img>
+</p>
 
 Finally I decided to take up the idea of the vertically semi-nested letters again but this time rearranging the order to the regular first letter on top and second letter below as you can see in the iterations labeled with a "C". And that is what I felt quite good with. A bit of refinement here and and some work on the proportions there was still needed but I really liked the general idea and layout of this series. 
 
-Also, already the small first sketch at the top of the page, brought up an association with Albrecht Dürer's famous [insignia](https://upload.wikimedia.org/wikipedia/commons/8/8e/Albrecht_D%C3%BCrer_-_Monogram_1526.png).  
+Also, already the small first sketch at the top of the page, brought up an association with [Albrecht Dürer's famous insignia](https://upload.wikimedia.org/wikipedia/commons/8/8e/Albrecht_D%C3%BCrer_-_Monogram_1526.png).  
 Looking up Dürers insignia again, I also recognized that even this great artist, opted for a relatively plain "D" enclosed by an elaborate "A". Can you imagine the surprise and relieve when I recognized, that a master like Dürer chose a similar approach when presumably faced with a similar problem? Maybe Dürer had totally different reasons for drawing his monogram the way he did but I think *D* and *H* are similarly challenging in their respective ways. So after I became aware of the resemblance, I decided to even increase it slightly because I like this kind of reference with reverence and hope it might also work as a kind of [sympathetic magic](https://en.wikipedia.org/wiki/Sympathetic_magic) or "Analogiezauber" for my soon to be digitalized logo and work in general.
 
 I will come back to the logo in a later post to also open up the process of transferring this paper and pencil sketch into a vector drawing and ultimately even a subtly animated logo for the portfolio.

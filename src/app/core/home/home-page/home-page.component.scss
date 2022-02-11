@@ -3,7 +3,7 @@
 .home-page-container {
   padding: 0;
   @media (min-width: 768px) {
-    padding: 20px 80px;
+    // padding: 20px 80px;
   }
   h1, h2 {
     width: 100%;
@@ -24,7 +24,7 @@
   gap: 10px;
   // justify-content: center;
   @media (min-width: 1200px) {
-    height: 340px;
+    height: 370px;
     margin: 150px 0 0 0;
     flex-direction: row;
     justify-content: space-between;
@@ -46,6 +46,9 @@
   }
   p {
     margin: 0 0 20px 0;
+  }
+  h3 {
+    line-height: 1.5;
   }
 }
 
@@ -88,7 +91,8 @@ h1 {
 }
 
 h2 {
-  margin: 70px 0 0 0;
+  text-align: center;
+  margin: 0;
   @media (min-width: 1440px) {
     margin: 0;
     br {

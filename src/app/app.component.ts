@@ -63,6 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
           map(e => { return e }))
         .subscribe(() => {
           this.currRoute.next(this.location.path());
+          // window.scroll(0, 0);
       })
     )
     this.subscriptions.add(
@@ -94,6 +95,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public handleLogoClick() {
     this.siteMenuIsVisible = false;
     this.router.navigate(['/'])
+    window.scroll(0, 0);
   }
 
 }

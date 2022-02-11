@@ -23,6 +23,7 @@ export class SiteMenuComponent implements OnInit {
 
   public handleHomeBtn(): void {
     this.router.navigate(['/']);
+    window.scroll(0, 0);
     this.closeSiteMenuEvent.emit(true);
   }
 
@@ -32,16 +33,19 @@ export class SiteMenuComponent implements OnInit {
 
   public handleBlogBtn(): void {
     this.router.navigate(['/blog']);
+    window.scroll(0, 0);
     this.closeSiteMenuEvent.emit(true);
   }
 
   public handleIoGardenBtn(): void {
     this.router.navigate(['/io-garden']);
+    window.scroll(0, 0);
     this.closeSiteMenuEvent.emit(true);
   }
 
   public handleAboutBtn(): void {
     this.router.navigate(['/about']);
+    window.scroll(0, 0);
     this.closeSiteMenuEvent.emit(true);
   }
 
