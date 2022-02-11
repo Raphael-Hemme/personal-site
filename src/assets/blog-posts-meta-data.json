@@ -1,6 +1,6 @@
  [
     {
-      "id": "wtbcqk4jlotb8exwoayms1xbei5vbe",
+      "id": "bp-2021-01-06-a",
       "title": "Hello GitHub Pages World",
       "abstract": "",
       "dateOriginal": "2021-01-06",
@@ -16,7 +16,7 @@
       "category": "post"
     },
     {
-      "id": "vcw2mcyg9el8gpusjavr9fsdbi47ve",
+      "id": "bp-2021-01-09-a",
       "title": "Excerpt - Putting Things into Words",
       "abstract": "",
       "dateOriginal": "2021-01-09",
@@ -39,7 +39,7 @@
       "category": "post"
     },
     {
-      "id": "s4dbo9uvtbe1ymozygscajdsimi9mv",
+      "id": "bp-2021-10-17-a",
       "title": "Combining Angular and p5.js",
       "abstract": "",
       "dateOriginal": "2021-10-17",
@@ -55,7 +55,7 @@
       "category": "post"
     },
     {
-      "id": "jut15hfhwlu3btyag8h55xdfackix4",
+      "id": "bp-2021-04-18-a",
       "title": "Learning RxJS: Taming an Electric Eel",
       "abstract": "",
       "dateOriginal": "2021-04-18",
@@ -71,7 +71,7 @@
       "category": "post"
     },
     {
-      "id": "b9kq5pwm01va7aevcr6flx5nw7exbt",
+      "id": "bp-2021-03-15-a",
       "title": "Cultivating a Digital Garden in my Zettelkasten",
       "abstract": "",
       "dateOriginal": "2021-03-15",
@@ -86,7 +86,7 @@
       "category": "post"
     },
     {
-      "id": "b092emtyc8o3an09eu1rpk3asiga5r",
+      "id": "bp-2021-01-28-a",
       "title": "Challenging Characters in Typography",
       "abstract": "",
       "dateOriginal": "2021-01-28",
@@ -103,7 +103,7 @@
       "category": "post"
     },
     {
-      "id": "graetmdd5t1lxz3ep5n3dst4j7y9ay",
+      "id": "bp-2021-01-22-a",
       "title": "Ethnographies of Infrastructure",
       "abstract": "",
       "dateOriginal": "2021-01-22",
@@ -128,7 +128,7 @@
       "category": "post"
     },
     {
-      "id": "i58fj1ukorzc0ggz8ush9uvodp6o6x",
+      "id": "bp-2021-01-14-a",
       "title": "Situated Watching: The Virtual Vortex of Ethnography Videos",
       "abstract": "",
       "subtitle": "The Virtual Vortex of Ethnography Videos",
@@ -152,7 +152,7 @@
       "category": "post"
     },
     {
-      "id": "p7ameh0fjs4hu90xhcobr511pvttq1",
+      "id": "bp-2021-01-11-a",
       "title": "JS arrays don't like to be copied",
       "abstract": "",
       "dateOriginal": "2021-01-11",
