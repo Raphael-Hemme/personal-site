@@ -80,6 +80,10 @@
    color: #b58900;
  }
 
+ .token.parameter {
+  color: #53b658;
+}
+
  .token.symbol,
  .token.deleted {
    color: #dc322f;

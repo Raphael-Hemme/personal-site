@@ -57,10 +57,11 @@
 .blog-post-meta-date-table {
   width: 100%;
   margin: 0;
+  font-size: 1rem;
   & .blog-post-meta-date-label {
-    width: 90px;
+    width: 120px;
     @media (min-width: 992) {
-      width: 120px;
+      width: 150px;
     }
   }
   & .blog-post-meta-date-value {
