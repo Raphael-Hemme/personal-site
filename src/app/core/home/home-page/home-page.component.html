@@ -18,9 +18,13 @@
       <button
         class="btn-primary-flat refresh-btn"
         (click)="handleRefreshFeaturedBtn()">
-        <span class="material-icons">
+        <span 
+          class="material-icons" 
+          aria-hidden="true" 
+          focusable="false">
           refresh
           </span>
+          <span class="visually-hidden">refresh</span>
       </button>
     </div>
 
