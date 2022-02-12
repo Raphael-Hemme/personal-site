@@ -8,6 +8,9 @@
   .preview-card-img {
     filter: none;
   }
+  h4 {
+    color: $subtle-one;
+  }
 }
 
 .image-left-preview-card {
@@ -68,6 +71,7 @@
 .preview-card-phase-indicator-container {
   display: flex;
   justify-content: flex-end;
+  gap: 2px;
 }
 
 .image-left-preview-card .preview-card-phase-indicator-container {

@@ -73,12 +73,14 @@ li {
   border-radius: 10px;
 }
 
-.blog-post-centered-img-wrapper {
+.blog-post-centered-img-wrapper,
+.blog-post-centered-video-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
-  img {
-    width: 70%;
+  margin: 20px 0;
+  iframe {
+    // width: 60%;
     border-radius: 10px;
   }
 }
