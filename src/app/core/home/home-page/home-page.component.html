@@ -60,9 +60,10 @@
     </div>
 
 
-    <div
-      class="tag-result-container"
-      *ngIf="blogPostsAndExperimentsSelectedByTag">
+    <div class="tag-result-outer-container" #tagResultOuterContainer>
+      <div
+        class="tag-result-inner-container"
+        *ngIf="blogPostsAndExperimentsSelectedByTag">
         <div
           class="tag-selection-result-wrapper"
           *ngFor="let result of blogPostsAndExperimentsSelectedByTag">
@@ -72,7 +73,9 @@
               class="blog-posts-preview-card">
             </app-preview-card>
         </div>
+      </div>
     </div>
+    
   </section>
 
 </div>
