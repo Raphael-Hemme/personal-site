@@ -52,6 +52,7 @@
       <ul class="tag-container">
         <li
           class="tag-item"
+          [ngClass]="tagItem.name === currNameSelectedTag? 'tag-selected' : ''"
           *ngFor="let tagItem of unifiedAndCountedTagsArr"
           (click)="handleTagSelection(tagItem.name)">
             {{ tagItem.name }} | {{tagItem.count}}
@@ -74,6 +75,9 @@
             </app-preview-card>
         </div>
       </div>
+      <p class="pre-selection-msg" *ngIf="!blogPostsAndExperimentsSelectedByTag">
+        Select a tag to display related blog posts and experiments.
+      </p>
     </div>
     
   </section>

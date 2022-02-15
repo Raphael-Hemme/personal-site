@@ -34,6 +34,8 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   public blogPostsAndExperimentsSelectedByTag!: (BlogPostMetaData | IoGardenExperimentMetaData)[];
 
+  public currNameSelectedTag = '';
+
 
   constructor(
     private splashScreenService: SplashScreenService,
@@ -91,8 +93,9 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
     ]
     this.blogPostsAndExperimentsSelectedByTag = _.orderBy(resultArr, 'phase' ,'desc')
+    this.currNameSelectedTag = tag;
 
-    this.tagResultOuterContainer.nativeElement.scrollIntoView({block: "end", behavior: "smooth"});
+    // this.tagResultOuterContainer.nativeElement.scrollIntoView({block: "end", behavior: "smooth"});
   }
 
 }
