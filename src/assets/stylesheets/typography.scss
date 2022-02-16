@@ -23,9 +23,9 @@
   color: $dark-gray
 }
 
-h1, h2, h3, h4, h5, h6 {
+h2, h3, h4, h5, h6 {
   // font-family: 'Dosis', sans-serif;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Urbanist', sans-serif;
 }
 
 h1 {
@@ -61,7 +61,6 @@ h2 {
   margin: 0 0 40px 0;
   font-weight: 300;
   font-family: 'Urbanist', sans-serif;
-    // color: $accent;
   color: $white;
   @media (min-width: 992px) {
     font-size: 3rem;
@@ -71,28 +70,11 @@ h2 {
   }
 }
 
-/* h2 {
-  font-size: 1.7rem;
-  line-height: 1.4;
-  letter-spacing: 0.12rem;
-  margin: 0 0 40px 0;
-  font-weight: 500;
-  // color: $accent;
-  color: $white;
-  @media (min-width: 992px) {
-    font-size: 2rem;
-    line-height: 1.2;
-    margin: 0 0 40px 0;
-  }
-} */
-
 h3 {
-  font-family: 'Urbanist', sans-serif;
   font-size: 1.5rem;
   line-height: 2;
   margin: 0 0 30px 0;
   font-weight: 300;
-  // color: $mid-gray;
   color: $accent;
   @media (min-width: 992px) {
     font-size: 1.8rem;
@@ -102,11 +84,9 @@ h3 {
 h4 {
   font-size: 1.4rem;
   line-height: 1.2;
-  margin: 0 0 30px 0;
-  // font-weight: 600;
+  margin: 0 0 15px 0;
   font-weight: 300;
-    letter-spacing: 1.7px;
-  // color: $accent;
+  letter-spacing: 1.7px;
   color: $mid-gray;
   @media (min-width: 992px) {
     font-size: 1.5rem;
@@ -120,13 +100,9 @@ button,
 ol, ul,
 table {
   font-family: 'Roboto', sans-serif;
-  
-  // font-family: 'Titillium Web', sans-serif;
   font-weight: 300;
   font-size: 1.2rem;
   line-height: 1.6rem;
-  // font-family: 'Oswald', sans-serif;
-  // font-weight: 200;
 }
 
 a {
@@ -139,19 +115,11 @@ button span .mat-icon,
 }
 
 p {
-  // font-family: 'Titillium Web', sans-serif;
-/*   font-family: 'Oswald', sans-serif;
-  font-weight: 200; */
-/*   font-size: 1.2rem;
-  line-height: 1.4rem; */
   color: $white;
-  // font-weight: 400;
 }
 
 button {
-  // font-family: 'Titillium Web', sans-serif;
   font-size: 1rem;
-  // line-height: 1.1rem;
   font-weight: 400;
 }
 
