@@ -18,9 +18,13 @@
       <button
         class="btn-primary-flat refresh-btn"
         (click)="handleRefreshFeaturedBtn()">
-        <span class="material-icons">
+        <span 
+          class="material-icons" 
+          aria-hidden="true" 
+          focusable="false">
           refresh
           </span>
+          <span class="visually-hidden">refresh</span>
       </button>
     </div>
 
@@ -48,6 +52,7 @@
       <ul class="tag-container">
         <li
           class="tag-item"
+          [ngClass]="tagItem.name === currNameSelectedTag? 'tag-selected' : ''"
           *ngFor="let tagItem of unifiedAndCountedTagsArr"
           (click)="handleTagSelection(tagItem.name)">
             {{ tagItem.name }} | {{tagItem.count}}
@@ -56,9 +61,10 @@
     </div>
 
 
-    <div
-      class="tag-result-container"
-      *ngIf="blogPostsAndExperimentsSelectedByTag">
+    <div class="tag-result-outer-container" #tagResultOuterContainer>
+      <div
+        class="tag-result-inner-container"
+        *ngIf="blogPostsAndExperimentsSelectedByTag">
         <div
           class="tag-selection-result-wrapper"
           *ngFor="let result of blogPostsAndExperimentsSelectedByTag">
@@ -68,7 +74,12 @@
               class="blog-posts-preview-card">
             </app-preview-card>
         </div>
+      </div>
+      <p class="pre-selection-msg" *ngIf="!blogPostsAndExperimentsSelectedByTag">
+        Select a tag to display related blog posts and experiments.
+      </p>
     </div>
+    
   </section>
 
 </div>

@@ -6,16 +6,20 @@
         class="logo-small"
         alt="logo and home button"
         role="presentation"
-        (click)="handleLogoClick()" />
+        (click)="handleLogoClick()" 
+        aria-hidden="true" 
+        focusable="false"/>
+        <span class="visually-hidden">home</span>
     </button>
 
     <button
       (click)="toggleSiteMenuVisibility()"
       class="menu-burger"
       type="button">
-        <span class="material-icons">
-        menu
+        <span class="material-icons" aria-hidden="true" focusable="false">
+          menu
         </span>
+        <span class="visually-hidden">menu</span>
     </button>
   </header>
 

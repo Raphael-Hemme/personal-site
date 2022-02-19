@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-// import { SecurityContext } from '@angular/core';
+import { SecurityContext } from '@angular/core';
 
 import { MarkdownModule } from 'ngx-markdown';
 
@@ -23,7 +23,10 @@ import { CoreModule } from './core/core.module';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MarkdownModule.forRoot({ loader: HttpClient }),
+    MarkdownModule.forRoot({ 
+      sanitize: SecurityContext.NONE,
+      loader: HttpClient
+     }),
   ],
   providers: [],
   bootstrap: [AppComponent]

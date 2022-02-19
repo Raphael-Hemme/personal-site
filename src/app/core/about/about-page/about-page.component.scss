@@ -39,12 +39,12 @@
   width: 100%;
   grid-area: headings-area;
   h3 {
+    margin: 0;
     span {
       color: unset;
       font-size: unset;
       font-weight: unset;
       font-family: unset;
-      // cursor: unset;
     }
     br {
       display: block;

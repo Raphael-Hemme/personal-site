@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 // import { Subscription } from 'rxjs';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
@@ -18,7 +18,9 @@ interface CountObj {
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('tagResultOuterContainer') tagResultOuterContainer!: ElementRef;
 
   // private subscriptions: Subscription = new Subscription()
 
@@ -31,6 +33,8 @@ export class HomePageComponent implements OnInit {
   public unifiedAndCountedTagsArr!: TagObjNameAndCount[];
 
   public blogPostsAndExperimentsSelectedByTag!: (BlogPostMetaData | IoGardenExperimentMetaData)[];
+
+  public currNameSelectedTag = '';
 
 
   constructor(
@@ -50,14 +54,14 @@ export class HomePageComponent implements OnInit {
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
 
     this.allIoGardenTags = this.ioGardenService.getAllIoGardenExperimentTags();
-    // console.log('this.allIoGardenTags: ', this.allIoGardenTags);
-
     this.allBlogTags = this.blogService.getAllBlogTags();
-    // console.log('this.allBlogTags: ', this.allBlogTags);
 
     const unorderedUnifiedAndCountedArr = this.unifyAndCountTagArrays(this.allIoGardenTags, this.allBlogTags);
     this.unifiedAndCountedTagsArr = _.orderBy(unorderedUnifiedAndCountedArr, 'count', 'desc');
-    // console.log('this.unifiedAndCountedTagsArr: ', this.unifiedAndCountedTagsArr);
+  }
+
+  ngAfterViewInit(): void {
+
   }
 
   ngOnDestroy(): void {
@@ -66,10 +70,8 @@ export class HomePageComponent implements OnInit {
 
   private unifyAndCountTagArrays(arr1: string[], arr2: string[]): TagObjNameAndCount[]  {
     const rawCombinedArr = [...arr1, ...arr2];
-    // console.log('rawCombinedArr: ', rawCombinedArr);
     const countObj: CountObj = rawCombinedArr.reduce((acc, curr) => ({...acc, [curr]:0}), {});
     rawCombinedArr.forEach(entry => countObj[entry] += 1);
-    // console.log('countObj: ', countObj);
     const resultArr = Object.keys(countObj).map(el => {
       return {
         name: el,
@@ -91,6 +93,9 @@ export class HomePageComponent implements OnInit {
       ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
     ]
     this.blogPostsAndExperimentsSelectedByTag = _.orderBy(resultArr, 'phase' ,'desc')
+    this.currNameSelectedTag = tag;
+
+    // this.tagResultOuterContainer.nativeElement.scrollIntoView({block: "end", behavior: "smooth"});
   }
 
 }

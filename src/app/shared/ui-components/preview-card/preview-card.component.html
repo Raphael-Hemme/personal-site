@@ -26,7 +26,9 @@
     </div>
 
     <div class="preview-card-phase-indicator-container">
-      <div class="preview-card-phase-indicator"></div>
+      <div *ngFor="let phaseIcon of phaseIteratorArr"
+      class="preview-card-phase-indicator">
+    </div>
     </div>
   </div>
   <div class="preview-card-title">

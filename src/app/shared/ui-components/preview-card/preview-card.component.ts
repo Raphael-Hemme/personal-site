@@ -20,6 +20,7 @@ export class PreviewCardComponent implements OnInit {
 
   public hslBgColorString: string = ''
   public previewOrintationClass = '';
+  public phaseIteratorArr: string[] = []
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,10 @@ export class PreviewCardComponent implements OnInit {
     // console.log(this.metaData.previewImageUrl);
     // this.hslBgColorString = this.generateHslBgColorString(this.metaData.previewImageUrl);
     // console.log(this.hslBgColorString);
+
+    for (let i = 0; i < this.metaData.phase; i++) {
+      this.phaseIteratorArr.push('i');
+    }
 
     switch (this.imgPosition) {
       case ('top'):
