@@ -7,7 +7,8 @@
 .btn-dark-flat,
 .btn-dark-outline,
 .btn-light-gray-flat,
-.btn-light-gray-outline {
+.btn-light-gray-outline,
+.btn-close-flat {
   min-width: 60px;
   height: 35px;
   padding: 5px 10px;
@@ -76,6 +77,20 @@
   color: $light-gray;
   &:hover {
     background-color: $light-gray-hover;
+  }
+}
+
+.btn-close-flat {
+  color: $white;
+  background-color: $light-gray;
+  border: none;
+  &:hover {
+    background-color: $light-gray-hover;
+    color: $danger;
+    .material-icons {
+      background-color: $light-gray-hover;
+      color: $danger;
+    }
   }
 }
 

@@ -19,14 +19,14 @@
     </div>
   </section>
 
-  <div 
+  <!-- <div 
     class="io-garden-explanation-modal" 
     *ngIf="ioExplanationIsShown"
     (click)="toggleIoGardenExplanation()">
       <div class="io-garden-explanation-modal-body">
         <button
         (click)="toggleIoGardenExplanation()"
-        class="toggle-read-more-btn btn-light-gray-flat">
+        class="toggle-read-more-btn btn-close-flat">
           <span class="material-icons">
             close
           </span>
@@ -35,16 +35,20 @@
           {{ ioNameExplainer }}
         </p>
       </div>
-  </div>
+  </div> -->
+
+  <app-modal 
+    (modalCloseEvent)="toggleIoGardenExplanation()"
+    *ngIf="ioExplanationIsShown">
+      <p class="io-garden-explanation paragraph-regular">
+        {{ ioNameExplainer }}
+      </p>
+  </app-modal>
 
   <section class="io-garden-bench">
     <div
       class="io-garden-experiment-card"
       *ngFor="let experiment of ioExperimentDataArr">
-<!--         <app-io-garden-experiment-preview
-          [metaData]="experiment"
-          [imgPosition]="'left'">
-        </app-io-garden-experiment-preview> -->
         <app-preview-card
           [metaData]="experiment"
           [imgPosition]="'left'"

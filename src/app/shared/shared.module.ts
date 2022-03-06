@@ -13,6 +13,7 @@ import { IoGardenExperimentContainerComponent } from './ui-components/io-garden-
 import { MarkdownModule } from 'ngx-markdown';
 import { TagListComponent } from './ui-components/tag-list/tag-list.component';
 import { SiteMenuComponent } from './ui-components/site-menu/site-menu.component';
+import { ModalComponent } from './ui-components/modal/modal.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { SiteMenuComponent } from './ui-components/site-menu/site-menu.component
     IoGardenExperimentContainerComponent,
     TagListComponent,
     SiteMenuComponent,
+    ModalComponent,
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { SiteMenuComponent } from './ui-components/site-menu/site-menu.component
     IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
     TagListComponent,
-    SiteMenuComponent
+    SiteMenuComponent,
+    ModalComponent
   ]
 })
 export class SharedModule { }

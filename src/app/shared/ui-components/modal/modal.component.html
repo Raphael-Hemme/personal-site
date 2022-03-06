@@ -1,0 +1,12 @@
+<div 
+    class="modal"
+    (click)="modalClickHandler($event)">
+        <div class="modal-body">
+            <button class="modal-close-btn btn-close-flat">
+                <span class="material-icons">
+                close
+                </span>
+            </button>
+            <ng-content></ng-content>
+        </div>
+</div>
