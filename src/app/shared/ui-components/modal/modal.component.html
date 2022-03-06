@@ -1,12 +1,17 @@
 <div 
-    class="modal"
+    class="modal-backdrop"
     (click)="modalClickHandler($event)">
-        <div class="modal-body">
-            <button class="modal-close-btn btn-close-flat">
-                <span class="material-icons">
-                close
-                </span>
-            </button>
-            <ng-content></ng-content>
+        <div class="modal">
+            <div class="modal-header">
+                <button class="modal-close-btn btn-close-flat">
+                    <span class="material-icons">
+                    close
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ng-content></ng-content>
         </div>
+        </div>
+        
 </div>
