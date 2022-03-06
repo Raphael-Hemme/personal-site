@@ -67,7 +67,6 @@
 
 .io-garden-explanation-modal-body {
   width: 60%;
-  // height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -79,20 +78,14 @@
 .io-garden-explanation {
   width: 100%;
   white-space: pre-line;
-  // align-self: center;
-  // align-self: flex-end;
   @media (max-width: 992px) {
     width: 100%;
   }
 }
 
 .toggle-read-more-btn {
-  align-self: center;
-  margin: 40px 0 0 0;
-  width: 100px;
-/*   .material-icons {
-    transform: rotate(270deg);
-  } */
+  align-self: flex-end;
+  margin: 20px 0 0 0;
 }
 
 .io-garden-bench {
@@ -111,11 +104,9 @@
 .io-garden-experiment-card {
   width: 100%;
   height: 250px;
-  // margin: 10px 0;
   @media (min-width: 992px) {
     width: 48%;
     height: 300px;
-    // margin: 20px 0;
   }
 }
 

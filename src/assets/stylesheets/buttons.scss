@@ -18,16 +18,12 @@
 }
 
 .btn-primary-flat {
-  // color: $white;
-  // background-color: rgb(31, 124, 104);
   color: #40514e;
   background-color: $brand;
   border: none;
 }
 
 .btn-primary-shadow {
-  // color: $white;
-  // background-color: rgb(31, 124, 104);
   color: #40514e;
   background-color: $brand;
   border: none;
@@ -36,8 +32,6 @@
 
 .btn-primary-outline {
   background-color: transparent;
-  // color: rgb(31, 124, 104);
-  // border: 1px solid rgb(31, 124, 104);
   border: 1px solid $brand;
   color: $brand;
 }
@@ -79,3 +73,24 @@
   border: 1px solid $mid-gray;
   color: $mid-gray;
 }
+
+.btn-accent-flat-icon-round {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background-color: $accent;
+  .material-icons {
+    color: $white;
+    background-color: $accent;
+  }
+  :hover, :active {
+    background-color: $accent;
+    color: $brand;
+  }
+}
+

@@ -30,11 +30,16 @@
 
     <div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
       <div class="featured-io-garden-experiment">
-        <app-io-garden-experiment-preview
+<!--         <app-io-garden-experiment-preview
           [metaData]="featuredIoGardenExperiment"
           [imgPosition]="'top'"
           class="io-garden-experiment-card">
-        </app-io-garden-experiment-preview>
+        </app-io-garden-experiment-preview> -->
+        <app-preview-card
+          [metaData]="featuredIoGardenExperiment"
+          [imgPosition]="'top'"
+          class="blog-posts-preview-card">
+        </app-preview-card>
       </div>
       <div class="featured-blog-post">
         <app-preview-card
