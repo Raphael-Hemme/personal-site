@@ -6,40 +6,35 @@
     </header>
 
     <div class="io-garden-abstract-container">
-      <div class="io-garden-abstract-container-tint">
-
-        <div class="io-garden-abstract">
-          <p class="paragraph-regular">
-            {{ ioAbstract }}
-          </p>
-          <button
-          (click)="toggleIoGardenExplanation()"
-          class="toggle-read-more-btn btn-accent-flat-icon-round">
-            <span
-              class="material-icons"
-              aria-hidden="true" 
-              focusable="false">lightbulb</span>
-            <span class="visually-hidden">read more</span>
-          </button>
-        </div>       
+      <div class="io-garden-abstract">
+        <p class="paragraph-regular">
+          {{ ioAbstract }}
+        </p>
+        <button
+        (click)="toggleIoGardenExplanation()"
+        class="toggle-read-more-btn btn-accent-flat">
+          more
+        </button>
       </div>
-      
     </div>
   </section>
 
-  <div class="io-garden-explanation-modal" *ngIf="ioExplanationIsShown">
-    <div class="io-garden-explanation-modal-body">
-      <button
-      (click)="toggleIoGardenExplanation()"
-      class="toggle-read-more-btn btn-primary-flat">
-        <span class="material-icons">
-          close
-        </span>
-      </button>
-      <p class="io-garden-explanation paragraph-regular">
-        {{ ioNameExplainer }}
-      </p>
-    </div>
+  <div 
+    class="io-garden-explanation-modal" 
+    *ngIf="ioExplanationIsShown"
+    (click)="toggleIoGardenExplanation()">
+      <div class="io-garden-explanation-modal-body">
+        <button
+        (click)="toggleIoGardenExplanation()"
+        class="toggle-read-more-btn btn-light-gray-flat">
+          <span class="material-icons">
+            close
+          </span>
+        </button>
+        <p class="io-garden-explanation paragraph-regular">
+          {{ ioNameExplainer }}
+        </p>
+      </div>
   </div>
 
   <section class="io-garden-bench">

@@ -1,14 +1,13 @@
 // Buttons
 
 .btn-primary-flat,
-.btn-primary-shadow,
 .btn-primary-outline,
 .btn-accent-flat,
-.btn-accent-shadow,
 .btn-accent-outline,
 .btn-dark-flat,
-.btn-dark-shadow,
-.btn-dark-outline {
+.btn-dark-outline,
+.btn-light-gray-flat,
+.btn-light-gray-outline {
   min-width: 60px;
   height: 35px;
   padding: 5px 10px;
@@ -23,13 +22,6 @@
   border: none;
 }
 
-.btn-primary-shadow {
-  color: #40514e;
-  background-color: $brand;
-  border: none;
-  box-shadow: 0 0 2em #adadad;
-}
-
 .btn-primary-outline {
   background-color: transparent;
   border: 1px solid $brand;
@@ -40,13 +32,9 @@
   color: $white;
   background-color: $accent;
   border: none;
-}
-
-.btn-accent-shadow {
-  color: $white;
-  background-color: $accent;
-  border: none;
-  box-shadow: 0 0 2em #adadad;
+  &:hover {
+    background-color: $accent-hover;
+  }
 }
 
 .btn-accent-outline {
@@ -59,22 +47,39 @@
   color: $white;
   background-color: $mid-gray;
   border: none;
-}
-
-.btn-dark-shadow {
-  color: $white;
-  background-color: $mid-gray;
-  border: none;
-  box-shadow: 0 0 2em #adadad;
+  &:hover {
+    background-color: $mid-gray-hover;
+  }
 }
 
 .btn-dark-outline {
   background-color: transparent;
   border: 1px solid $mid-gray;
   color: $mid-gray;
+  &:hover {
+    background-color: $mid-gray-hover;
+  }
 }
 
-.btn-accent-flat-icon-round {
+.btn-light-gray-flat {
+  color: $white;
+  background-color: $light-gray;
+  border: none;
+  &:hover {
+    background-color: $light-gray-hover;
+  }
+}
+
+.btn-light-gray-outline {
+  background-color: transparent;
+  border: 1px solid $light-gray;
+  color: $light-gray;
+  &:hover {
+    background-color: $light-gray-hover;
+  }
+}
+
+/* .btn-accent-flat-icon-round {
   width: 40px;
   height: 40px;
   display: flex;
@@ -92,5 +97,5 @@
     background-color: $accent;
     color: $brand;
   }
-}
+} */
 
