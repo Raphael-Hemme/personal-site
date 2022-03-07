@@ -1,0 +1,67 @@
+@import 'src/styles.scss';
+
+.modal-backdrop {
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(58, 58, 58, 0.6);
+    @media (min-width: 768px) {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0;
+    }
+}
+  
+.modal {
+    width: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $subtle-one;
+    border-radius: 10px;
+    @media (min-width: 768px) {
+        width: 60%;
+        height: unset;
+        overflow-y: unset;
+    }
+}
+
+.modal-header {
+    width: calc(100% - 20px);
+    padding: 10px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 1px solid $light-gray;
+    background-color: $subtle-one;
+    @media (min-width: 768px) {
+        width: 60%;
+    }
+}
+
+.modal-body {
+    padding: 65px 10px 10px 10px;
+    @media (min-width: 768px) {
+        padding: 65px 40px 40px 40px;
+    }
+}
+
+.modal-close-btn {
+    align-self: flex-end;
+}

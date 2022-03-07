@@ -1,14 +1,14 @@
 // Buttons
 
 .btn-primary-flat,
-.btn-primary-shadow,
 .btn-primary-outline,
 .btn-accent-flat,
-.btn-accent-shadow,
 .btn-accent-outline,
 .btn-dark-flat,
-.btn-dark-shadow,
-.btn-dark-outline {
+.btn-dark-outline,
+.btn-light-gray-flat,
+.btn-light-gray-outline,
+.btn-close-flat {
   min-width: 60px;
   height: 35px;
   padding: 5px 10px;
@@ -18,26 +18,13 @@
 }
 
 .btn-primary-flat {
-  // color: $white;
-  // background-color: rgb(31, 124, 104);
   color: #40514e;
   background-color: $brand;
   border: none;
-}
-
-.btn-primary-shadow {
-  // color: $white;
-  // background-color: rgb(31, 124, 104);
-  color: #40514e;
-  background-color: $brand;
-  border: none;
-  box-shadow: 0 0 2em #adadad;
 }
 
 .btn-primary-outline {
   background-color: transparent;
-  // color: rgb(31, 124, 104);
-  // border: 1px solid rgb(31, 124, 104);
   border: 1px solid $brand;
   color: $brand;
 }
@@ -46,13 +33,9 @@
   color: $white;
   background-color: $accent;
   border: none;
-}
-
-.btn-accent-shadow {
-  color: $white;
-  background-color: $accent;
-  border: none;
-  box-shadow: 0 0 2em #adadad;
+  &:hover {
+    background-color: $accent-hover;
+  }
 }
 
 .btn-accent-outline {
@@ -65,17 +48,69 @@
   color: $white;
   background-color: $mid-gray;
   border: none;
-}
-
-.btn-dark-shadow {
-  color: $white;
-  background-color: $mid-gray;
-  border: none;
-  box-shadow: 0 0 2em #adadad;
+  &:hover {
+    background-color: $mid-gray-hover;
+  }
 }
 
 .btn-dark-outline {
   background-color: transparent;
   border: 1px solid $mid-gray;
   color: $mid-gray;
+  &:hover {
+    background-color: $mid-gray-hover;
+  }
 }
+
+.btn-light-gray-flat {
+  color: $white;
+  background-color: $light-gray;
+  border: none;
+  &:hover {
+    background-color: $light-gray-hover;
+  }
+}
+
+.btn-light-gray-outline {
+  background-color: transparent;
+  border: 1px solid $light-gray;
+  color: $light-gray;
+  &:hover {
+    background-color: $light-gray-hover;
+  }
+}
+
+.btn-close-flat {
+  color: $white;
+  background-color: $light-gray;
+  border: none;
+  &:hover {
+    background-color: $light-gray-hover;
+    color: $danger;
+    .material-icons {
+      background-color: $light-gray-hover;
+      color: $danger;
+    }
+  }
+}
+
+/* .btn-accent-flat-icon-round {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background-color: $accent;
+  .material-icons {
+    color: $white;
+    background-color: $accent;
+  }
+  :hover, :active {
+    background-color: $accent;
+    color: $brand;
+  }
+} */
+
