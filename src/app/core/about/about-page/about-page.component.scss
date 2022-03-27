@@ -4,16 +4,16 @@
   width: 100%;
   padding: 0;
   display: grid;
-  gap: 20px;
+  gap: 50px;
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content min-content min-content min-content;
   grid-template-areas: 
     "headings-area"
     "image-area"
     "short-about-area"
-    "long-about-area"
+    "social-media-area"
     "tech-stack-area"
-    "social-media-area";
+    "long-about-area";
   @media (min-width: 768px) and (max-width: 992px) {
     // padding: 20px 80px;
     gap: 60px;
@@ -32,7 +32,7 @@
     grid-template-rows: min-content min-content min-content;
     grid-template-areas: 
       "headings-area    image-area"
-      "short-about-area        social-media-area"
+      "short-about-area social-media-area"
       "long-about-area  tech-stack-area";
   }
 }
@@ -65,21 +65,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid $brand;
+  // border-bottom: 1px solid $brand;
   p {
     margin: 0 0 20px 0;
   }
-  @media (min-width: 768px) {
+/*   @media (min-width: 768px) {
     border-bottom: none;
-  }
+  } */
 }
 
 .long-about-paragraphs {
   grid-area: long-about-area;
-  padding: 30px 0 0 0;
+  /* padding: 30px 0 0 0;
   @media (min-width: 768px) {
     padding: 0;
-  }
+  } */
   p {
     margin: 0 0 20px 0;
   }
