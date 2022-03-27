@@ -6,7 +6,7 @@
   display: grid;
   gap: 50px;
   grid-template-columns: 1fr;
-  grid-template-rows: min-content min-content min-content min-content min-content;
+  grid-template-rows: min-content min-content min-content min-content min-content min-content;
   grid-template-areas: 
     "headings-area"
     "image-area"
@@ -33,7 +33,8 @@
     grid-template-areas: 
       "headings-area    image-area"
       "short-about-area social-media-area"
-      "long-about-area  tech-stack-area";
+      // "long-about-area  tech-stack-area";
+      "tech-stack-area tech-stack-area"
   }
 }
 
