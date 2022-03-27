@@ -10,17 +10,19 @@
   grid-template-areas: 
     "headings-area"
     "image-area"
-    "text-area"
+    "short-about-area"
+    "long-about-area"
     "tech-stack-area"
     "social-media-area";
   @media (min-width: 768px) and (max-width: 992px) {
     // padding: 20px 80px;
     gap: 60px;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: min-content min-content min-content;
+    grid-template-rows: min-content min-content min-content min-content;
     grid-template-areas: 
       "headings-area    image-area"
-      "text-area        social-media-area"
+      "short-about-area social-media-area"
+      "long-about-area  long-about-area"
       "tech-stack-area  tech-stack-area";
   }
   @media (min-width: 992px) {
@@ -30,8 +32,8 @@
     grid-template-rows: min-content min-content min-content;
     grid-template-areas: 
       "headings-area    image-area"
-      "text-area        social-media-area"
-      "tech-stack-area  .";
+      "short-about-area        social-media-area"
+      "long-about-area  tech-stack-area";
   }
 }
 
@@ -49,37 +51,42 @@
     br {
       display: block;
     }
-    /* display: flex;
-    flex-direction: column;
-    span {
-      font-size: inherit;
-      font-family: inherit;
-      line-height: inherit;
-      color: inherit;
-    } */
     @media (min-width: 992px) {
       br {
         display: none;
       }
-  }
-  
-    /* h3 {
-      flex-direction: row;
-    } */
-  }
-  /* @media (min-width: 768px) and (max-width: 1400px) {
-    h2 br {
-      display: none;
     }
-  } */
+  }
 }
 
-.about-text-container {
+.short-about-container {
   width: 100%;
-  grid-area: text-area;
+  grid-area: short-about-area;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid $brand;
   p {
     margin: 0 0 20px 0;
   }
+  @media (min-width: 768px) {
+    border-bottom: none;
+  }
+}
+
+.long-about-paragraphs {
+  grid-area: long-about-area;
+  padding: 30px 0 0 0;
+  @media (min-width: 768px) {
+    padding: 0;
+  }
+  p {
+    margin: 0 0 20px 0;
+  }
+}
+
+.tech-stack {
+  grid-area: tech-stack-area;
 }
 
 .about-image {
@@ -90,13 +97,6 @@
   @media (min-width: 768px) {
     align-items: flex-end;
   }
-}
-
-.about-text-container {
-  grid-area: text-area;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .profile-picture-outline {
@@ -139,7 +139,6 @@
 }
 
 .social-media-link-wrapper {
-  // width: min-content;
   display: flex;
   padding: 20px 0;
   // background-color: $white;

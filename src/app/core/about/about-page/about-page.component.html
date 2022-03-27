@@ -26,13 +26,13 @@
     
   </div>
 
-  <div class="about-text-container">
+  <div class="short-about-container">
     <p>I'm a <span class="paragraph-anthropology-span" [ngClass]="anthropologyIsHighlighted ? 'highlighted-span' : ''">social and cultural anthroplogist</span> turned 
       <span class="paragraph-dev-span" [ngClass]="devIsHighlighted ? 'highlighted-span' : ''">web developer</span> focusing on the frontend with a passion for 
       <span class="paragraph-design-span" [ngClass]="designIsHighlighted ? 'highlighted-span' : ''">logo, type and generative design</span>.</p>
-    <p>While the streets are getting crowded with super heroes, super villains and party people at night, I'm probably sitting in front of my screen
+    <p>When day turns night and streets are getting crowded with super heroes, super villains and party people, I'm probably sitting in front of my screen
        trying to integrate anthropological theory with coding practice and computational concepts. Sometimes struggling with minor merge conflicts.</p>
-    <button
+    <!-- <button
       (click)="toggleLongAboutIsShown()"
       class="toggle-long-about-btn btn-primary-flat">
         <span *ngIf="!longAboutIsShown"
@@ -43,16 +43,13 @@
           class="material-icons">
           expand_less
         </span>
-    </button>
-    <div 
-      *ngIf="longAboutIsShown"
-      class="long-about-paragraphs">
-      <p>{{ aboutP1 }}</p>
-      <p>{{ aboutP2 }}</p>
-      <p>{{ aboutP3 }}</p>
-      <p>{{ aboutP4 }}</p>
-    </div>
-
+    </button> -->
+  </div>
+  <div class="long-about-paragraphs">
+    <p>{{ aboutP1 }}</p>
+    <p>{{ aboutP2 }}</p>
+    <p>{{ aboutP3 }}</p>
+    <p>{{ aboutP4 }}</p>
   </div>
     
   <div class="social-media-container">
@@ -113,3 +110,5 @@
 
   </div>
 </section>
+
+
