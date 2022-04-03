@@ -56,5 +56,25 @@
       ],
       "isPublished": true,
       "category": "experiment"
+    },
+    {
+      "id": "le-a002",
+      "title": "Lichen Experiment A002",
+      "abstract": "",
+      "descriptionUrl": "assets/io-garden-experiment-descriptions/le-a001-description.md",
+      "dateOriginal": "2021-10-25",
+      "dateLastEdited": "2021-12-29",
+      "phase": 1,
+      "previewImageUrl": "assets/images/io-garden-preview-images/le-a001-preview.png",
+      "tags": [
+        "coding",
+        "javascript",
+        "p5.js",
+        "procedural design",
+        "lichen",
+        "algorithmic organism"
+      ],
+      "isPublished": true,
+      "category": "experiment"
     }
   ]
