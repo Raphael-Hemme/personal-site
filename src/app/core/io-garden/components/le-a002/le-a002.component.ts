@@ -56,10 +56,9 @@ class Cell {
     this.hsla.h = 19;
     this.hsla.s = Math.round(_.random(40, 70, true))
   }
-  changeSaturation() {
-    // this.hsla.s = map(this.traveledDist, 0, this.originalMaxDistForColorMap, 30, 90)
-    
-  }
+/*   changeSaturation() {
+    this.hsla.s = map(this.traveledDist, 0, this.originalMaxDistForColorMap, 30, 90)
+  } */
 }
 
 @Component({
@@ -83,16 +82,18 @@ export class LeA002Component implements OnInit, OnDestroy {
     const canvasConfig = {
       'isSquare': true,
       'wPercentS': 100,
-      'wPercentL': 70,
-      'hPercentS': 100,
-      'hPercentL': 100
+      'wPercentL': 50,
+      'hPercentS': 50,
+      'hPercentL': 50
     }
 
     const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-    this.canvWidth = canvSizeObj.w;
-    this.canvHeight = canvSizeObj.h;
+    this.canvWidth = canvSizeObj.w * 0.6;
+    this.canvHeight = canvSizeObj.h * 0.6;
+    console.log('canvWidth: ', this.canvWidth, 'canvHeight: ', this.canvHeight)
 
     this.windowSizeService.windowResize$.subscribe(() => {
+      console.log('resized')
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
     })
 
@@ -105,7 +106,7 @@ export class LeA002Component implements OnInit, OnDestroy {
         x: 0,
         y: 0
       }
-      const distLimit = 400
+      const distLimit = 300
 
       s.setup = () => {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
@@ -237,6 +238,8 @@ export class LeA002Component implements OnInit, OnDestroy {
     s.ageCells = (targetCellArr: any) => {
       for (let cell of targetCellArr) {
         cell.incrementAge();
+
+        cell.hsla.s = s.map(cell.traveledDist, 0, cell.originalMaxDistForColorMap, 30, 90)
         // cell.changeSaturation();
         if (cell.age > cell.maxAge / 2) {
           cell.fade();
