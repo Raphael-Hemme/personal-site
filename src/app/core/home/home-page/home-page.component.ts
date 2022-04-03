@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-// import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
-import { SplashScreenService } from 'src/app/shared/services/splash-screen-service/splash-screen.service';
+// import { SplashScreenService } from 'src/app/shared/services/splash-screen-service/splash-screen.service';
 import _ from 'lodash';
 
 interface TagObjNameAndCount {
@@ -22,7 +22,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('tagResultOuterContainer') tagResultOuterContainer!: ElementRef;
 
-  // private subscriptions: Subscription = new Subscription()
+  private subscriptions: Subscription = new Subscription()
 
   public featuredBlogPost!: BlogPostMetaData;
 
@@ -36,9 +36,11 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   public currNameSelectedTag = '';
 
+  public delayToLoadIsOver = false;
+
 
   constructor(
-    private splashScreenService: SplashScreenService,
+    // private splashScreenService: SplashScreenService,
     private ioGardenService: IoGardenService,
     private blogService: BlogService
   ) {}
@@ -49,6 +51,13 @@ export class HomePageComponent implements OnInit, AfterViewInit {
         this.splashScreenService.splashScreenStatus.next('off');
       })
     ) */
+
+    this.subscriptions.add(
+      timer(1000).subscribe((t) => {
+        console.log(t);
+        this.delayToLoadIsOver = true;
+      })
+    )
 
     this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
@@ -65,7 +74,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    /* this.subscriptions.unsubscribe(); */
+    this.subscriptions.unsubscribe();
   }
 
   private unifyAndCountTagArrays(arr1: string[], arr2: string[]): TagObjNameAndCount[]  {

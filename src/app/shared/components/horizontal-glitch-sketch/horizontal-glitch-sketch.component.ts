@@ -62,7 +62,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       const bgColor = [119, 172, 162];
 
       s.preload = () => {
-        img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-06-green.png')
+        img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-06.png')
       }
 
       s.setup = () => {

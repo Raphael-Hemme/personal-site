@@ -1,6 +1,6 @@
 <app-horizontal-glitch-sketch></app-horizontal-glitch-sketch>
 
-<div class="home-page-container">
+<div class="home-page-container" *ngIf="delayToLoadIsOver">
   <h1>Raphael<br /> Hemme</h1>
   <h2>Developer, <br /> Anthropologist,<br /> Design Enthusiast</h2>
 
@@ -18,13 +18,14 @@
       <button
         class="btn-primary-flat refresh-btn"
         (click)="handleRefreshFeaturedBtn()">
-        <span 
+        <!-- <span 
           class="material-icons" 
           aria-hidden="true" 
           focusable="false">
           refresh
           </span>
-          <span class="visually-hidden">refresh</span>
+          <span class="visually-hidden">refresh</span> -->
+          reload
       </button>
     </div>
 

@@ -1,0 +1,11 @@
+{
+    "workbench.colorCustomizations": {
+        "terminal.background": "#2c313a",
+        "terminal.ansiYellow":"#ff5d38",
+        "terminal.ansiBrightYellow":"#ff8762",
+        "terminal.ansiMagenta":"#54c99e",
+        "terminal.ansiBrightMagenta":"#73e6bb",
+        "terminal.ansiCyan":"#5482d6",
+        "terminal.ansiBrightCyan":"#7eadff",
+    }
+}
