@@ -1,23 +1,4 @@
-### Description
-
-Lichen Experiment - A001 (`LE-A001`) is a first, 'brute force' attempt to approximate the visual appearance of lichen growing on stones ([Caloplaca mariana](https://en.wikipedia.org/wiki/Caloplaca_marina)) using the p5.js library.
-
-The code to generate random points within a circle is adapted from [here](https://editor.p5js.org/zapra/sketches/rjIJR18fT).
-
-The code below is still very convoluted and rough. It will be refactored once I am satisfied with the visual resemblance.
-
-```typescript
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import * as p5 from 'p5';
-import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
-
-
-// Based on this this sketch to generate randomly distributed dots inside a circle:
-// https://editor.p5js.org/zapra/sketches/rjIJR18fT
-
-// This sketch (my improvisation on the linked sketch above) is still in the early stages of playful experimentation.
-// Therefore my current version is highly inefficient and duplicates code etc. withouth geting the result nearly right.
-// This might be aimport { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import _ from 'lodash';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
@@ -72,7 +53,7 @@ class Cell {
   }
   bloom() {
     this.blooming = true;
-    this.hsla.h = 19;
+    this.hsla.h = 26 // 19;
     this.hsla.s = Math.round(_.random(40, 70, true))
   }
 /*   changeSaturation() {
@@ -319,11 +300,13 @@ export class LeA002Component implements OnInit, OnDestroy {
 
   public togglePause() {
     this.drawIsPaused = !this.drawIsPaused;
+    console.log('this.drawIsPaused: ', this.drawIsPaused)
     this.drawIsPaused ? this.canvas.noLoop() :  this.canvas.loop()
   }
 
   public reload() {
     this.canvas.clear();
+    this.drawIsPaused = false;
     this.eraseCellsForRedraw();
     this.canvas.loop()
   }
@@ -334,6 +317,3 @@ export class LeA002Component implements OnInit, OnDestroy {
   }
 
 }
-
-
-```
