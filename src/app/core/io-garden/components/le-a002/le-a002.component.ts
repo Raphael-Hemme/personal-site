@@ -53,7 +53,7 @@ class Cell {
   }
   bloom() {
     this.blooming = true;
-    this.hsla.h = 19;
+    this.hsla.h = 26 // 19;
     this.hsla.s = Math.round(_.random(40, 70, true))
   }
 /*   changeSaturation() {
@@ -161,8 +161,8 @@ export class LeA002Component implements OnInit, OnDestroy {
         maxAge: number) => {
         for(let i = 0; i < amount; i++) {
       
-          const x = center.x // width / 2; 
-          const y = center.y // height / 2; 
+          const x = center.x; 
+          const y = center.y;
       
           const xSpeed = s.random(-5, 5);
           const ySpeed = s.random(-5, 5);
@@ -300,11 +300,13 @@ export class LeA002Component implements OnInit, OnDestroy {
 
   public togglePause() {
     this.drawIsPaused = !this.drawIsPaused;
+    console.log('this.drawIsPaused: ', this.drawIsPaused)
     this.drawIsPaused ? this.canvas.noLoop() :  this.canvas.loop()
   }
 
   public reload() {
     this.canvas.clear();
+    this.drawIsPaused = false;
     this.eraseCellsForRedraw();
     this.canvas.loop()
   }
