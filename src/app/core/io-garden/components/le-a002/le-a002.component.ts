@@ -73,6 +73,16 @@ export class LeA002Component implements OnInit, OnDestroy {
   public canvWidth = 300;
   public canvHeight = 300;
 
+  public canvasCenter = {
+    x: 0,
+    y: 0
+  }
+
+  private distLimit = (this.canvWidth / 2) - this.canvWidth / 5; // 300
+
+  private cells: any[] = [];
+  private subCells: any[] = [];
+
   constructor(
     private windowSizeService: WindowSizeService
   ) {}
@@ -82,70 +92,47 @@ export class LeA002Component implements OnInit, OnDestroy {
     const canvasConfig = {
       'isSquare': true,
       'wPercentS': 100,
-      'wPercentL': 50,
+      'wPercentL': 60,
       'hPercentS': 50,
       'hPercentL': 50
     }
 
     const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-    this.canvWidth = canvSizeObj.w * 0.6;
-    this.canvHeight = canvSizeObj.h * 0.6;
-    console.log('canvWidth: ', this.canvWidth, 'canvHeight: ', this.canvHeight)
+    this.canvWidth = canvSizeObj.w; // * 0.6;
+    this.canvHeight = canvSizeObj.h; //  * 0.6;
+
+    this.distLimit = (this.canvWidth / 2) - this.canvWidth / 10;
 
     this.windowSizeService.windowResize$.subscribe(() => {
-      console.log('resized')
+      const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+      this.canvWidth = canvSizeObj.w; // * 0.6;
+      this.canvHeight = canvSizeObj.h; // * 0.6;
+
+      console.log('this.canvWidth, this.canvHeight in subscription: ', this.canvWidth, this.canvHeight)
+
+      this.canvas.clear();
+      this.canvasCenter.x = this.canvWidth / 2; // canvSizeObj.w / 2;
+      this.canvasCenter.y = this.canvHeight / 2; // canvSizeObj.h / 2;
+      this. distLimit = (canvSizeObj.w / 2) - canvSizeObj.w / 5;
+      this.eraseCellsForRedraw();
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
     })
 
-    const sketch = (s: any) => {
+    const sketch = (s: p5) => {
 
-      let cells: any[] = [];
+/*       let cells: any[] = [];
       let subCells: any[] = [];
 
-      let canvasCenter = {
-        x: 0,
-        y: 0
-      }
-      const distLimit = 300
+      const eraseCellsForRedraw = () => {
+        cells = [];
+        subCells = []
+      } */
 
-      s.setup = () => {
-        let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
-        canvas2.parent('le-a002-sketch-wrapper');
-        canvasCenter.x = s.width / 2;
-        canvasCenter.y = s.height / 2;
-        s.frameRate(20);
-      }
 
-      s.draw = () => {
-        s.background(100);
-        
+      // const distLimit = (canvSizeObj.w / 2) - canvSizeObj.w / 5; // 300
 
-        if (s.frameCount % 30 === 0) {
-          console.log('cells length: ', cells.length)
-          console.log('subCells length: ', subCells.length)
-        }
-
-        const currGenCount = s.round(s.random(3, 25))
-        const minSize = 2
-        const maxSize = 15
-        const maxDist = s.round(s.random(10, distLimit))
-        const mainCellMaxAge = s.round(s.random(300, 500));
-        s.generateCells(currGenCount, minSize, maxSize, canvasCenter, maxDist, cells, mainCellMaxAge);
-      
-        s.drawCells(cells);
-        s.ageCells(cells);
-        s.multiplyCells(cells)
-        s.killCells(cells);
-        if (subCells.length > 0) {
-          s.drawCells(subCells);
-          s.ageCells(subCells);
-          s.setRandomCellsToHaveBloomShape(subCells)
-          s.killCells(subCells);
-        }
-        
-      }
-
-      s.drawCells = (targetCellArr: any[]) => {
+      // CUSTOM FUNCTION DECLARATIONS
+      const drawCells = (targetCellArr: any[]) => {
         for(let cell of targetCellArr){
           let oldX = cell.x;
           let oldY = cell.y;
@@ -173,7 +160,7 @@ export class LeA002Component implements OnInit, OnDestroy {
         }
       }
 
-      s.generateCells = (
+      const generateCells = (
         amount: number,
         minSize: number,
         maxSize: number,
@@ -188,9 +175,6 @@ export class LeA002Component implements OnInit, OnDestroy {
       
           const xSpeed = s.random(-5, 5);
           const ySpeed = s.random(-5, 5);
-      
-      /*     const xSpeed = random(-1, 1);
-          const ySpeed = random(-1, 1); */
       
           const maxTravelDist = s.round(s.random(maxDist / 2, maxDist))
           const traveledDist = 0;
@@ -219,7 +203,7 @@ export class LeA002Component implements OnInit, OnDestroy {
       }
 
     // Not for generating new cells (rename later) just visual
-    s.setRandomCellsToHaveBloomShape = (targetCellArr: any) =>  {
+    const setRandomCellsToHaveBloomShape = (targetCellArr: any) =>  {
       for (let cell of targetCellArr) {
         if (cell.xSpeed === 0 && cell.canBloom) {
           cell.bloom();
@@ -227,7 +211,7 @@ export class LeA002Component implements OnInit, OnDestroy {
       }
     }
 
-    s.killCells = (targetCellArr: any) => {
+    const killCells = (targetCellArr: any) => {
       const survivingCellArr = targetCellArr.filter((cell: any) => cell.age < cell.maxAge);
       targetCellArr.splice(0, targetCellArr.length);
       for (let el of survivingCellArr) {
@@ -235,7 +219,7 @@ export class LeA002Component implements OnInit, OnDestroy {
       }
     }
 
-    s.ageCells = (targetCellArr: any) => {
+    const ageCells = (targetCellArr: any) => {
       for (let cell of targetCellArr) {
         cell.incrementAge();
 
@@ -247,12 +231,12 @@ export class LeA002Component implements OnInit, OnDestroy {
       }
     }
 
-    s.multiplyCells = (targetCellArr: any) => {
+    const multiplyCells = (targetCellArr: any) => {
       for (let cell of targetCellArr) {
         if (cell.xSpeed === 0 
           && cell.age > 170 
           && cell.canReproduce 
-          && subCells.length < 6000) {
+          && this.subCells.length < 6000) {
             cell.bloom()
             cell.canReproduce = false;
             const currGenCount = s.round(s.random(20, 40))
@@ -264,23 +248,56 @@ export class LeA002Component implements OnInit, OnDestroy {
               y: cell.y
           }
           const descendentMaxAge = s.round(s.random(100, 200))
-          s.generateCells(
+          generateCells(
             currGenCount,
             currMinSize,
             currMaxSize,
             currCenter,
             currMaxDist,
-            subCells,
+            this.subCells,
             descendentMaxAge
           );
         }
       }
-      
     }
-    
-    
 
 
+      // P5 SCRIPT
+      s.setup = () => {
+        console.log('this.canvWidth, this.canvHeight in setup: ', this.canvWidth, this.canvHeight)
+        let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
+        canvas2.parent('le-a002-sketch-wrapper');
+        this.canvasCenter.x = s.width / 2;
+        this.canvasCenter.y = s.height / 2;
+        s.frameRate(20);
+      }
+
+      s.draw = () => {
+        s.background(100);
+
+        if (s.frameCount % 30 === 0) {
+          /* console.log('cells length: ', this.cells.length)
+          console.log('subCells length: ', this.subCells.length) */
+        }
+
+        const currGenCount = s.round(s.random(3, 25))
+        const minSize = 2
+        const maxSize = 15
+        const maxDist = s.round(s.random(10, this.distLimit))
+        const mainCellMaxAge = s.round(s.random(300, 500));
+        generateCells(currGenCount, minSize, maxSize, this.canvasCenter, maxDist, this.cells, mainCellMaxAge);
+      
+        drawCells(this.cells);
+        ageCells(this.cells);
+        multiplyCells(this.cells)
+        killCells(this.cells);
+        if (this.subCells.length > 0) {
+          drawCells(this.subCells);
+          ageCells(this.subCells);
+          setRandomCellsToHaveBloomShape(this.subCells)
+          killCells(this.subCells);
+        }
+      }
     };
 
     this.canvas = new p5(sketch);
@@ -291,8 +308,14 @@ export class LeA002Component implements OnInit, OnDestroy {
   }
 
   public handleReloadBtn() {
-    this.canvas.clear();
-    this.canvas.redraw(1);
+/*     this.canvas.clear();
+    this.canvas.redraw(); */
+    this.canvas.noLoop();
+  }
+
+  private eraseCellsForRedraw = () => {
+    this.cells = [];
+    this.subCells = []
   }
 
 }
