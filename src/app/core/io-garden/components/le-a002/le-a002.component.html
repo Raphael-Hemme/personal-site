@@ -4,7 +4,14 @@
 
 <button
   type="button"
-  (click)="handleReloadBtn()"
+  (click)="togglePause()"
+  class="btn-accent-flat pause-continue-btn"
+  [ngClass]="!drawIsPaused ? 'btn-pause-state' : 'btn-continue-state'">
+    {{ drawIsPaused ? 'continue' : 'pause'}}
+</button>
+<button
+  type="button"
+  (click)="reload()"
   class="btn-accent-flat reload-btn">
-    stop
+    reload
 </button>

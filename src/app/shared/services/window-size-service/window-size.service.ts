@@ -90,7 +90,6 @@ export class WindowSizeService {
         result.w = 1005;
       } else {
         result.w = (1005 / 100) * canvasConfig.wPercentL;
-        console.log('result.w: ', result.w)
       }
        
       // 1005px is the hard coded size of the main-content-container on windowInnerwidth of 1200 and up. 
@@ -100,7 +99,6 @@ export class WindowSizeService {
 
     if (canvasConfig.isSquare) {
       result.h = result.w;
-      console.log('result.h: ', result.h)
     }
     
     return result

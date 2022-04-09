@@ -83,6 +83,8 @@ export class LeA002Component implements OnInit, OnDestroy {
   private cells: any[] = [];
   private subCells: any[] = [];
 
+  public drawIsPaused = false;
+
   constructor(
     private windowSizeService: WindowSizeService
   ) {}
@@ -119,17 +121,6 @@ export class LeA002Component implements OnInit, OnDestroy {
     })
 
     const sketch = (s: p5) => {
-
-/*       let cells: any[] = [];
-      let subCells: any[] = [];
-
-      const eraseCellsForRedraw = () => {
-        cells = [];
-        subCells = []
-      } */
-
-
-      // const distLimit = (canvSizeObj.w / 2) - canvSizeObj.w / 5; // 300
 
       // CUSTOM FUNCTION DECLARATIONS
       const drawCells = (targetCellArr: any[]) => {
@@ -307,10 +298,15 @@ export class LeA002Component implements OnInit, OnDestroy {
     this.canvas.remove();
   }
 
-  public handleReloadBtn() {
-/*     this.canvas.clear();
-    this.canvas.redraw(); */
-    this.canvas.noLoop();
+  public togglePause() {
+    this.drawIsPaused = !this.drawIsPaused;
+    this.drawIsPaused ? this.canvas.noLoop() :  this.canvas.loop()
+  }
+
+  public reload() {
+    this.canvas.clear();
+    this.eraseCellsForRedraw();
+    this.canvas.loop()
   }
 
   private eraseCellsForRedraw = () => {

@@ -1,9 +1,36 @@
+@import 'src/styles.scss';
+
+
 .le-a002-sketch-container {
   display: flex;
   justify-content: center;
   background-color: #646464;
 }
 
+.pause-continue-btn {
+  margin: 10px 0 0 10px;
+  min-width: 100px;
+}
+
+.btn-pause-state {
+  background-color: $accent;
+  &:hover {
+    background-color: $accent-hover;
+  }
+}
+
+.btn-continue-state {
+  background-color: $success;
+  &:hover {
+    background-color: $success-hover;
+  }
+}
+
 .reload-btn {
   margin: 10px 0 0 10px;
+  min-width: 100px;
+  background-color: $danger;
+  &:hover {
+    background-color: $danger-hover;
+  }
 }
