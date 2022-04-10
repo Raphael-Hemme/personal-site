@@ -96,14 +96,18 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   }
 
   public handleTagSelection(tag: string): void {
-    this.blogPostsAndExperimentsSelectedByTag = [];
-    const resultArr = [
-      ...this.blogService.getIoGardenExperimentsByTag(tag),
-      ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
-    ]
-    this.blogPostsAndExperimentsSelectedByTag = _.orderBy(resultArr, 'phase' ,'desc')
-    this.currNameSelectedTag = tag;
-
+    if (tag === this.currNameSelectedTag) {
+      this.currNameSelectedTag = '';
+      this.blogPostsAndExperimentsSelectedByTag = [];
+    } else {
+      this.blogPostsAndExperimentsSelectedByTag = [];
+      const resultArr = [
+        ...this.blogService.getIoGardenExperimentsByTag(tag),
+        ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
+      ]
+      this.blogPostsAndExperimentsSelectedByTag = _.orderBy(resultArr, 'phase' ,'desc')
+      this.currNameSelectedTag = tag;
+    }
     // this.tagResultOuterContainer.nativeElement.scrollIntoView({block: "end", behavior: "smooth"});
   }
 

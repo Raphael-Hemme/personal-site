@@ -13,7 +13,8 @@
     color: $subtle-one;
   }
   // box-shadow: 0 0 0.7em rgba(122, 122, 122, 0.5);
-  outline: 2px solid $brand;
+  // outline: 2px solid $brand;
+  box-shadow: 0 0 0 2px $brand;
 }
 
 .image-left-preview-card {

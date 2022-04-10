@@ -18,13 +18,13 @@
   width: 100%;
   height: min-content;
   margin: 100px 0 0 0;
-  overflow: hidden;
+  // overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 10px;
   // justify-content: center;
   @media (min-width: 1200px) {
-    height: 370px;
+    height: 390px;
     margin: 150px 0 0 0;
     flex-direction: row;
     justify-content: space-between;
