@@ -5,6 +5,7 @@ import { BlogPageComponent } from './core/blog/blog-page/blog-page.component';
 import { HomePageComponent } from './core/home/home-page/home-page.component';
 import { CmeA001Component } from './core/io-garden/components/cme-a001/cme-a001.component';
 import { LeA001Component } from './core/io-garden/components/le-a001/le-a001.component';
+import { LeA002Component } from './core/io-garden/components/le-a002/le-a002.component';
 import { TeA001Component } from './core/io-garden/components/te-a001/te-a001.component';
 import { IoGardenPageComponent } from './core/io-garden/io-garden-page/io-garden-page.component';
 import { BlogPostComponent } from './shared/ui-components/blog-post/blog-post.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'te-a001', component: TeA001Component },
     { path: 'cme-a001', component: CmeA001Component },
     { path: 'le-a001', component: LeA001Component },
+    { path: 'le-a002', component: LeA002Component },
   ]
 },
   { path: '', component: HomePageComponent}

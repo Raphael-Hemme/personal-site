@@ -68,6 +68,7 @@ export class WindowSizeService {
     let canvHeight = canvSizeObj.h;
 
     canvas.resizeCanvas(canvWidth, canvHeight);
+    // canvas.redraw();
   }
 
   public calculateCanvasSize(canvasConfig: CanvasConfigObj): CanvasSizeReturnObj {
@@ -85,7 +86,12 @@ export class WindowSizeService {
       result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 175;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
     } else {
-      result.w = 1005; 
+      if (!canvasConfig.isSquare) {
+        result.w = 1005;
+      } else {
+        result.w = (1005 / 100) * canvasConfig.wPercentL;
+      }
+       
       // 1005px is the hard coded size of the main-content-container on windowInnerwidth of 1200 and up. 
       // 1005 because it is the dynamic size before the breakpoint gets activated -> prevents size glitches. 
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
