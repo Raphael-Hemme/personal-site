@@ -134,18 +134,25 @@ h2 {
   margin: 0;
   list-style: none;
   cursor: pointer;
+  &:hover,
+  &:active {
+    background-color: $brand;
+  }
 }
 
-.tag-item:hover,
-.tag-item:active,
+/* .tag-item:hover,
+.tag-item:active {
+  background-color: $brand;
+} */
+
 .tag-selected {
   background-color: $brand;
+  &:hover {
+    background-color: $mid-gray;
+    color: $white
+  }
 }
 
-.tag-selected:hover {
-  background-color: $mid-gray;
-  color: $white
-}
 
 /* .high-count {
   background-color: $brand;

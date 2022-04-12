@@ -4,7 +4,8 @@ import {
   OnInit,
   OnDestroy,
   ViewChild,
-  ElementRef } from '@angular/core';
+  ElementRef, 
+  AfterContentChecked} from '@angular/core';
 import { Router,
   NavigationEnd,
   RoutesRecognized } from '@angular/router';
@@ -26,7 +27,7 @@ import { WindowSizeService } from './shared/services/window-size-service/window-
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
 
   @ViewChild('mainContentContainer') mainContentContainer!: ElementRef;
 
@@ -89,6 +90,10 @@ export class AppComponent implements OnInit, OnDestroy {
   ngAfterViewInit(): void {
     /* this.windowSizeService.setCurrentMainContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
     this.windowSizeService.setCurrentMainContainerHeight(this.mainContentContainer.nativeElement.offsetHeight) */
+  }
+
+  ngAfterContentChecked(): void {
+    this.loadingService.stopLoading();
   }
 
   ngOnDestroy(): void {

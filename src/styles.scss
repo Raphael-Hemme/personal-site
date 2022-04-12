@@ -94,7 +94,8 @@ li {
     border-radius: 10px;
     filter: saturate(0%);
   }
-  iframe:hover {
+  iframe:hover,
+  iframe:active {
     filter: none;
   }
 }
