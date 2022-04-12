@@ -23,6 +23,8 @@
     </button>
   </header>
 
+  <div *ngIf="currLoading"><h1>Loading</h1></div>
+
   <app-site-menu
     *ngIf="siteMenuIsVisible"
     (closeSiteMenuEvent)="toggleSiteMenuVisibility()">

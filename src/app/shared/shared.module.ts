@@ -5,9 +5,9 @@ import { AppRoutingModule } from '../app-routing.module';
 
 
 import { P5SketchContainerComponent } from './components/p5-sketch-container/p5-sketch-container.component';
-import { ProfilePhotoSketchComponent } from './components/profile-photo-sketch/profile-photo-sketch.component';
+// import { ProfilePhotoSketchComponent } from './components/profile-photo-sketch/profile-photo-sketch.component';
 import { HorizontalGlitchSketchComponent } from './components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
-import { IoGardenExperimentPreviewComponent } from './ui-components/io-garden-experiment-preview/io-garden-experiment-preview.component';
+// import { IoGardenExperimentPreviewComponent } from './ui-components/io-garden-experiment-preview/io-garden-experiment-preview.component';
 import { IoGardenExperimentContainerComponent } from './ui-components/io-garden-experiment-container/io-garden-experiment-container.component';
 
 import { MarkdownModule } from 'ngx-markdown';
@@ -19,9 +19,9 @@ import { ModalComponent } from './ui-components/modal/modal.component';
 @NgModule({
   declarations: [
     P5SketchContainerComponent,
-    ProfilePhotoSketchComponent,
     HorizontalGlitchSketchComponent,
-    IoGardenExperimentPreviewComponent,
+    // ProfilePhotoSketchComponent,
+    // IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
     TagListComponent,
     SiteMenuComponent,
@@ -35,9 +35,9 @@ import { ModalComponent } from './ui-components/modal/modal.component';
   ],
   exports: [
     P5SketchContainerComponent,
-    ProfilePhotoSketchComponent,
     HorizontalGlitchSketchComponent,
-    IoGardenExperimentPreviewComponent,
+    // ProfilePhotoSketchComponent,
+    // IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
     TagListComponent,
     SiteMenuComponent,

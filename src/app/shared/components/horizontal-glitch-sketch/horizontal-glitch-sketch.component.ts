@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
+import { LoadingService } from '../../services/loading-service/loading.service';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 
 interface RandomSlice {
@@ -29,11 +30,13 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   private imgYStart: number = this.canvWidth / 2 - 250;
 
   constructor(
-    private windowSizeService: WindowSizeService
+    private windowSizeService: WindowSizeService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit() {
 
+    this.loadingService.startLoading();
     this.windowSizeService.windowResize$.subscribe(() => {
       this.triggerResize();
     })
@@ -76,6 +79,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         s.pixelDensity(1);
 
         s.background(...bgColor);
+        this.loadingService.stopLoading();
         // s.generateBackgroundGradient();
       };
 

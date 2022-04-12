@@ -17,6 +17,7 @@ import {
   pairwise,
   map,
   tap } from 'rxjs';
+import { LoadingService } from './shared/services/loading-service/loading.service';
 import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
 
 
@@ -39,11 +40,14 @@ export class AppComponent implements OnInit, OnDestroy {
   private currScrollY: BehaviorSubject<number> = new BehaviorSubject(0);
 
   private subscriptions: Subscription = new Subscription()
+  public currLoading = true;
+
 
   constructor(
     private windowSizeService: WindowSizeService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +80,9 @@ export class AppComponent implements OnInit, OnDestroy {
           this.smallLogoIsVisible = true;
         }
       })
+    )
+    this.subscriptions.add(
+      this.loadingService.isLoading$.subscribe(loadingState => this.currLoading = loadingState)
     )
   }
 
