@@ -68,3 +68,31 @@ header {
     padding: 20px calc((100% - 1005px) / 2);
   }
 }
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 110;
+  background-color: $subtle-two;
+}
+
+.loading-spinner {
+  position: fixed;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px); 
+  border: 3px solid $subtle-two; 
+  border-top: 3px solid $brand;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s linear infinite;
+  z-index: 21;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

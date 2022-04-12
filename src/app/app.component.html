@@ -23,7 +23,11 @@
     </button>
   </header>
 
-  <div *ngIf="currLoading"><h1>Loading</h1></div>
+  <div 
+    class="loading-screen"
+    *ngIf="currLoading">
+    <div class="loading-spinner"></div>
+  </div>
 
   <app-site-menu
     *ngIf="siteMenuIsVisible"
