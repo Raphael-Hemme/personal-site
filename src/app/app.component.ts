@@ -4,10 +4,10 @@ import {
   OnInit,
   OnDestroy,
   ViewChild,
-  ElementRef, 
-  AfterContentChecked,
-  AfterViewChecked,
-  AfterViewInit} from '@angular/core';
+  ElementRef,
+  AfterViewInit,
+  AfterContentChecked
+} from '@angular/core';
 import { Router,
   NavigationEnd,
   RoutesRecognized } from '@angular/router';
@@ -18,9 +18,9 @@ import {
   combineLatest,
   filter,
   // pairwise,
-  map,
-  tap } from 'rxjs';
+  map } from 'rxjs';
 import { LoadingService } from './shared/services/loading-service/loading.service';
+import { MenuService } from './shared/services/menu-service/menu.service';
 // import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
 
 
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public title = 'raphaelhemme';
   public splashScreenStatus = 'on';
-  public siteMenuIsVisible = false;
+  // public siteMenuIsVisible = false;
   public smallLogoIsVisible = false;
 
   private scrollEventObserver = fromEvent(document, 'scroll');
@@ -50,7 +50,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     // private windowSizeService: WindowSizeService,
     private router: Router,
     private location: Location,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private menuService: MenuService
   ) {}
 
   ngOnInit(): void {
@@ -96,7 +97,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 /*   ngAfterContentChecked(): void {
-    
+    console.log('afterContentCheceked run')
+    this.loadingService.stopLoading();
   } */
 
   ngOnDestroy(): void {
@@ -104,11 +106,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public toggleSiteMenuVisibility(): void {
-    this.siteMenuIsVisible = !this.siteMenuIsVisible;
+    // this.siteMenuIsVisible = !this.siteMenuIsVisible;
+    this.menuService.toggleMenu();
   }
 
   public handleLogoClick() {
-    this.siteMenuIsVisible = false;
+    // this.siteMenuIsVisible = false;
+    this.menuService.closeMenu();
     this.router.navigate(['/'])
     window.scroll(0, 0);
   }
