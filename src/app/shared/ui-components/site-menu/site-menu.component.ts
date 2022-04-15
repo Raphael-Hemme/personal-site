@@ -6,8 +6,9 @@ import {
 } from '@angular/cdk/layout';
 
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, tap, delay } from 'rxjs';
 import { MenuService } from '../../services/menu-service/menu.service';
+import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 
 @Component({
   selector: 'app-site-menu',
@@ -20,17 +21,33 @@ export class SiteMenuComponent implements OnInit {
   public isMobileView: boolean = !this.breakpointObserver.isMatched(['(min-width: 768px)']);
   private subscriptions: Subscription = new Subscription();
   public menuClass = '';
+  public transitionDisabledClass = '';
 
   constructor(
     private router: Router,
     private menuService: MenuService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private windowSizeService: WindowSizeService
   ) { }
 
   ngOnInit(): void {
-    console.log('this.isMobileVie before Sub: ', this.isMobileView);
     this.subscriptions.add(
-      this.menuService.siteMenuIsOpen$.subscribe((menuVisible) => {
+      this.windowSizeService.windowResize$
+      .pipe(
+        tap(() => {
+          // console.log('adding resize animation stopper')
+          this.menuClass += ' resize-animation-stopper'
+        }),
+        delay(500)
+      )
+      .subscribe(() => {
+        // console.log('removing resize animation stopper')
+        this.menuClass = this.menuClass.replace(' resize-animation-stopper', '')
+      })
+    )
+    this.subscriptions.add(
+      this.menuService.siteMenuIsOpen$
+      .subscribe((menuVisible) => {
         this.menuVisible = menuVisible;
         this.getCorrectMenuClass(this.isMobileView, this.menuVisible);
       })
@@ -40,12 +57,12 @@ export class SiteMenuComponent implements OnInit {
       .observe(['(min-width: 768px)'])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-          console.log('Viewport width is 768px or greater!');
+          // console.log('Viewport width is 768px or greater!');
           // this.closeSiteMenu();
           this.isMobileView = false;
           this.getCorrectMenuClass(this.isMobileView, this.menuVisible);
         } else {
-          console.log('Viewport width is less than 768px!');
+          // console.log('Viewport width is less than 768px!');
           // this.closeSiteMenu()
           this.isMobileView = true;
           this.getCorrectMenuClass(this.isMobileView, this.menuVisible);
@@ -67,7 +84,6 @@ export class SiteMenuComponent implements OnInit {
   }
 
   public closeSiteMenu(): void {
-    console.log('closing: ');
     this.menuService.closeMenu();
   }
 

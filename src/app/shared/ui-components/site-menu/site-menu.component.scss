@@ -54,6 +54,11 @@
   transition: right 300ms ease-in-out;
 }
 
+.resize-animation-stopper {
+  animation: none;
+  transition: none;
+}
+
 .nav-list {
   width: 100%;
   height: 100%;

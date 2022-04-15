@@ -105,9 +105,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  public toggleSiteMenuVisibility(): void {
+  public openSiteMenu(): void {
     // this.siteMenuIsVisible = !this.siteMenuIsVisible;
-    this.menuService.toggleMenu();
+    this.menuService.openMenu();
   }
 
   public handleLogoClick() {
