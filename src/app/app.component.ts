@@ -5,7 +5,9 @@ import {
   OnDestroy,
   ViewChild,
   ElementRef, 
-  AfterContentChecked} from '@angular/core';
+  AfterContentChecked,
+  AfterViewChecked,
+  AfterViewInit} from '@angular/core';
 import { Router,
   NavigationEnd,
   RoutesRecognized } from '@angular/router';
@@ -15,11 +17,11 @@ import {
   Subscription,
   combineLatest,
   filter,
-  pairwise,
+  // pairwise,
   map,
   tap } from 'rxjs';
 import { LoadingService } from './shared/services/loading-service/loading.service';
-import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
+// import { WindowSizeService } from './shared/services/window-size-service/window-size.service';
 
 
 @Component({
@@ -27,7 +29,7 @@ import { WindowSizeService } from './shared/services/window-size-service/window-
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('mainContentContainer') mainContentContainer!: ElementRef;
 
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
 
 
   constructor(
-    private windowSizeService: WindowSizeService,
+    // private windowSizeService: WindowSizeService,
     private router: Router,
     private location: Location,
     private loadingService: LoadingService
@@ -90,11 +92,12 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
   ngAfterViewInit(): void {
     /* this.windowSizeService.setCurrentMainContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
     this.windowSizeService.setCurrentMainContainerHeight(this.mainContentContainer.nativeElement.offsetHeight) */
-  }
-
-  ngAfterContentChecked(): void {
     this.loadingService.stopLoading();
   }
+
+/*   ngAfterContentChecked(): void {
+    
+  } */
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
