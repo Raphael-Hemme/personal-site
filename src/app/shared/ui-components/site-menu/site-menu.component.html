@@ -1,4 +1,6 @@
-<nav class="menu-container" (click)="closeSiteMenu()">
+<nav class="menu-container"
+  [ngClass]="menuClass"
+  (click)="closeSiteMenu()">
   <ul class="nav-list">
     <li class="menu-logo-btn nav-item" (click)="handleHomeBtn()">
       <img

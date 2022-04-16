@@ -5,7 +5,6 @@ import { AppRoutingModule } from '../app-routing.module';
 
 
 import { P5SketchContainerComponent } from './components/p5-sketch-container/p5-sketch-container.component';
-// import { ProfilePhotoSketchComponent } from './components/profile-photo-sketch/profile-photo-sketch.component';
 import { HorizontalGlitchSketchComponent } from './components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
 // import { IoGardenExperimentPreviewComponent } from './ui-components/io-garden-experiment-preview/io-garden-experiment-preview.component';
 import { IoGardenExperimentContainerComponent } from './ui-components/io-garden-experiment-container/io-garden-experiment-container.component';
@@ -20,7 +19,6 @@ import { ModalComponent } from './ui-components/modal/modal.component';
   declarations: [
     P5SketchContainerComponent,
     HorizontalGlitchSketchComponent,
-    // ProfilePhotoSketchComponent,
     // IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
     TagListComponent,
@@ -36,7 +34,6 @@ import { ModalComponent } from './ui-components/modal/modal.component';
   exports: [
     P5SketchContainerComponent,
     HorizontalGlitchSketchComponent,
-    // ProfilePhotoSketchComponent,
     // IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
     TagListComponent,
