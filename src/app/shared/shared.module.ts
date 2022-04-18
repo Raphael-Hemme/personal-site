@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 
 
-import { P5SketchContainerComponent } from './components/p5-sketch-container/p5-sketch-container.component';
+// import { P5SketchContainerComponent } from './components/p5-sketch-container/p5-sketch-container.component';
 import { HorizontalGlitchSketchComponent } from './components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
 // import { IoGardenExperimentPreviewComponent } from './ui-components/io-garden-experiment-preview/io-garden-experiment-preview.component';
 import { IoGardenExperimentContainerComponent } from './ui-components/io-garden-experiment-container/io-garden-experiment-container.component';
@@ -13,17 +13,19 @@ import { MarkdownModule } from 'ngx-markdown';
 import { TagListComponent } from './ui-components/tag-list/tag-list.component';
 import { SiteMenuComponent } from './ui-components/site-menu/site-menu.component';
 import { ModalComponent } from './ui-components/modal/modal.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 @NgModule({
   declarations: [
-    P5SketchContainerComponent,
+    // P5SketchContainerComponent,
     HorizontalGlitchSketchComponent,
     // IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
     TagListComponent,
     SiteMenuComponent,
     ModalComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,7 @@ import { ModalComponent } from './ui-components/modal/modal.component';
     MarkdownModule
   ],
   exports: [
-    P5SketchContainerComponent,
+    // P5SketchContainerComponent,
     HorizontalGlitchSketchComponent,
     // IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
