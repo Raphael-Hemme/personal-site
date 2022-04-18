@@ -50,7 +50,7 @@ export class PageNotFoundComponent implements OnInit {
       this.canvWidth = canvSizeObj.w;
       this.canvHeight = canvSizeObj.h;
 
-      console.log('this.canvWidth, this.canvHeight in subscription: ', this.canvWidth, this.canvHeight)
+      // console.log('this.canvWidth, this.canvHeight in subscription: ', this.canvWidth, this.canvHeight)
 
       this.canvas.clear();
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);

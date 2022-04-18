@@ -54,7 +54,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
     this.subscriptions.add(
       timer(1000).subscribe((t) => {
-        console.log(t);
+        // console.log(t);
         this.delayToLoadIsOver = true;
       })
     )

@@ -110,7 +110,7 @@ export class LeA002Component implements OnInit, OnDestroy {
       this.canvWidth = canvSizeObj.w; // * 0.6;
       this.canvHeight = canvSizeObj.h; // * 0.6;
 
-      console.log('this.canvWidth, this.canvHeight in subscription: ', this.canvWidth, this.canvHeight)
+      // console.log('this.canvWidth, this.canvHeight in subscription: ', this.canvWidth, this.canvHeight)
 
       this.canvas.clear();
       this.canvasCenter.x = this.canvWidth / 2; // canvSizeObj.w / 2;
@@ -255,7 +255,7 @@ export class LeA002Component implements OnInit, OnDestroy {
 
       // P5 SCRIPT
       s.setup = () => {
-        console.log('this.canvWidth, this.canvHeight in setup: ', this.canvWidth, this.canvHeight)
+        // console.log('this.canvWidth, this.canvHeight in setup: ', this.canvWidth, this.canvHeight)
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('le-a002-sketch-wrapper');
         this.canvasCenter.x = s.width / 2;
@@ -300,7 +300,7 @@ export class LeA002Component implements OnInit, OnDestroy {
 
   public togglePause() {
     this.drawIsPaused = !this.drawIsPaused;
-    console.log('this.drawIsPaused: ', this.drawIsPaused)
+    // console.log('this.drawIsPaused: ', this.drawIsPaused)
     this.drawIsPaused ? this.canvas.noLoop() :  this.canvas.loop()
   }
 

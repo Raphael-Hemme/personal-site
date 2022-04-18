@@ -221,7 +221,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   private setCenteredPosition(canvWidth: number, canvHeight: number): void {
     this.imgXStart = canvWidth / 2 - this.imgWidth / 2;
     this.imgYStart = canvHeight / 2 - this.imgHeight / 2;
-    console.log(this.imgXStart, this.imgYStart)
+    // console.log(this.imgXStart, this.imgYStart)
   }
 
   private setImgSize(canvWidth: number, canvHeight: number): void {
@@ -235,7 +235,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('removing "splash screen"');
     this.canvas.remove();
   }
 

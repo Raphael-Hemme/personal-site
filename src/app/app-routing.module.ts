@@ -25,6 +25,7 @@ const routes: Routes = [
     { path: 'cme-a001', component: CmeA001Component },
     { path: 'le-a001', component: LeA001Component },
     { path: 'le-a002', component: LeA002Component },
+    { path: '**', component: PageNotFoundComponent}
   ]
 },
   { path: '', component: HomePageComponent},

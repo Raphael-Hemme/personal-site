@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainContentContainer') mainContentContainer!: ElementRef;
 
   public title = 'raphaelhemme';
-  public splashScreenStatus = 'on';
+  // public splashScreenStatus = 'on';
   // public siteMenuIsVisible = false;
   public smallLogoIsVisible = false;
 
@@ -55,12 +55,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    /* this.subscriptions.add(
-      this.splashScreenService.startTimerAndHandleStatus().subscribe(res => {
-        console.log(res);
-        this.splashScreenStatus = res
-      })
-    ) */
     this.subscriptions.add(
       this.scrollEventObserver.subscribe(() => this.currScrollY.next(window.scrollY))
     )
