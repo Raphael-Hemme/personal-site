@@ -1,0 +1,11 @@
+<div class="le-a002-sketch-container">
+    <div id="le-a002-sketch-wrapper"></div>
+</div>
+  
+<button
+type="button"
+(click)="navigateBackOrHome()"
+class="btn-accent-flat pause-continue-btn"
+[ngClass]="!drawIsPaused ? 'btn-pause-state' : 'btn-continue-state'">
+    back
+</button>
