@@ -8,6 +8,7 @@ import { LeA001Component } from './core/io-garden/components/le-a001/le-a001.com
 import { LeA002Component } from './core/io-garden/components/le-a002/le-a002.component';
 import { TeA001Component } from './core/io-garden/components/te-a001/te-a001.component';
 import { IoGardenPageComponent } from './core/io-garden/io-garden-page/io-garden-page.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { BlogPostComponent } from './shared/ui-components/blog-post/blog-post.component';
 import { IoGardenExperimentContainerComponent } from './shared/ui-components/io-garden-experiment-container/io-garden-experiment-container.component';
 
@@ -26,7 +27,8 @@ const routes: Routes = [
     { path: 'le-a002', component: LeA002Component },
   ]
 },
-  { path: '', component: HomePageComponent}
+  { path: '', component: HomePageComponent},
+  { path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

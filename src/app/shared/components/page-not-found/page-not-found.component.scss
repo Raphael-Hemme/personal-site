@@ -1,0 +1,47 @@
+@import 'src/styles.scss';
+
+.navigate-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 0 0;
+}
+
+h1 {
+    margin: 0 0 20px 0;
+}
+
+h2 {
+    font-family: 'Roboto Mono', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.p-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0 0 0; 
+}
+
+p {
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 200;
+    line-height: 1.4;
+}
+
+strong {
+    color: $white;
+    font-size: 1.7rem;
+}
+
+.page-not-found-sketch-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

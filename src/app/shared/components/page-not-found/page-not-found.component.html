@@ -1,11 +1,19 @@
-<div class="le-a002-sketch-container">
-    <div id="le-a002-sketch-wrapper"></div>
+<h1>Sorry</h1>
+<h2>404 - Page not found</h2>
+
+<div class="page-not-found-sketch-container">
+    <div id="page-not-found-sketch-wrapper"></div>
+</div>
+
+<div class="p-container">
+    <p>Searched the whole punch card archive and found <strong>nothing</strong>.</p>
 </div>
   
-<button
-type="button"
-(click)="navigateBackOrHome()"
-class="btn-accent-flat pause-continue-btn"
-[ngClass]="!drawIsPaused ? 'btn-pause-state' : 'btn-continue-state'">
-    back
-</button>
+<div class="navigate-btn-container">
+    <button
+        type="button"
+        (click)="navigateBackOrHome()"
+        class="btn-accent-flat navigate-back-404-btn">
+            back
+    </button>
+</div>

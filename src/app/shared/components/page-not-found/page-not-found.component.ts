@@ -30,11 +30,11 @@ export class PageNotFoundComponent implements OnInit {
   ngOnInit() {
 
     const canvasConfig = {
-      'isSquare': true,
+      'isSquare': false,
       'wPercentS': 100,
-      'wPercentL': 60,
-      'hPercentS': 50,
-      'hPercentL': 50
+      'wPercentL': 100,
+      'hPercentS': 30,
+      'hPercentL': 40
     }
 
     const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
@@ -57,22 +57,22 @@ export class PageNotFoundComponent implements OnInit {
     const sketch = (s: p5) => {
       // P5 SCRIPT
       s.setup = () => {
-        console.log('this.canvWidth, this.canvHeight in setup: ', this.canvWidth, this.canvHeight)
+        // console.log('this.canvWidth, this.canvHeight in setup: ', this.canvWidth, this.canvHeight)
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
-        canvas2.parent('le-a002-sketch-wrapper');
-        s.frameRate(5);
+        canvas2.parent('page-not-found-sketch-wrapper');
+        s.frameRate(7);
       }
 
       s.draw = () => {
-        s.background(100);
+        s.background('rgba(119, 172, 162, 0.6)');
         this.dotMatrixArr = this.generateDotMatrix(s);
         for (let dot of this.dotMatrixArr) {
           if (!dot.active) {
             continue;
           } else {
             s.strokeWeight(5);
-            s.stroke('rgba(0,0,0,0)')
-            s.fill('rgba(255, 204, 100,1)')
+            s.stroke('rgba(0, 0, 0, 0)')
+            s.fill('rgba(114, 233, 220, 0.8)')
             s.circle(dot.posX, dot.posY, 10)
           }
         }
@@ -88,12 +88,12 @@ export class PageNotFoundComponent implements OnInit {
 
   private generateDotMatrix (s: p5): DotMatrixPoint[] {
     const resultArr = []
-    for (let x = 0; x < this.canvWidth -20; x += 20) {
-      for (let y = 0; y < this.canvHeight -20; y += 20) {
+    for (let x = 10; x < this.canvWidth -5; x += 20) {
+      for (let y = 10; y < this.canvHeight -5; y += 20) {
         resultArr.push({
           posX: x,
           posY: y,
-          active: s.random(0, 1) > 0.7
+          active: s.random(0, 1) > 0.85
         })
       }
     }
