@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as p5 from 'p5';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 
@@ -24,7 +25,8 @@ export class PageNotFoundComponent implements OnInit {
   private dotMatrixArr: DotMatrixPoint[] = [];
 
   constructor(
-    private windowSizeService: WindowSizeService
+    private windowSizeService: WindowSizeService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -100,8 +102,8 @@ export class PageNotFoundComponent implements OnInit {
     return resultArr;
   }
 
-  public navigateBackOrHome(): void {
-    console.log('should navigate here.')
+  public navigateHome(): void {
+    this.router.navigate(['/']);
   }
 
 }
