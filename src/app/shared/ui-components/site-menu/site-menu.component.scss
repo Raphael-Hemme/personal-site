@@ -2,19 +2,19 @@
 
 .darken-background-active {
   position: fixed;
-  z-index: 50;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  z-index: 50;
   background-color: rgba(70, 129, 137, 0.6);
   transition: background-color 300ms ease-in-out,
               z-index 300ms ease-in-out;
 }
 
 .darken-background-inactive {
-  z-index: -50;
   position: fixed;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  z-index: -50;
   background-color: rgba(0, 0, 0, 0);
   transition: background-color 300ms ease-in-out,
               z-index 600ms ease-in-out;

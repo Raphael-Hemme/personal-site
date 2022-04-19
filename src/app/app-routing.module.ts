@@ -18,16 +18,17 @@ const routes: Routes = [
   { path: 'blog', component: BlogPageComponent},
   { path: 'blog/post/:id', component: BlogPostComponent },
   { path: 'io-garden', component: IoGardenPageComponent},
-  { path: 'io-garden/:id', component: IoGardenExperimentContainerComponent ,
-  children: [
-    /* { path: '', redirectTo: 'overview', pathMatch: 'full' }, */
-    { path: 'te-a001', component: TeA001Component },
-    { path: 'cme-a001', component: CmeA001Component },
-    { path: 'le-a001', component: LeA001Component },
-    { path: 'le-a002', component: LeA002Component },
-    { path: '**', component: PageNotFoundComponent}
-  ]
-},
+  { path: 'io-garden/experiment', component: IoGardenExperimentContainerComponent,
+    children: [
+      /* { path: '', redirectTo: 'overview', pathMatch: 'full' }, */
+      { path: 'te-a001', component: TeA001Component },
+      { path: 'cme-a001', component: CmeA001Component },
+      { path: 'le-a001', component: LeA001Component },
+      { path: 'le-a002', component: LeA002Component },
+      // { path: '**', component: PageNotFoundComponent}
+      { path: '**', redirectTo: '**' },
+    ]
+  },
   { path: '', component: HomePageComponent},
   { path: '**', component: PageNotFoundComponent}
 ];

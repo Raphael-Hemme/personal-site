@@ -64,7 +64,8 @@ export class PreviewCardComponent implements OnInit {
     this.dataService.originOfNavigation$.next(originUrl);
     const currRouteArr = this.metaData.category === 'post'
       ? ['/blog/post', id]
-      : ['/io-garden', id, id];
+      // : ['/io-garden', id, id];
+      : ['/io-garden/experiment', id];
 
     this.router.navigate([...currRouteArr]);
     // this.router.navigate(['/blog/post', id]);

@@ -46,6 +46,7 @@ export class IoGardenExperimentPreviewComponent implements OnInit {
   public handleExperimentPreviewReadBtn(id: string): void {
     const originUrl: string = this.route.snapshot.url.join('');
     this.dataService.originOfNavigation$.next(originUrl);
-    this.router.navigate(['/io-garden', id, id]);
+    // this.router.navigate(['/io-garden', id, id]);
+    this.router.navigate(['/io-garden/experiment', id]);
   }
 }
