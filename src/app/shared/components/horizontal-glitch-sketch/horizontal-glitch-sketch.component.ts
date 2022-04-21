@@ -163,8 +163,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       s.generateRandomSlice = (): RandomSlice => {
         /* const randSliceWidth = s.int(s.random(10, 100));
         const randSliceHeight = s.int(s.random(2, 10)); */
-        const randSliceWidth = s.int(s.random(this.imgWidth / 50, this.imgWidth / 5));
-        const randSliceHeight = s.int(s.random(this.imgWidth / 100, this.imgWidth / 50));
+        const randSliceWidth = Math.round(s.random(this.imgWidth / 50, this.imgWidth / 5));
+        const randSliceHeight = Math.round(s.random(this.imgWidth / 250, 10));
         console.log('this.imgWidth: ', this.imgWidth)
         console.log('randSliceWidth, randSliceHeight: ', randSliceWidth, randSliceHeight)
         return {
@@ -215,6 +215,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       this.canvWidth = window.innerWidth - 35;
       this.canvHeight = window.innerHeight;
     } else if (window.innerWidth < 1000 && window.matchMedia("(orientation: landscape)").matches) {
+      // USE NON STANDARD MOBILE BREAKPOINT HERE TO PREVENT CUTING OFF LOGO ON MOBILE IN LANDSCAPE MODE
       this.canvWidth = window.innerHeight;
       this.canvHeight = window.innerHeight;
     } else if (window.innerWidth > 768 && window.innerWidth < 1200) {
