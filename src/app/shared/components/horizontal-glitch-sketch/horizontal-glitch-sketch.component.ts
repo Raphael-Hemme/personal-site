@@ -210,6 +210,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   }
 
   private setCorrectCanvDimensions(): void {
+    // USE NON STANDARD MOBILE BREAKPOINT HERE TO PREVENT CUTING OFF LOGO ON MOBILE IN LANDSCAPE MODE
     if (window.innerWidth <= 768) {
       this.canvWidth = window.innerWidth - 35;
       this.canvHeight = window.innerHeight;
