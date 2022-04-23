@@ -36,7 +36,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.loadingService.startLoading();
+    // this.loadingService.startLoading();
     this.windowSizeService.windowResize$.subscribe(() => {
       this.triggerResize();
     })
@@ -79,7 +79,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         s.pixelDensity(1);
 
         s.background(...bgColor);
-        this.loadingService.stopLoading();
+        // this.loadingService.stopLoading();
         // s.generateBackgroundGradient();
       };
 
@@ -164,9 +164,9 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         /* const randSliceWidth = s.int(s.random(10, 100));
         const randSliceHeight = s.int(s.random(2, 10)); */
         const randSliceWidth = Math.round(s.random(this.imgWidth / 50, this.imgWidth / 5));
-        const randSliceHeight = Math.round(s.random(this.imgWidth / 250, 10));
-        console.log('this.imgWidth: ', this.imgWidth)
-        console.log('randSliceWidth, randSliceHeight: ', randSliceWidth, randSliceHeight)
+        const randSliceHeight = Math.round(s.random(2, 10));
+        // console.log('this.imgWidth: ', this.imgWidth)
+        // console.log('randSliceWidth, randSliceHeight: ', randSliceWidth, randSliceHeight)
         return {
           sliceXStart: s.int(s.random(this.imgXStart, (this.imgXStart + (this.imgWidth - randSliceWidth)))),
           sliceYStart: s.int(s.random(this.imgYStart, (this.imgYStart + (this.imgHeight - randSliceHeight)))),
@@ -210,7 +210,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   }
 
   private setCorrectCanvDimensions(): void {
-    // USE NON STANDARD MOBILE BREAKPOINT HERE TO PREVENT CUTING OFF LOGO ON MOBILE IN LANDSCAPE MODE
     if (window.innerWidth <= 768) {
       this.canvWidth = window.innerWidth - 35;
       this.canvHeight = window.innerHeight;

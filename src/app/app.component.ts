@@ -6,7 +6,6 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
-  AfterContentChecked
 } from '@angular/core';
 import { Router,
   NavigationEnd,
@@ -34,8 +33,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainContentContainer') mainContentContainer!: ElementRef;
 
   public title = 'raphaelhemme';
-  // public splashScreenStatus = 'on';
-  // public siteMenuIsVisible = false;
   public smallLogoIsVisible = false;
 
   private scrollEventObserver = fromEvent(document, 'scroll');
@@ -43,7 +40,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   private currScrollY: BehaviorSubject<number> = new BehaviorSubject(0);
 
   private subscriptions: Subscription = new Subscription()
-  public currLoading = true;
+  public currLoading!: boolean;
 
 
   constructor(
@@ -65,7 +62,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
           map(e => { return e }))
         .subscribe(() => {
           this.currRoute.next(this.location.path());
-          // window.scroll(0, 0);
       })
     )
     this.subscriptions.add(
@@ -82,18 +78,19 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(
       this.loadingService.isLoading$.subscribe(loadingState => this.currLoading = loadingState)
     )
-  }
 
+    this.loadingService.stopLoading();
+
+/*     const loadingServiceTimeout = setTimeout(() => {
+      this.loadingService.stopLoading();
+      clearTimeout(loadingServiceTimeout);
+    }, 0) */
+  }
+  
   ngAfterViewInit(): void {
     /* this.windowSizeService.setCurrentMainContainerWidth(this.mainContentContainer.nativeElement.offsetWidth);
     this.windowSizeService.setCurrentMainContainerHeight(this.mainContentContainer.nativeElement.offsetHeight) */
-    this.loadingService.stopLoading();
   }
-
-/*   ngAfterContentChecked(): void {
-    console.log('afterContentCheceked run')
-    this.loadingService.stopLoading();
-  } */
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
