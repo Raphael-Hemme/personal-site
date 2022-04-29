@@ -36,7 +36,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // this.loadingService.startLoading();
+    setTimeout(() => this.loadingService.startLoading(), 0);
     this.windowSizeService.windowResize$.subscribe(() => {
       this.triggerResize();
     })
@@ -79,7 +79,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         s.pixelDensity(1);
 
         s.background(...bgColor);
-        // this.loadingService.stopLoading();
+        this.loadingService.stopLoading();
         // s.generateBackgroundGradient();
       };
 
