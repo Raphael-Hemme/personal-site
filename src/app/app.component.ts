@@ -78,13 +78,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(
       this.loadingService.isLoading$.subscribe(loadingState => this.currLoading = loadingState)
     )
-
-    this.loadingService.stopLoading();
-
-/*     const loadingServiceTimeout = setTimeout(() => {
-      this.loadingService.stopLoading();
-      clearTimeout(loadingServiceTimeout);
-    }, 0) */
   }
   
   ngAfterViewInit(): void {

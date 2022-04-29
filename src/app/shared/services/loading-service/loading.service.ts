@@ -8,7 +8,7 @@ export class LoadingService {
 
   private isLoading = true;
 
-  private isLoading$$ = new BehaviorSubject<boolean>(true);
+  private isLoading$$ = new BehaviorSubject<boolean>(false);
   public isLoading$: Observable<boolean> = this.isLoading$$.asObservable();
 
   constructor() { }

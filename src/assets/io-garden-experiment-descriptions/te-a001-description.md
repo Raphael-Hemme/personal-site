@@ -2,9 +2,9 @@
 
 Typography Experiment - A001 (`TE-A001`) is the first in a series of experiments to procedurally generate alphabetic characters and enable users to enter text in an input field that is then translated into strings of those procedurally generated characters.
 
-This sketch is a prototype. It does not produce a coherent, aesthetically refined or even generally usable alphabetic character set. But it might be a step in that direction.
+This sketch is a prototype. It does not produce a coherent, aesthetically pleasing or even generally usable alphabetic character set. But it might be a step in that direction.
 
-What I found really surprising, however, was that the 'live text' feature in iOS automatically recognized characters in a photo I took of the output a few weeks back, to share with a friend. If you are curious, to see if that works in your operating system, OCR app or photo app aswell, go ahead and take a picture.
+What I found really surprising, however, was that the 'live text' feature in iOS automatically recognized characters in a photo I took of the output a few weeks back, to share with a friend. If you are curious, to see if that works in your operating system, OCR app or photo app as well, go ahead and take a picture.
 <br />
 <br />
 
