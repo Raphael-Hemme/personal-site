@@ -134,4 +134,13 @@ export class PceA001Component implements OnInit {
 
   private draw(s: p5): void {}
 
+  public saveSketch() {
+    this.canvas.saveFile();
+  }
+
+  public reload() {
+    this.canvas.clear();
+    this.canvas.loop()
+  }
+
 }

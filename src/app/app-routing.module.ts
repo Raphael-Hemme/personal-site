@@ -6,6 +6,7 @@ import { HomePageComponent } from './core/home/home-page/home-page.component';
 import { CmeA001Component } from './core/io-garden/components/cme-a001/cme-a001.component';
 import { LeA001Component } from './core/io-garden/components/le-a001/le-a001.component';
 import { LeA002Component } from './core/io-garden/components/le-a002/le-a002.component';
+import { PceA001Component } from './core/io-garden/components/pce-a001/pce-a001.component';
 import { TeA001Component } from './core/io-garden/components/te-a001/te-a001.component';
 import { IoGardenPageComponent } from './core/io-garden/io-garden-page/io-garden-page.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'cme-a001', component: CmeA001Component },
       { path: 'le-a001', component: LeA001Component },
       { path: 'le-a002', component: LeA002Component },
+      { path: 'pce-a001', component: PceA001Component },
       // { path: '**', component: PageNotFoundComponent}
       { path: '**', redirectTo: '**' },
     ]
