@@ -34,33 +34,32 @@ export class PceA001Component implements OnInit, OnDestroy {
     const canvasConfig = {
       'isSquare': false,
       'wPercentS': 100,
-      'wPercentL': 60,
+      'wPercentL': 100,
       'hPercentS': 50,
       'hPercentL': 50
     }
 
     const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-    this.canvWidth = canvSizeObj.w; // * 0.6;
-    this.canvHeight = canvSizeObj.h; //  * 0.6;
+    this.canvWidth = canvSizeObj.w;
+    this.canvHeight = canvSizeObj.w  * 0.36;
     console.log(this.canvHeight, this.canvWidth)
 
 
     this.windowSizeService.windowResize$.subscribe(() => {
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-      this.canvWidth = canvSizeObj.w; // * 0.6;
-      this.canvHeight = canvSizeObj.h; // * 0.6;
+      this.canvWidth = canvSizeObj.w;
+      this.canvHeight = canvSizeObj.w * 0.36;
 
       this.canvas.clear();
+      this.dotArr.splice(1);
 
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
     })
 
     const sketch = (s: p5) => {
 
-      
       // P5 SCRIPT
       s.draw = () => {
-        console.log('setup is running');
         // console.log('this.canvWidth, this.canvHeight in setup: ', this.canvWidth, this.canvHeight)
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('pce-a001-sketch-wrapper');
@@ -80,7 +79,7 @@ export class PceA001Component implements OnInit, OnDestroy {
         s.colorMode(s.HSL)
         s.background(randH, sBg, randLBg);
 
-        for (let i = 20; i < 740; i+= 20) {
+        for (let i = 20; i < this.canvWidth * 0.9; i+= 20) {
           for (let j = 20; j < s.height; j+= 20) {
             if(Math.random() > 0.7) {
               this.dotArr.push({
@@ -98,21 +97,21 @@ export class PceA001Component implements OnInit, OnDestroy {
 
         s.fill(randH, sBg, randLBg);
         s.noStroke();
-        s.rect(745, 0, 50, 300)
+        s.rect(this.canvWidth - 50, 0, 50, this.canvHeight)
 
         s.fill(randH, sDots, randLDots);
         s.noStroke();
-        s.rect(751, 0, 1, 300)
+        s.rect(this.canvWidth - 50, 0, 1, this.canvHeight)
 
         s.fill(randH, sDots, randLDots);
         s.noStroke();
-        s.rect(747, 0, 2, 300)
+        s.rect(this.canvWidth - 45, 0, 2, this.canvHeight)
 
         s.fill(randH, sDots, randLDots);
         s.noStroke();
-        s.rect(780, 0, 20, 300)
+        s.rect(this.canvWidth - 20, 0, 20, this.canvHeight)
 
-        s.translate(850,50);
+        s.translate(this.canvWidth + 53, 50);
         s.rotate(s.radians(90) );
         s.fill(randH, sDots, randLDots);
         s.text(this.colorText, 0, 90);
@@ -130,10 +129,11 @@ export class PceA001Component implements OnInit, OnDestroy {
   }
 
   public saveSketch() {
-    this.canvas.saveFile();
+    this.canvas.save(`${this.saveFileName}.png`);
   }
 
   public reload() {
+    this.dotArr.splice(1);
     this.canvas.clear();
     this.canvas.loop()
   }
