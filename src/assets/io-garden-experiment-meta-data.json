@@ -76,5 +76,25 @@
       ],
       "isPublished": true,
       "category": "experiment"
+    },
+    {
+      "id": "pce-a001",
+      "title": "Punch Card Experiment A001",
+      "abstract": "",
+      "descriptionUrl": "assets/io-garden-experiment-descriptions/pce-a001-description.md",
+      "dateOriginal": "2021-10-12",
+      "dateLastEdited": "2022-07-13",
+      "phase": 1,
+      "previewImageUrl": "assets/images/io-garden-preview-images/pce-a001-preview.png",
+      "tags": [
+        "coding",
+        "javascript",
+        "p5.js",
+        "procedural design",
+        "retro tech",
+        "punch card"
+      ],
+      "isPublished": true,
+      "category": "experiment"
     }
   ]
