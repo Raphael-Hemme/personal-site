@@ -96,5 +96,25 @@
       ],
       "isPublished": true,
       "category": "experiment"
+    },
+    {
+      "id": "mae-a001",
+      "title": "Meditation App Experiment A001",
+      "abstract": "",
+      "descriptionUrl": "assets/io-garden-experiment-descriptions/pce-a001-description.md",
+      "dateOriginal": "2022-07-18",
+      "dateLastEdited": "2022-07-18",
+      "phase": 1,
+      "previewImageUrl": "assets/images/io-garden-preview-images/pce-a001-preview.png",
+      "tags": [
+        "coding",
+        "javascript",
+        "p5.js",
+        "meditation",
+        "visualization",
+        "rxjs"
+      ],
+      "isPublished": true,
+      "category": "experiment"
     }
   ]

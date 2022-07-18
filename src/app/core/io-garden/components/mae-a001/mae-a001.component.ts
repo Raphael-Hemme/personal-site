@@ -10,10 +10,20 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
 })
 export class MaeA001Component implements OnInit {
 
-  public canvas: any;
 
+  // CANVAS RELATED PROPERTIES
+  public canvas: any;
   public canvWidth = 300;
   public canvHeight = 300;
+
+
+  // MEDITATION APP LOGIC RELATED PROPERTIES
+  private completedSessionTime = 0;
+  private completedAggregateTime = 0;
+                    // [h, m, s]
+  private focusTimer = [0, 0, 0];
+
+
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -53,12 +63,9 @@ export class MaeA001Component implements OnInit {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('mae-a001-sketch-wrapper');
 
-        
         s.colorMode(s.HSL)
         s.background(150);
 
-
-        s.noLoop();
       }
     }
 
@@ -75,9 +82,7 @@ export class MaeA001Component implements OnInit {
   }
 
   public reload() {
-
     this.canvas.clear();
-    this.canvas.loop()
   }
 
 }
