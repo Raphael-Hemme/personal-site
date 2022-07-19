@@ -128,7 +128,19 @@ export class MaeA001Component implements OnInit {
     })
   
     this.elapsedSecondsIntervalSub = this.elapsedSecondsInterval$.subscribe(val => {
-        // console.log(val);
+        console.log(val);
+        if (this.focusTimer[2] < 59) {
+          this.focusTimer[2] = this.focusTimer[2] + 1;
+        } else if (this.focusTimer[2] === 59) {
+          this.focusTimer[2] = 0;
+          if (this.focusTimer[1] < 59 ) {
+            this.focusTimer[1] = this.focusTimer[1] + 1;
+          } else if (this.focusTimer[1] === 59) {
+            this.focusTimer[1] = 0;
+            this.focusTimer[0] = this.focusTimer[0] + 1;
+          }
+        }
+        console.log(this.focusTimer)
     })
   }
 
