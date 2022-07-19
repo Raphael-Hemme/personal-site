@@ -26,8 +26,14 @@ export class MaeA001Component implements OnInit {
   private completedAggregateTime = 0;
                     // [h, m, s]
   private focusTimer = [0, 0, 0];
+
+  public timerIsRunning = false;
+  
   private baseInterval$ = interval(20);
+  private baseIntervalSub: Subscription | null = null;
+
   private elapsedSecondsInterval$ = interval(1000);
+  private elapsedSecondsIntervalSub: Subscription | null = null;
 
   private subscriptions: Subscription = new Subscription();
 
@@ -65,36 +71,10 @@ export class MaeA001Component implements OnInit {
         this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
       })
     )
-    this.subscriptions.add(
-      this.baseInterval$.subscribe(val => {
-        if ((val * 20) % 5000 === 0 && (val * 20) % 10000 !== 0 && this.circleGrowDir === 'GROW') {
-          this.circleGrowDir = 'SHRINK';
-        } else if ((val * 20) % 10000 === 0 && this.circleGrowDir === 'SHRINK') {
-          this.circleGrowDir = 'GROW';
-        } 
-
-        if (this.circleGrowDir === 'GROW') {
-          this.circleRadius = this.circleRadius + 0.3;
-        };
-        if (this.circleGrowDir === 'SHRINK') {
-          this.circleRadius = this.circleRadius - 0.3;
-        }
-
-        console.log('growDir: ', this.circleGrowDir)
-        console.log(this.circleRadius);
-      })
-    )
-    this.subscriptions.add(
-      this.elapsedSecondsInterval$.subscribe(val => {
-          console.log(val);
-      })
-    )
+    
     
 
     const sketch = (s: p5) => {
-
-      // P5 SCRIPT
-
        s.setup = () => {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('mae-a001-sketch-wrapper');
@@ -102,14 +82,17 @@ export class MaeA001Component implements OnInit {
       };
 
       s.draw = () => {
-        
+        // s.background(240, 240, 240);
+        s.background(35, 81, 116);
 
-        s.background(240, 240, 240, 25);
-        
-        s.stroke(186, 255, 41);
-        s.strokeWeight(1);
-        s.noFill();
-        s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
+        if (this.timerIsRunning) {
+           s.stroke(186, 255, 41);
+          // s.stroke(35, 81, 116);
+          s.strokeWeight(2);
+          s.noFill();
+          s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
+        }
+       
       }
     }
 
@@ -119,11 +102,44 @@ export class MaeA001Component implements OnInit {
 
   ngOnDestroy(): void {
     this.canvas.remove();
-    this.subscriptions.unsubscribe();
+
+    this.baseIntervalSub?.unsubscribe();
+    this.elapsedSecondsIntervalSub?.unsubscribe();
   }
 
-  public saveSketch() {
-    
+  public startSession() {
+    if (this.timerIsRunning) {
+      return;
+    }
+    this.timerIsRunning = true;
+    this.baseIntervalSub = this.baseInterval$.subscribe(val => {
+      if ((val * 20) % 5000 === 0 && (val * 20) % 10000 !== 0 && this.circleGrowDir === 'GROW') {
+        this.circleGrowDir = 'SHRINK';
+      } else if ((val * 20) % 10000 === 0 && this.circleGrowDir === 'SHRINK') {
+        this.circleGrowDir = 'GROW';
+      } 
+
+      if (this.circleGrowDir === 'GROW') {
+        this.circleRadius = this.circleRadius + 0.3;
+      };
+      if (this.circleGrowDir === 'SHRINK') {
+        this.circleRadius = this.circleRadius - 0.3;
+      }
+    })
+  
+    this.elapsedSecondsIntervalSub = this.elapsedSecondsInterval$.subscribe(val => {
+        // console.log(val);
+    })
+  }
+
+  public stopSession() {
+    if (!this.timerIsRunning) {
+      return;
+    }
+    this.timerIsRunning = false;
+    this.baseIntervalSub?.unsubscribe();
+    this.elapsedSecondsIntervalSub?.unsubscribe();
+    this.circleRadius = 0;
   }
 
   public reload() {

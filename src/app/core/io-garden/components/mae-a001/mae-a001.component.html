@@ -4,10 +4,11 @@
 
 <button
   type="button"
-  (click)="saveSketch()"
-  class="btn-accent-flat start-meditation-btn">
-    start
+  (click)="timerIsRunning ? stopSession() : startSession()"
+  class="btn-accent-flat start-session-btn">
+    {{ timerIsRunning ? 'stop' : 'start' }}
 </button>
+
 <!-- <button
   type="button"
   (click)="reload()"
