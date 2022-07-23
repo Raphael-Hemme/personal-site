@@ -1,15 +1,30 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
-import _ from 'lodash';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
-import { delay, interval, Subscription } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
+import { DateTime } from 'luxon';
+
+interface SessionObj {
+  timerIsRunning: boolean;
+  completedSessionTime: number;
+  startTime: undefined | DateTime;
+  stopTime: undefined | DateTime;
+}
+
+interface ProfileObj {
+  id: undefined | string;
+  name: undefined | string;
+  completedAggregateTime: number;
+  sessions: SessionObj[];
+}
+
 
 @Component({
   selector: 'app-mae-a001',
   templateUrl: './mae-a001.component.html',
   styleUrls: ['./mae-a001.component.scss']
 })
-export class MaeA001Component implements OnInit {
+export class MaeA001Component implements OnInit, OnDestroy {
 
 
   // CANVAS RELATED PROPERTIES
@@ -22,21 +37,29 @@ export class MaeA001Component implements OnInit {
 
 
   // MEDITATION APP LOGIC RELATED PROPERTIES
-  private completedSessionTime = 0;
-  private completedAggregateTime = 0;
-                    // [h, m, s]
-  private focusTimer = [0, 0, 0];
-
-  public timerIsRunning = false;
   
+    
   private baseInterval$ = interval(20);
   private baseIntervalSub: Subscription | null = null;
 
-  private elapsedSecondsInterval$ = interval(1000);
-  private elapsedSecondsIntervalSub: Subscription | null = null;
-
   private subscriptions: Subscription = new Subscription();
 
+  // PROFILE DATA
+  public profile: ProfileObj = {
+    id: undefined,
+    name: undefined,
+    completedAggregateTime: 0,
+    sessions: [],
+  }
+
+
+  // SESSION DATA
+  public session: SessionObj = {
+    timerIsRunning: false,
+    completedSessionTime: 0,
+    startTime: undefined, // = DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss');
+    stopTime: undefined // = DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss');
+  }
 
 
   constructor(
@@ -45,34 +68,8 @@ export class MaeA001Component implements OnInit {
 
   ngOnInit(): void {
 
-    const canvasConfig = {
-      'isSquare': true,
-      'wPercentS': 100,
-      'wPercentL': 50,
-      'hPercentS': 50,
-      'hPercentL': 50
-    }
-
-    const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-    this.canvWidth = canvSizeObj.w;
-    this.canvHeight = canvSizeObj.w;
-    console.log(this.canvHeight, this.canvWidth)
-
-
-    this.subscriptions.add(
-      this.windowSizeService.windowResize$
-      .subscribe(() => {
-        const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-        this.canvWidth = canvSizeObj.w;
-        this.canvHeight = canvSizeObj.w;
-
-        this.canvas.clear();
-
-        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-      })
-    )
-    
-    
+    this.loadProfile();
+    this.bootUpP5();
 
     const sketch = (s: p5) => {
        s.setup = () => {
@@ -85,7 +82,7 @@ export class MaeA001Component implements OnInit {
         // s.background(240, 240, 240);
         s.background(35, 81, 116);
 
-        if (this.timerIsRunning) {
+        if (this.session.timerIsRunning) {
            s.fill(186, 255, 41);
            s.noStroke();
           // s.stroke(35, 81, 116);
@@ -105,14 +102,18 @@ export class MaeA001Component implements OnInit {
     this.canvas.remove();
 
     this.baseIntervalSub?.unsubscribe();
-    this.elapsedSecondsIntervalSub?.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   public startSession(): void {
-    if (this.timerIsRunning) {
+    if (this.session.timerIsRunning) {
       return;
     }
-    this.timerIsRunning = true;
+
+    this.session.startTime = DateTime.now() // .toFormat('yyyy-MM-dd-HH-mm-ss');
+
+    this.session.timerIsRunning = true;
+
     this.baseIntervalSub = this.baseInterval$.subscribe(val => {
       if ((val * 20) % 5000 === 0 && (val * 20) % 10000 !== 0 && this.circleGrowDir === 'GROW') {
         this.circleGrowDir = 'SHRINK';
@@ -127,40 +128,80 @@ export class MaeA001Component implements OnInit {
         this.circleRadius = this.circleRadius - 0.3;
       }
     })
-  
-    this.elapsedSecondsIntervalSub = this.elapsedSecondsInterval$.subscribe(val => {
-        console.log(val);
-        this.handleFocusTimer();
-    })
-  }
-
-  private handleFocusTimer(): void {
-    if (this.focusTimer[2] < 59) {
-      this.focusTimer[2] = this.focusTimer[2] + 1;
-    } else if (this.focusTimer[2] === 59) {
-      this.focusTimer[2] = 0;
-      if (this.focusTimer[1] < 59 ) {
-        this.focusTimer[1] = this.focusTimer[1] + 1;
-      } else if (this.focusTimer[1] === 59) {
-        this.focusTimer[1] = 0;
-        this.focusTimer[0] = this.focusTimer[0] + 1;
-      }
-    }
-    console.log(this.focusTimer)
   }
 
   public stopSession(): void {
-    if (!this.timerIsRunning) {
+    if (!this.session.timerIsRunning) {
       return;
     }
-    this.timerIsRunning = false;
+    this.session.timerIsRunning = false;
+
+    this.session.stopTime = DateTime.now() // .toFormat('yyyy-MM-dd-HH-mm-ss');
+    this.session.completedSessionTime = Number(
+      this.session.stopTime
+      .diff(this.session.startTime!, 'seconds')
+      .toFormat('s')
+    )
+    this.saveSession();
+    this.updateProfile();
+
+    console.log(this.profile.name)
+
     this.baseIntervalSub?.unsubscribe();
-    this.elapsedSecondsIntervalSub?.unsubscribe();
     this.circleRadius = 0;
+  }
+
+  private loadProfile(): void {
+    if (window.localStorage.getItem('focus-stream-profile')) {
+      this.profile = JSON.parse(window.localStorage.getItem('focus-stream-profile')!);
+      console.log(JSON.parse(window.localStorage.getItem('focus-stream-profile')!));
+    }
+  }
+
+  private saveSession(): void {
+    this.profile.sessions.push(this.session);
+    this.profile.completedAggregateTime = this.profile.completedAggregateTime + this.session.completedSessionTime
+  }
+
+  private updateProfile(): void {
+    window.localStorage.setItem('focus-stream-profile', JSON.stringify(this.profile));
+  }
+
+  public resetProgress(): void {
+    this.profile.completedAggregateTime = 0;
+    this.profile.sessions = [];
+    this.updateProfile();
   }
 
   public reload(): void {
     this.canvas.clear();
+  }
+
+  private bootUpP5() {
+    const canvasConfig = {
+      'isSquare': true,
+      'wPercentS': 100,
+      'wPercentL': 50,
+      'hPercentS': 50,
+      'hPercentL': 50
+    }
+
+    const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+    this.canvWidth = canvSizeObj.w;
+    this.canvHeight = canvSizeObj.w;
+
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$
+      .subscribe(() => {
+        const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+        this.canvWidth = canvSizeObj.w;
+        this.canvHeight = canvSizeObj.w;
+
+        this.canvas.clear();
+
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      })
+    )
   }
 
 }

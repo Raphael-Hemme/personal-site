@@ -4,9 +4,9 @@
 
 <button
   type="button"
-  (click)="timerIsRunning ? stopSession() : startSession()"
+  (click)="session.timerIsRunning ? stopSession() : startSession()"
   class="btn-accent-flat start-session-btn">
-    {{ timerIsRunning ? 'stop' : 'start' }}
+    {{ session.timerIsRunning ? 'stop' : 'start' }}
 </button>
 
 <!-- <button
@@ -15,3 +15,22 @@
   class="btn-accent-flat reload-btn">
     reload
 </button> -->
+
+<button
+  type="button"
+  (click)="resetProgress()"
+  class="btn-accent-flat start-session-btn">
+    reset progress
+</button>
+
+
+<div class="inputs">
+  <div class="name-input-and-label">
+    <label for="name">Name</label>
+    <input name="name" type="text" [(ngModel)]="profile.name">
+  </div>
+  <div class="timer-input-and-label">
+    <label for="timer">Timer</label>
+    <input name="timer" type="number">
+  </div>
+</div>
