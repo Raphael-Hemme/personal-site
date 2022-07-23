@@ -1,3 +1,5 @@
+@import '/src/assets/stylesheets/colors.scss';
+
 .start-session-btn {
     margin: 10px 0 0 10px;
     min-width: 100px;
@@ -6,4 +8,10 @@
 .reload-btn {
     margin: 10px 0 0 10px;
     min-width: 100px;
+}
+
+.mae-a001-sketch-container {
+    display: flex;
+    justify-content: center;
+    background-color: $accent;
 }

@@ -46,7 +46,7 @@ export class MaeA001Component implements OnInit {
   ngOnInit(): void {
 
     const canvasConfig = {
-      'isSquare': false,
+      'isSquare': true,
       'wPercentS': 100,
       'wPercentL': 50,
       'hPercentS': 50,
@@ -55,7 +55,7 @@ export class MaeA001Component implements OnInit {
 
     const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
     this.canvWidth = canvSizeObj.w;
-    this.canvHeight = canvSizeObj.w  * 0.36;
+    this.canvHeight = canvSizeObj.w;
     console.log(this.canvHeight, this.canvWidth)
 
 
@@ -64,7 +64,7 @@ export class MaeA001Component implements OnInit {
       .subscribe(() => {
         const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
         this.canvWidth = canvSizeObj.w;
-        this.canvHeight = canvSizeObj.w * 0.36;
+        this.canvHeight = canvSizeObj.w;
 
         this.canvas.clear();
 
@@ -86,10 +86,11 @@ export class MaeA001Component implements OnInit {
         s.background(35, 81, 116);
 
         if (this.timerIsRunning) {
-           s.stroke(186, 255, 41);
+           s.fill(186, 255, 41);
+           s.noStroke();
           // s.stroke(35, 81, 116);
-          s.strokeWeight(2);
-          s.noFill();
+          // s.strokeWeight(2);
+          //s.noFill();
           s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
         }
        
@@ -107,7 +108,7 @@ export class MaeA001Component implements OnInit {
     this.elapsedSecondsIntervalSub?.unsubscribe();
   }
 
-  public startSession() {
+  public startSession(): void {
     if (this.timerIsRunning) {
       return;
     }
@@ -129,22 +130,26 @@ export class MaeA001Component implements OnInit {
   
     this.elapsedSecondsIntervalSub = this.elapsedSecondsInterval$.subscribe(val => {
         console.log(val);
-        if (this.focusTimer[2] < 59) {
-          this.focusTimer[2] = this.focusTimer[2] + 1;
-        } else if (this.focusTimer[2] === 59) {
-          this.focusTimer[2] = 0;
-          if (this.focusTimer[1] < 59 ) {
-            this.focusTimer[1] = this.focusTimer[1] + 1;
-          } else if (this.focusTimer[1] === 59) {
-            this.focusTimer[1] = 0;
-            this.focusTimer[0] = this.focusTimer[0] + 1;
-          }
-        }
-        console.log(this.focusTimer)
+        this.handleFocusTimer();
     })
   }
 
-  public stopSession() {
+  private handleFocusTimer(): void {
+    if (this.focusTimer[2] < 59) {
+      this.focusTimer[2] = this.focusTimer[2] + 1;
+    } else if (this.focusTimer[2] === 59) {
+      this.focusTimer[2] = 0;
+      if (this.focusTimer[1] < 59 ) {
+        this.focusTimer[1] = this.focusTimer[1] + 1;
+      } else if (this.focusTimer[1] === 59) {
+        this.focusTimer[1] = 0;
+        this.focusTimer[0] = this.focusTimer[0] + 1;
+      }
+    }
+    console.log(this.focusTimer)
+  }
+
+  public stopSession(): void {
     if (!this.timerIsRunning) {
       return;
     }
@@ -154,7 +159,7 @@ export class MaeA001Component implements OnInit {
     this.circleRadius = 0;
   }
 
-  public reload() {
+  public reload(): void {
     this.canvas.clear();
   }
 
