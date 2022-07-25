@@ -22,29 +22,41 @@
   <div class="inputs">
     <div class="name-input-and-label">
       <label for="name">Name</label>
-      <input name="name" type="text" [(ngModel)]="profile.name" placeholder="How should I call you?">
+      <input 
+        name="name" 
+        type="text"
+        [(ngModel)]="profile.name"
+        placeholder="How should I call you?">
     </div>
-    <div class="timer-input-and-label">
-      <label for="timer">Hours</label>
-      <input 
-        name="timer" 
-        type="number" 
-        [(ngModel)]="session.timer.hours" 
-        (ngModelChange)="generateDisplayTimerStr()">
+    
+    <div class="timer-inputs-and-label">
+      <div>
+        <label for="hours">Hours</label>
+        <input 
+          name="hours" 
+          type="number" 
+          [(ngModel)]="session.timer.hours" 
+          (ngModelChange)="generateDisplayTimerStr()">
+      </div>
+      
+      <div>
+        <label for="minutes">Minutes</label>
+        <input 
+          name="minutes" 
+          type="number" 
+          [(ngModel)]="session.timer.minutes"
+          (ngModelChange)="generateDisplayTimerStr()">
+      </div>
 
-      <label for="timer">Minutes</label>
-      <input 
-        name="timer" 
-        type="number" 
-        [(ngModel)]="session.timer.minutes"
-        (ngModelChange)="generateDisplayTimerStr()">
-
-      <label for="timer">Seconds</label>
-      <input 
-        name="timer" 
-        type="number" 
-        [(ngModel)]="session.timer.seconds"
-        (ngModelChange)="generateDisplayTimerStr()">
+      <div>
+        <label for="seconds">Seconds</label>
+        <input 
+          name="seconds" 
+          type="number" 
+          [(ngModel)]="session.timer.seconds"
+          (ngModelChange)="generateDisplayTimerStr()">
+      </div>
+      
     </div>
   </div>
   
