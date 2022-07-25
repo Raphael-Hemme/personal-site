@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
-import { interval, Subscription } from 'rxjs';
+import { interval, Subscription, tap } from 'rxjs';
 import { DateTime } from 'luxon';
 
 interface SessionObj {
@@ -9,6 +9,11 @@ interface SessionObj {
   completedSessionTime: number;
   startTime: undefined | DateTime;
   stopTime: undefined | DateTime;
+  timer: {
+    hours: number;
+    minutes: number;
+    seconds: number;
+  }
 }
 
 interface ProfileObj {
@@ -26,22 +31,19 @@ interface ProfileObj {
 })
 export class MaeA001Component implements OnInit, OnDestroy {
 
+  public isInFocusView = false;
 
   // CANVAS RELATED PROPERTIES
   public canvas: any;
   public canvWidth = 300;
   public canvHeight = 300;
-
   private circleRadius = 0;
   private circleGrowDir: 'GROW' | 'SHRINK' = 'GROW';
 
 
-  // MEDITATION APP LOGIC RELATED PROPERTIES
-  
-    
+  // RXJS STUFF
   private baseInterval$ = interval(20);
   private baseIntervalSub: Subscription | null = null;
-
   private subscriptions: Subscription = new Subscription();
 
   // PROFILE DATA
@@ -52,15 +54,19 @@ export class MaeA001Component implements OnInit, OnDestroy {
     sessions: [],
   }
 
-
   // SESSION DATA
+  public sessionRawTimer = 5;
   public session: SessionObj = {
     timerIsRunning: false,
     completedSessionTime: 0,
-    startTime: undefined, // = DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss');
-    stopTime: undefined // = DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss');
+    startTime: undefined,
+    stopTime: undefined,
+    timer: {
+      hours: 0,
+      minutes: 5,
+      seconds: 0
+    }
   }
-
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -109,12 +115,20 @@ export class MaeA001Component implements OnInit, OnDestroy {
     if (this.session.timerIsRunning) {
       return;
     }
-
-    this.session.startTime = DateTime.now() // .toFormat('yyyy-MM-dd-HH-mm-ss');
+    this.session.startTime = DateTime.now()
 
     this.session.timerIsRunning = true;
+    this.isInFocusView = true;
 
-    this.baseIntervalSub = this.baseInterval$.subscribe(val => {
+    this.baseIntervalSub = this.baseInterval$
+    .pipe(
+      tap(val => {
+        if ((val * 20) % 1000 === 0) {
+          this.countDownTimer();
+        }
+      })
+    )
+    .subscribe(val => {
       if ((val * 20) % 5000 === 0 && (val * 20) % 10000 !== 0 && this.circleGrowDir === 'GROW') {
         this.circleGrowDir = 'SHRINK';
       } else if ((val * 20) % 10000 === 0 && this.circleGrowDir === 'SHRINK') {
@@ -134,14 +148,16 @@ export class MaeA001Component implements OnInit, OnDestroy {
     if (!this.session.timerIsRunning) {
       return;
     }
-    this.session.timerIsRunning = false;
 
-    this.session.stopTime = DateTime.now() // .toFormat('yyyy-MM-dd-HH-mm-ss');
+    this.session.timerIsRunning = false;
+    this.isInFocusView = false;
+
+    this.session.stopTime = DateTime.now();
     this.session.completedSessionTime = Number(
       this.session.stopTime
       .diff(this.session.startTime!, 'seconds')
       .toFormat('s')
-    )
+    );
     this.saveSession();
     this.updateProfile();
 
@@ -172,6 +188,22 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.profile.sessions = [];
     this.updateProfile();
   }
+
+  private countDownTimer(): void {
+    if (this.session.timer.seconds > 0) {
+      this.session.timer.seconds = this.session.timer.seconds - 1;
+    } else if (this.session.timer.seconds === 0 && this.session.timer.minutes > 0) {
+      this.session.timer.minutes = this.session.timer.minutes - 1;
+      this.session.timer.seconds = 60;
+    } else if (this.session.timer.minutes === 0 && this.session.timer.hours > 0) {
+      this.session.timer.hours = this.session.timer.hours - 1;
+      this.session.timer.minutes = 60;
+    } else {
+      console.log('timer finished')
+      this.stopSession();
+    }
+  }
+
 
   public reload(): void {
     this.canvas.clear();
