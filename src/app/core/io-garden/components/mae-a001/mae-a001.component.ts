@@ -67,6 +67,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
       seconds: 0
     }
   }
+  public displayTimer = '';
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -76,6 +77,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
     this.loadProfile();
     this.bootUpP5();
+    this.generateDisplayTimerStr();
 
     const sketch = (s: p5) => {
        s.setup = () => {
@@ -125,6 +127,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
       tap(val => {
         if ((val * 20) % 1000 === 0) {
           this.countDownTimer();
+          this.generateDisplayTimerStr();
         }
       })
     )
@@ -204,6 +207,15 @@ export class MaeA001Component implements OnInit, OnDestroy {
     }
   }
 
+  generateDisplayTimerStr(): void {
+    let result = '';
+    this.session.timer.hours > 9 ? result += this.session.timer.hours : result += '0' + this.session.timer.hours;
+    result += ' : '
+    this.session.timer.minutes > 9 ? result += this.session.timer.minutes : result += '0' + this.session.timer.minutes
+    result += ' : '
+    this.session.timer.seconds > 9 ? result += this.session.timer.seconds : result += '0' + this.session.timer.seconds
+    this.displayTimer = result;
+  }
 
   public reload(): void {
     this.canvas.clear();

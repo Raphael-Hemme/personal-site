@@ -12,7 +12,7 @@
 
   <div>
     <p class="remaining-time-display"> 
-      {{ session.timer.hours }} : {{ session.timer.minutes }} : {{ session.timer.seconds }}
+      {{ displayTimer }}
     </p>
   </div>
 </div>
@@ -26,13 +26,25 @@
     </div>
     <div class="timer-input-and-label">
       <label for="timer">Hours</label>
-      <input name="timer" type="number" [(ngModel)]="session.timer.hours">
+      <input 
+        name="timer" 
+        type="number" 
+        [(ngModel)]="session.timer.hours" 
+        (ngModelChange)="generateDisplayTimerStr()">
 
       <label for="timer">Minutes</label>
-      <input name="timer" type="number" [(ngModel)]="session.timer.minutes">
+      <input 
+        name="timer" 
+        type="number" 
+        [(ngModel)]="session.timer.minutes"
+        (ngModelChange)="generateDisplayTimerStr()">
 
       <label for="timer">Seconds</label>
-      <input name="timer" type="number" [(ngModel)]="session.timer.seconds">
+      <input 
+        name="timer" 
+        type="number" 
+        [(ngModel)]="session.timer.seconds"
+        (ngModelChange)="generateDisplayTimerStr()">
     </div>
   </div>
   
