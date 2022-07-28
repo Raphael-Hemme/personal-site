@@ -36,7 +36,6 @@ export class IoGardenExperimentContainerComponent implements OnInit, OnDestroy {
     }); */
 
     this.currExperimentId = this.extractIdFromUrl();
-    console.log('this.currExperimentId: ', this.currExperimentId);
 
     this.getExperimentMetaDataAndIdAsArr();
     console.log('this.currexperimentMetaData: ', this.currexperimentMetaData);
@@ -63,7 +62,6 @@ export class IoGardenExperimentContainerComponent implements OnInit, OnDestroy {
 
   private extractIdFromUrl(): string {
     const fullUrl = this.router.url;
-    console.log('fullUrl: ', fullUrl)
     const urlAsArr = fullUrl.split('/')
     return urlAsArr[urlAsArr.length - 1];
   }

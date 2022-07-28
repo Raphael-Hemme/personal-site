@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
-import { BehaviorSubject, interval, Observable, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, interval, Subscription, tap } from 'rxjs';
 import { DateTime } from 'luxon';
+import p5 from 'p5';
+import * as d3 from 'd3';
 
 interface SessionObj {
   timerIsRunning: boolean;
   completedSessionTime: number;
+  date: undefined | string;
   startTime: undefined | DateTime;
   stopTime: undefined | DateTime;
   timer: {
@@ -62,6 +64,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
   public session: SessionObj = {
     timerIsRunning: false,
     completedSessionTime: 0,
+    date: undefined,
     startTime: undefined,
     stopTime: undefined,
     timer: {
@@ -81,21 +84,25 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.profile = this.loadProfile();
     this.generateDisplayTimerStr();
 
-    this.currMode$$.subscribe(cMode => {
-      this.currMode = cMode;
-      if (cMode === 'FOCUS') {
-        setTimeout(() => {
-          this.bootUpP5();
-          this.generateAndExecuteSketchAndCanvas()
-        }, 0);
-      }
-    })
+    this.subscriptions.add(
+      this.currMode$$.subscribe(cMode => {
+        this.currMode = cMode;
+        if (cMode === 'FOCUS') {
+          setTimeout(() => {
+            this.bootUpP5();
+            this.generateAndExecuteSketchAndCanvas()
+          }, 0);
+        }
+      })
+    )
     
   }
 
 
   ngOnDestroy(): void {
-    this.canvas.remove();
+    if (this.canvas) {
+      this.canvas.remove();
+    }
 
     this.baseIntervalSub?.unsubscribe();
     this.subscriptions.unsubscribe();
@@ -106,6 +113,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
       return;
     }
     this.session.startTime = DateTime.now()
+    this.session.date = this.session.startTime.toFormat('yyyy-mm-dd');
 
     this.session.timerIsRunning = true;
     this.isInFocusView = true;
@@ -176,6 +184,9 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
   public goIntoHomeMode(): void {
     this.currMode$$.next('HOME');
+    if (this.profile.sessions?.length > 0) {
+      setTimeout(() => this.generateD3Chart(this.profile.sessions), 0);
+    }
   }
 
   public goIntoSettingsMode(): void {
@@ -278,6 +289,22 @@ export class MaeA001Component implements OnInit, OnDestroy {
    }
 
    this.canvas = new p5(sketch);
+  }
+
+  private generateD3Chart(sessions: SessionObj[]): void {
+    const svg = d3.select('.statistics')
+      .append('svg')
+      .attr('width', 500)
+      .attr('height', 150)
+      .selectAll('rect')
+      .data(sessions)
+      .enter()
+      .append('rect')
+      .attr('x', (d, i) => i * 30)
+      .attr('y', (d, i) => 150 - d.completedSessionTime * 5)
+      .attr('width', 25)
+      .attr('height', (d, i) => 150 - d.completedSessionTime * 5)
+      .attr('fill', 'blue')
   }
 
 }
