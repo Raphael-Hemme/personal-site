@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as p5 from 'p5';
+import p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
-import { interval, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, interval, Observable, Subscription, tap } from 'rxjs';
 import { DateTime } from 'luxon';
 
 interface SessionObj {
@@ -17,11 +17,12 @@ interface SessionObj {
 }
 
 interface ProfileObj {
-  id: undefined | string;
   name: undefined | string;
   completedAggregateTime: number;
   sessions: SessionObj[];
 }
+
+type Mode = 'FOCUS' | 'HOME' | 'SETTINGS';
 
 
 @Component({
@@ -32,6 +33,9 @@ interface ProfileObj {
 export class MaeA001Component implements OnInit, OnDestroy {
 
   public isInFocusView = false;
+
+  private currMode$$ = new BehaviorSubject<Mode>('HOME');
+  public currMode: Mode = 'HOME';
 
   // CANVAS RELATED PROPERTIES
   public canvas: any;
@@ -48,7 +52,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
   // PROFILE DATA
   public profile: ProfileObj = {
-    id: undefined,
     name: undefined,
     completedAggregateTime: 0,
     sessions: [],
@@ -75,34 +78,19 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.loadProfile();
-    this.bootUpP5();
+    this.profile = this.loadProfile();
     this.generateDisplayTimerStr();
 
-    const sketch = (s: p5) => {
-       s.setup = () => {
-        let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
-        canvas2.parent('mae-a001-sketch-wrapper');
-        s.background(240, 240, 240);
-      };
-
-      s.draw = () => {
-        // s.background(240, 240, 240);
-        s.background(35, 81, 116);
-
-        if (this.session.timerIsRunning) {
-           s.fill(186, 255, 41);
-           s.noStroke();
-          // s.stroke(35, 81, 116);
-          // s.strokeWeight(2);
-          //s.noFill();
-          s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
-        }
-       
+    this.currMode$$.subscribe(cMode => {
+      this.currMode = cMode;
+      if (cMode === 'FOCUS') {
+        setTimeout(() => {
+          this.bootUpP5();
+          this.generateAndExecuteSketchAndCanvas()
+        }, 0);
       }
-    }
-
-    this.canvas = new p5(sketch);
+    })
+    
   }
 
 
@@ -164,17 +152,34 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.saveSession();
     this.updateProfile();
 
-    console.log(this.profile.name)
+    this.goIntoHomeMode();
 
     this.baseIntervalSub?.unsubscribe();
     this.circleRadius = 0;
   }
 
-  private loadProfile(): void {
+  private loadProfile(): ProfileObj {
     if (window.localStorage.getItem('focus-stream-profile')) {
-      this.profile = JSON.parse(window.localStorage.getItem('focus-stream-profile')!);
-      console.log(JSON.parse(window.localStorage.getItem('focus-stream-profile')!));
+      return JSON.parse(window.localStorage.getItem('focus-stream-profile')!);
+    } else {
+      return {
+        name: undefined,
+        completedAggregateTime: 0,
+        sessions: [],
+      }
     }
+  }
+
+  public goIntoFocusMode(): void {
+    this.currMode$$.next('FOCUS');
+  }
+
+  public goIntoHomeMode(): void {
+    this.currMode$$.next('HOME');
+  }
+
+  public goIntoSettingsMode(): void {
+    this.currMode$$.next('SETTINGS');
   }
 
   private saveSession(): void {
@@ -207,7 +212,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
     }
   }
 
-  generateDisplayTimerStr(): void {
+  public generateDisplayTimerStr(): void {
     let result = '';
     this.session.timer.hours > 9 ? result += this.session.timer.hours : result += '0' + this.session.timer.hours;
     result += ' : '
@@ -246,6 +251,33 @@ export class MaeA001Component implements OnInit, OnDestroy {
         this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
       })
     )
+  }
+
+  private generateAndExecuteSketchAndCanvas(): void {
+    const sketch = (s: p5) => {
+      s.setup = () => {
+       let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
+       canvas2.parent('mae-a001-sketch-wrapper');
+       s.background(240, 240, 240);
+     };
+
+     s.draw = () => {
+       // s.background(240, 240, 240);
+       s.background(35, 81, 116);
+
+       if (this.session.timerIsRunning) {
+          s.fill(186, 255, 41);
+          s.noStroke();
+         // s.stroke(35, 81, 116);
+         // s.strokeWeight(2);
+         //s.noFill();
+         s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
+       }
+      
+     }
+   }
+
+   this.canvas = new p5(sketch);
   }
 
 }

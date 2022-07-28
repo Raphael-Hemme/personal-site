@@ -37,7 +37,7 @@
     }
 }
 
-.timer-inputs-and-label {
+.timer-inputs-and-labels {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -58,10 +58,23 @@
     color: $accent
 }
 
-.profile-view-visible {
-    visibility: visible;
+
+.home-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .welcome {
+        display: flex;
+        justify-content: center;
+        h3 {
+            color: $subtle-two;
+        }
+    }
+
+    .settings-mode-btn {
+        align-self: flex-end;
+        margin: 0 20px 0 0;
+    }
 }
 
-.profile-view-hidden {
-    visibility: hidden;
-}

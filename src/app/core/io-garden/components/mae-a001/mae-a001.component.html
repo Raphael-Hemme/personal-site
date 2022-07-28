@@ -1,13 +1,13 @@
-<div class="focus-view">
+<div class="focus-view" *ngIf="currMode === 'FOCUS'">
   <div class="mae-a001-sketch-container">
-      <div id="mae-a001-sketch-wrapper"></div>
+      <div id="mae-a001-sketch-wrapper" ></div>
   </div>
 
   <button
     type="button"
-    (click)="stopSession()"
+    (click)="session.timerIsRunning ? stopSession() : startSession()"
     class="btn-accent-flat start-session-btn">
-      stop
+      {{ session.timerIsRunning ? 'stop' : 'start'}} 
   </button>
 
   <div>
@@ -15,10 +15,41 @@
       {{ displayTimer }}
     </p>
   </div>
+
+
+  <div class="timer-inputs-and-labels" *ngIf="!session.timerIsRunning">
+    <div>
+      <label for="hours">Hours</label>
+      <input 
+        name="hours" 
+        type="number" 
+        [(ngModel)]="session.timer.hours" 
+        (ngModelChange)="generateDisplayTimerStr()">
+    </div>
+    
+    <div>
+      <label for="minutes">Minutes</label>
+      <input 
+        name="minutes" 
+        type="number" 
+        [(ngModel)]="session.timer.minutes"
+        (ngModelChange)="generateDisplayTimerStr()">
+    </div>
+
+    <div>
+      <label for="seconds">Seconds</label>
+      <input 
+        name="seconds" 
+        type="number" 
+        [(ngModel)]="session.timer.seconds"
+        (ngModelChange)="generateDisplayTimerStr()">
+    </div>
+    
+  </div>
 </div>
 
 
-<div class="profile-view" [ngClass]="!isInFocusView ? 'profile-view-visible' : 'profile-view-hidden'">
+<div class="settings-view" *ngIf="currMode === 'SETTINGS'">
   <div class="inputs">
     <div class="name-input-and-label">
       <label for="name">Name</label>
@@ -28,53 +59,50 @@
         [(ngModel)]="profile.name"
         placeholder="How should I call you?">
     </div>
+
+    <button
+      type="button"
+      (click)="resetProgress()"
+      class="btn-accent-flat start-session-btn">
+      reset progress
+    </button>
+
+    <button
+      type="button"
+      (click)="goIntoFocusMode()"
+      class="btn-accent-flat focus-mode-btn">
+      focus mode
+    </button>
     
-    <div class="timer-inputs-and-label">
-      <div>
-        <label for="hours">Hours</label>
-        <input 
-          name="hours" 
-          type="number" 
-          [(ngModel)]="session.timer.hours" 
-          (ngModelChange)="generateDisplayTimerStr()">
-      </div>
-      
-      <div>
-        <label for="minutes">Minutes</label>
-        <input 
-          name="minutes" 
-          type="number" 
-          [(ngModel)]="session.timer.minutes"
-          (ngModelChange)="generateDisplayTimerStr()">
-      </div>
-
-      <div>
-        <label for="seconds">Seconds</label>
-        <input 
-          name="seconds" 
-          type="number" 
-          [(ngModel)]="session.timer.seconds"
-          (ngModelChange)="generateDisplayTimerStr()">
-      </div>
-      
-    </div>
   </div>
-  
-  <button
-    type="button"
-    (click)="startSession()"
-    class="btn-accent-flat start-session-btn">
-      start
-  </button>
-
-  <button
-    type="button"
-    (click)="resetProgress()"
-    class="btn-accent-flat start-session-btn">
-    reset progress
-  </button>
 </div>
 
+<div class="home-view" *ngIf="currMode === 'HOME'">
+  <div class="welcome">
+    <h3>Welcome back {{ profile.name }}!</h3>
+  </div>
+  <div class="statistics">
+
+  </div>
+
+  <button
+    type="button"
+    (click)="goIntoFocusMode()"
+    class="btn-accent-flat focus-mode-btn">
+    <span class="material-icons">
+      self_improvement
+    </span>  
+  </button>
+
+  <button
+    type="button"
+    (click)="goIntoSettingsMode()"
+    class="btn-light-gray-flat settings-mode-btn">
+    <span class="material-icons">
+      settings
+    </span>      
+  </button>
+</div>
 
 
 

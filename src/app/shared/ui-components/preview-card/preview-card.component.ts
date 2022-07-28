@@ -66,6 +66,7 @@ export class PreviewCardComponent implements OnInit {
       ? ['/blog/post', id]
       // : ['/io-garden', id, id];
       : ['/io-garden/experiment', id];
+    console.log('currRouteArr: ', currRouteArr)
 
     this.router.navigate([...currRouteArr]);
     // this.router.navigate(['/blog/post', id]);

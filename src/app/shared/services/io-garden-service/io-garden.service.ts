@@ -34,7 +34,7 @@ export class IoGardenService {
     const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
     const experimentIndex = publishedExperimentArr.findIndex(el => el.id === id);
     if (experimentIndex === -1) {
-      throw new Error('There has been a problem with the provided experiment id.');
+      throw new Error('There has been a problem with the provided experiment id. Id provided was: ' + id);
     }
     return publishedExperimentArr[experimentIndex];
   }
