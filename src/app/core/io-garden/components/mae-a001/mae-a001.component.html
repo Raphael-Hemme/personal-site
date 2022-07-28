@@ -46,6 +46,7 @@
     </div>
     
   </div>
+  <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
 </div>
 
 
@@ -66,45 +67,66 @@
       class="btn-accent-flat start-session-btn">
       reset progress
     </button>
-
-    <button
-      type="button"
-      (click)="goIntoFocusMode()"
-      class="btn-accent-flat focus-mode-btn">
-      focus mode
-    </button>
-    
   </div>
+
+  <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
 </div>
 
 <div class="home-view" *ngIf="currMode === 'HOME'">
-  <div class="welcome">
+  <div class="welcome" *ngIf="profile.name">
     <h3>Welcome back {{ profile.name }}!</h3>
   </div>
   <div class="statistics">
 
   </div>
 
-  <button
-    type="button"
-    (click)="goIntoFocusMode()"
-    class="btn-accent-flat focus-mode-btn">
-    <span class="material-icons">
-      self_improvement
-    </span>  
-  </button>
+  <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
 
-  <button
-    type="button"
-    (click)="goIntoSettingsMode()"
-    class="btn-light-gray-flat settings-mode-btn">
-    <span class="material-icons">
-      settings
-    </span>      
-  </button>
 </div>
 
 
+<!-- BUTTONS THAT ARE SHARED BETWEEN VIEWS AS "NAV-BAR" TEMPLATE -->
+<ng-template #maeModeNav>
+  <div class="mae-a001-mode-nav">
+
+    <div class="home-mode-btn-container" >
+      <button 
+        *ngIf="currMode !== 'HOME'"
+        type="button"
+        (click)="goIntoHomeMode()"
+        class="btn-light-gray-flat home-mode-btn">
+        <span class="material-icons">
+          home
+        </span>      
+      </button>
+    </div>
+
+    <div class="focus-mode-btn-container">
+      <button
+        *ngIf="currMode !== 'FOCUS'"
+        type="button"
+        (click)="goIntoFocusMode()"
+        class="btn-accent-flat focus-mode-btn">
+        <span class="material-icons">
+          self_improvement
+        </span>  
+      </button>
+    </div>
+
+    <div class="settings-mode-btn-container">
+      <button
+        *ngIf="currMode !== 'SETTINGS'"
+        type="button"
+        (click)="goIntoSettingsMode()"
+        class="btn-light-gray-flat settings-mode-btn">
+        <span class="material-icons">
+          settings
+        </span>      
+      </button>
+    </div>
+
+  </div>
+</ng-template>
 
 
 <!-- <button
