@@ -244,10 +244,10 @@ export class MaeA001Component implements OnInit, OnDestroy {
       this.session.timer.seconds = this.session.timer.seconds - 1;
     } else if (this.session.timer.seconds === 0 && this.session.timer.minutes > 0) {
       this.session.timer.minutes = this.session.timer.minutes - 1;
-      this.session.timer.seconds = 60;
+      this.session.timer.seconds = 59;
     } else if (this.session.timer.minutes === 0 && this.session.timer.hours > 0) {
       this.session.timer.hours = this.session.timer.hours - 1;
-      this.session.timer.minutes = 60;
+      this.session.timer.minutes = 59;
     } else {
       console.log('timer finished')
       this.stopSession();
