@@ -348,7 +348,14 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
     const colGap = w / 100 * 2;
     const colWidth = (w - colGap) / sessions.length - colGap;
-    const colColor = 'rgb(186, 255, 41)';
+    const colColor = 'rgb(45, 100, 143)';
+    const maxYVal = d3.max(sessions, (session) => session.completedSessionTime) ?? h
+    const padding = colGap / 2;
+    console.log('maxYVal', maxYVal);
+
+    const yScale = d3.scaleLinear()
+      .domain([0, maxYVal])
+      .range([padding, h * 0.8 - padding])
 
     const svg = d3.select('.statistics')
       .append('svg')
@@ -360,9 +367,12 @@ export class MaeA001Component implements OnInit, OnDestroy {
       .enter()
       .append('rect')
       .attr('x', (d, i) => i < 1 ? colGap : colGap + i * (colWidth + colGap))
-      .attr('y', (d, i) => h - d.completedSessionTime * 5)
+      .attr('y', (d, i) => h - yScale(d.completedSessionTime))
       .attr('width', colWidth)
-      .attr('height', (d, i) => h - d.completedSessionTime * 5)
+      .attr('height', (d, i) => {
+        console.log(yScale(d.completedSessionTime))
+        return yScale(d.completedSessionTime) - padding
+      })
       .attr('fill', colColor)
   }
 
