@@ -61,7 +61,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
   // SESSION DATA
   public sessionRawTimer = 5;
-  public session: SessionObj = {
+  /* private readonly defaultSession: SessionObj = {
     timerIsRunning: false,
     completedSessionTime: 0,
     date: undefined,
@@ -72,7 +72,8 @@ export class MaeA001Component implements OnInit, OnDestroy {
       minutes: 5,
       seconds: 0
     }
-  }
+  } */
+  public session: SessionObj = this.returnDefaultValuesForSession();
   public displayTimer = '';
 
   constructor(
@@ -80,9 +81,10 @@ export class MaeA001Component implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-
     this.profile = this.loadProfile();
     this.generateDisplayTimerStr();
+
+    this.bootAndRenderD3Chart();
 
     this.subscriptions.add(
       this.currMode$$.subscribe(cMode => {
@@ -112,8 +114,11 @@ export class MaeA001Component implements OnInit, OnDestroy {
     if (this.session.timerIsRunning) {
       return;
     }
+
+    console.log('session in start', this.session);
+
     this.session.startTime = DateTime.now()
-    this.session.date = this.session.startTime.toFormat('yyyy-mm-dd');
+    this.session.date = this.session.startTime.toFormat('yyyy-MM-dd');
 
     this.session.timerIsRunning = true;
     this.isInFocusView = true;
@@ -178,14 +183,40 @@ export class MaeA001Component implements OnInit, OnDestroy {
     }
   }
 
+  private returnDefaultValuesForSession(): SessionObj {
+     return {
+      timerIsRunning: false,
+      completedSessionTime: 0,
+      date: undefined,
+      startTime: undefined,
+      stopTime: undefined,
+      timer: {
+        hours: 0,
+        minutes: 5,
+        seconds: 0
+      }
+    }
+  }
+
   public goIntoFocusMode(): void {
-    this.currMode$$.next('FOCUS');
+    this.session = this.returnDefaultValuesForSession();
+    console.log('session', this.session);
+    setTimeout(() => this.currMode$$.next('FOCUS'), 10);
   }
 
   public goIntoHomeMode(): void {
     this.currMode$$.next('HOME');
+    this.bootAndRenderD3Chart();
+  }
+
+  private bootAndRenderD3Chart(): void {
     if (this.profile.sessions?.length > 0) {
-      setTimeout(() => this.generateD3Chart(this.profile.sessions), 0);
+      setTimeout(() => {
+        const statisticsContainer = document.getElementById('statisticsContainer');
+        const w = statisticsContainer?.offsetWidth;
+        const h = statisticsContainer?.offsetHeight;
+        this.generateD3Chart(this.profile.sessions, w, h);
+      }, 0);
     }
   }
 
@@ -222,6 +253,27 @@ export class MaeA001Component implements OnInit, OnDestroy {
       this.stopSession();
     }
   }
+  
+  public handleModelChangeOnHours(): void {
+    this.generateDisplayTimerStr()
+  }
+
+  public handleModelChangeOnMinutes(): void {
+    if (this.session.timer.minutes === 60) {
+      this.session.timer.minutes = 0;
+      this.session.timer.hours = this.session.timer.hours + 1
+    }
+    this.generateDisplayTimerStr()
+  }
+
+  public handleModelChangeOnSeconds(): void {
+    if (this.session.timer.seconds === 60) {
+      this.session.timer.seconds = 0;
+      this.session.timer.minutes = this.session.timer.minutes + 1
+    }
+    this.generateDisplayTimerStr()
+  }
+
 
   public generateDisplayTimerStr(): void {
     let result = '';
@@ -291,20 +343,27 @@ export class MaeA001Component implements OnInit, OnDestroy {
    this.canvas = new p5(sketch);
   }
 
-  private generateD3Chart(sessions: SessionObj[]): void {
+  private generateD3Chart(sessions: SessionObj[], w = 500, h = 150): void {
+    console.log('this.profile.sessions: ', this.profile.sessions)
+
+    const colGap = w / 100 * 2;
+    const colWidth = (w - colGap) / sessions.length - colGap;
+    const colColor = 'rgb(186, 255, 41)';
+
     const svg = d3.select('.statistics')
       .append('svg')
-      .attr('width', 500)
-      .attr('height', 150)
-      .selectAll('rect')
+      .attr('width', w)
+      .attr('height', h)
+
+    svg.selectAll('rect')
       .data(sessions)
       .enter()
       .append('rect')
-      .attr('x', (d, i) => i * 30)
-      .attr('y', (d, i) => 150 - d.completedSessionTime * 5)
-      .attr('width', 25)
-      .attr('height', (d, i) => 150 - d.completedSessionTime * 5)
-      .attr('fill', 'blue')
+      .attr('x', (d, i) => i < 1 ? colGap : colGap + i * (colWidth + colGap))
+      .attr('y', (d, i) => h - d.completedSessionTime * 5)
+      .attr('width', colWidth)
+      .attr('height', (d, i) => h - d.completedSessionTime * 5)
+      .attr('fill', colColor)
   }
 
 }

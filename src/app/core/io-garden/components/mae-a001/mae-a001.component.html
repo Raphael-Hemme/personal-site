@@ -22,9 +22,10 @@
       <label for="hours">Hours</label>
       <input 
         name="hours" 
-        type="number" 
+        type="number"
+        min="0"
         [(ngModel)]="session.timer.hours" 
-        (ngModelChange)="generateDisplayTimerStr()">
+        (ngModelChange)="handleModelChangeOnHours()">
     </div>
     
     <div>
@@ -32,17 +33,19 @@
       <input 
         name="minutes" 
         type="number" 
+        min="0"
         [(ngModel)]="session.timer.minutes"
-        (ngModelChange)="generateDisplayTimerStr()">
+        (ngModelChange)="handleModelChangeOnMinutes()">
     </div>
 
     <div>
       <label for="seconds">Seconds</label>
       <input 
         name="seconds" 
-        type="number" 
+        type="number"
+        min="0"
         [(ngModel)]="session.timer.seconds"
-        (ngModelChange)="generateDisplayTimerStr()">
+        (ngModelChange)="handleModelChangeOnSeconds()">
     </div>
     
   </div>
@@ -76,7 +79,7 @@
   <div class="welcome" *ngIf="profile.name">
     <h3>Welcome back {{ profile.name }}!</h3>
   </div>
-  <div class="statistics">
+  <div class="statistics" id="statisticsContainer">
 
   </div>
 
