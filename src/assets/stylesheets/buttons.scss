@@ -8,7 +8,8 @@
 .btn-dark-outline,
 .btn-light-gray-flat,
 .btn-light-gray-outline,
-.btn-close-flat {
+.btn-close-flat,
+.btn-danger-flat {
   min-width: 60px;
   height: 35px;
   padding: 5px 10px;
@@ -68,6 +69,7 @@
   border: none;
   &:hover {
     background-color: $light-gray-hover;
+    color: $mid-gray;
   }
 }
 
@@ -93,6 +95,22 @@
     }
   }
 }
+
+.btn-danger-flat {
+  color: $light-gray;
+  background-color: $danger;
+  border: none;
+  &:hover {
+    background-color: $danger-hover;
+    color: $white;
+    .material-icons {
+      background-color: transparent;
+      color: $white;
+    }
+  }
+}
+
+
 
 /* .btn-accent-flat-icon-round {
   width: 40px;

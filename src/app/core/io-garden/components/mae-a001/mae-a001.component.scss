@@ -119,6 +119,9 @@
         h3 {
             color: $subtle-two;
         }
+        p {
+            color: $dark-gray;
+        }
     }
 
     .statistics {
@@ -132,8 +135,71 @@
     }
 }
 
-svg {
+/* svg {
     border: 1px solid deeppink;
     background-color: blue;
+} */
+
+.settings-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .settings-main {
+        width: 100%;
+        height: min-content;
+        @media (min-width: 768px) {
+            height: 40vh;
+        }
+        .welcome {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h3,
+            h3 span {
+                color: $subtle-two;
+                margin: 0 0 10px 0;
+            }
+    
+        }
+        .explainer {
+            padding: 10px;
+            p {
+                color: $dark-gray;
+            }
+        }
+        .name-input-and-label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            input {
+                width: 20ch;
+                padding: 5px;
+            }
+        }
+        .reset-btn-wrapper {
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+    }
 }
 
+.reset-warning-dialog {
+    h3 {
+        text-transform: uppercase;
+        color: $white;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 10px 0 20px 0;
+    }
+    .reset-warning-dialog-btn-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0 0 0;
+    }
+}

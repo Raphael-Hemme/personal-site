@@ -39,6 +39,8 @@ export class MaeA001Component implements OnInit, OnDestroy {
   private currMode$$ = new BehaviorSubject<Mode>('HOME');
   public currMode: Mode = 'HOME';
 
+  public resetWarningDialogIsOpen = false;
+
   // CANVAS RELATED PROPERTIES
   public canvas: any;
   public canvWidth = 300;
@@ -285,8 +287,16 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.displayTimer = result;
   }
 
-  public reload(): void {
+/*   public reload(): void {
     this.canvas.clear();
+  } */
+
+  public closeResetWarningDialog(): void {
+    this.resetWarningDialogIsOpen = false;
+  }
+
+  public openResetWarningDialog(): void {
+    this.resetWarningDialogIsOpen = true;
   }
 
   private bootUpP5() {
