@@ -4,6 +4,7 @@ import { BehaviorSubject, interval, Subscription, tap } from 'rxjs';
 import { DateTime } from 'luxon';
 import p5 from 'p5';
 import * as d3 from 'd3';
+import _ from 'lodash';
 
 interface SessionObj {
   timerIsRunning: boolean;
@@ -78,12 +79,15 @@ export class MaeA001Component implements OnInit, OnDestroy {
   public session: SessionObj = this.returnDefaultValuesForSession();
   public displayTimer = '';
 
+  private chartSessionData: SessionObj[] = [];
+
   constructor(
     private windowSizeService: WindowSizeService
   ) {}
 
   ngOnInit(): void {
     this.profile = this.loadProfile();
+
     this.generateDisplayTimerStr();
 
     this.bootAndRenderD3Chart();
@@ -217,7 +221,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
         const statisticsContainer = document.getElementById('statisticsContainer');
         const w = statisticsContainer?.offsetWidth;
         const h = statisticsContainer?.offsetHeight;
-        this.generateD3Chart(this.profile.sessions, w, h);
+        this.generateD3Chart(w, h);
       }, 0);
     }
   }
@@ -353,7 +357,8 @@ export class MaeA001Component implements OnInit, OnDestroy {
    this.canvas = new p5(sketch);
   }
 
-  private generateD3Chart(sessions: SessionObj[], w = 500, h = 150): void {
+  private generateD3Chart(w = 500, h = 150): void {
+    const sessions = this.generateDateRangeNormalizedSessions(this.profile.sessions, 30)
     console.log('this.profile.sessions: ', this.profile.sessions)
 
     const colGap = w / 100 * 2;
@@ -384,6 +389,37 @@ export class MaeA001Component implements OnInit, OnDestroy {
         return yScale(d.completedSessionTime) - padding
       })
       .attr('fill', colColor)
+  }
+
+  private generateDateRangeNormalizedSessions(sessions: SessionObj[], timeFrameInDays: number): SessionObj[] {
+    const endDate = DateTime.now();
+    const startDate = endDate.minus({'days': timeFrameInDays});
+    const result: SessionObj[] = [];
+    // const normalizedEmptySessionsArr = [];
+    const dateGroupedSessions = Object.values(_.groupBy(sessions, 'date'));
+
+    const dateReducedSessionTimesArr = dateGroupedSessions.map(dateArr => {
+      const resultObj = this.returnDefaultValuesForSession();
+      resultObj.completedSessionTime = dateArr.reduce((prev, curr) => prev + curr.completedSessionTime, 0)
+      resultObj.date = dateArr[0].date;
+      return resultObj;
+    })
+
+    for (let i = startDate; i <= endDate; i = i.plus({'days': 1})) {
+      if (dateReducedSessionTimesArr.some(el => el.date === i.toFormat('yyyy-MM-dd'))) {
+        const currSessionObj = dateReducedSessionTimesArr.find(el => el.date === i.toFormat('yyyy-MM-dd')) as SessionObj
+        result.push(currSessionObj);
+      } else {
+        const currSessionObj = this.returnDefaultValuesForSession();
+        currSessionObj.date = i.toFormat('yyyy-MM-dd');
+        result.push(currSessionObj)
+      }
+    }
+
+    console.log('result: ', result)
+    console.log(startDate);
+
+    return result;
   }
 
 }
