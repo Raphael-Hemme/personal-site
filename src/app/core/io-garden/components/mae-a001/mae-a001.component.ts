@@ -79,17 +79,13 @@ export class MaeA001Component implements OnInit, OnDestroy {
   public session: SessionObj = this.returnDefaultValuesForSession();
   public displayTimer = '';
 
-  private chartSessionData: SessionObj[] = [];
-
   constructor(
     private windowSizeService: WindowSizeService
   ) {}
 
   ngOnInit(): void {
     this.profile = this.loadProfile();
-
     this.generateDisplayTimerStr();
-
     this.bootAndRenderD3Chart();
 
     this.subscriptions.add(
@@ -103,7 +99,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
         }
       })
     )
-    
   }
 
 
@@ -359,13 +354,14 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
   private generateD3Chart(w = 500, h = 150): void {
     const sessions = this.generateDateRangeNormalizedSessions(this.profile.sessions, 30)
-    console.log('this.profile.sessions: ', this.profile.sessions)
 
-    const colGap = w / 100 * 2;
+    const maxColWidth = w / sessions.length;
+    // const colGap = w / 100 * 2;
+    const colGap = maxColWidth / 5;
     const colWidth = (w - colGap) / sessions.length - colGap;
     const colColor = 'rgb(45, 100, 143)';
     const maxYVal = d3.max(sessions, (session) => session.completedSessionTime) ?? h
-    const padding = colGap / 2;
+    const padding = colGap;
     console.log('maxYVal', maxYVal);
 
     const yScale = d3.scaleLinear()
