@@ -1,0 +1,11 @@
+app-mae-a001 {
+    svg {
+        background-color: $light-gray;
+    }
+    .single-chart-column {
+        fill: $subtle-two;
+        &:hover {
+            fill: $brand;
+        }
+    }
+}

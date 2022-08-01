@@ -63,19 +63,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
   }
 
   // SESSION DATA
-  public sessionRawTimer = 5;
-  /* private readonly defaultSession: SessionObj = {
-    timerIsRunning: false,
-    completedSessionTime: 0,
-    date: undefined,
-    startTime: undefined,
-    stopTime: undefined,
-    timer: {
-      hours: 0,
-      minutes: 5,
-      seconds: 0
-    }
-  } */
   public session: SessionObj = this.returnDefaultValuesForSession();
   public displayTimer = '';
 
@@ -85,6 +72,8 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.profile = this.loadProfile();
+
+    console.log('profile: ', this.profile)
     this.generateDisplayTimerStr();
     this.bootAndRenderD3Chart();
 
@@ -356,13 +345,10 @@ export class MaeA001Component implements OnInit, OnDestroy {
     const sessions = this.generateDateRangeNormalizedSessions(this.profile.sessions, 30)
 
     const maxColWidth = w / sessions.length;
-    // const colGap = w / 100 * 2;
     const colGap = maxColWidth / 5;
-    const colWidth = (w - colGap) / sessions.length - colGap;
-    const colColor = 'rgb(45, 100, 143)';
-    const maxYVal = d3.max(sessions, (session) => session.completedSessionTime) ?? h
     const padding = colGap;
-    console.log('maxYVal', maxYVal);
+    const colWidth = (w - colGap) / sessions.length - colGap;
+    const maxYVal = d3.max(sessions, (session) => session.completedSessionTime) ?? h
 
     const yScale = d3.scaleLinear()
       .domain([0, maxYVal])
@@ -384,17 +370,28 @@ export class MaeA001Component implements OnInit, OnDestroy {
         console.log(yScale(d.completedSessionTime))
         return yScale(d.completedSessionTime) - padding
       })
-      .attr('fill', colColor)
+      .attr('class', 'single-chart-column')
+      .append('title')
+      .text((d) => {
+        return d.completedSessionTime < 60 
+        ? d.completedSessionTime + ' Sec.' 
+        : (d.completedSessionTime / 60).toFixed(2) + ' Min.'
+      })
+
+/*     svg.selectAll('text')
+      .data(sessions)
+      .enter()
+      .append('text')
+      .text((d) => `${d.completedSessionTime / 60} Min.`) */
   }
 
   private generateDateRangeNormalizedSessions(sessions: SessionObj[], timeFrameInDays: number): SessionObj[] {
     const endDate = DateTime.now();
     const startDate = endDate.minus({'days': timeFrameInDays});
     const result: SessionObj[] = [];
-    // const normalizedEmptySessionsArr = [];
-    const dateGroupedSessions = Object.values(_.groupBy(sessions, 'date'));
 
-    const dateReducedSessionTimesArr = dateGroupedSessions.map(dateArr => {
+    const dateReducedSessionTimesArr = Object.values(_.groupBy(sessions, 'date'))
+    .map(dateArr => {
       const resultObj = this.returnDefaultValuesForSession();
       resultObj.completedSessionTime = dateArr.reduce((prev, curr) => prev + curr.completedSessionTime, 0)
       resultObj.date = dateArr[0].date;
