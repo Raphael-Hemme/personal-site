@@ -116,7 +116,8 @@
     .welcome {
         display: flex;
         justify-content: center;
-        h3 {
+        h3,
+        h3 span {
             color: $subtle-two;
         }
         p {

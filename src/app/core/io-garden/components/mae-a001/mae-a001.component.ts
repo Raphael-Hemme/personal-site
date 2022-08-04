@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
-import { BehaviorSubject, interval, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, fromEvent, interval, Observable, Subscription, tap, throttleTime } from 'rxjs';
 import { DateTime } from 'luxon';
 import p5 from 'p5';
 import * as d3 from 'd3';
@@ -87,6 +87,13 @@ export class MaeA001Component implements OnInit, OnDestroy {
           }, 0);
         }
       })
+    )
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$
+      .pipe(
+        throttleTime(50)
+      )
+      .subscribe(() => this.bootAndRenderD3Chart())
     )
   }
 
@@ -361,6 +368,16 @@ export class MaeA001Component implements OnInit, OnDestroy {
     
     const xAxis = d3.axisBottom(xScale)
 
+
+    const alreadyExistingSvgNodeList = document.getElementsByTagName('svg');
+
+
+    if (alreadyExistingSvgNodeList.length > 0) {
+      for (let i = 0; i < alreadyExistingSvgNodeList.length; i++) {
+        let node = alreadyExistingSvgNodeList[i];
+        node.remove();
+      }
+    }
 
     const svg = d3.select('.statistics')
       .append('svg')

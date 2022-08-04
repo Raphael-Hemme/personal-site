@@ -29,8 +29,10 @@
 <div class="home-view" *ngIf="currMode === 'HOME'">
   <div class="statistics" id="statisticsContainer"></div>
 
-  <div class="welcome" *ngIf="profile.name">
-    <h3>Welcome back {{ profile.name }}!</h3>
+  <div class="welcome">
+    <h3>
+      Welcome<span *ngIf="profile.name"> back {{ profile.name }}!</span><span *ngIf="profile.name === ''">!</span>
+    </h3>
   </div>
 
   <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
