@@ -350,16 +350,24 @@ export class MaeA001Component implements OnInit, OnDestroy {
     const colWidth = (w - colGap) / sessions.length - colGap;
     const maxYVal = d3.max(sessions, (session) => session.completedSessionTime) ?? h
 
+    
     const yScale = d3.scaleLinear()
-      .domain([0, maxYVal])
-      .range([padding, h * 0.8 - padding])
+    .domain([0, maxYVal])
+    .range([padding, h * 0.8 - padding])
+
+    const xScale = d3.scaleLinear()
+    .domain([0, sessions.length])
+    .range([padding, w - padding])
+    
+    const xAxis = d3.axisBottom(xScale)
+
 
     const svg = d3.select('.statistics')
       .append('svg')
       .attr('width', w)
       .attr('height', h)
 
-    svg.selectAll('rect')
+    const svgCols = svg.selectAll('rect')
       .data(sessions)
       .enter()
       .append('rect')
@@ -367,22 +375,35 @@ export class MaeA001Component implements OnInit, OnDestroy {
       .attr('y', (d, i) => h - yScale(d.completedSessionTime))
       .attr('width', colWidth)
       .attr('height', (d, i) => {
-        console.log(yScale(d.completedSessionTime))
+        // console.log(yScale(d.completedSessionTime))
         return yScale(d.completedSessionTime) - padding
       })
       .attr('class', 'single-chart-column')
       .append('title')
-      .text((d) => {
-        return d.completedSessionTime < 60 
+      .text((d): string => {
+        let result: string = d.date + ' : ';
+        let currValStr: string =  d.completedSessionTime < 60 
         ? d.completedSessionTime + ' Sec.' 
         : (d.completedSessionTime / 60).toFixed(2) + ' Min.'
+        result += currValStr;
+        return result ;
       })
 
-/*     svg.selectAll('text')
+      // svgCols.on('click', (event) => console.log('test'))
+
+/*       svg.append('g')
+        .attr('transform', 'translate(0, ' + (h - padding) + ')')
+        .call(xAxis); */
+
+    /* svg.selectAll('text')
       .data(sessions)
       .enter()
       .append('text')
-      .text((d) => `${d.completedSessionTime / 60} Min.`) */
+      .text((d, i) => `${d.date?.replaceAll('-', '.')}`)
+      .attr('x', (d, i) => i < 1 ? colGap : colGap + i * (colWidth + colGap))
+      .attr('y', 50)
+      .attr('class', 'column-axis-labels') */
+
   }
 
   private generateDateRangeNormalizedSessions(sessions: SessionObj[], timeFrameInDays: number): SessionObj[] {
@@ -408,9 +429,8 @@ export class MaeA001Component implements OnInit, OnDestroy {
         result.push(currSessionObj)
       }
     }
-
-    console.log('result: ', result)
-    console.log(startDate);
+    // console.log('result: ', result)
+    // console.log(startDate);
 
     return result;
   }
