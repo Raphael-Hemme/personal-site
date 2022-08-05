@@ -97,23 +97,23 @@
 
   <div class="settings-main">
 
-    <div class="welcome">
+    <div class="greeting">
       <h3>Hey<span *ngIf="profile.name"> {{ profile.name }}</span>!</h3>
     </div>
   
     <div class="explainer">
-      <p *ngIf="profile.name; else enterYourNamePrompt">You can change your name below<br><br></p>
-      <ng-template #enterYourNamePrompt>
-        <p>To make your experience more personal, you can enter your name or nickname.<br><br></p>
-      </ng-template>
       <p>
         None of the information recorded in this program leaves your computer.
         Everything is stored locally in your browser.
       </p>
+      <p *ngIf="profile.name; else enterYourNamePrompt">You can change your name below<br><br></p>
+      <ng-template #enterYourNamePrompt>
+        <p>To make your experience more personal, you can enter your name or nickname.<br><br></p>
+      </ng-template>
     </div>
   
   
-    <div class="name-input-and-label">
+    <div class="name-input-and-label-container">
       <label for="name">Name</label>
       <input 
         name="name" 
@@ -121,8 +121,22 @@
         [(ngModel)]="profile.name"
         placeholder="How should I call you?">
     </div>
+
+    <div class="chart-date-range-container">
+      <label for="chartDateRange">Date Range</label>
+      <select 
+        name="chartDateRange" 
+        [(ngModel)]="profile.chartDateRangeSetting">
+          <option 
+          *ngFor="let val of dateRangeOptions" 
+          [value]="val"
+          [attr.selected]="val === profile.chartDateRangeSetting ? val : null">
+            {{ val === -1 ? 'Show all' : 'Last ' + val + ' days'}}
+          </option>
+      </select>
+    </div>
   
-    <div class="reset-btn-wrapper">
+    <div class="reset-btn-container">
       <button
         type="button"
         (click)="openResetWarningDialog()"

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
-import { BehaviorSubject, fromEvent, interval, Observable, Subscription, tap, throttleTime } from 'rxjs';
+import { BehaviorSubject, interval, Observable, Subscription, tap, throttleTime } from 'rxjs';
 import { DateTime } from 'luxon';
 import p5 from 'p5';
 import * as d3 from 'd3';
@@ -22,6 +22,7 @@ interface SessionObj {
 interface ProfileObj {
   name: undefined | string;
   completedAggregateTime: number;
+  chartDateRangeSetting: number
   sessions: SessionObj[];
 }
 
@@ -59,8 +60,11 @@ export class MaeA001Component implements OnInit, OnDestroy {
   public profile: ProfileObj = {
     name: undefined,
     completedAggregateTime: 0,
+    chartDateRangeSetting: 30,
     sessions: [],
   }
+
+  public dateRangeOptions = [7, 14, 30, 90, 180, 365, -1]
 
   // SESSION DATA
   public session: SessionObj = this.returnDefaultValuesForSession();
@@ -175,6 +179,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
       return {
         name: undefined,
         completedAggregateTime: 0,
+        chartDateRangeSetting: 30,
         sessions: [],
       }
     }
@@ -196,14 +201,22 @@ export class MaeA001Component implements OnInit, OnDestroy {
   }
 
   public goIntoFocusMode(): void {
+    this.updateProfile();
     this.session = this.returnDefaultValuesForSession();
-    console.log('session', this.session);
     setTimeout(() => this.currMode$$.next('FOCUS'), 10);
   }
 
   public goIntoHomeMode(): void {
-    this.currMode$$.next('HOME');
-    this.bootAndRenderD3Chart();
+    this.updateProfile();
+    setTimeout(() => {
+      this.currMode$$.next('HOME');
+      this.bootAndRenderD3Chart();
+    },0)
+    console.log('this.profile.dateRange: ', this.profile.chartDateRangeSetting)
+  }
+
+  public goIntoSettingsMode(): void {
+    this.currMode$$.next('SETTINGS');
   }
 
   private bootAndRenderD3Chart(): void {
@@ -217,9 +230,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
     }
   }
 
-  public goIntoSettingsMode(): void {
-    this.currMode$$.next('SETTINGS');
-  }
 
   private saveSession(): void {
     this.profile.sessions.push(this.session);
