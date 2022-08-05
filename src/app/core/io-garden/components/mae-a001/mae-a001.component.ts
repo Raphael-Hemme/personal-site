@@ -173,16 +173,36 @@ export class MaeA001Component implements OnInit, OnDestroy {
   }
 
   private loadProfile(): ProfileObj {
+    let result: ProfileObj;
     if (window.localStorage.getItem('focus-stream-profile')) {
-      return JSON.parse(window.localStorage.getItem('focus-stream-profile')!);
+      result = JSON.parse(window.localStorage.getItem('focus-stream-profile')!);
+      if (typeof result.chartDateRangeSetting === 'string') {
+        result.chartDateRangeSetting = Number(result.chartDateRangeSetting)
+      }
     } else {
-      return {
+      result = {
         name: undefined,
         completedAggregateTime: 0,
         chartDateRangeSetting: 30,
         sessions: [],
       }
     }
+    return result;
+  }
+
+  private saveSession(): void {
+    this.profile.sessions.push(this.session);
+    this.profile.completedAggregateTime = this.profile.completedAggregateTime + this.session.completedSessionTime
+  }
+
+  private updateProfile(): void {
+    window.localStorage.setItem('focus-stream-profile', JSON.stringify(this.profile));
+  }
+
+  public resetProgress(): void {
+    this.profile.completedAggregateTime = 0;
+    this.profile.sessions = [];
+    this.updateProfile();
   }
 
   private returnDefaultValuesForSession(): SessionObj {
@@ -230,22 +250,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
     }
   }
 
-
-  private saveSession(): void {
-    this.profile.sessions.push(this.session);
-    this.profile.completedAggregateTime = this.profile.completedAggregateTime + this.session.completedSessionTime
-  }
-
-  private updateProfile(): void {
-    window.localStorage.setItem('focus-stream-profile', JSON.stringify(this.profile));
-  }
-
-  public resetProgress(): void {
-    this.profile.completedAggregateTime = 0;
-    this.profile.sessions = [];
-    this.updateProfile();
-  }
-
   private countDownTimer(): void {
     if (this.session.timer.seconds > 0) {
       this.session.timer.seconds = this.session.timer.seconds - 1;
@@ -280,7 +284,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
     }
     this.generateDisplayTimerStr()
   }
-
 
   public generateDisplayTimerStr(): void {
     let result = '';
@@ -359,28 +362,25 @@ export class MaeA001Component implements OnInit, OnDestroy {
   }
 
   private generateD3Chart(w = 500, h = 150): void {
-    const sessions = this.generateDateRangeNormalizedSessions(this.profile.sessions, 30)
+    const sessions = this.generateDateRangeNormalizedSessions(this.profile.sessions, this.profile.chartDateRangeSetting)
 
     const maxColWidth = w / sessions.length;
     const colGap = maxColWidth / 5;
-    const padding = colGap;
+    const padding = h / 50;
     const colWidth = (w - colGap) / sessions.length - colGap;
     const maxYVal = d3.max(sessions, (session) => session.completedSessionTime) ?? h
-
     
     const yScale = d3.scaleLinear()
     .domain([0, maxYVal])
     .range([padding, h * 0.8 - padding])
 
-    const xScale = d3.scaleLinear()
+    /* const xScale = d3.scaleLinear()
     .domain([0, sessions.length])
-    .range([padding, w - padding])
+    .range([padding, w - padding]) */
     
-    const xAxis = d3.axisBottom(xScale)
-
+    // const xAxis = d3.axisBottom(xScale)
 
     const alreadyExistingSvgNodeList = document.getElementsByTagName('svg');
-
 
     if (alreadyExistingSvgNodeList.length > 0) {
       for (let i = 0; i < alreadyExistingSvgNodeList.length; i++) {
@@ -418,7 +418,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
       // svgCols.on('click', (event) => console.log('test'))
 
-/*       svg.append('g')
+    /* svg.append('g')
         .attr('transform', 'translate(0, ' + (h - padding) + ')')
         .call(xAxis); */
 
@@ -435,7 +435,13 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
   private generateDateRangeNormalizedSessions(sessions: SessionObj[], timeFrameInDays: number): SessionObj[] {
     const endDate = DateTime.now();
-    const startDate = endDate.minus({'days': timeFrameInDays});
+    let startDate: DateTime;
+    if (timeFrameInDays === -1) {
+      startDate = sessions[0].date ? DateTime.fromISO(sessions[0].date) : endDate.minus({'days': 7});
+    } else {
+      startDate = endDate.minus({'days': timeFrameInDays});
+    }
+
     const result: SessionObj[] = [];
 
     const dateReducedSessionTimesArr = Object.values(_.groupBy(sessions, 'date'))
@@ -456,9 +462,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
         result.push(currSessionObj)
       }
     }
-    // console.log('result: ', result)
-    // console.log(startDate);
-
     return result;
   }
 
