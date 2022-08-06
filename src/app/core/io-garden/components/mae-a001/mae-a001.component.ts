@@ -176,9 +176,17 @@ export class MaeA001Component implements OnInit, OnDestroy {
     let result: ProfileObj;
     if (window.localStorage.getItem('focus-stream-profile')) {
       result = JSON.parse(window.localStorage.getItem('focus-stream-profile')!);
+      // result = 
       if (typeof result.chartDateRangeSetting === 'string') {
         result.chartDateRangeSetting = Number(result.chartDateRangeSetting)
       }
+      result.sessions = result.sessions.map((session: any): SessionObj => {
+        return {
+          ...session,
+          startTime: DateTime.fromISO(session.startTime),
+          endTime: DateTime.fromISO(session.startTime),
+        }
+      })
     } else {
       result = {
         name: undefined,
@@ -232,7 +240,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
       this.currMode$$.next('HOME');
       this.bootAndRenderD3Chart();
     },0)
-    console.log('this.profile.dateRange: ', this.profile.chartDateRangeSetting)
   }
 
   public goIntoSettingsMode(): void {
@@ -434,12 +441,13 @@ export class MaeA001Component implements OnInit, OnDestroy {
   }
 
   private generateDateRangeNormalizedSessions(sessions: SessionObj[], timeFrameInDays: number): SessionObj[] {
+    const dateRangeNumber = typeof timeFrameInDays === 'number' ? timeFrameInDays : Number(timeFrameInDays);
     const endDate = DateTime.now();
     let startDate: DateTime;
-    if (timeFrameInDays === -1) {
+    if (dateRangeNumber === -1) {
       startDate = sessions[0].date ? DateTime.fromISO(sessions[0].date) : endDate.minus({'days': 7});
     } else {
-      startDate = endDate.minus({'days': timeFrameInDays});
+      startDate = endDate.minus({'days': dateRangeNumber});
     }
 
     const result: SessionObj[] = [];
