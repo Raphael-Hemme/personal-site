@@ -1,6 +1,6 @@
 ### Description
 
-In Meditation App Experiment - A001 (`MAE-A001`) I played around with different libraries to create a prototype of a simple meditation timer that also stores previous sessions in your browser's localStorage and displays a column chart of previous sessions.
+In Meditation App Experiment - A001 (`MAE-A001`) I played around with different libraries to create a prototype of a simple meditation timer that also stores previous sessions in your browser's localStorage and displays a column chart of those.
 
 I use [D3](https://d3js.org) for the statistics visualisation, [luxon](https://moment.github.io/luxon/#/) for date and time issues and [lodash](https://lodash.com) for some regrouping of data.
 
@@ -10,7 +10,7 @@ But the main idea behind this little side project was to get a chance to play ar
 
 The second goal I had with this experiment was to use the data visualisation library D3. The motivation here was the same as with RxJS to gain a bit of experience with the library on a small side project. Even though the current D3 chart is extremely simple, creating it pointed out a few issues I already knew from another, more productized and therefore less open and flexible library [Canvas.js](https://canvasjs.com). I use canvas.js almost daily on the job and one recurring problem is to set the 'padding' of the chart itself to 0 in order to have better control over spacing and positioning of the chart via CSS.
 
-With my D3 chart I run into a similar issue and I'm still trying to wrap my head around it. ... to be continued 
+With my D3 chart I ran into a similar issue and I'm still trying to wrap my head around it. ... to be continued 
 <!-- The D3 portion of this experiment gave me an idea of what *might* be the cause of the unwanted but remaining chart padding.
 
  If you add a gap between all the individual columns of a column chart, you would start to add the gap space after the first column by adding it to the x position of the second column and so on.  -->

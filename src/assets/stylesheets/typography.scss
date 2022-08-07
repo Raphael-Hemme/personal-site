@@ -100,7 +100,9 @@ button,
 ol, ul,
 table,
 label,
-input {
+input,
+select,
+select option {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 1.2rem;
@@ -205,12 +207,14 @@ button {
   font-family: 'Roboto Mono', monospace;
 }
 
-.blog-post-markdow pre *
+.blog-post-markdown pre *
  {
   font-size: 12px;
   font-family: 'Roboto Mono', monospace;
   line-height: 12px;
 }
+
+
 
 // EXPERIMENT DESCRIPTION
 
@@ -228,5 +232,8 @@ button {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
   }
-}
 
+  .token .interpolation {
+    color: #9db0b3;
+  }
+}

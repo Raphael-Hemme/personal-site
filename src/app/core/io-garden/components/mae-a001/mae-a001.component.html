@@ -104,36 +104,41 @@
     <div class="explainer">
       <p>
         None of the information recorded in this program leaves your computer.
-        Everything is stored locally in your browser.
+        Everything is stored locally in your browser.<br/><br/>
       </p>
-      <p *ngIf="profile.name; else enterYourNamePrompt">You can change your name below<br><br></p>
+      <p *ngIf="profile.name; else enterYourNamePrompt">Below you can change your name and the time frame you want to be displayed in the chart.<br><br></p>
       <ng-template #enterYourNamePrompt>
-        <p>To make your experience more personal, you can enter your name or nickname.<br><br></p>
+        <p>To make your experience more personal, you can enter your name or nickname.<br/> You can also change the time frame you want to be displayed in the chart.<br><br></p>
       </ng-template>
     </div>
   
   
     <div class="name-input-and-label-container">
       <label for="name">Name</label>
-      <input 
-        name="name" 
-        type="text"
-        [(ngModel)]="profile.name"
-        placeholder="How should I call you?">
+      <div class="input-wrapper">
+        <input 
+          name="name" 
+          type="text"
+          [(ngModel)]="profile.name"
+          placeholder="How should I call you?">
+      </div>
     </div>
 
     <div class="chart-date-range-container">
       <label for="chartDateRange">Date Range</label>
-      <select 
-        name="chartDateRange" 
-        [(ngModel)]="profile.chartDateRangeSetting">
-          <option 
-          *ngFor="let val of dateRangeOptions" 
-          [value]="val"
-          [attr.selected]="val === profile.chartDateRangeSetting ? val : null">
-            {{ val === -1 ? 'Show all' : 'Last ' + val + ' days'}}
-          </option>
-      </select>
+      <div class="select-wrapper">
+        <select 
+          name="chartDateRange" 
+          [(ngModel)]="profile.chartDateRangeSetting">
+            <option 
+            *ngFor="let val of dateRangeOptions" 
+            [value]="val"
+            [attr.selected]="val === profile.chartDateRangeSetting ? val : null">
+              {{ val === -1 ? 'Show all' : 'Last ' + val + ' days'}}
+            </option>
+        </select>
+      </div>
+      
     </div>
   
     <div class="reset-btn-container">
