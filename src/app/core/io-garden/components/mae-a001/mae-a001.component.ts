@@ -77,7 +77,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.profile = this.loadProfile();
 
-    console.log('profile: ', this.profile)
     this.generateDisplayTimerStr();
     this.bootAndRenderD3Chart();
 
@@ -115,8 +114,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
     if (this.session.timerIsRunning) {
       return;
     }
-
-    console.log('session in start', this.session);
 
     this.session.startTime = DateTime.now()
     this.session.date = this.session.startTime.toFormat('yyyy-MM-dd');
@@ -266,7 +263,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
       this.session.timer.hours = this.session.timer.hours - 1;
       this.session.timer.minutes = 59;
     } else {
-      console.log('timer finished')
       this.stopSession();
     }
   }
