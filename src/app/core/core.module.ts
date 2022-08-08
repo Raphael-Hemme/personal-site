@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LeA002Component } from './io-garden/components/le-a002/le-a002.component';
 import { PceA001Component } from './io-garden/components/pce-a001/pce-a001.component';
+import { MaeA001Component } from './io-garden/components/mae-a001/mae-a001.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { PceA001Component } from './io-garden/components/pce-a001/pce-a001.compo
     LeA001Component,
     LeA002Component,
     PceA001Component,
+    MaeA001Component,
   ],
   imports: [
     CommonModule,

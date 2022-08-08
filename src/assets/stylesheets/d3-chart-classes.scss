@@ -1,0 +1,16 @@
+app-mae-a001 {
+    svg {
+        background-color: $light-gray;
+    }
+    .single-chart-column {
+        fill: $subtle-two;
+        &:hover {
+            fill: $brand;
+        }
+    }
+    .column-axis-labels {
+        font-size: 0.5rem;
+        font-family: 'Roboto', sans-serif;
+        fill: $accent;
+    }
+}
