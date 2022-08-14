@@ -1,7 +1,7 @@
 import p5 from "p5";
 
 
-class Branch {
+export class Branch {
     begin
     end
     finished

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
+import { Branch } from './branch';
 
 @Component({
   selector: 'app-le-a003',
@@ -13,6 +14,10 @@ export class LeA003Component implements OnInit, OnDestroy {
 
   public canvWidth = 300;
   public canvHeight = 300;
+
+  private tree: any = [];
+  private leaves: any = [];
+  private count = 0;
 
 
   constructor(
@@ -49,12 +54,22 @@ export class LeA003Component implements OnInit, OnDestroy {
 
       s.setup = () => {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
-        canvas2.parent('le-a001-sketch-wrapper');
+        canvas2.parent('le-a003-sketch-wrapper');
+
+        let a = s.createVector(this.canvWidth / 2, this.canvHeight);
+        let b = s.createVector(this.canvWidth / 2, this.canvHeight - 100);
+        let root = new Branch(a, b, s);
+
+        this.tree[0] = root;
       }
 
       // P5 SCRIPT
       s.draw = () => {
+        s.background(51);
 
+        for (let i = 0; i < this.tree.length; i++) {
+          this.tree[i].show();
+        }
       }
     }
 
@@ -73,6 +88,26 @@ export class LeA003Component implements OnInit, OnDestroy {
   public reload() {
     this.canvas.clear();
     this.canvas.loop()
+  }
+
+  public grow() {
+    for (let i = this.tree.length -1; i >= 0; i --) {
+      if (!this.tree[i].finished) {
+        this.tree.push(this.tree[i].branch(true));
+        this.tree.push(this.tree[i].branch(false));
+      }
+      this.tree[i].finished = true;
+    }
+    this.count += 1;
+
+    if (this.count === 6) {
+      for (let i = 0; i < this.tree.length; i++) {
+        if (!this.tree[i].finished) {
+          let leaf = this.tree[i].end.copy();
+          this.leaves.push(leaf);
+        }
+      }
+    }
   }
 
 }
