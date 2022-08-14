@@ -22,11 +22,11 @@ export class Branch {
     branch(first: boolean) {
         let dir = p5.Vector.sub(this.end, this.begin);
         if (first) {
-            dir.rotate(this.s.PI / 6);
-            dir.mult(0.67);
+            dir.rotate(this.s.PI / this.s.random(2, 7));
+            dir.mult(this.s.random(0.64, 0.7));
         } else {
-            dir.rotate(-this.s.PI / 4);
-            dir.mult(0.67);
+            dir.rotate(-this.s.PI / this.s.random(2, 7));
+            dir.mult(this.s.random(0.64, 0.7));
         }
         let newEnd = p5.Vector.add(this.end, dir);
         let result = new Branch(this.end, newEnd, this.s);

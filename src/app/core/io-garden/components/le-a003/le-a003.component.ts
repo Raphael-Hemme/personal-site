@@ -19,6 +19,8 @@ export class LeA003Component implements OnInit, OnDestroy {
   private leaves: any = [];
   private count = 0;
 
+  private amountCircleDir = 20;
+
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -29,21 +31,21 @@ export class LeA003Component implements OnInit, OnDestroy {
     const canvasConfig = {
       'isSquare': true,
       'wPercentS': 100,
-      'wPercentL': 100,
+      'wPercentL': 60,
       'hPercentS': 50,
       'hPercentL': 50
     }
 
     const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
     this.canvWidth = canvSizeObj.w;
-    this.canvHeight = canvSizeObj.w  * 0.36;
+    this.canvHeight = canvSizeObj.w;
     console.log(this.canvHeight, this.canvWidth)
 
 
     this.windowSizeService.windowResize$.subscribe(() => {
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
       this.canvWidth = canvSizeObj.w;
-      this.canvHeight = canvSizeObj.w * 0.36;
+      this.canvHeight = canvSizeObj.w;
 
       this.canvas.clear();
 
@@ -109,8 +111,10 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   private seedFirst(s: p5) {
-    let a = s.createVector(this.canvWidth / 2, this.canvHeight);
-    let b = s.createVector(this.canvWidth / 2, this.canvHeight - 100);
+    let angle = s.PI / this.amountCircleDir
+
+    let a = s.createVector(this.canvWidth / 2, this.canvHeight / 2);
+    let b = s.createVector(this.canvWidth / 2, this.canvHeight  - this.canvHeight / 3);
     let root = new Branch(a, b, s);
 
     this.tree[0] = root;

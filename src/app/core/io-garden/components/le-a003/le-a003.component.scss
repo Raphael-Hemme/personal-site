@@ -1,3 +1,6 @@
+@import '/src/styles.scss';
+
+
 .save-sketch-btn {
     margin: 10px 0 0 10px;
     min-width: 100px;
@@ -7,3 +10,15 @@
     margin: 10px 0 0 10px;
     min-width: 100px;
 }
+
+.le-a003-sketch-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $mid-gray;
+    #le-a003-sketch-wrapper {
+        display: flex;
+        align-items: center;
+    }
+}
+
