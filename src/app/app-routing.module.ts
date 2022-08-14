@@ -29,6 +29,7 @@ const routes: Routes = [
       { path: 'cme-a001', component: CmeA001Component },
       { path: 'le-a001', component: LeA001Component },
       { path: 'le-a002', component: LeA002Component },
+      { path: 'le-a003', component: LeA002Component },
       { path: 'pce-a001', component: PceA001Component },
       { path: 'mae-a001', component: MaeA001Component },
       // { path: '**', component: PageNotFoundComponent}
