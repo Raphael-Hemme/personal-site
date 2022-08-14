@@ -27,7 +27,7 @@ export class LeA003Component implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     const canvasConfig = {
-      'isSquare': false,
+      'isSquare': true,
       'wPercentS': 100,
       'wPercentL': 100,
       'hPercentS': 50,
@@ -56,14 +56,9 @@ export class LeA003Component implements OnInit, OnDestroy {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('le-a003-sketch-wrapper');
 
-        let a = s.createVector(this.canvWidth / 2, this.canvHeight);
-        let b = s.createVector(this.canvWidth / 2, this.canvHeight - 100);
-        let root = new Branch(a, b, s);
-
-        this.tree[0] = root;
+        this.seedFirst(s);
       }
 
-      // P5 SCRIPT
       s.draw = () => {
         s.background(51);
 
@@ -86,8 +81,11 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   public reload() {
-    this.canvas.clear();
-    this.canvas.loop()
+    // this.canvas.clear();
+    this.tree = [];
+    this.seedFirst(this.canvas)
+    this.leaves = [];
+    // this.canvas.loop()
   }
 
   public grow() {
@@ -108,6 +106,14 @@ export class LeA003Component implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  private seedFirst(s: p5) {
+    let a = s.createVector(this.canvWidth / 2, this.canvHeight);
+    let b = s.createVector(this.canvWidth / 2, this.canvHeight - 100);
+    let root = new Branch(a, b, s);
+
+    this.tree[0] = root;
   }
 
 }
