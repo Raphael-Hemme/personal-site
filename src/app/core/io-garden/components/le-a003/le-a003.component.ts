@@ -15,6 +15,7 @@ export class LeA003Component implements OnInit, OnDestroy {
   public canvWidth = 300;
   public canvHeight = 300;
 
+  private trees: any = [];
   private tree: any = [];
   private leaves: any = [];
   private count = 0;
@@ -57,7 +58,7 @@ export class LeA003Component implements OnInit, OnDestroy {
       s.setup = () => {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('le-a003-sketch-wrapper');
-
+        s.angleMode(s.RADIANS);
         this.seedFirst(s);
       }
 
@@ -111,7 +112,15 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   private seedFirst(s: p5) {
-    let angle = s.PI / this.amountCircleDir
+    // I Think this has to be moved to the branch class to be able to iterate over the angles and end points recursively and I currently
+    // don't see a way how to do it with the vector implementation.
+    
+/*     let angle = 360 / this.amountCircleDir;
+    let endX = this.canvWidth / 2;
+    let endY = this.canvHeight  - this.canvHeight / 3
+    for (let i = 0; i < this.amountCircleDir; i++) {
+      endX = endX + s.cos()
+    } */
 
     let a = s.createVector(this.canvWidth / 2, this.canvHeight / 2);
     let b = s.createVector(this.canvWidth / 2, this.canvHeight  - this.canvHeight / 3);
