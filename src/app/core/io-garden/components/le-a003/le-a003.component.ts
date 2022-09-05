@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RouterState } from '@angular/router';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
@@ -15,12 +16,13 @@ export class LeA003Component implements OnInit, OnDestroy {
   public canvWidth = 300;
   public canvHeight = 300;
 
-  private trees: any = [];
-  private tree: any = [];
-  private leaves: any = [];
+  private trees: any[][] = [];
+  private tree: any[] = [];
+  // private leaves: any = [];
   private count = 0;
 
-  private amountCircleDir = 20;
+  private amountCircleDir = 26;
+  private angle = 360 / this.amountCircleDir;
 
 
   constructor(
@@ -64,9 +66,16 @@ export class LeA003Component implements OnInit, OnDestroy {
 
       s.draw = () => {
         s.background(51);
+        
+        for (let i = 0; i < this.amountCircleDir; i++) {
+          
+          for (let j = 0; j < this.trees[i].length; j++) {
+            this.trees[i][j].show();
+          }
+          s.translate(-this.canvWidth/2, -this.canvHeight/2);
+          //s.translate(-(i * this.angle), -(i * this.angle))
+          s.rotate(this.angle);
 
-        for (let i = 0; i < this.tree.length; i++) {
-          this.tree[i].show();
         }
       }
     }
@@ -87,46 +96,35 @@ export class LeA003Component implements OnInit, OnDestroy {
     // this.canvas.clear();
     this.tree = [];
     this.seedFirst(this.canvas)
-    this.leaves = [];
     // this.canvas.loop()
   }
 
   public grow() {
-    for (let i = this.tree.length -1; i >= 0; i --) {
-      if (!this.tree[i].finished) {
-        this.tree.push(this.tree[i].branch(true));
-        this.tree.push(this.tree[i].branch(false));
-      }
-      this.tree[i].finished = true;
-    }
-    this.count += 1;
-
-    if (this.count === 6) {
-      for (let i = 0; i < this.tree.length; i++) {
-        if (!this.tree[i].finished) {
-          let leaf = this.tree[i].end.copy();
-          this.leaves.push(leaf);
+    for (let i = 0; i < this.amountCircleDir; i++) {
+      for (let j = this.trees[i].length -1; j >= 0; j--) {
+        if (!this.trees[i][j].finished) {
+          this.trees[i].push(this.trees[i][j].branch(true));
+          this.trees[i].push(this.trees[i][j].branch(false));
         }
+        this.trees[i][j].finished = true;
+        console.log(this.trees);
       }
     }
+    // this.count += 1;
   }
 
   private seedFirst(s: p5) {
-    // I Think this has to be moved to the branch class to be able to iterate over the angles and end points recursively and I currently
-    // don't see a way how to do it with the vector implementation.
-    
-/*     let angle = 360 / this.amountCircleDir;
-    let endX = this.canvWidth / 2;
-    let endY = this.canvHeight  - this.canvHeight / 3
     for (let i = 0; i < this.amountCircleDir; i++) {
-      endX = endX + s.cos()
-    } */
 
-    let a = s.createVector(this.canvWidth / 2, this.canvHeight / 2);
-    let b = s.createVector(this.canvWidth / 2, this.canvHeight  - this.canvHeight / 3);
-    let root = new Branch(a, b, s);
-
-    this.tree[0] = root;
+      let a = s.createVector(this.canvWidth / 2, this.canvHeight / 2);
+      let b = s.createVector(this.canvWidth / 2, this.canvHeight  - this.canvHeight / 3);
+      
+      let root = new Branch(a, b, s);
+      console.log('root', root);
+      console.log('i', i);
+      this.trees.push([]);
+      this.trees[i][0] = root;
+    }
   }
 
 }

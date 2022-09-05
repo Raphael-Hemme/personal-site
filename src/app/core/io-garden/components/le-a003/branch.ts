@@ -15,7 +15,7 @@ export class Branch {
     }
 
     show() {
-        this.s.stroke(2500);
+        this.s.stroke(250);
         this.s.line(this.begin.x, this.begin.y, this.end.x, this.end.y);
     }
 
