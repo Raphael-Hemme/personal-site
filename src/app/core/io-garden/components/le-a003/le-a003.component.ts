@@ -25,6 +25,8 @@ export class LeA003Component implements OnInit, OnDestroy {
   private angle = 360 / this.amountCircleDir;
   private seedRadius = this.canvHeight;
 
+  private generationCounter = 0;
+
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -91,7 +93,7 @@ export class LeA003Component implements OnInit, OnDestroy {
       }
 
       s.draw = () => {
-        s.background(51);
+        // s.background(51);
         
         for (let i = 0; i < this.amountCircleDir; i++) {
           for (let j = 0; j < this.trees[i].length; j++) {
@@ -101,6 +103,7 @@ export class LeA003Component implements OnInit, OnDestroy {
 /*             if (j > 2) {
               this.trees[i][j].show();
             }  */
+
             this.trees[i][j].show();
 
           }
@@ -129,11 +132,13 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   public grow() {
+    this.generationCounter++;
+
     for (let i = 0; i < this.amountCircleDir; i++) {
       for (let j = this.trees[i].length -1; j >= 0; j--) {
         if (!this.trees[i][j].finished) {
-          this.trees[i].push(this.trees[i][j].branch(true));
-          this.trees[i].push(this.trees[i][j].branch(false));
+          this.trees[i].push(this.trees[i][j].branch(true, this.generationCounter));
+          this.trees[i].push(this.trees[i][j].branch(false, this.generationCounter));
         }
         this.trees[i][j].finished = true;
       }
@@ -152,7 +157,7 @@ export class LeA003Component implements OnInit, OnDestroy {
       let b = s.createVector(endX + this.seedRadius, endY + this.seedRadius);
       console.log('b: ',b)
       
-      let root = new Branch(a, b, s);
+      let root = new Branch(a, b, s, this.generationCounter);
       this.trees.push([]);
       this.trees[i][0] = root;
     }
