@@ -1,13 +1,12 @@
 import p5 from "p5";
 
-
 export class Branch {
     begin
     end
     finished: boolean;
     private generation: number;
     s
-    private currHslaArr = this.changeColorOnIteration([162, 23, 61, 0.0], 0)
+    private currHslaArr = this.increaseColorAlphaOnIteration([162, 23, 61, 0.0], 0)
 
     constructor(begin: any, end: any, sketch: p5, generation: number) {
         this.begin = begin;
@@ -18,14 +17,21 @@ export class Branch {
     }
 
     show() {
-        this.currHslaArr = this.changeColorOnIteration(this.currHslaArr, this.generation);
-        const currColor = this.s.color(`hsla(${this.currHslaArr[0]}, ${this.currHslaArr[1]}%, ${this.currHslaArr[2]}%, ${this.currHslaArr[3]})`)
+        // Branches that are finished will not be increased in color opacity (alpha)
         if (!this.finished) {
-            console.log(this.generation, this.currHslaArr)
-            this.s.stroke(currColor);
-            this.s.line(this.begin.x, this.begin.y, this.end.x, this.end.y);
+            this.currHslaArr = this.increaseColorAlphaOnIteration(this.currHslaArr, this.generation);
         }
-        
+        // Branches that are finished will be decreased in color lightness
+        if (this.finished) {
+            this.currHslaArr = this.decreaseColorLightnessOnIteration(this.currHslaArr, this.generation);
+        }
+
+        // Generate a hsla color string and transform it into a p5 color (object?)
+        const currColor = this.s.color(`hsla(${this.currHslaArr[0]}, ${this.currHslaArr[1]}%, ${this.currHslaArr[2]}%, ${this.currHslaArr[3]})`)
+        console.log(this.generation, this.currHslaArr)
+
+        this.s.stroke(currColor);
+        this.s.line(this.begin.x, this.begin.y, this.end.x, this.end.y);
     }
 
     branch(first: boolean, gen: number) {
@@ -42,14 +48,21 @@ export class Branch {
         return result; 
     }  
 
-    private changeColorOnIteration(colorArr: number[], i: number): number[] {
+    private increaseColorAlphaOnIteration(colorArr: number[], i: number): number[] {
         let result = colorArr.slice();
-        if (result[3] + i * 0.1 <= 1) {
-            result[3] += (i > 1 ? 0.1 : 0.05) * i;
+        if (result[3] + i * 0.1 <= 0.8) {
+            result[3] += (i > 1 ? 0.05 : 0.025) * i;
         } else {
-            result[3] = 1;
+            result[3] = 0.8;
         }
-        // result[2] -= 5;
         return result;
-      }
+    }
+
+    private decreaseColorLightnessOnIteration(colorArr: number[], i: number): number [] {
+        let result = colorArr.slice();
+        if (result[2] - 5 > 20) {
+            result[2] -= 5;
+        }
+        return result;
+    }
 }
