@@ -38,10 +38,21 @@ export class Branch {
         let dir = p5.Vector.sub(this.end, this.begin);
         if (first) {
             dir.rotate(this.s.PI / this.s.random(2, 7));
-            dir.mult(this.s.random(0.64, 0.7));
+            // dir.mult(this.s.random(0.64, 0.7));
+            if (this.generation >= 7 && this.generation < 9) {
+                dir.mult(this.s.random(0.64, 1.3));
+            } else {
+                dir.mult(this.s.random(0.64, 0.7));
+            }
         } else {
             dir.rotate(-this.s.PI / this.s.random(2, 7));
-            dir.mult(this.s.random(0.64, 0.7));
+            // dir.mult(this.s.random(0.64, 0.7));
+            if (this.generation >= 7 && this.generation < 9) {
+                dir.mult(this.s.random(0.64, 1.3));
+            } else {
+                dir.mult(this.s.random(0.64, 0.7));
+            }
+
         }
         let newEnd = p5.Vector.add(this.end, dir);
         let result = new Branch(this.end, newEnd, this.s, gen);
@@ -61,7 +72,7 @@ export class Branch {
     private decreaseColorLightnessOnIteration(colorArr: number[], i: number): number [] {
         let result = colorArr.slice();
         if (result[2] - 5 > 20) {
-            result[2] -= 5;
+            result[2] -= 8;
         }
         return result;
     }

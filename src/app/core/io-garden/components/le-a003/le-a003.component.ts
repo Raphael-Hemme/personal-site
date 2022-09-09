@@ -63,8 +63,8 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     const sketch = (s: p5) => {
 
-      const centerX = this.canvWidth / 2;
-      const centerY = this.canvHeight / 2;
+      // const centerX = this.canvWidth / 2;
+      // const centerY = this.canvHeight / 2;
 
       s.setup = () => {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
@@ -95,6 +95,11 @@ export class LeA003Component implements OnInit, OnDestroy {
       }
     }
     this.canvas = new p5(sketch);
+    /* setTimeout(() => {
+      for (let i = 0; i < 3; i++) {
+        this.grow();
+      }
+    }, 500); */
   }
 
 
@@ -141,9 +146,12 @@ export class LeA003Component implements OnInit, OnDestroy {
   private seedFirst(s: p5) {
     for (let i = 0; i < this.amountCircleDir; i++) {
 
-      const endX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 3;
-      const endY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 3;
+      // const endX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 3;
+      // const endY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 3;
   
+      const endX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 4;
+      const endY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 4;
+
       let a = s.createVector(this.canvWidth / 2, this.canvHeight / 2);
       let b = s.createVector(endX + this.seedRadius, endY + this.seedRadius);
       
