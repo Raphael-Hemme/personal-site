@@ -16,9 +16,11 @@ export class LeA003Component implements OnInit, OnDestroy {
   public canvWidth = 300;
   public canvHeight = 300;
 
+  private saveFileName = 'le-a003-save-'
+  private saveCounter = 1
+
   private trees: any[][] = [];
   private tree: any[] = [];
-  // private leaves: any = [];
   private count = 0;
 
   private amountCircleDir = 13;
@@ -26,6 +28,8 @@ export class LeA003Component implements OnInit, OnDestroy {
   private seedRadius = this.canvHeight;
 
   private generationCounter = 0;
+
+  private redrawBackground = false;
 
 
   constructor(
@@ -60,7 +64,6 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     const sketch = (s: p5) => {
 
-      // const colors = ['DarkMagenta', 'SlateBlue', 'DeepPink', 'Green', 'Yellow', 'White', 'Blue', 'Orange', 'SpringGreen', 'Brown']
       const centerX = this.canvWidth / 2;
       const centerY = this.canvHeight / 2;
 
@@ -69,32 +72,14 @@ export class LeA003Component implements OnInit, OnDestroy {
         canvas2.parent('le-a003-sketch-wrapper');
         // s.angleMode(s.RADIANS);
         this.seedFirst(s);
-
-        /* for (let i = 0; i < this.amountCircleDir; i++) {
-          
-          let col = colors[Math.floor(Math.random() * 10)]
-
-          const startV = s.createVector(this.canvWidth / 2, this.canvHeight / 2);
-          let endV = s.createVector(this.canvWidth / 2, this.canvHeight / 4);
-          endV.rotate(s.radians(this.angle) * i)
-
-          console.log(startV, endV)
-          console.log(col)
-          s.stroke(col)
-          
-
-          const endX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 3;
-          const endY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 3;
-
-          s.stroke('white')
-
-          s.line(centerX, centerY, endX + this.seedRadius, endY + this.seedRadius)
-        } */
+        s.background(89, 89, 89)
       }
 
       s.draw = () => {
-        // s.background(51);
-        
+        if (this.redrawBackground) {
+          s.background(89, 89, 89);
+          this.toggleBackroundRedrawing();
+        }
         for (let i = 0; i < this.amountCircleDir; i++) {
           for (let j = 0; j < this.trees[i].length; j++) {
             /* if (j > 0) {
@@ -111,7 +96,6 @@ export class LeA003Component implements OnInit, OnDestroy {
         s.noLoop();
       }
     }
-
     this.canvas = new p5(sketch);
   }
 
@@ -121,14 +105,21 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   public saveSketch() {
-    // this.canvas.save(`${this.saveFileName}.png`);
+    this.canvas.save(`${this.saveFileName}${this.saveCounter}.png`);
+    this.saveCounter++
   }
 
   public reload() {
     // this.canvas.clear();
     this.trees = [];
+    this.generationCounter = 0;
     this.seedFirst(this.canvas)
+    this.toggleBackroundRedrawing();
     this.canvas.loop()
+  }
+
+  private toggleBackroundRedrawing(): void {
+    this.redrawBackground = !this.redrawBackground;
   }
 
   public grow() {
@@ -152,10 +143,8 @@ export class LeA003Component implements OnInit, OnDestroy {
       const endX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 3;
       const endY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 3;
   
-
       let a = s.createVector(this.canvWidth / 2, this.canvHeight / 2);
       let b = s.createVector(endX + this.seedRadius, endY + this.seedRadius);
-      console.log('b: ',b)
       
       let root = new Branch(a, b, s, this.generationCounter);
       this.trees.push([]);

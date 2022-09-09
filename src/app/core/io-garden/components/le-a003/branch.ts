@@ -18,11 +18,10 @@ export class Branch {
     }
 
     show() {
-
         this.currHslaArr = this.changeColorOnIteration(this.currHslaArr, this.generation);
         const currColor = this.s.color(`hsla(${this.currHslaArr[0]}, ${this.currHslaArr[1]}%, ${this.currHslaArr[2]}%, ${this.currHslaArr[3]})`)
         if (!this.finished) {
-
+            console.log(this.generation, this.currHslaArr)
             this.s.stroke(currColor);
             this.s.line(this.begin.x, this.begin.y, this.end.x, this.end.y);
         }
@@ -45,8 +44,12 @@ export class Branch {
 
     private changeColorOnIteration(colorArr: number[], i: number): number[] {
         let result = colorArr.slice();
-        result[3] += i * 0.1;
-        result[2] -= 5;
+        if (result[3] + i * 0.1 <= 1) {
+            result[3] += (i > 1 ? 0.1 : 0.05) * i;
+        } else {
+            result[3] = 1;
+        }
+        // result[2] -= 5;
         return result;
       }
 }
