@@ -19,8 +19,6 @@ export class LeA003Component implements OnInit, OnDestroy {
   private saveCounter = 1
 
   private trees: any[][] = [];
-  // private tree: any[] = [];
-  // private count = 0;
 
   private amountCircleDir = 13;
   private angle = 360 / this.amountCircleDir;
@@ -29,6 +27,7 @@ export class LeA003Component implements OnInit, OnDestroy {
   private generationCounter = 0;
 
   private redrawBackground = false;
+  public isGrowing = false;
 
 
   constructor(
@@ -70,14 +69,17 @@ export class LeA003Component implements OnInit, OnDestroy {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('le-a003-sketch-wrapper');
         this.seedFirst(s);
-        s.background(89, 89, 89)
+        s.background(89, 89, 89);
+        // s.background(100, 100, 100);
       }
 
       s.draw = () => {
         if (this.redrawBackground) {
           s.background(89, 89, 89);
+          // s.background(100, 100, 100);
           this.toggleBackroundRedrawing();
         }
+
         for (let i = 0; i < this.amountCircleDir; i++) {
           for (let j = 0; j < this.trees[i].length; j++) {
             /* if (j > 0) {
@@ -88,7 +90,6 @@ export class LeA003Component implements OnInit, OnDestroy {
             }  */
 
             this.trees[i][j].show();
-
           }
         }
         s.noLoop();
@@ -102,6 +103,12 @@ export class LeA003Component implements OnInit, OnDestroy {
     }, 500); */
   }
 
+
+/*   ngAfterViewInit(): void {
+    for (let i = 0; i < 5; i++) {
+      this.grow();
+    }
+  } */
 
   ngOnDestroy(): void {
     this.canvas.remove();
@@ -131,6 +138,7 @@ export class LeA003Component implements OnInit, OnDestroy {
     }
     this.generationCounter++;
 
+    this.isGrowing = true;
     for (let i = 0; i < this.amountCircleDir; i++) {
       for (let j = this.trees[i].length -1; j >= 0; j--) {
         if (!this.trees[i][j].finished) {
@@ -138,8 +146,13 @@ export class LeA003Component implements OnInit, OnDestroy {
           this.trees[i].push(this.trees[i][j].branch(false, this.generationCounter));
         }
         this.trees[i][j].finished = true;
+
+        if (i === this.amountCircleDir - 1 && j === 1) {
+          this.isGrowing = false;
+        }
       }
     }
+    
     this.canvas.loop();
   }
 
@@ -149,11 +162,14 @@ export class LeA003Component implements OnInit, OnDestroy {
       // const endX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 3;
       // const endY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 3;
   
-      const endX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 4;
-      const endY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 4;
+      /* const outerEndX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 3.5;
+      const outerEndY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 3.5; */
+
+      const outerEndX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 30;
+      const outerEndY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 30;
 
       let a = s.createVector(this.canvWidth / 2, this.canvHeight / 2);
-      let b = s.createVector(endX + this.seedRadius, endY + this.seedRadius);
+      let b = s.createVector(outerEndX + this.seedRadius, outerEndY + this.seedRadius);
       
       let root = new Branch(a, b, s, this.generationCounter);
       this.trees.push([]);
