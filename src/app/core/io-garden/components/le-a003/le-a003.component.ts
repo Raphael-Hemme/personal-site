@@ -148,6 +148,7 @@ export class LeA003Component implements OnInit, OnDestroy {
         this.trees[i][j].finished = true;
 
         if (i === this.amountCircleDir - 1 && j === 1) {
+          console.log('now')
           this.isGrowing = false;
         }
       }

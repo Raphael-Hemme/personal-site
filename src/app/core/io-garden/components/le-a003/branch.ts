@@ -13,7 +13,7 @@ export class Branch {
         this.end = end;
         this.finished = false;
         this.s = sketch
-        this.generation  = generation
+        this.generation = generation
     }
 
     show() {
@@ -45,41 +45,38 @@ export class Branch {
             dir.rotate(-this.s.PI / this.s.random(2, 9));
             // dir.mult(this.s.random(0.64, 0.7));
         }
-        this.multiplyBranchLengthDependingOnGen(dir, this.generation);
+        dir = this.multiplyBranchLengthDependingOnGen(dir, this.generation);
 
         let newEnd = p5.Vector.add(this.end, dir);
         let result = new Branch(this.end, newEnd, this.s, gen);
-        return result; 
+        return result;
     }
 
-    private multiplyBranchLengthDependingOnGen(vector: p5.Vector, gen: number) {
+    private multiplyBranchLengthDependingOnGen(vector: p5.Vector, gen: number): p5.Vector {
         /* if (this.generation >= 5 && this.generation < 7) {
                 dir.mult(this.s.random(0.64, 1.3));
             } else {
                 dir.mult(this.s.random(0.64, 0.7));
             } */
 
-            /* if (this.generation >= 5 && this.generation < 7) {
-                dir.mult(this.s.random(1.0, 1.3));
-            } else if (this.generation >= 7) {
-                dir.mult(this.s.random(0.5, 0.7));
-            } else {
-                dir.mult(this.s.random(0.64, 0.7));
-            } */
+        /* if (this.generation >= 5 && this.generation < 7) {
+            dir.mult(this.s.random(1.0, 1.3));
+        } else if (this.generation >= 7) {
+            dir.mult(this.s.random(0.5, 0.7));
+        } else {
+            dir.mult(this.s.random(0.64, 0.7));
+        } */
 
-            switch (gen) {
-                case 1:
-                    vector.mult(this.s.random(6, 9));
-                    break;
-                case 2:
-                    vector.mult(this.s.random(0.5, 1));
-                    break;
-                case 3:
-                    vector.mult(this.s.random(0.7, 0.8));
-                    break;
-                default:
-                    vector.mult(this.s.random(0.6, 0.7));
-            }
+        switch (gen) {
+            case 1:
+                return vector.mult(this.s.random(6, 9));
+            case 2:
+                return vector.mult(this.s.random(0.5, 1));
+            case 3:
+                return vector.mult(this.s.random(0.7, 0.8));
+            default:
+                return vector.mult(this.s.random(0.6, 0.7));
+        }
     }
 
     private increaseColorAlphaOnIteration(colorArr: number[], i: number): number[] {
@@ -92,7 +89,7 @@ export class Branch {
         return result;
     }
 
-    private decreaseColorLightnessOnIteration(colorArr: number[], i: number): number [] {
+    private decreaseColorLightnessOnIteration(colorArr: number[], i: number): number[] {
         let result = colorArr.slice();
         if (result[2] - 5 > 20) {
             result[2] -= 8;
