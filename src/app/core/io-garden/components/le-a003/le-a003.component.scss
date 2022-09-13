@@ -1,25 +1,42 @@
 @import '/src/styles.scss';
 
 
-.save-sketch-btn {
-    margin: 10px 0 0 10px;
-    min-width: 100px;
-}
-
+.save-sketch-btn,
+.grow-btn,
 .reload-btn {
-    margin: 10px 0 0 10px;
-    min-width: 100px;
+  margin: 10px 0 0 10px;
+  min-width: 100px;
+  &:disabled {
+    cursor: default;
+    color: $mid-gray;
+    background-color: $light-gray;
+  }
 }
 
 .le-a003-sketch-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $mid-gray;
-    #le-a003-sketch-wrapper {
-        display: flex;
-        align-items: center;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $mid-gray;
+  #le-a003-sketch-wrapper {
+      display: flex;
+      align-items: center;
+  }
+}
+
+.growing-disabled-msg {
+  position: relative;
+  top: -150px;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  p {
+    background-color: rgba(232, 72, 85, 0.5);
+    width: 80%; 
+    padding: 10px;
+    border-radius: 10px;
+  }
 }
 
 /* .is-growing-indicator {

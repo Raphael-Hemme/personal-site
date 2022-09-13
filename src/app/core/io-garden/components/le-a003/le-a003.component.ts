@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
-
+import { interval, Subscription, take } from 'rxjs'
+ 
 @Component({
   selector: 'app-le-a003',
   templateUrl: './le-a003.component.html',
@@ -28,6 +29,13 @@ export class LeA003Component implements OnInit, OnDestroy {
 
   private redrawBackground = false;
   public isGrowing = false;
+
+  private interval$ = interval(100);
+  private subscriptions: Subscription = new Subscription();
+
+  public autoGenerationNumber = 10;
+
+  public growingIsDisabled = false
 
 
   constructor(
@@ -62,9 +70,6 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     const sketch = (s: p5) => {
 
-      // const centerX = this.canvWidth / 2;
-      // const centerY = this.canvHeight / 2;
-
       s.setup = () => {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('le-a003-sketch-wrapper');
@@ -82,13 +87,6 @@ export class LeA003Component implements OnInit, OnDestroy {
 
         for (let i = 0; i < this.amountCircleDir; i++) {
           for (let j = 0; j < this.trees[i].length; j++) {
-            /* if (j > 0) {
-              this.trees[i][j].show();
-            } */
-/*             if (j > 2) {
-              this.trees[i][j].show();
-            }  */
-
             this.trees[i][j].show();
           }
         }
@@ -96,21 +94,15 @@ export class LeA003Component implements OnInit, OnDestroy {
       }
     }
     this.canvas = new p5(sketch);
-    /* setTimeout(() => {
-      for (let i = 0; i < 3; i++) {
-        this.grow();
-      }
-    }, 500); */
   }
 
 
-/*   ngAfterViewInit(): void {
-    for (let i = 0; i < 5; i++) {
-      this.grow();
-    }
-  } */
+  ngAfterViewInit(): void {
+    this.growNTimesOnInterval(this.autoGenerationNumber);
+  }
 
   ngOnDestroy(): void {
+    this.subscriptions.unsubscribe;
     this.canvas.remove();
   }
 
@@ -122,9 +114,11 @@ export class LeA003Component implements OnInit, OnDestroy {
   public reload() {
     this.trees = [];
     this.generationCounter = 0;
-    this.seedFirst(this.canvas)
+    this.growingIsDisabled = false;
+    this.seedFirst(this.canvas);
     this.toggleBackroundRedrawing();
-    this.canvas.loop()
+    this.canvas.loop();
+    this.growNTimesOnInterval(this.autoGenerationNumber);
   }
 
   private toggleBackroundRedrawing(): void {
@@ -132,8 +126,9 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   public grow() {
-    if (this.generationCounter > 11) {
-      console.log('Sorry! Growing further is to dangerous and compute intensive.')
+    if (this.growingIsDisabled || this.generationCounter > 11) {
+      // console.log('Sorry! Growing further is to dangerous and compute intensive.')
+      this.growingIsDisabled = true;
       return
     }
     this.generationCounter++;
@@ -176,6 +171,17 @@ export class LeA003Component implements OnInit, OnDestroy {
       this.trees.push([]);
       this.trees[i][0] = root;
     }
+  }
+
+  private growNTimesOnInterval(n: number): void {
+    this.subscriptions.add(
+      this.interval$.pipe(
+        take(n)
+      ).subscribe(() => {
+        console.log(this.generationCounter);
+        this.grow();
+      })
+    )
   }
 
 }
