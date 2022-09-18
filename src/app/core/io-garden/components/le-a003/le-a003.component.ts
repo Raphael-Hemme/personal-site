@@ -3,7 +3,7 @@ import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
 import { interval, Subscription, take } from 'rxjs'
- 
+import { DateTime } from 'luxon' 
 @Component({
   selector: 'app-le-a003',
   templateUrl: './le-a003.component.html',
@@ -17,7 +17,6 @@ export class LeA003Component implements OnInit, OnDestroy {
   public canvHeight = 300;
 
   private saveFileName = 'le-a003-save-'
-  private saveCounter = 1
 
   private trees: any[][] = [];
 
@@ -33,9 +32,13 @@ export class LeA003Component implements OnInit, OnDestroy {
   private interval$ = interval(100);
   private subscriptions: Subscription = new Subscription();
 
-  public autoGenerationNumber = 10;
+  public autoGenerationNumber = 7;
 
-  public growingIsDisabled = false
+  public growingIsDisabled = false;
+  public showNoGrowWarning = false;
+
+  private signatureImg: any;
+  private signatureInsertionTrigger = false;
 
 
   constructor(
@@ -55,8 +58,6 @@ export class LeA003Component implements OnInit, OnDestroy {
     const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
     this.canvWidth = canvSizeObj.w;
     this.canvHeight = canvSizeObj.w;
-    console.log(this.canvHeight, this.canvWidth)
-
 
     this.windowSizeService.windowResize$.subscribe(() => {
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
@@ -69,6 +70,10 @@ export class LeA003Component implements OnInit, OnDestroy {
     })
 
     const sketch = (s: p5) => {
+
+      s.preload = () => {
+        this.signatureImg = s.loadImage('assets/images/own-logo/RH-Logo-06-watermark.png')
+      }
 
       s.setup = () => {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
@@ -85,11 +90,27 @@ export class LeA003Component implements OnInit, OnDestroy {
           this.toggleBackroundRedrawing();
         }
 
+        if (this.signatureInsertionTrigger) {
+          s.push();
+            s.tint(255, 50)
+            s.image(
+              this.signatureImg,
+              this.canvWidth - 70,
+              this.canvHeight -70,
+              50,
+              50
+            );
+          s.pop();
+          s.noLoop()
+          this.signatureInsertionTrigger = false;
+        }
+        
         for (let i = 0; i < this.amountCircleDir; i++) {
           for (let j = 0; j < this.trees[i].length; j++) {
             this.trees[i][j].show();
           }
         }
+
         s.noLoop();
       }
     }
@@ -107,8 +128,11 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   public saveSketch() {
-    this.canvas.save(`${this.saveFileName}${this.saveCounter}.png`);
-    this.saveCounter++
+    this.signatureInsertionTrigger = true;
+    this.canvas.loop();
+
+    const currTimeStampStr: string = DateTime.now().toFormat('yyyy-LL-dd-HH-mm-ss')
+    this.canvas.save(`${this.saveFileName}${currTimeStampStr}.png`);
   }
 
   public reload() {
@@ -127,8 +151,8 @@ export class LeA003Component implements OnInit, OnDestroy {
 
   public grow() {
     if (this.growingIsDisabled || this.generationCounter > 11) {
-      // console.log('Sorry! Growing further is to dangerous and compute intensive.')
       this.growingIsDisabled = true;
+      this.showNoGrowWarning = true;
       return
     }
     this.generationCounter++;
@@ -143,7 +167,6 @@ export class LeA003Component implements OnInit, OnDestroy {
         this.trees[i][j].finished = true;
 
         if (i === this.amountCircleDir - 1 && j === 1) {
-          console.log('now')
           this.isGrowing = false;
         }
       }
@@ -154,13 +177,6 @@ export class LeA003Component implements OnInit, OnDestroy {
 
   private seedFirst(s: p5) {
     for (let i = 0; i < this.amountCircleDir; i++) {
-
-      // const endX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 3;
-      // const endY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 3;
-  
-      /* const outerEndX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 3.5;
-      const outerEndY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 3.5; */
-
       const outerEndX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 30;
       const outerEndY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 30;
 
@@ -178,10 +194,13 @@ export class LeA003Component implements OnInit, OnDestroy {
       this.interval$.pipe(
         take(n)
       ).subscribe(() => {
-        console.log(this.generationCounter);
         this.grow();
       })
     )
+  }
+
+  public hideNoGrowWarning() {
+    this.showNoGrowWarning = false;
   }
 
 }

@@ -27,10 +27,17 @@
 </button>
 
 <!-- <span>isGrowing: {{isGrowing}}</span> -->
-<div *ngIf="growingIsDisabled" class="growing-disabled-msg">
+<div *ngIf="growingIsDisabled && showNoGrowWarning" class="growing-disabled-msg">
   <p>
     Sorry!<br />
     Growing the specimen further poses a risk to the integrity of io-garden.<br />
-    It might also be too computationally intensive.
+    It might also be too computationally intensive. Reload and Save still working.
+    <br />
+    <button
+      type="button"
+      (click)="hideNoGrowWarning()"
+      class="btn-accent-flat hide-no-grow-warning-btn">
+      got it
+    </button>
   </p>
 </div>

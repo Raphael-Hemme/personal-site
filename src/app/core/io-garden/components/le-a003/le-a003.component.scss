@@ -26,16 +26,22 @@
 
 .growing-disabled-msg {
   position: relative;
-  top: -150px;
+  top: -200px;
   z-index: 10;
   width: 100%;
   display: flex;
   justify-content: center;
   p {
-    background-color: rgba(232, 72, 85, 0.5);
+    text-align: center;
+    color: $white;
+    // background-color: rgba(232, 72, 85, 0.7);
+    background-color: rgba(180, 159, 43, 0.837);
     width: 80%; 
     padding: 10px;
     border-radius: 10px;
+    .hide-no-grow-warning-btn {
+      margin: 10px 0 0 0;
+    }
   }
 }
 
