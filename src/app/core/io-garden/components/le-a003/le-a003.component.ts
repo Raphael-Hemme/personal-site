@@ -176,16 +176,25 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   private seedFirst(s: p5) {
-    for (let i = 0; i < this.amountCircleDir; i++) {
-      const outerEndX = s.cos(s.radians(this.angle * i)) * this.seedRadius / 30;
-      const outerEndY = s.sin(s.radians(this.angle * i)) * this.seedRadius / 30;
+    console.log(this.canvHeight)
+    console.log(this.canvHeight / 20)
+    const seedRadius = this.canvHeight / 20;
+    let i = 0
+
+    for (let angle = 360; angle < 720; angle += this.angle) {
+      const outerEndX = s.cos(s.radians(angle)) * seedRadius;
+      const outerEndY = s.sin(s.radians(angle)) * seedRadius;
+
+      console.log('outerEndX: ', outerEndX);
+      console.log('outerEndY: ', outerEndY)
 
       let a = s.createVector(this.canvWidth / 2, this.canvHeight / 2);
-      let b = s.createVector(outerEndX + this.seedRadius, outerEndY + this.seedRadius);
+      let b = s.createVector(outerEndX + seedRadius * 10, outerEndY + seedRadius * 10);
       
       let root = new Branch(a, b, s, this.generationCounter);
       this.trees.push([]);
       this.trees[i][0] = root;
+      i++;
     }
   }
 
