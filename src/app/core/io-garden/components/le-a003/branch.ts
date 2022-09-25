@@ -54,11 +54,11 @@ export class Branch {
     private multiplyBranchLengthDependingOnGen(vector: p5.Vector, gen: number): p5.Vector {
       switch (gen) {
         case 1:
-            return vector.mult(this.s.random(1, 2.5));
+            return vector.mult(this.s.random(1, 1.8));
         case 2:
-            return vector.mult(this.s.random(0.5, 1.1));
+            return vector.mult(this.s.random(0.7, 1.5));
         case 3:
-            return vector.mult(this.s.random(0.7, 1));
+            return vector.mult(this.s.random(0.8, 1));
         default:
             return vector.mult(this.s.random(0.6, 0.7));
       }

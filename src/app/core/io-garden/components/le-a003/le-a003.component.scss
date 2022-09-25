@@ -26,16 +26,19 @@
 
 .growing-disabled-msg {
   position: relative;
-  top: -200px;
+  top: -250px;
   z-index: 10;
   width: 100%;
   display: flex;
   justify-content: center;
+  @media (min-width: 786px) {
+    top: -200px;
+  }
   p {
     text-align: center;
-    color: $white;
+    color: $mid-gray;
     // background-color: rgba(232, 72, 85, 0.7);
-    background-color: rgba(180, 159, 43, 0.837);
+    background-color: rgba(221, 221, 221, 0.837);
     width: 80%; 
     padding: 10px;
     border-radius: 10px;
@@ -44,14 +47,4 @@
     }
   }
 }
-
-/* .is-growing-indicator {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: lime;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-} */
 
