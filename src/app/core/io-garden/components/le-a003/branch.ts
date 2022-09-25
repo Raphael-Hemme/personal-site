@@ -23,13 +23,11 @@ export class Branch {
         }
         // Branches that are finished will be decreased in color lightness
         if (this.finished) {
-          // this.currHslaArr = this.decreaseColorAlphaOnIteration(this.currHslaArr, this.generation);
           this.currHslaArr = this.decreaseColorLightnessOnIteration(this.currHslaArr, this.generation);
         }
 
         // Generate a hsla color string and transform it into a p5 color (object?)
         const currColor = this.s.color(`hsla(${this.currHslaArr[0]}, ${this.currHslaArr[1]}%, ${this.currHslaArr[2]}%, ${this.currHslaArr[3]})`)
-        // console.log(this.generation, this.currHslaArr)
 
         this.s.stroke(currColor);
         this.s.line(this.begin.x, this.begin.y, this.end.x, this.end.y);
@@ -75,19 +73,6 @@ export class Branch {
         }
         return result;
     }
-
-/*     private decreaseColorAlphaOnIteration(colorArr: number[], i: number): number[] {
-      let result = colorArr.slice();
-      if (result[3] - 0.5 * i > 0) {
-        result[3] = result[3] - 0.5 * i;
-        console.log(result[3])
-      } else {
-        console.log('returning 0')
-        result[3] = 0
-      }
-      
-      return result;
-  } */
 
     private decreaseColorLightnessOnIteration(colorArr: number[], i: number): number[] {
         let result = colorArr.slice();
