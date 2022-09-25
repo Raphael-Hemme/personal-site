@@ -15,6 +15,7 @@ import { LeA002Component } from './core/io-garden/components/le-a002/le-a002.com
 import { MaeA001Component } from './core/io-garden/components/mae-a001/mae-a001.component';
 import { PceA001Component } from './core/io-garden/components/pce-a001/pce-a001.component';
 import { TeA001Component } from './core/io-garden/components/te-a001/te-a001.component';
+import { LeA003Component } from './core/io-garden/components/le-a003/le-a003.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'cme-a001', component: CmeA001Component },
       { path: 'le-a001', component: LeA001Component },
       { path: 'le-a002', component: LeA002Component },
+      { path: 'le-a003', component: LeA003Component },
       { path: 'pce-a001', component: PceA001Component },
       { path: 'mae-a001', component: MaeA001Component },
       // { path: '**', component: PageNotFoundComponent}

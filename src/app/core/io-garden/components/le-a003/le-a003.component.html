@@ -1,0 +1,43 @@
+<div class="le-a003-sketch-container">
+  <div id="le-a003-sketch-wrapper"></div>
+</div>
+
+<!-- <div *ngIf="isGrowing" class="is-growing-indicator"></div> -->
+
+<button
+  type="button"
+  (click)="grow()"
+  class="btn-accent-flat grow-btn"
+  [disabled]="growingIsDisabled">
+  grow
+</button>
+
+<button
+  type="button"
+  (click)="saveSketch()"
+  class="btn-accent-flat save-sketch-btn">
+    save
+</button>
+
+<button
+  type="button"
+  (click)="reload()"
+  class="btn-dark-flat reload-btn">
+  reload
+</button>
+
+<!-- <span>isGrowing: {{isGrowing}}</span> -->
+<div *ngIf="growingIsDisabled && showNoGrowWarning" class="growing-disabled-msg">
+  <p>
+    Sorry!<br />
+    Growing the specimen further poses a risk to the integrity of io-garden.<br />
+    It might also be too computationally intensive. Reload and Save are still working.
+    <br />
+    <button
+      type="button"
+      (click)="hideNoGrowWarning()"
+      class="btn-accent-flat hide-no-grow-warning-btn">
+      got it
+    </button>
+  </p>
+</div>
