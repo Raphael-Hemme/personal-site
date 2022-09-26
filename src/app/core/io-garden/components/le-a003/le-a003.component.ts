@@ -60,14 +60,14 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     this.windowSizeService.windowResize$
     .pipe(
-      throttleTime(500)
+      throttleTime(1000)
     )
     .subscribe(() => {
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
       this.canvWidth = canvSizeObj.w;
       this.canvHeight = canvSizeObj.w;
 
-      this.canvas.clear();
+      // this.canvas.clear();
 
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
       this.reload()
@@ -123,12 +123,11 @@ export class LeA003Component implements OnInit, OnDestroy {
 
 
   ngAfterViewInit(): void {
-    console.log('after View Init')
     this.growNTimesOnInterval(this.autoGenerationNumber);
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe;
+    this.subscriptions.unsubscribe();
     this.canvas.remove();
   }
 
@@ -141,12 +140,12 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   public reload() {
+    this.growingIsDisabled = false;
     this.trees = [];
     this.generationCounter = 0;
-    this.growingIsDisabled = false;
     this.seedFirst(this.canvas);
     this.toggleBackroundRedrawing();
-    this.canvas.loop();
+    // this.canvas.loop();
     this.growNTimesOnInterval(this.autoGenerationNumber);
   }
 
