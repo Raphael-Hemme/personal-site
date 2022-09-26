@@ -25,20 +25,22 @@
 }
 
 .growing-disabled-msg {
-  position: relative;
-  top: -250px;
-  z-index: 10;
+  /* position: relative;
+  top: -90%;
+  z-index: 10; */
   width: 100%;
   display: flex;
   justify-content: center;
-  @media (min-width: 786px) {
+  padding: 20px 0;
+  /* @media (min-width: 786px) {
     top: -200px;
-  }
+  } */
   p {
     text-align: center;
     color: $mid-gray;
     // background-color: rgba(232, 72, 85, 0.7);
-    background-color: rgba(221, 221, 221, 0.837);
+    border: 2px solid $danger;
+    background-color: $light-gray;
     width: 80%; 
     padding: 10px;
     border-radius: 10px;
