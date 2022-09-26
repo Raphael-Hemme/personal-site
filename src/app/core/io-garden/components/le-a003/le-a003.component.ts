@@ -4,6 +4,7 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
 import { Branch } from './branch';
 import { interval, Subscription, take, throttleTime } from 'rxjs'
 import { DateTime } from 'luxon' 
+import { ReturnStatement } from '@angular/compiler';
 @Component({
   selector: 'app-le-a003',
   templateUrl: './le-a003.component.html',
@@ -38,6 +39,7 @@ export class LeA003Component implements OnInit, OnDestroy {
 
   private signatureImg: any;
   private signatureInsertionTrigger = false;
+  private signatureInsertionTriggerPrev = false;
 
 
   constructor(
@@ -105,15 +107,22 @@ export class LeA003Component implements OnInit, OnDestroy {
               50
             );
           s.pop();
-          s.noLoop()
+          // s.noLoop();
+          this.signatureInsertionTriggerPrev = this.signatureInsertionTrigger;
           this.signatureInsertionTrigger = false;
+          console.log('returning now should not enter again')
+          // return;
         }
         
-        for (let i = 0; i < this.amountCircleDir; i++) {
-          for (let j = 0; j < this.trees[i].length; j++) {
-            this.trees[i][j].show();
+        if (!this.signatureInsertionTrigger && !this.signatureInsertionTriggerPrev) {
+          console.log('entering nested loop now')
+          for (let i = 0; i < this.amountCircleDir; i++) {
+            for (let j = 0; j < this.trees[i].length; j++) {
+              this.trees[i][j].show();
+            }
           }
         }
+        
 
         s.noLoop();
       }
@@ -137,12 +146,19 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     const currTimeStampStr: string = DateTime.now().toFormat('yyyy-LL-dd-HH-mm-ss')
     this.canvas.save(`${this.saveFileName}${currTimeStampStr}.png`);
+
+    this.signatureInsertionTrigger = false;
+    this.signatureInsertionTriggerPrev = false;
   }
 
   public reload() {
     this.growingIsDisabled = false;
     this.trees = [];
     this.generationCounter = 0;
+
+    this.signatureInsertionTrigger = false;
+    this.signatureInsertionTriggerPrev = false;
+
     this.seedFirst(this.canvas);
     this.toggleBackroundRedrawing();
     // this.canvas.loop();
