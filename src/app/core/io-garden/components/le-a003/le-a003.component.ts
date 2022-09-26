@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
-import { interval, Subscription, take } from 'rxjs'
+import { interval, Subscription, take, throttleTime } from 'rxjs'
 import { DateTime } from 'luxon' 
 @Component({
   selector: 'app-le-a003',
@@ -22,14 +22,13 @@ export class LeA003Component implements OnInit, OnDestroy {
 
   private amountCircleDir = 13;
   private angle = 360 / this.amountCircleDir;
-  private seedRadius = this.canvHeight;
 
   private generationCounter = 0;
 
   private redrawBackground = false;
   public isGrowing = false;
 
-  private interval$ = interval(100);
+  private interval$ = interval(300);
   private subscriptions: Subscription = new Subscription();
 
   public autoGenerationNumber = 7;
@@ -59,7 +58,11 @@ export class LeA003Component implements OnInit, OnDestroy {
     this.canvWidth = canvSizeObj.w;
     this.canvHeight = canvSizeObj.w;
 
-    this.windowSizeService.windowResize$.subscribe(() => {
+    this.windowSizeService.windowResize$
+    .pipe(
+      throttleTime(500)
+    )
+    .subscribe(() => {
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
       this.canvWidth = canvSizeObj.w;
       this.canvHeight = canvSizeObj.w;
@@ -67,6 +70,7 @@ export class LeA003Component implements OnInit, OnDestroy {
       this.canvas.clear();
 
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      this.reload()
     })
 
     const sketch = (s: p5) => {
@@ -119,6 +123,7 @@ export class LeA003Component implements OnInit, OnDestroy {
 
 
   ngAfterViewInit(): void {
+    console.log('after View Init')
     this.growNTimesOnInterval(this.autoGenerationNumber);
   }
 
