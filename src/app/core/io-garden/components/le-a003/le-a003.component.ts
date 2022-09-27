@@ -2,9 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
-import { interval, Subscription, take, throttleTime } from 'rxjs'
+import {  debounceTime, interval, Subscription, take, throttleTime } from 'rxjs'
 import { DateTime } from 'luxon' 
-import { ReturnStatement } from '@angular/compiler';
 @Component({
   selector: 'app-le-a003',
   templateUrl: './le-a003.component.html',
@@ -60,11 +59,16 @@ export class LeA003Component implements OnInit, OnDestroy {
     this.canvWidth = canvSizeObj.w;
     this.canvHeight = canvSizeObj.w;
 
+    let testI = 0
+
     this.windowSizeService.windowResize$
     .pipe(
-      throttleTime(1000)
+      debounceTime(500)
     )
     .subscribe(() => {
+      /* console.log('running resize and reload: ', testI)
+      console.log(); */
+      testI++
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
       this.canvWidth = canvSizeObj.w;
       this.canvHeight = canvSizeObj.w;
@@ -72,7 +76,7 @@ export class LeA003Component implements OnInit, OnDestroy {
       // this.canvas.clear();
 
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-      this.reload()
+      setTimeout(() => this.reload(), 500)
     })
 
     const sketch = (s: p5) => {
@@ -110,12 +114,10 @@ export class LeA003Component implements OnInit, OnDestroy {
           // s.noLoop();
           this.signatureInsertionTriggerPrev = this.signatureInsertionTrigger;
           this.signatureInsertionTrigger = false;
-          console.log('returning now should not enter again')
           // return;
         }
         
         if (!this.signatureInsertionTrigger && !this.signatureInsertionTriggerPrev) {
-          console.log('entering nested loop now')
           for (let i = 0; i < this.amountCircleDir; i++) {
             for (let j = 0; j < this.trees[i].length; j++) {
               this.trees[i][j].show();
@@ -153,16 +155,18 @@ export class LeA003Component implements OnInit, OnDestroy {
 
   public reload() {
     this.growingIsDisabled = false;
-    this.trees = [];
     this.generationCounter = 0;
+    this.trees = [];
 
     this.signatureInsertionTrigger = false;
     this.signatureInsertionTriggerPrev = false;
 
-    this.seedFirst(this.canvas);
     this.toggleBackroundRedrawing();
+
+    this.seedFirst(this.canvas);
     // this.canvas.loop();
-    this.growNTimesOnInterval(this.autoGenerationNumber);
+    setTimeout(() => this.growNTimesOnInterval(this.autoGenerationNumber), 400);
+    // this.growNTimesOnInterval(this.autoGenerationNumber)
   }
 
   private toggleBackroundRedrawing(): void {
@@ -170,6 +174,7 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   public grow() {
+    console.log('this.generationCounter: ', this.generationCounter)
     if (this.growingIsDisabled || this.generationCounter > 11) {
       this.growingIsDisabled = true;
       this.showNoGrowWarning = true;

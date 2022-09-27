@@ -38,7 +38,6 @@ export class IoGardenExperimentContainerComponent implements OnInit, OnDestroy {
     this.currExperimentId = this.extractIdFromUrl();
 
     this.getExperimentMetaDataAndIdAsArr();
-    console.log('this.currexperimentMetaData: ', this.currexperimentMetaData);
 
     this.subscriptions.add(
       this.dataService.originOfNavigation$.subscribe(origin => this.originUrl = origin)
