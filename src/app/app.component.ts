@@ -52,9 +52,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    /* this.subscriptions.add(
+    this.subscriptions.add(
       this.scrollEventObserver.subscribe(() => this.currScrollY.next(window.scrollY))
-    ) */
+    )
     this.subscriptions.add(
       this.router.events
         .pipe(
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
           this.currRoute.next(this.location.path());
       })
     )
-/*     this.subscriptions.add(
+    this.subscriptions.add(
       combineLatest([this.currRoute, this.currScrollY]).subscribe(([currRoute, currScrollY]) => {
         if (currRoute) {
           this.smallLogoIsVisible = true;
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
           this.smallLogoIsVisible = true;
         }
       })
-    ) */
+    )
     this.subscriptions.add(
       this.loadingService.isLoading$.subscribe(loadingState => this.currLoading = loadingState)
     )

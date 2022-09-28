@@ -40,6 +40,8 @@ export class LeA003Component implements OnInit, OnDestroy {
   private signatureInsertionTrigger = false;
   private signatureInsertionTriggerPrev = false;
 
+  private windowWidth = window.innerWidth;
+
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -59,21 +61,20 @@ export class LeA003Component implements OnInit, OnDestroy {
     this.canvWidth = canvSizeObj.w;
     this.canvHeight = canvSizeObj.w;
 
-    let testI = 0
-
     this.windowSizeService.windowResize$
     .pipe(
       debounceTime(500)
     )
-    .subscribe(() => {
-      /* console.log('running resize and reload: ', testI)
-      console.log(); */
-      testI++
+    .subscribe((event) => {
+      if (event?.target?.innerWidth === this.windowWidth) {
+        return
+      }
+      console.log('event: ', event);
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
       this.canvWidth = canvSizeObj.w;
       this.canvHeight = canvSizeObj.w;
 
-      // this.canvas.clear();
+      this.canvas.clear();
 
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
       setTimeout(() => this.reload(), 500)
