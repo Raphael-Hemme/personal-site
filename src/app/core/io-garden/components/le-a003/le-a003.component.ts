@@ -70,6 +70,7 @@ export class LeA003Component implements OnInit, OnDestroy {
         return
       }
       console.log('event: ', event);
+      this.windowWidth = window.innerWidth;
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
       this.canvWidth = canvSizeObj.w;
       this.canvHeight = canvSizeObj.w;
@@ -164,7 +165,8 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     this.toggleBackroundRedrawing();
 
-    this.seedFirst(this.canvas);
+    this.seedFirst(this.canvas)
+    //setTimeout(() => this.seedFirst(this.canvas), 0);
     // this.canvas.loop();
     setTimeout(() => this.growNTimesOnInterval(this.autoGenerationNumber), 400);
     // this.growNTimesOnInterval(this.autoGenerationNumber)
@@ -220,6 +222,7 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   private growNTimesOnInterval(n: number): void {
+    // this.generationCounter = 0;
     this.subscriptions.add(
       this.interval$.pipe(
         take(n)
