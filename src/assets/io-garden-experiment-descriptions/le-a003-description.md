@@ -10,7 +10,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
-import { interval, Subscription, take, throttleTime } from 'rxjs'
+import {  debounceTime, interval, Subscription, take } from 'rxjs'
 import { DateTime } from 'luxon' 
 @Component({
   selector: 'app-le-a003',
@@ -31,12 +31,12 @@ export class LeA003Component implements OnInit, OnDestroy {
   private amountCircleDir = 13;
   private angle = 360 / this.amountCircleDir;
 
-  private generationCounter = 0;
+  public generationCounter = 0;
 
   private redrawBackground = false;
   public isGrowing = false;
 
-  private interval$ = interval(300);
+  private interval$ = interval(100);
   private subscriptions: Subscription = new Subscription();
 
   public autoGenerationNumber = 7;
@@ -46,6 +46,9 @@ export class LeA003Component implements OnInit, OnDestroy {
 
   private signatureImg: any;
   private signatureInsertionTrigger = false;
+  private signatureInsertionTriggerPrev = false;
+
+  private windowWidth = window.innerWidth;
 
 
   constructor(
@@ -68,9 +71,14 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     this.windowSizeService.windowResize$
     .pipe(
-      throttleTime(500)
+      debounceTime(800)
     )
-    .subscribe(() => {
+    .subscribe((event) => {
+      if (event?.target?.innerWidth === this.windowWidth) {
+        return
+      }
+      this.windowWidth = window.innerWidth;
+      
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
       this.canvWidth = canvSizeObj.w;
       this.canvHeight = canvSizeObj.w;
@@ -78,6 +86,7 @@ export class LeA003Component implements OnInit, OnDestroy {
       this.canvas.clear();
 
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      // setTimeout(() => this.reload(), 500)
       this.reload()
     })
 
@@ -92,13 +101,11 @@ export class LeA003Component implements OnInit, OnDestroy {
         canvas2.parent('le-a003-sketch-wrapper');
         this.seedFirst(s);
         s.background(89, 89, 89);
-        // s.background(100, 100, 100);
       }
 
       s.draw = () => {
         if (this.redrawBackground) {
           s.background(89, 89, 89);
-          // s.background(100, 100, 100);
           this.toggleBackroundRedrawing();
         }
 
@@ -113,16 +120,25 @@ export class LeA003Component implements OnInit, OnDestroy {
               50
             );
           s.pop();
-          s.noLoop()
+          // s.noLoop();
+          this.signatureInsertionTriggerPrev = this.signatureInsertionTrigger;
           this.signatureInsertionTrigger = false;
         }
         
-        for (let i = 0; i < this.amountCircleDir; i++) {
-          for (let j = 0; j < this.trees[i].length; j++) {
-            this.trees[i][j].show();
+        // This setTimeout-0 workaround is unfortunately the only working solution I could find so far that prevents the first gen (the root) 
+        // to be drawn with full opacity after a reload (especially on window resize and only on Safari).
+        // -> Tried to fix it with various combinations of delays and timeouts in the call stack of the grow and growNTimesOnInterval as well 
+        // as the reload methods but pushing the whole show loop inside the draw function to the callback queue so far is the only working fix.
+        setTimeout(() => {
+          if (!this.signatureInsertionTrigger && !this.signatureInsertionTriggerPrev) {
+            for (let i = 0; i < this.amountCircleDir; i++) {
+              for (let j = 0; j < this.trees[i].length; j++) {
+                this.trees[i][j].show();
+              }
+            }
           }
-        }
-
+        }, 0)
+        
         s.noLoop();
       }
     }
@@ -131,12 +147,11 @@ export class LeA003Component implements OnInit, OnDestroy {
 
 
   ngAfterViewInit(): void {
-    console.log('after View Init')
     this.growNTimesOnInterval(this.autoGenerationNumber);
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe;
+    this.subscriptions.unsubscribe();
     this.canvas.remove();
   }
 
@@ -146,16 +161,25 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     const currTimeStampStr: string = DateTime.now().toFormat('yyyy-LL-dd-HH-mm-ss')
     this.canvas.save(`${this.saveFileName}${currTimeStampStr}.png`);
+
+    this.signatureInsertionTrigger = false;
+    this.signatureInsertionTriggerPrev = false;
   }
 
   public reload() {
-    this.trees = [];
-    this.generationCounter = 0;
+    this.canvas.clear();
+
     this.growingIsDisabled = false;
-    this.seedFirst(this.canvas);
+    this.generationCounter = 0;
+    this.trees = [];
+
+    this.signatureInsertionTrigger = false;
+    this.signatureInsertionTriggerPrev = false;
+
     this.toggleBackroundRedrawing();
-    this.canvas.loop();
-    this.growNTimesOnInterval(this.autoGenerationNumber);
+
+    this.seedFirst(this.canvas);    
+    this.growNTimesOnInterval(this.autoGenerationNumber)
   }
 
   private toggleBackroundRedrawing(): void {
@@ -184,7 +208,6 @@ export class LeA003Component implements OnInit, OnDestroy {
         }
       }
     }
-    
     this.canvas.loop();
   }
 
@@ -228,85 +251,81 @@ export class LeA003Component implements OnInit, OnDestroy {
 import p5 from "p5";
 
 export class Branch {
-    begin
-    end
-    finished: boolean;
-    private generation: number;
-    s;
-    private currHslaArr = this.increaseColorAlphaOnIteration([162, 23, 61, 0], 0)
+  begin
+  end
+  finished: boolean;
+  private generation: number;
+  s;
+  private currHslaArr = this.increaseColorAlphaOnIteration([162, 23, 61, 0], 0)
 
-    constructor(begin: any, end: any, sketch: p5, generation: number) {
-      this.begin = begin;
-      this.end = end;
-      this.finished = false;
-      this.s = sketch
-      this.generation = generation
+  constructor(begin: any, end: any, sketch: p5, generation: number) {
+    this.begin = begin;
+    this.end = end;
+    this.finished = false;
+    this.s = sketch
+    this.generation = generation
+  }
+
+  show() {
+    // Branches that are finished will not be increased in color opacity (alpha)
+    if (!this.finished) {
+      this.currHslaArr = this.increaseColorAlphaOnIteration(this.currHslaArr, this.generation);
+    }
+    // Branches that are finished will be decreased in color lightness
+    if (this.finished) {
+      this.currHslaArr = this.decreaseColorLightnessOnIteration(this.currHslaArr, this.generation);
     }
 
-    show() {
-        // Branches that are finished will not be increased in color opacity (alpha)
-        if (!this.finished) {
-          this.currHslaArr = this.increaseColorAlphaOnIteration(this.currHslaArr, this.generation);
-        }
-        // Branches that are finished will be decreased in color lightness
-        if (this.finished) {
-          this.currHslaArr = this.decreaseColorLightnessOnIteration(this.currHslaArr, this.generation);
-        }
+    // Generate a hsla color string and transform it into a p5 color (object?)
+    const currColor = this.s.color(`hsla(${this.currHslaArr[0]}, ${this.currHslaArr[1]}%, ${this.currHslaArr[2]}%, ${this.currHslaArr[3]})`)
 
-        // Generate a hsla color string and transform it into a p5 color (object?)
-        const currColor = this.s.color(`hsla(${this.currHslaArr[0]}, ${this.currHslaArr[1]}%, ${this.currHslaArr[2]}%, ${this.currHslaArr[3]})`)
+    this.s.stroke(currColor);
+    this.s.line(this.begin.x, this.begin.y, this.end.x, this.end.y);
+  }
 
-        this.s.stroke(currColor);
-        this.s.line(this.begin.x, this.begin.y, this.end.x, this.end.y);
+  branch(first: boolean, gen: number) {
+    let dir = p5.Vector.sub(this.end, this.begin);
+    if (first) {
+      dir.rotate(this.s.PI / this.s.random(2, 9));
+    } else {
+      dir.rotate(-this.s.PI / this.s.random(2, 9));
     }
+    dir = this.multiplyBranchLengthDependingOnGen(dir, this.generation);
 
-    branch(first: boolean, gen: number) {
-        let dir = p5.Vector.sub(this.end, this.begin);
-        if (first) {
-            // dir.rotate(this.s.PI / this.s.random(2, 7));
-            dir.rotate(this.s.PI / this.s.random(2, 9));
-            // dir.mult(this.s.random(0.64, 0.7));
-        } else {
-            // dir.rotate(-this.s.PI / this.s.random(2, 7));
-            dir.rotate(-this.s.PI / this.s.random(2, 9));
-            // dir.mult(this.s.random(0.64, 0.7));
-        }
-        dir = this.multiplyBranchLengthDependingOnGen(dir, this.generation);
+    let newEnd = p5.Vector.add(this.end, dir);
+    let result = new Branch(this.end, newEnd, this.s, gen);
+    return result;
+  }
 
-        let newEnd = p5.Vector.add(this.end, dir);
-        let result = new Branch(this.end, newEnd, this.s, gen);
-        return result;
+  private multiplyBranchLengthDependingOnGen(vector: p5.Vector, gen: number): p5.Vector {
+    switch (gen) {
+      case 1:
+        return vector.mult(this.s.random(1, 1.7));
+      case 2:
+        return vector.mult(this.s.random(0.7, 1.5));
+      case 3:
+        return vector.mult(this.s.random(0.8, 1));
+      default:
+        return vector.mult(this.s.random(0.6, 0.7));
     }
+  }
 
-    private multiplyBranchLengthDependingOnGen(vector: p5.Vector, gen: number): p5.Vector {
-      switch (gen) {
-        case 1:
-            return vector.mult(this.s.random(1, 1.8));
-        case 2:
-            return vector.mult(this.s.random(0.7, 1.5));
-        case 3:
-            return vector.mult(this.s.random(0.8, 1));
-        default:
-            return vector.mult(this.s.random(0.6, 0.7));
-      }
+  private increaseColorAlphaOnIteration(colorArr: number[], i: number): number[] {
+    let result = colorArr.slice();
+    if (result[3] + i * 0.1 <= 0.8) {
+      result[3] += (i > 2 ? 0.05 : 0.025) * i;
+    } else {
+      result[3] = 0.7;
     }
+    return result;
+  }
 
-    private increaseColorAlphaOnIteration(colorArr: number[], i: number): number[] {
-        let result = colorArr.slice();
-        if (result[3] + i * 0.1 <= 0.8) {
-            result[3] += (i > 2 ? 0.05 : 0.025) * i;
-        } else {
-            result[3] = 0.8;
-        }
-        return result;
+  private decreaseColorLightnessOnIteration(colorArr: number[], i: number): number[] {
+    let result = colorArr.slice();
+    if (result[2] - 5 > 20) {
+      result[2] -= 8;
     }
-
-    private decreaseColorLightnessOnIteration(colorArr: number[], i: number): number[] {
-        let result = colorArr.slice();
-        if (result[2] - 5 > 20) {
-            result[2] -= 8;
-        }
-        return result;
-    }
+    return result;
+  }
 }
 ```
