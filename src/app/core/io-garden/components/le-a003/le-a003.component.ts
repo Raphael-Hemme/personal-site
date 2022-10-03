@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
-import {  debounceTime, interval, Subscription, take, throttleTime } from 'rxjs'
+import {  debounceTime, interval, Subscription, take } from 'rxjs'
 import { DateTime } from 'luxon' 
 @Component({
   selector: 'app-le-a003',
@@ -23,12 +23,12 @@ export class LeA003Component implements OnInit, OnDestroy {
   private amountCircleDir = 13;
   private angle = 360 / this.amountCircleDir;
 
-  private generationCounter = 0;
+  public generationCounter = 0;
 
   private redrawBackground = false;
   public isGrowing = false;
 
-  private interval$ = interval(300);
+  private interval$ = interval(100);
   private subscriptions: Subscription = new Subscription();
 
   public autoGenerationNumber = 7;
@@ -63,14 +63,14 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     this.windowSizeService.windowResize$
     .pipe(
-      debounceTime(500)
+      debounceTime(800)
     )
     .subscribe((event) => {
       if (event?.target?.innerWidth === this.windowWidth) {
         return
       }
-      console.log('event: ', event);
       this.windowWidth = window.innerWidth;
+      
       const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
       this.canvWidth = canvSizeObj.w;
       this.canvHeight = canvSizeObj.w;
@@ -78,7 +78,8 @@ export class LeA003Component implements OnInit, OnDestroy {
       this.canvas.clear();
 
       this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-      setTimeout(() => this.reload(), 500)
+      // setTimeout(() => this.reload(), 500)
+      this.reload()
     })
 
     const sketch = (s: p5) => {
@@ -92,13 +93,11 @@ export class LeA003Component implements OnInit, OnDestroy {
         canvas2.parent('le-a003-sketch-wrapper');
         this.seedFirst(s);
         s.background(89, 89, 89);
-        // s.background(100, 100, 100);
       }
 
       s.draw = () => {
         if (this.redrawBackground) {
           s.background(89, 89, 89);
-          // s.background(100, 100, 100);
           this.toggleBackroundRedrawing();
         }
 
@@ -116,18 +115,22 @@ export class LeA003Component implements OnInit, OnDestroy {
           // s.noLoop();
           this.signatureInsertionTriggerPrev = this.signatureInsertionTrigger;
           this.signatureInsertionTrigger = false;
-          // return;
         }
         
-        if (!this.signatureInsertionTrigger && !this.signatureInsertionTriggerPrev) {
-          for (let i = 0; i < this.amountCircleDir; i++) {
-            for (let j = 0; j < this.trees[i].length; j++) {
-              this.trees[i][j].show();
+        // This setTimeout-0 workaround is unfortunately the only working solution I could find so far that prevents the first gen (the root) 
+        // to be drawn with full opacity after a reload (especially on window resize and only on Safari).
+        // -> Tried to fix it with various combinations of delays and timeouts in the call stack of the grow and growNTimesOnInterval as well 
+        // as the reload methods but pushing the whole show loop inside the draw function to the callback queue so far is the only working fix.
+        setTimeout(() => {
+          if (!this.signatureInsertionTrigger && !this.signatureInsertionTriggerPrev) {
+            for (let i = 0; i < this.amountCircleDir; i++) {
+              for (let j = 0; j < this.trees[i].length; j++) {
+                this.trees[i][j].show();
+              }
             }
           }
-        }
+        }, 0)
         
-
         s.noLoop();
       }
     }
@@ -156,6 +159,8 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   public reload() {
+    this.canvas.clear();
+
     this.growingIsDisabled = false;
     this.generationCounter = 0;
     this.trees = [];
@@ -165,11 +170,8 @@ export class LeA003Component implements OnInit, OnDestroy {
 
     this.toggleBackroundRedrawing();
 
-    this.seedFirst(this.canvas)
-    //setTimeout(() => this.seedFirst(this.canvas), 0);
-    // this.canvas.loop();
-    setTimeout(() => this.growNTimesOnInterval(this.autoGenerationNumber), 400);
-    // this.growNTimesOnInterval(this.autoGenerationNumber)
+    this.seedFirst(this.canvas);    
+    this.growNTimesOnInterval(this.autoGenerationNumber)
   }
 
   private toggleBackroundRedrawing(): void {
@@ -177,7 +179,6 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   public grow() {
-    console.log('this.generationCounter: ', this.generationCounter)
     if (this.growingIsDisabled || this.generationCounter > 11) {
       this.growingIsDisabled = true;
       this.showNoGrowWarning = true;
@@ -199,7 +200,6 @@ export class LeA003Component implements OnInit, OnDestroy {
         }
       }
     }
-    
     this.canvas.loop();
   }
 
@@ -222,7 +222,6 @@ export class LeA003Component implements OnInit, OnDestroy {
   }
 
   private growNTimesOnInterval(n: number): void {
-    // this.generationCounter = 0;
     this.subscriptions.add(
       this.interval$.pipe(
         take(n)

@@ -4,7 +4,7 @@
 .save-sketch-btn,
 .grow-btn,
 .reload-btn {
-  margin: 10px 0 0 10px;
+  // margin: 10px 0 0 10px;
   min-width: 100px;
   &:disabled {
     cursor: default;
@@ -21,6 +21,20 @@
   #le-a003-sketch-wrapper {
       display: flex;
       align-items: center;
+  }
+}
+
+.buttons-and-counter-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 10px;
+  .buttons-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px
+  }
+  .generation-counter-wrapper p {
+    color: $subtle-one;
   }
 }
 

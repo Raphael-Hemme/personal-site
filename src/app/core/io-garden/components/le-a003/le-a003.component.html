@@ -4,27 +4,36 @@
 
 <!-- <div *ngIf="isGrowing" class="is-growing-indicator"></div> -->
 
-<button
-  type="button"
-  (click)="grow()"
-  class="btn-accent-flat grow-btn"
-  [disabled]="growingIsDisabled">
-  grow
-</button>
+<div class="buttons-and-counter-container">
+  <div class="buttons-wrapper">
+    <button
+      type="button"
+      (click)="grow()"
+      class="btn-accent-flat grow-btn"
+      [disabled]="growingIsDisabled">
+      grow
+    </button>
 
-<button
-  type="button"
-  (click)="saveSketch()"
-  class="btn-accent-flat save-sketch-btn">
-    save
-</button>
+    <button
+      type="button"
+      (click)="saveSketch()"
+      class="btn-accent-flat save-sketch-btn">
+        save
+    </button>
 
-<button
-  type="button"
-  (click)="reload()"
-  class="btn-dark-flat reload-btn">
-  reload
-</button>
+    <button
+      type="button"
+      (click)="reload()"
+      class="btn-dark-flat reload-btn">
+      reload
+    </button>
+  </div>
+  <div class="generation-counter-wrapper">
+    <p class="generation-counte-display">Gen. {{ generationCounter }}</p>
+  </div>
+</div>
+
+
 
 <!-- <span>isGrowing: {{isGrowing}}</span> -->
 <div *ngIf="growingIsDisabled && showNoGrowWarning" class="growing-disabled-msg">
