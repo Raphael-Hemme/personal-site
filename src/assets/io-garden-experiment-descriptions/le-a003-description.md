@@ -1,6 +1,6 @@
 ### Description
 
-Lichen Experiment - A003 (`LE-A003`) aka 'BroccoLichens' is a completely new approach at drawing lichens with p5.js.
+Compared to Lichen Experiment - A001 (`LE-A001`) and LE-A002, Lichen Experiment - A003 (`LE-A003`) aka 'BroccoLichens' is a completely new approach to drawing lichens with p5.js.
 The sketch builds on fractal trees and a [fantastic tutorial by Danial Schiffman](https://youtu.be/fcdNSZ9IzJM) of Coding Train fame. Essentially, I take the root of the fractal tree, rotate the end points around the center of the canvas until the angles between the roots add up to 360 degrees and grow individual trees from each root.
 <br/><br/>
 
@@ -10,7 +10,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
-import {  debounceTime, interval, Subscription, take } from 'rxjs'
+import {  debounceTime, delay, interval, Subscription, take } from 'rxjs'
 import { DateTime } from 'luxon' 
 @Component({
   selector: 'app-le-a003',
@@ -232,6 +232,7 @@ export class LeA003Component implements OnInit, OnDestroy {
   private growNTimesOnInterval(n: number): void {
     this.subscriptions.add(
       this.interval$.pipe(
+        delay(50),
         take(n)
       ).subscribe(() => {
         this.grow();

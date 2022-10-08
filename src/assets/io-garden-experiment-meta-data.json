@@ -12,7 +12,7 @@
         "coding",
         "typography",
         "javascript",
-        "p5.js",
+        "p5js",
         "procedural design"
       ],
       "isPublished": true,
@@ -30,7 +30,7 @@
       "tags": [
         "coding",
         "javascript",
-        "p5.js",
+        "p5js",
         "ui-framework",
         "unusable interface"
       ],
@@ -49,7 +49,7 @@
       "tags": [
         "coding",
         "javascript",
-        "p5.js",
+        "p5js",
         "procedural design",
         "lichen",
         "algorithmic organism"
@@ -69,7 +69,7 @@
       "tags": [
         "coding",
         "javascript",
-        "p5.js",
+        "p5js",
         "procedural design",
         "lichen",
         "algorithmic organism"
@@ -84,12 +84,12 @@
       "descriptionUrl": "assets/io-garden-experiment-descriptions/le-a003-description.md",
       "dateOriginal": "2022-08-14",
       "dateLastEdited": "2022-08-14",
-      "phase": 1,
+      "phase": 3,
       "previewImageUrl": "assets/images/io-garden-preview-images/le-a003-preview.jpg",
       "tags": [
         "coding",
         "javascript",
-        "p5.js",
+        "p5js",
         "procedural design",
         "lichen",
         "algorithmic organism",
@@ -132,7 +132,7 @@
         "javascript",
         "meditation",
         "visualization",
-        "p5.js",
+        "p5js",
         "rxjs",
         "d3",
         "lodash",
