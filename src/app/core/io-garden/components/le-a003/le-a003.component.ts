@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
-import {  debounceTime, interval, Subscription, take } from 'rxjs'
+import {  debounceTime, delay, interval, Subscription, take } from 'rxjs'
 import { DateTime } from 'luxon' 
 @Component({
   selector: 'app-le-a003',
@@ -224,6 +224,7 @@ export class LeA003Component implements OnInit, OnDestroy {
   private growNTimesOnInterval(n: number): void {
     this.subscriptions.add(
       this.interval$.pipe(
+        delay(50),
         take(n)
       ).subscribe(() => {
         this.grow();
