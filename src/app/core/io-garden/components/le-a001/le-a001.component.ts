@@ -32,6 +32,9 @@ export class LeA001Component implements OnInit {
   private dots8: any[] = [];
 
   private dots9: any[] = [];
+  private dots10: any[] = [];
+  private dots11: any[] = [];
+
 
   public canvWidth = 300;
   public canvHeight = 300;
@@ -68,63 +71,89 @@ export class LeA001Component implements OnInit {
       s.draw = () => {
         s.setupDotArrays();
         s.background(100);
-        s.colorMode('RGBA')
+        s.colorMode(s.RGBA)
 
         for (var i = 0; i < this.dots8.length; i++){
-          s.fill(163, 118, 21);
+          s.fill(163, 118, 21, 200);
           s.noStroke();
           s.circle(this.dots8[i].x, this.dots8[i].y, this.dots8[i].size);
         }
 
         for (var i = 0; i < this.dots2.length; i++){
-          s.fill(163, 118, 21);
-          s.noStroke();
+          // s.fill('deepPink');
+          s.fill(163, 118, 21, 200);
+          s.stroke(120, 91, 29, 150);
+          s.strokeWeight(1)
+          // s.noStroke();
           s.circle(this.dots2[i].x, this.dots2[i].y, s.width / 30);
         }
         for (var i = 0; i < this.dots.length; i++){
-          s.fill(135, 87, 14);
-          s.stroke(110, 86, 36)
+          s.fill(135, 87, 14, 200);
+          s.stroke(110, 86, 36, 200)
           s.strokeWeight(1);
           s.circle(this.dots[i].x, this.dots[i].y, s.width / 66.7);
         }
         for (var i = 0; i < this.dots3.length; i++){
           s.strokeWeight(1);
-          s.fill(196, 152, 39)
-          s.stroke(133, 91, 19)
+          // s.fill('deepPink')
+
+          s.fill(196, 152, 39, 160)
+          s.stroke(133, 91, 19, 160)
           s.circle(this.dots3[i].x, this.dots3[i].y, this.dots3[i].size);
         }
 
         // draw dots6 and dots7
-        for (var i = 0; i < this.dots6.length; i++){
-          s.fill(189, 145, 32);
+/*         for (var i = 0; i < this.dots6.length; i++){
+          s.fill('deepPink')
+          // s.fill(189, 145, 32, 170);
           s.noStroke();
           s.circle(this.dots6[i].x, this.dots6[i].y, s.width / 60);
-        }
+        } */
         for (var i = 0; i < this.dots7.length; i++){
           // noStroke();
-          s.stroke(161, 125, 33, 90)
-          s.fill(179, 139, 37)
+          s.stroke(161, 125, 33, 90, 170) 
+          s.fill(179, 139, 37, 200)
           s.circle(this.dots7[i].x, this.dots7[i].y, s.width / 66.7);
+        }
+        // draw dots9
+        for (var i = 0; i < this.dots9.length; i++){
+          s.fill(100, 100, 100, 170)
+          // s.fill(107, 76, 33, 100);
+          s.noStroke();
+          s.circle(this.dots9[i].x, this.dots9[i].y, this.dots9[i].size);
+        }
+
+        // draw dots10
+        for (var i = 0; i < this.dots10.length; i++){
+          // s.fill('deepPink');
+          s.fill(100, 100, 100, 170)
+          // s.fill(107, 76, 33, 100);
+          s.noStroke();
+          s.circle(this.dots10[i].x, this.dots10[i].y, this.dots10[i].size);
+        }
+
+        // draw dots11
+        for (var i = 0; i < this.dots11.length; i++){
+          // s.fill('deepPink');
+          s.fill(100, 100, 100, 150)
+          // s.fill(107, 76, 33, 100);
+          s.noStroke();
+          s.circle(this.dots11[i].x, this.dots11[i].y, this.dots11[i].size);
         }
 
         // draw dots5 and dots4
         for (var i = 0; i < this.dots5.length; i++){
-          s.fill(133, 91, 19);
+          s.fill(122, 102, 67, 30);
+          // s.fill(133, 91, 19, 100);
           s.noStroke();
           s.circle(this.dots5[i].x, this.dots5[i].y, this.dots5[i].size);
         }
         for (var i = 0; i < this.dots4.length; i++){
-          s.fill(174, 134, 36);
+          s.fill(174, 134, 36, 100);
           s.noStroke();
           s.circle(this.dots4[i].x, this.dots4[i].y, this.dots4[i].size);
         }
 
-        // draw dots9
-        for (var i = 0; i < this.dots9.length; i++){
-          s.fill(107, 76, 33);
-          s.noStroke();
-          s.circle(this.dots9[i].x, this.dots9[i].y, this.dots9[i].size);
-        }
 
 
         s.strokeWeight(1);
@@ -187,7 +216,7 @@ export class LeA001Component implements OnInit {
           this.dots2.push(...intSubDotArr);
         }
         for (let el of this.dots2) {
-          const intSubDotArr = s.makeSubDots(el.x, el.y, 5, s.width / 60);
+          const intSubDotArr = s.makeSubDots(el.x, el.y, 2, s.width / 50);
           this.dots3.push(...intSubDotArr);
         }
         this.dots3.forEach(el => el.size = s.random(s.width / 150, s.width / 60));
@@ -200,7 +229,7 @@ export class LeA001Component implements OnInit {
         }
         this.dots5.forEach(el => el.size = s.random(s.width / 200, s.width / 40));
 
-        this.dots6 = s.makeDots(300, s.width / 8.6);
+        this.dots6 = s.makeDots(100, s.width / 8.6);
         for (let el of this.dots6) {
           const intSubDotArr = s.makeSubDots(el.x, el.y, 10, s.width / 40);
           this.dots7.push(...intSubDotArr);
@@ -210,8 +239,14 @@ export class LeA001Component implements OnInit {
         this.dots8 = s.makeDots(300, s.width / 4.3);
         this.dots8.forEach(el => el.size = s.random(1, 5));
 
-        this.dots9 = s.makeDots(200, s.width / 60);
-        this.dots9.forEach(el => el.size = s.random(1, 9));
+        this.dots9 = s.makeDots(300, s.width / 20);
+        this.dots9.forEach(el => el.size = s.random(1, 14));
+
+        this.dots10 = s.makeDots(150, s.width / 60);
+        this.dots10.forEach(el => el.size = s.random(1, 14));
+
+        this.dots11 = s.makeDots(50, s.width / 100);
+        this.dots11.forEach(el => el.size = s.random(1, 16));
       }
 
     };
