@@ -80,23 +80,21 @@ export class LeA001Component implements OnInit {
         }
 
         for (var i = 0; i < this.dots2.length; i++){
-          // s.fill('deepPink');
           s.fill(163, 118, 21, 200);
           s.stroke(120, 91, 29, 150);
           s.strokeWeight(1)
-          // s.noStroke();
           s.circle(this.dots2[i].x, this.dots2[i].y, s.width / 30);
         }
+
         for (var i = 0; i < this.dots.length; i++){
           s.fill(135, 87, 14, 200);
           s.stroke(110, 86, 36, 200)
           s.strokeWeight(1);
           s.circle(this.dots[i].x, this.dots[i].y, s.width / 66.7);
         }
+
         for (var i = 0; i < this.dots3.length; i++){
           s.strokeWeight(1);
-          // s.fill('deepPink')
-
           s.fill(196, 152, 39, 160)
           s.stroke(133, 91, 19, 160)
           s.circle(this.dots3[i].x, this.dots3[i].y, this.dots3[i].size);
@@ -111,13 +109,14 @@ export class LeA001Component implements OnInit {
         } */
         for (var i = 0; i < this.dots7.length; i++){
           // noStroke();
-          s.stroke(161, 125, 33, 90, 170) 
-          s.fill(179, 139, 37, 200)
+          s.strokeWeight(1);
+          s.stroke(161, 125, 33, 90, 170);
+          s.fill(179, 139, 37, 170);
           s.circle(this.dots7[i].x, this.dots7[i].y, s.width / 66.7);
         }
         // draw dots9
         for (var i = 0; i < this.dots9.length; i++){
-          s.fill(100, 100, 100, 170)
+          s.fill(100, 100, 100, 170);
           // s.fill(107, 76, 33, 100);
           s.noStroke();
           s.circle(this.dots9[i].x, this.dots9[i].y, this.dots9[i].size);
