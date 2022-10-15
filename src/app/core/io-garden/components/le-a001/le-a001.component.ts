@@ -19,6 +19,8 @@ export class LeA001Component implements OnInit {
 
   public canvas: any;
 
+  private newDotsArr: any[][] = [];
+
   private dots: any[] = [];
   private dots2: any[] = [];
   private dots3: any[] = [];
@@ -79,25 +81,25 @@ export class LeA001Component implements OnInit {
           s.circle(this.dots8[i].x, this.dots8[i].y, this.dots8[i].size);
         }
 
-        for (var i = 0; i < this.dots2.length; i++){
+        for (var i = 0; i < this.newDotsArr[1].length; i++){
           s.fill(163, 118, 21, 200);
           s.stroke(120, 91, 29, 150);
           s.strokeWeight(1)
-          s.circle(this.dots2[i].x, this.dots2[i].y, s.width / 30);
+          s.circle(this.newDotsArr[1][i].x, this.newDotsArr[1][i].y, s.width / 30);
         }
 
-        for (var i = 0; i < this.dots.length; i++){
+        for (var i = 0; i < this.newDotsArr[0].length; i++){
           s.fill(135, 87, 14, 200);
           s.stroke(110, 86, 36, 200)
           s.strokeWeight(1);
-          s.circle(this.dots[i].x, this.dots[i].y, s.width / 66.7);
+          s.circle(this.newDotsArr[0][i].x, this.newDotsArr[0][i].y, s.width / 66.7);
         }
 
-        for (var i = 0; i < this.dots3.length; i++){
+        for (var i = 0; i < this.newDotsArr[2].length; i++){
           s.strokeWeight(1);
           s.fill(196, 152, 39, 160)
           s.stroke(133, 91, 19, 160)
-          s.circle(this.dots3[i].x, this.dots3[i].y, this.dots3[i].size);
+          s.circle(this.newDotsArr[2][i].x, this.newDotsArr[2][i].y, this.newDotsArr[2][i].size);
         }
 
         // draw dots6 and dots7
@@ -163,7 +165,7 @@ export class LeA001Component implements OnInit {
         s.noLoop();
       }
 
-      s.makeDots = (n: number, maxRadius: number) => {
+      s.makeDots = (n: number, maxRadius: number): any[] => {
         const internalDotArr = []
       //   choose random radius and angle from the center
         for (var i = 0; i < n; i++){
@@ -181,7 +183,7 @@ export class LeA001Component implements OnInit {
         return internalDotArr;
       }
 
-      s.makeSubDots = (subDotCenterX: number, subDotCenterY: number, maxAmount: number, rRange: number) => {
+      s.makeSubDots = (subDotCenterX: number, subDotCenterY: number, maxAmount: number, rRange: number): any[] => {
         //   choose random radius and angle from the center
         const amount = s.random(0, maxAmount);
         const subDots = [];
@@ -199,26 +201,39 @@ export class LeA001Component implements OnInit {
       }
 
       s.setupDotArrays = () => {
-        this.dots.splice(0, this.dots.length);
-        this.dots2.splice(0, this.dots2.length);
-        this.dots3.splice(0, this.dots3.length);
-        this.dots4.splice(0, this.dots4.length);
-        this.dots5.splice(0, this.dots5.length);
-        this.dots6.splice(0, this.dots6.length);
-        this.dots7.splice(0, this.dots7.length);
-        this.dots8.splice(0, this.dots8.length);
-        this.dots9.splice(0, this.dots9.length);
+        if (this.newDotsArr.length > 0) {
+          this.newDotsArr[0].splice(0, this.newDotsArr[0].length);
+          this.newDotsArr[1].splice(0, this.newDotsArr[1].length);
+          this.newDotsArr[2].splice(0, this.newDotsArr[2].length);
+          this.dots4.splice(0, this.dots4.length);
+          this.dots5.splice(0, this.dots5.length);
+          this.dots6.splice(0, this.dots6.length);
+          this.dots7.splice(0, this.dots7.length);
+          this.dots8.splice(0, this.dots8.length);
+          this.dots9.splice(0, this.dots9.length);
+        }
 
-        this.dots = s.makeDots(200, s.width  / 6);
-        for (let el of this.dots) {
+
+        this.newDotsArr[0] = s.makeDots(200, s.width  / 6);
+        this.newDotsArr[1] = this.newDotsArr[0]
+          .map(el => s.makeSubDots(el.x, el.y, 10, s.width / 30))
+          .flat();
+        this.newDotsArr[2] = this.newDotsArr[1]
+          .map(el => s.makeSubDots(el.x, el.y, 2, s.width / 50))
+          .flat();
+        
+        // this.dots = s.makeDots(200, s.width  / 6);
+/*         for (let el of this.newDotsArr[0]) {
           const intSubDotArr = s.makeSubDots(el.x, el.y, 10, s.width / 30);
           this.dots2.push(...intSubDotArr);
-        }
-        for (let el of this.dots2) {
+        } */
+
+        /* for (let el of this.newDotsArr[1]) {
           const intSubDotArr = s.makeSubDots(el.x, el.y, 2, s.width / 50);
           this.dots3.push(...intSubDotArr);
-        }
-        this.dots3.forEach(el => el.size = s.random(s.width / 150, s.width / 60));
+        } */
+
+        this.newDotsArr[2].forEach(el => el.size = s.random(s.width / 150, s.width / 60));
 
         this.dots4 = s.makeDots(50, s.width / 20);
         this.dots4.forEach(el => el.size = s.random(1, s.width / 75));
