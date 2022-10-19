@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
+import { Subscription } from 'rxjs';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
 
@@ -10,40 +11,62 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
 // Therefore my current version is highly inefficient and duplicates code etc. withouth geting the result nearly right.
 // This might be addressed later.
 
+interface CellObj {
+  x: number;
+  y: number;
+  size: number;
+  color: {
+    fill: number[];
+    stroke: number[] | null
+  }
+}
+
+interface CellConfigObj {
+  number: number;
+  maxRadius: number;
+  minSize: number;
+  maxSize: number;
+  color: {
+    fill: number[];
+    stroke: number[] | null;
+  }
+}
+
+interface SubCellConfigObj {
+  maxAmount: number;
+  centerX: number;
+  centerY: number;
+  rRange: number;
+  minSize: number;
+  maxSize: number;
+  color: {
+    fill: number[];
+    stroke: number[] | null;
+  }
+}
+
 @Component({
   selector: 'app-le-a001',
   templateUrl: './le-a001.component.html',
   styleUrls: ['./le-a001.component.scss']
 })
-export class LeA001Component implements OnInit {
+export class LeA001Component implements OnInit, OnDestroy {
 
   public canvas: any;
 
   private newDotsArr: any[][] = [];
 
-  private dots: any[] = [];
-  private dots2: any[] = [];
-  private dots3: any[] = [];
-
-  private dots4: any[] = [];
-  private dots5: any[] = [];
-
-  private dots6: any[] = [];
-  private dots7: any[] = [];
-
-  private dots8: any[] = [];
-
-  private dots9: any[] = [];
-  private dots10: any[] = [];
-  private dots11: any[] = [];
+  private newCellsArrReOrdered: CellObj[][] = [];
 
 
   public canvWidth = 300;
   public canvHeight = 300;
 
+  private subscriptions: Subscription = new Subscription();
+
   constructor(
     private windowSizeService: WindowSizeService
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -75,87 +98,32 @@ export class LeA001Component implements OnInit {
         s.background(100);
         s.colorMode(s.RGBA)
 
-        for (var i = 0; i < this.dots8.length; i++){
-          s.fill(163, 118, 21, 200);
-          s.noStroke();
-          s.circle(this.dots8[i].x, this.dots8[i].y, this.dots8[i].size);
+        for (let cellArr of this.newDotsArr) {
+          console.log('cellArr.length', cellArr.length);
+          for (let cell of cellArr) {
+            // s.fill('deepPink')
+            s.fill(...cell.color.fill);
+            if (cell.color.stroke?.length) {
+              s.stroke(...cell.color.stroke);
+              s.strokeWeight(1);
+            } else {
+              s.noStroke();
+            }
+            s.circle(cell.x, cell.y, cell.size);
+          }
         }
 
-        for (var i = 0; i < this.newDotsArr[1].length; i++){
-          s.fill(163, 118, 21, 200);
-          s.stroke(120, 91, 29, 150);
-          s.strokeWeight(1)
-          s.circle(this.newDotsArr[1][i].x, this.newDotsArr[1][i].y, s.width / 30);
-        }
-
-        for (var i = 0; i < this.newDotsArr[0].length; i++){
-          s.fill(135, 87, 14, 200);
-          s.stroke(110, 86, 36, 200)
-          s.strokeWeight(1);
-          s.circle(this.newDotsArr[0][i].x, this.newDotsArr[0][i].y, s.width / 66.7);
-        }
-
-        for (var i = 0; i < this.newDotsArr[2].length; i++){
-          s.strokeWeight(1);
-          s.fill(196, 152, 39, 160)
-          s.stroke(133, 91, 19, 160)
-          s.circle(this.newDotsArr[2][i].x, this.newDotsArr[2][i].y, this.newDotsArr[2][i].size);
-        }
-
-        // draw dots6 and dots7
-/*         for (var i = 0; i < this.dots6.length; i++){
+        /* for (let cell of this.newDotsArr[1]) {
           s.fill('deepPink')
-          // s.fill(189, 145, 32, 170);
-          s.noStroke();
-          s.circle(this.dots6[i].x, this.dots6[i].y, s.width / 60);
+          // s.fill(...cell.color.fill);
+          if (cell.color.stroke?.length) {
+            s.stroke(...cell.color.stroke);
+            s.strokeWeight(1);
+          } else {
+            s.noStroke();
+          }
+          s.circle(cell.x, cell.y, cell.size);
         } */
-        for (var i = 0; i < this.dots7.length; i++){
-          // noStroke();
-          s.strokeWeight(1);
-          s.stroke(161, 125, 33, 90, 170);
-          s.fill(179, 139, 37, 170);
-          s.circle(this.dots7[i].x, this.dots7[i].y, s.width / 66.7);
-        }
-        // draw dots9
-        for (var i = 0; i < this.dots9.length; i++){
-          s.fill(100, 100, 100, 170);
-          // s.fill(107, 76, 33, 100);
-          s.noStroke();
-          s.circle(this.dots9[i].x, this.dots9[i].y, this.dots9[i].size);
-        }
-
-        // draw dots10
-        for (var i = 0; i < this.dots10.length; i++){
-          // s.fill('deepPink');
-          s.fill(100, 100, 100, 170)
-          // s.fill(107, 76, 33, 100);
-          s.noStroke();
-          s.circle(this.dots10[i].x, this.dots10[i].y, this.dots10[i].size);
-        }
-
-        // draw dots11
-        for (var i = 0; i < this.dots11.length; i++){
-          // s.fill('deepPink');
-          s.fill(100, 100, 100, 150)
-          // s.fill(107, 76, 33, 100);
-          s.noStroke();
-          s.circle(this.dots11[i].x, this.dots11[i].y, this.dots11[i].size);
-        }
-
-        // draw dots5 and dots4
-        for (var i = 0; i < this.dots5.length; i++){
-          s.fill(122, 102, 67, 30);
-          // s.fill(133, 91, 19, 100);
-          s.noStroke();
-          s.circle(this.dots5[i].x, this.dots5[i].y, this.dots5[i].size);
-        }
-        for (var i = 0; i < this.dots4.length; i++){
-          s.fill(174, 134, 36, 100);
-          s.noStroke();
-          s.circle(this.dots4[i].x, this.dots4[i].y, this.dots4[i].size);
-        }
-
-
 
         s.strokeWeight(1);
         s.noFill();
@@ -165,102 +133,217 @@ export class LeA001Component implements OnInit {
         s.noLoop();
       }
 
-      s.makeDots = (n: number, maxRadius: number): any[] => {
+      // s.makeDots = (n: number, maxRadius: number): any[] => {
+      s.makeDots = (cellConfigObj: CellConfigObj): CellObj[] => {
         const internalDotArr = []
-      //   choose random radius and angle from the center
-        for (var i = 0; i < n; i++){
+        //   choose random radius and angle from the center
+        for (var i = 0; i < cellConfigObj.number; i++) {
           const a = s.random(0, 2 * s.PI);
 
           // https://programming.guide/random-point-within-circle.html
           // we use square root of random for equal distribution of points from the center
-          let r = 20 * s.sqrt(s.random(0, maxRadius));
+          let r = 20 * s.sqrt(s.random(0, cellConfigObj.maxRadius));
 
-          let x = s.width/2 + r * s.cos(a);
+          let x = s.width / 2 + r * s.cos(a);
           let y = s.height / 2 + r * s.sin(a);
-          var newDot = {x: x, y: y};
+
+          var newDot = {
+            x: x,
+            y: y,
+            size: s.random(cellConfigObj.minSize, cellConfigObj.maxSize),
+            color: {
+              fill: cellConfigObj.color.fill,
+              stroke: cellConfigObj.color.stroke
+            }
+          };
+
           internalDotArr.push(newDot);
         }
         return internalDotArr;
       }
 
-      s.makeSubDots = (subDotCenterX: number, subDotCenterY: number, maxAmount: number, rRange: number): any[] => {
+      // s.makeSubDots = (subDotCenterX: number, subDotCenterY: number, maxAmount: number, rRange: number): any[] => {
+      s.makeSubCells = (subCellConfigObj: SubCellConfigObj): CellObj[] => {
+        const amount = s.random(0, subCellConfigObj.maxAmount);
+        const subCells = [];
+
         //   choose random radius and angle from the center
-        const amount = s.random(0, maxAmount);
-        const subDots = [];
-        for (var i = 0; i < amount; i++){
+        for (var i = 0; i < amount; i++) {
 
           const a = s.random(0, 2 * s.PI);
-          const r = s.random(5, rRange);
+          const r = s.random(5, subCellConfigObj.rRange);
 
-          let x = subDotCenterX + r * s.cos(a);
-          let y = subDotCenterY + r * s.sin(a);
-          var newDot = {x: x, y: y};
-          subDots.push(newDot);
+          let x = subCellConfigObj.centerX + r * s.cos(a);
+          let y = subCellConfigObj.centerY + r * s.sin(a);
+          let size = s.random(subCellConfigObj.minSize, subCellConfigObj.maxSize);
+          var newDot = {
+            x: x,
+            y: y,
+            size: size,
+            color: {
+              fill: subCellConfigObj.color.fill,
+              stroke: subCellConfigObj.color.stroke
+            }
+          };
+          subCells.push(newDot);
         }
-        return subDots;
+        return subCells;
       }
 
       s.setupDotArrays = () => {
-        if (this.newDotsArr.length > 0) {
-          this.newDotsArr[0].splice(0, this.newDotsArr[0].length);
-          this.newDotsArr[1].splice(0, this.newDotsArr[1].length);
-          this.newDotsArr[2].splice(0, this.newDotsArr[2].length);
-          this.dots4.splice(0, this.dots4.length);
-          this.dots5.splice(0, this.dots5.length);
-          this.dots6.splice(0, this.dots6.length);
-          this.dots7.splice(0, this.dots7.length);
-          this.dots8.splice(0, this.dots8.length);
-          this.dots9.splice(0, this.dots9.length);
-        }
 
+        this.newDotsArr.forEach(arr => arr.splice(0, arr.length - 1))
 
-        this.newDotsArr[0] = s.makeDots(200, s.width  / 6);
+        this.newDotsArr[0] = s.makeDots({
+          number: 200,
+          maxRadius: s.width / 6,
+          minSize: s.width / 66.7,
+          maxSize: s.width / 66.7,
+          color: {
+            fill: [135, 87, 14, 200],
+            stroke: [110, 86, 36, 200]
+          }
+        });
+
         this.newDotsArr[1] = this.newDotsArr[0]
-          .map(el => s.makeSubDots(el.x, el.y, 10, s.width / 30))
+          .map(el => s.makeSubCells({
+            centerX: el.x,
+            centerY: el.y,
+            maxAmount: 10,
+            rRange: s.width / 30,
+            minSize: s.width / 30,
+            maxSize: s.width / 30,
+            color: {
+              fill: [163, 118, 21, 200],
+              stroke: [120, 91, 29, 150]
+            }
+          }))
           .flat();
+
         this.newDotsArr[2] = this.newDotsArr[1]
-          .map(el => s.makeSubDots(el.x, el.y, 2, s.width / 50))
+          .map(el => s.makeSubCells({
+            centerX: el.x,
+            centerY: el.y,
+            maxAmount: 2,
+            rRange: s.width / 50,
+            minSize: s.width / 150,
+            maxSize: s.width / 60,
+            color: {
+              fill: [196, 152, 39, 160],
+              stroke: [133, 91, 19, 160]
+            }
+          }))
           .flat();
-        
-        // this.dots = s.makeDots(200, s.width  / 6);
-/*         for (let el of this.newDotsArr[0]) {
-          const intSubDotArr = s.makeSubDots(el.x, el.y, 10, s.width / 30);
-          this.dots2.push(...intSubDotArr);
-        } */
 
-        /* for (let el of this.newDotsArr[1]) {
-          const intSubDotArr = s.makeSubDots(el.x, el.y, 2, s.width / 50);
-          this.dots3.push(...intSubDotArr);
-        } */
+        this.newDotsArr[3] = s.makeDots({
+          number: 50,
+          maxRadius: s.width / 20,
+          minSize: 1,
+          maxSize: s.width / 75,
+          color: {
+            fill: [174, 134, 36, 100],
+            stroke: null
+          }
+        });
 
-        this.newDotsArr[2].forEach(el => el.size = s.random(s.width / 150, s.width / 60));
+        this.newDotsArr[4] = this.newDotsArr[3]
+          .map(el => s.makeSubCells({
+            centerX: el.x,
+            centerY: el.y,
+            maxAmount: 30,
+            rRange: s.width / 60,
+            minSize: s.width / 200,
+            maxSize: s.width / 40,
+            color: {
+              fill: [122, 102, 67, 30],
+              stroke: null
+            }
+          }))
+          .flat();
 
-        this.dots4 = s.makeDots(50, s.width / 20);
-        this.dots4.forEach(el => el.size = s.random(1, s.width / 75));
-        for (let el of this.dots4) {
-          const intSubDotArr = s.makeSubDots(el.x, el.y, 30, s.width / 60);
-          this.dots5.push(...intSubDotArr);
-        }
-        this.dots5.forEach(el => el.size = s.random(s.width / 200, s.width / 40));
+        this.newDotsArr[5] = s.makeDots({
+          number: 100,
+          maxRadius: s.width / 8.6,
+          minSize: 1,
+          maxSize: 1,
+          color: {
+            fill: [0, 0, 0, 0],
+            stroke: null
+          }
+        });
 
-        this.dots6 = s.makeDots(100, s.width / 8.6);
-        for (let el of this.dots6) {
-          const intSubDotArr = s.makeSubDots(el.x, el.y, 10, s.width / 40);
-          this.dots7.push(...intSubDotArr);
-        }
+        this.newDotsArr[6] = this.newDotsArr[5]
+          .map(el => s.makeSubCells({
+            centerX: el.x,
+            centerY: el.y,
+            maxAmount: 10,
+            rRange: s.width / 40,
+            minSize: s.width / 66.7,
+            maxSize: s.width / 66.7,
+            color: {
+              fill: [179, 139, 37, 170],
+              stroke: [161, 125, 33, 90, 170]
+            }
+          }))
+          .flat();
+
+        this.newDotsArr[7] = s.makeDots({
+          number: 300,
+          maxRadius: s.width / 4.3,
+          minSize: 1,
+          maxSize: 5,
+          color: {
+            fill: [163, 118, 21, 200],
+            stroke: null
+          }
+        });
+
+        this.newDotsArr[7] = s.makeDots({
+          number: 300,
+          maxRadius: s.width / 4.3,
+          minSize: 1,
+          maxSize: 5,
+          color: {
+            fill: [163, 118, 21, 200],
+            stroke: null
+          }
+        });
+
+        this.newDotsArr[8] = s.makeDots({
+          number: 300,
+          maxRadius: s.width / 20,
+          minSize: 1,
+          maxSize: 14,
+          color: {
+            fill: [100, 100, 100, 170],
+            stroke: null
+          }
+        });
+
+        this.newDotsArr[9] = s.makeDots({
+          number: 150,
+          maxRadius: s.width / 60,
+          minSize: 1,
+          maxSize: 14,
+          color: {
+            fill: [100, 100, 100, 170],
+            stroke: null
+          }
+        });
+
+        this.newDotsArr[10] = s.makeDots({
+          number: 50,
+          maxRadius: s.width / 100,
+          minSize: 1,
+          maxSize: 16,
+          color: {
+            fill: [100, 100, 100, 150],
+            stroke: null
+          }
+        });
 
 
-        this.dots8 = s.makeDots(300, s.width / 4.3);
-        this.dots8.forEach(el => el.size = s.random(1, 5));
-
-        this.dots9 = s.makeDots(300, s.width / 20);
-        this.dots9.forEach(el => el.size = s.random(1, 14));
-
-        this.dots10 = s.makeDots(150, s.width / 60);
-        this.dots10.forEach(el => el.size = s.random(1, 14));
-
-        this.dots11 = s.makeDots(50, s.width / 100);
-        this.dots11.forEach(el => el.size = s.random(1, 16));
+        this.newCellsArrReOrdered = [this.newDotsArr[0]]
       }
 
     };
@@ -270,6 +353,7 @@ export class LeA001Component implements OnInit {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+    this.subscriptions.unsubscribe()
   }
 
   public handleReloadBtn() {
