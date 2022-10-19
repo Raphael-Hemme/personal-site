@@ -3,7 +3,6 @@ import * as p5 from 'p5';
 import { Subscription } from 'rxjs';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
-
 // Based on this this sketch to generate randomly distributed dots inside a circle:
 // https://editor.p5js.org/zapra/sketches/rjIJR18fT
 
@@ -54,10 +53,10 @@ export class LeA001Component implements OnInit, OnDestroy {
 
   public canvas: any;
 
-  private newDotsArr: any[][] = [];
+  private cellsArr: CellObj[][] = [];
+  private cellsArrReordered: CellObj[][] = [];
 
-  private newCellsArrReOrdered: CellObj[][] = [];
-
+  private textureArr: CellObj[][] = [];
 
   public canvWidth = 300;
   public canvHeight = 300;
@@ -98,7 +97,7 @@ export class LeA001Component implements OnInit, OnDestroy {
         s.background(100);
         s.colorMode(s.RGBA)
 
-        for (let cellArr of this.newDotsArr) {
+        for (let cellArr of this.cellsArrReordered) {
           console.log('cellArr.length', cellArr.length);
           for (let cell of cellArr) {
             // s.fill('deepPink')
@@ -113,88 +112,28 @@ export class LeA001Component implements OnInit, OnDestroy {
           }
         }
 
-        /* for (let cell of this.newDotsArr[1]) {
-          s.fill('deepPink')
-          // s.fill(...cell.color.fill);
-          if (cell.color.stroke?.length) {
-            s.stroke(...cell.color.stroke);
-            s.strokeWeight(1);
-          } else {
-            s.noStroke();
+        for (let textureSubArr of this.textureArr) {
+          for (let point of textureSubArr) {
+            // s.fill('deepPink')
+            s.fill(...point.color.fill);
+            if (point.color.stroke?.length) {
+              s.stroke(...point.color.stroke);
+              s.strokeWeight(1);
+            } else {
+              s.noStroke();
+            }
+            s.circle(point.x, point.y, point.size);
           }
-          s.circle(cell.x, cell.y, cell.size);
-        } */
+        }
 
-        s.strokeWeight(1);
         s.noFill();
-
-        // console.log('dots: ', this.dots)
-
         s.noLoop();
       }
 
-      // s.makeDots = (n: number, maxRadius: number): any[] => {
-      s.makeDots = (cellConfigObj: CellConfigObj): CellObj[] => {
-        const internalDotArr = []
-        //   choose random radius and angle from the center
-        for (var i = 0; i < cellConfigObj.number; i++) {
-          const a = s.random(0, 2 * s.PI);
-
-          // https://programming.guide/random-point-within-circle.html
-          // we use square root of random for equal distribution of points from the center
-          let r = 20 * s.sqrt(s.random(0, cellConfigObj.maxRadius));
-
-          let x = s.width / 2 + r * s.cos(a);
-          let y = s.height / 2 + r * s.sin(a);
-
-          var newDot = {
-            x: x,
-            y: y,
-            size: s.random(cellConfigObj.minSize, cellConfigObj.maxSize),
-            color: {
-              fill: cellConfigObj.color.fill,
-              stroke: cellConfigObj.color.stroke
-            }
-          };
-
-          internalDotArr.push(newDot);
-        }
-        return internalDotArr;
-      }
-
-      // s.makeSubDots = (subDotCenterX: number, subDotCenterY: number, maxAmount: number, rRange: number): any[] => {
-      s.makeSubCells = (subCellConfigObj: SubCellConfigObj): CellObj[] => {
-        const amount = s.random(0, subCellConfigObj.maxAmount);
-        const subCells = [];
-
-        //   choose random radius and angle from the center
-        for (var i = 0; i < amount; i++) {
-
-          const a = s.random(0, 2 * s.PI);
-          const r = s.random(5, subCellConfigObj.rRange);
-
-          let x = subCellConfigObj.centerX + r * s.cos(a);
-          let y = subCellConfigObj.centerY + r * s.sin(a);
-          let size = s.random(subCellConfigObj.minSize, subCellConfigObj.maxSize);
-          var newDot = {
-            x: x,
-            y: y,
-            size: size,
-            color: {
-              fill: subCellConfigObj.color.fill,
-              stroke: subCellConfigObj.color.stroke
-            }
-          };
-          subCells.push(newDot);
-        }
-        return subCells;
-      }
-
       s.setupDotArrays = () => {
+        this.cellsArr.forEach(arr => arr.splice(0, arr.length - 1))
 
-        this.newDotsArr.forEach(arr => arr.splice(0, arr.length - 1))
-
-        this.newDotsArr[0] = s.makeDots({
+        this.cellsArr[0] = this.makeCells({
           number: 200,
           maxRadius: s.width / 6,
           minSize: s.width / 66.7,
@@ -203,10 +142,10 @@ export class LeA001Component implements OnInit, OnDestroy {
             fill: [135, 87, 14, 200],
             stroke: [110, 86, 36, 200]
           }
-        });
+        }, s);
 
-        this.newDotsArr[1] = this.newDotsArr[0]
-          .map(el => s.makeSubCells({
+        this.cellsArr[1] = this.cellsArr[0]
+          .map(el => this.makeSubCells({
             centerX: el.x,
             centerY: el.y,
             maxAmount: 10,
@@ -217,11 +156,11 @@ export class LeA001Component implements OnInit, OnDestroy {
               fill: [163, 118, 21, 200],
               stroke: [120, 91, 29, 150]
             }
-          }))
+          }, s))
           .flat();
 
-        this.newDotsArr[2] = this.newDotsArr[1]
-          .map(el => s.makeSubCells({
+        this.cellsArr[2] = this.cellsArr[1]
+          .map(el => this.makeSubCells({
             centerX: el.x,
             centerY: el.y,
             maxAmount: 2,
@@ -232,10 +171,10 @@ export class LeA001Component implements OnInit, OnDestroy {
               fill: [196, 152, 39, 160],
               stroke: [133, 91, 19, 160]
             }
-          }))
+          }, s))
           .flat();
 
-        this.newDotsArr[3] = s.makeDots({
+        this.cellsArr[3] = this.makeCells({
           number: 50,
           maxRadius: s.width / 20,
           minSize: 1,
@@ -244,10 +183,10 @@ export class LeA001Component implements OnInit, OnDestroy {
             fill: [174, 134, 36, 100],
             stroke: null
           }
-        });
+        }, s);
 
-        this.newDotsArr[4] = this.newDotsArr[3]
-          .map(el => s.makeSubCells({
+        this.cellsArr[4] = this.cellsArr[3]
+          .map(el => this.makeSubCells({
             centerX: el.x,
             centerY: el.y,
             maxAmount: 30,
@@ -258,10 +197,10 @@ export class LeA001Component implements OnInit, OnDestroy {
               fill: [122, 102, 67, 30],
               stroke: null
             }
-          }))
+          }, s))
           .flat();
 
-        this.newDotsArr[5] = s.makeDots({
+        this.cellsArr[5] = this.makeCells({
           number: 100,
           maxRadius: s.width / 8.6,
           minSize: 1,
@@ -270,10 +209,10 @@ export class LeA001Component implements OnInit, OnDestroy {
             fill: [0, 0, 0, 0],
             stroke: null
           }
-        });
+        }, s);
 
-        this.newDotsArr[6] = this.newDotsArr[5]
-          .map(el => s.makeSubCells({
+        this.cellsArr[6] = this.cellsArr[5]
+          .map(el => this.makeSubCells({
             centerX: el.x,
             centerY: el.y,
             maxAmount: 10,
@@ -284,10 +223,10 @@ export class LeA001Component implements OnInit, OnDestroy {
               fill: [179, 139, 37, 170],
               stroke: [161, 125, 33, 90, 170]
             }
-          }))
+          }, s))
           .flat();
 
-        this.newDotsArr[7] = s.makeDots({
+        this.cellsArr[7] = this.makeCells({
           number: 300,
           maxRadius: s.width / 4.3,
           minSize: 1,
@@ -296,9 +235,9 @@ export class LeA001Component implements OnInit, OnDestroy {
             fill: [163, 118, 21, 200],
             stroke: null
           }
-        });
+        }, s);
 
-        this.newDotsArr[7] = s.makeDots({
+        this.cellsArr[7] = this.makeCells({
           number: 300,
           maxRadius: s.width / 4.3,
           minSize: 1,
@@ -307,9 +246,9 @@ export class LeA001Component implements OnInit, OnDestroy {
             fill: [163, 118, 21, 200],
             stroke: null
           }
-        });
+        }, s);
 
-        this.newDotsArr[8] = s.makeDots({
+        this.cellsArr[8] = this.makeCells({
           number: 300,
           maxRadius: s.width / 20,
           minSize: 1,
@@ -318,9 +257,9 @@ export class LeA001Component implements OnInit, OnDestroy {
             fill: [100, 100, 100, 170],
             stroke: null
           }
-        });
+        }, s);
 
-        this.newDotsArr[9] = s.makeDots({
+        this.cellsArr[9] = this.makeCells({
           number: 150,
           maxRadius: s.width / 60,
           minSize: 1,
@@ -329,9 +268,9 @@ export class LeA001Component implements OnInit, OnDestroy {
             fill: [100, 100, 100, 170],
             stroke: null
           }
-        });
+        }, s);
 
-        this.newDotsArr[10] = s.makeDots({
+        this.cellsArr[10] = this.makeCells({
           number: 50,
           maxRadius: s.width / 100,
           minSize: 1,
@@ -340,10 +279,23 @@ export class LeA001Component implements OnInit, OnDestroy {
             fill: [100, 100, 100, 150],
             stroke: null
           }
-        });
+        }, s);
 
+        this.cellsArrReordered = [
+          this.cellsArr[1],
+          this.cellsArr[0],
+          this.cellsArr[2],
+          this.cellsArr[3],
+          this.cellsArr[4],
+          this.cellsArr[5],
+          this.cellsArr[6],
+          this.cellsArr[7],
+          this.cellsArr[8],
+          this.cellsArr[9],
+          this.cellsArr[10],
+        ]
 
-        this.newCellsArrReOrdered = [this.newDotsArr[0]]
+        this.generateTextureBase(s);
       }
 
     };
@@ -359,6 +311,86 @@ export class LeA001Component implements OnInit, OnDestroy {
   public handleReloadBtn() {
     this.canvas.clear();
     this.canvas.redraw(1);
+  }
+
+  private makeCells = (cellConfigObj: CellConfigObj, s: p5): CellObj[] => {
+    const internalDotArr = []
+    //   choose random radius and angle from the center
+    for (var i = 0; i < cellConfigObj.number; i++) {
+      const a = s.random(0, 2 * s.PI);
+
+      // https://programming.guide/random-point-within-circle.html
+      // Use square root of random for equal distribution of points from the center
+      let r = 20 * s.sqrt(s.random(0, cellConfigObj.maxRadius));
+
+      let x = s.width / 2 + r * s.cos(a);
+      let y = s.height / 2 + r * s.sin(a);
+
+      var newDot = {
+        x: x,
+        y: y,
+        size: s.random(cellConfigObj.minSize, cellConfigObj.maxSize),
+        color: {
+          fill: cellConfigObj.color.fill,
+          stroke: cellConfigObj.color.stroke
+        }
+      };
+
+      internalDotArr.push(newDot);
+    }
+    return internalDotArr;
+  }
+
+  // s.makeSubDots = (subDotCenterX: number, subDotCenterY: number, maxAmount: number, rRange: number): any[] => {
+  private makeSubCells = (subCellConfigObj: SubCellConfigObj, s: p5): CellObj[] => {
+    const amount = s.random(0, subCellConfigObj.maxAmount);
+    const subCells = [];
+
+    //   choose random radius and angle from the center
+    for (var i = 0; i < amount; i++) {
+
+      const a = s.random(0, 2 * s.PI);
+      const r = s.random(5, subCellConfigObj.rRange);
+
+      let x = subCellConfigObj.centerX + r * s.cos(a);
+      let y = subCellConfigObj.centerY + r * s.sin(a);
+      let size = s.random(subCellConfigObj.minSize, subCellConfigObj.maxSize);
+      var newDot = {
+        x: x,
+        y: y,
+        size: size,
+        color: {
+          fill: subCellConfigObj.color.fill,
+          stroke: subCellConfigObj.color.stroke
+        }
+      };
+      subCells.push(newDot);
+    }
+    return subCells;
+  }
+
+  private generateTextureBase(s: p5): void {
+    this.textureArr.push(this.makeCells({
+      number: 10000,
+      maxRadius: s.width / 2 - s.width / 5,
+      minSize: 1,
+      maxSize: 1,
+      color: {
+        fill: [0, 0, 0, 30],
+        stroke: null
+      }
+    }, s))
+
+    this.textureArr.push(this.makeCells({
+      number: 10000,
+      maxRadius: s.width / 2 - s.width / 5,
+      minSize: 1,
+      maxSize: 1,
+      color: {
+        fill: [200, 200, 200, 30],
+        stroke: null
+      }
+    }, s))
   }
 
 }
