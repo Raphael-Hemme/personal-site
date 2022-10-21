@@ -7,8 +7,6 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
 // https://editor.p5js.org/zapra/sketches/rjIJR18fT
 
 // This sketch (my improvisation on the linked sketch above) is still in the early stages of playful experimentation.
-// Therefore my current version is highly inefficient and duplicates code etc. withouth geting the result nearly right.
-// This might be addressed later.
 
 interface CellObj {
   x: number;
@@ -93,7 +91,7 @@ export class LeA001Component implements OnInit, OnDestroy {
       }
 
       s.draw = () => {
-        s.setupDotArrays();
+        this.setupDotArrays(s);
         s.background(100);
         s.colorMode(s.RGBA)
 
@@ -129,175 +127,6 @@ export class LeA001Component implements OnInit, OnDestroy {
         s.noFill();
         s.noLoop();
       }
-
-      s.setupDotArrays = () => {
-        this.cellsArr.forEach(arr => arr.splice(0, arr.length - 1))
-
-        this.cellsArr[0] = this.makeCells({
-          number: 200,
-          maxRadius: s.width / 6,
-          minSize: s.width / 66.7,
-          maxSize: s.width / 66.7,
-          color: {
-            fill: [135, 87, 14, 200],
-            stroke: [110, 86, 36, 200]
-          }
-        }, s);
-
-        this.cellsArr[1] = this.cellsArr[0]
-          .map(el => this.makeSubCells({
-            centerX: el.x,
-            centerY: el.y,
-            maxAmount: 10,
-            rRange: s.width / 30,
-            minSize: s.width / 30,
-            maxSize: s.width / 30,
-            color: {
-              fill: [163, 118, 21, 200],
-              stroke: [120, 91, 29, 150]
-            }
-          }, s))
-          .flat();
-
-        this.cellsArr[2] = this.cellsArr[1]
-          .map(el => this.makeSubCells({
-            centerX: el.x,
-            centerY: el.y,
-            maxAmount: 2,
-            rRange: s.width / 50,
-            minSize: s.width / 150,
-            maxSize: s.width / 60,
-            color: {
-              fill: [196, 152, 39, 160],
-              stroke: [133, 91, 19, 160]
-            }
-          }, s))
-          .flat();
-
-        this.cellsArr[3] = this.makeCells({
-          number: 50,
-          maxRadius: s.width / 20,
-          minSize: 1,
-          maxSize: s.width / 75,
-          color: {
-            fill: [174, 134, 36, 100],
-            stroke: null
-          }
-        }, s);
-
-        this.cellsArr[4] = this.cellsArr[3]
-          .map(el => this.makeSubCells({
-            centerX: el.x,
-            centerY: el.y,
-            maxAmount: 30,
-            rRange: s.width / 60,
-            minSize: s.width / 200,
-            maxSize: s.width / 40,
-            color: {
-              fill: [122, 102, 67, 30],
-              stroke: null
-            }
-          }, s))
-          .flat();
-
-        this.cellsArr[5] = this.makeCells({
-          number: 100,
-          maxRadius: s.width / 8.6,
-          minSize: 1,
-          maxSize: 1,
-          color: {
-            fill: [0, 0, 0, 0],
-            stroke: null
-          }
-        }, s);
-
-        this.cellsArr[6] = this.cellsArr[5]
-          .map(el => this.makeSubCells({
-            centerX: el.x,
-            centerY: el.y,
-            maxAmount: 10,
-            rRange: s.width / 40,
-            minSize: s.width / 66.7,
-            maxSize: s.width / 66.7,
-            color: {
-              fill: [179, 139, 37, 170],
-              stroke: [161, 125, 33, 90, 170]
-            }
-          }, s))
-          .flat();
-
-        this.cellsArr[7] = this.makeCells({
-          number: 300,
-          maxRadius: s.width / 4.3,
-          minSize: 1,
-          maxSize: 5,
-          color: {
-            fill: [163, 118, 21, 200],
-            stroke: null
-          }
-        }, s);
-
-        this.cellsArr[7] = this.makeCells({
-          number: 300,
-          maxRadius: s.width / 4.3,
-          minSize: 1,
-          maxSize: 5,
-          color: {
-            fill: [163, 118, 21, 200],
-            stroke: null
-          }
-        }, s);
-
-        this.cellsArr[8] = this.makeCells({
-          number: 300,
-          maxRadius: s.width / 20,
-          minSize: 1,
-          maxSize: 14,
-          color: {
-            fill: [100, 100, 100, 170],
-            stroke: null
-          }
-        }, s);
-
-        this.cellsArr[9] = this.makeCells({
-          number: 150,
-          maxRadius: s.width / 60,
-          minSize: 1,
-          maxSize: 14,
-          color: {
-            fill: [100, 100, 100, 170],
-            stroke: null
-          }
-        }, s);
-
-        this.cellsArr[10] = this.makeCells({
-          number: 50,
-          maxRadius: s.width / 100,
-          minSize: 1,
-          maxSize: 16,
-          color: {
-            fill: [100, 100, 100, 150],
-            stroke: null
-          }
-        }, s);
-
-        this.cellsArrReordered = [
-          this.cellsArr[1],
-          this.cellsArr[0],
-          this.cellsArr[2],
-          this.cellsArr[3],
-          this.cellsArr[4],
-          this.cellsArr[5],
-          this.cellsArr[6],
-          this.cellsArr[7],
-          this.cellsArr[8],
-          this.cellsArr[9],
-          this.cellsArr[10],
-        ]
-
-        this.generateTextureBase(s);
-      }
-
     };
 
     this.canvas = new p5(sketch);
@@ -341,7 +170,6 @@ export class LeA001Component implements OnInit, OnDestroy {
     return internalDotArr;
   }
 
-  // s.makeSubDots = (subDotCenterX: number, subDotCenterY: number, maxAmount: number, rRange: number): any[] => {
   private makeSubCells = (subCellConfigObj: SubCellConfigObj, s: p5): CellObj[] => {
     const amount = s.random(0, subCellConfigObj.maxAmount);
     const subCells = [];
@@ -371,7 +199,7 @@ export class LeA001Component implements OnInit, OnDestroy {
 
   private generateTextureBase(s: p5): void {
     this.textureArr.push(this.makeCells({
-      number: 10000,
+      number: 9000,
       maxRadius: s.width / 2 - s.width / 5,
       minSize: 1,
       maxSize: 1,
@@ -382,7 +210,7 @@ export class LeA001Component implements OnInit, OnDestroy {
     }, s))
 
     this.textureArr.push(this.makeCells({
-      number: 10000,
+      number: 8000,
       maxRadius: s.width / 2 - s.width / 5,
       minSize: 1,
       maxSize: 1,
@@ -391,6 +219,177 @@ export class LeA001Component implements OnInit, OnDestroy {
         stroke: null
       }
     }, s))
+  }
+
+  private setupDotArrays(s: p5): void {
+    this.cellsArr.forEach(arr => arr.splice(0, arr.length - 1))
+    this.textureArr.forEach(arr => arr.splice(0, arr.length - 1))
+
+    this.cellsArr[0] = this.makeCells({
+      number: 200,
+      maxRadius: s.width / 6,
+      minSize: s.width / 66.7,
+      maxSize: s.width / 66.7,
+      color: {
+        fill: [135, 87, 14, 200],
+        stroke: [110, 86, 36, 200]
+      }
+    }, s);
+
+    this.cellsArr[1] = this.cellsArr[0]
+      .map(el => this.makeSubCells({
+        centerX: el.x,
+        centerY: el.y,
+        maxAmount: 10,
+        rRange: s.width / 30,
+        minSize: s.width / 60,
+        maxSize: s.width / 25,
+        color: {
+          fill: [163, 118, 21, 80],
+          stroke: null
+          // stroke: [120, 91, 29, 150]
+        }
+      }, s))
+      .flat();
+
+    this.cellsArr[2] = this.cellsArr[1]
+      .map(el => this.makeSubCells({
+        centerX: el.x,
+        centerY: el.y,
+        maxAmount: 2,
+        rRange: s.width / 50,
+        minSize: s.width / 150,
+        maxSize: s.width / 60,
+        color: {
+          // fill: [0, 255, 0, 255],
+          fill: [196, 152, 39, 160],
+          stroke: [133, 91, 19, 110]
+        }
+      }, s))
+      .flat();
+
+    this.cellsArr[3] = this.makeCells({
+      number: 50,
+      maxRadius: s.width / 20,
+      minSize: 1,
+      maxSize: s.width / 75,
+      color: {
+        fill: [174, 134, 36, 100],
+        stroke: null
+      }
+    }, s);
+
+    this.cellsArr[4] = this.cellsArr[3]
+      .map(el => this.makeSubCells({
+        centerX: el.x,
+        centerY: el.y,
+        maxAmount: 30,
+        rRange: s.width / 60,
+        minSize: s.width / 200,
+        maxSize: s.width / 40,
+        color: {
+          fill: [122, 102, 67, 30],
+          stroke: null
+        }
+      }, s))
+      .flat();
+
+    this.cellsArr[5] = this.makeCells({
+      number: 100,
+      maxRadius: s.width / 8.6,
+      minSize: 1,
+      maxSize: 1,
+      color: {
+        fill: [0, 0, 0, 0],
+        stroke: null
+      }
+    }, s);
+
+    this.cellsArr[6] = this.cellsArr[5]
+      .map(el => this.makeSubCells({
+        centerX: el.x,
+        centerY: el.y,
+        maxAmount: 10,
+        rRange: s.width / 40,
+        minSize: s.width / 66.7,
+        maxSize: s.width / 66.7,
+        color: {
+          fill: [179, 139, 37, 170],
+          stroke: [161, 125, 33, 90, 170]
+        }
+      }, s))
+      .flat();
+
+    this.cellsArr[7] = this.makeCells({
+      number: 300,
+      maxRadius: s.width / 4.3,
+      minSize: 1,
+      maxSize: 5,
+      color: {
+        fill: [163, 118, 21, 200],
+        stroke: null
+      }
+    }, s);
+
+    this.cellsArr[7] = this.makeCells({
+      number: 300,
+      maxRadius: s.width / 4.3,
+      minSize: 1,
+      maxSize: 5,
+      color: {
+        fill: [163, 118, 21, 200],
+        stroke: null
+      }
+    }, s);
+
+    this.cellsArr[8] = this.makeCells({
+      number: 300,
+      maxRadius: s.width / 20,
+      minSize: 1,
+      maxSize: 14,
+      color: {
+        fill: [100, 100, 100, 170],
+        stroke: null
+      }
+    }, s);
+
+    this.cellsArr[9] = this.makeCells({
+      number: 150,
+      maxRadius: s.width / 60,
+      minSize: 1,
+      maxSize: 14,
+      color: {
+        fill: [100, 100, 100, 170],
+        stroke: null
+      }
+    }, s);
+
+    this.cellsArr[10] = this.makeCells({
+      number: 50,
+      maxRadius: s.width / 100,
+      minSize: 1,
+      maxSize: 16,
+      color: {
+        fill: [100, 100, 100, 150],
+        stroke: null
+      }
+    }, s);
+
+    this.cellsArrReordered = [
+      this.cellsArr[1],
+      this.cellsArr[0],
+      this.cellsArr[2],
+      this.cellsArr[3],
+      this.cellsArr[4],
+      this.cellsArr[5],
+      this.cellsArr[6],
+      this.cellsArr[7],
+      this.cellsArr[8],
+      this.cellsArr[9],
+      this.cellsArr[10],
+    ]
+
+    this.generateTextureBase(s);
   }
 
 }
