@@ -89,9 +89,11 @@ export class LeA001Component implements OnInit, OnDestroy {
     this.canvWidth = canvSizeObj.w;
     this.canvHeight = canvSizeObj.h;
 
-    this.windowSizeService.windowResize$.subscribe(() => {
-      this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-    })
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$.subscribe(() => {
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      })
+    )
 
     const sketch = (s: any) => {
 

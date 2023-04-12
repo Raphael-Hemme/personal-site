@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import _ from 'lodash';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
+import { Subscription } from 'rxjs';
 
 
 class Cell {
@@ -85,6 +86,8 @@ export class LeA002Component implements OnInit, OnDestroy {
 
   public drawIsPaused = false;
 
+  private subscriptions: Subscription = new Subscription();
+
   constructor(
     private windowSizeService: WindowSizeService
   ) {}
@@ -105,20 +108,22 @@ export class LeA002Component implements OnInit, OnDestroy {
 
     this.distLimit = (this.canvWidth / 2) - this.canvWidth / 10;
 
-    this.windowSizeService.windowResize$.subscribe(() => {
-      const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-      this.canvWidth = canvSizeObj.w; // * 0.6;
-      this.canvHeight = canvSizeObj.h; // * 0.6;
-
-      // console.log('this.canvWidth, this.canvHeight in subscription: ', this.canvWidth, this.canvHeight)
-
-      this.canvas.clear();
-      this.canvasCenter.x = this.canvWidth / 2; // canvSizeObj.w / 2;
-      this.canvasCenter.y = this.canvHeight / 2; // canvSizeObj.h / 2;
-      this. distLimit = (canvSizeObj.w / 2) - canvSizeObj.w / 5;
-      this.eraseCellsForRedraw();
-      this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-    })
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$.subscribe(() => {
+        const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+        this.canvWidth = canvSizeObj.w; // * 0.6;
+        this.canvHeight = canvSizeObj.h; // * 0.6;
+  
+        // console.log('this.canvWidth, this.canvHeight in subscription: ', this.canvWidth, this.canvHeight)
+  
+        this.canvas.clear();
+        this.canvasCenter.x = this.canvWidth / 2; // canvSizeObj.w / 2;
+        this.canvasCenter.y = this.canvHeight / 2; // canvSizeObj.h / 2;
+        this. distLimit = (canvSizeObj.w / 2) - canvSizeObj.w / 5;
+        this.eraseCellsForRedraw();
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      })
+    );
 
     const sketch = (s: p5) => {
 
@@ -296,6 +301,7 @@ export class LeA002Component implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+    this.subscriptions.unsubscribe();
   }
 
   public togglePause() {

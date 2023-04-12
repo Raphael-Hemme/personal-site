@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as p5 from 'p5';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
+import { Subscription } from 'rxjs';
 
 
 interface DotMatrixPoint {
@@ -23,6 +24,7 @@ export class PageNotFoundComponent implements OnInit {
   public canvHeight = 300;
 
   private dotMatrixArr: DotMatrixPoint[] = [];
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private windowSizeService: WindowSizeService,
@@ -44,17 +46,18 @@ export class PageNotFoundComponent implements OnInit {
     this.canvHeight = canvSizeObj.h;
 
   
-
-    this.windowSizeService.windowResize$.subscribe(() => {
-      const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-      this.canvWidth = canvSizeObj.w;
-      this.canvHeight = canvSizeObj.h;
-
-      // console.log('this.canvWidth, this.canvHeight in subscription: ', this.canvWidth, this.canvHeight)
-
-      this.canvas.clear();
-      this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-    })
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$.subscribe(() => {
+        const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+        this.canvWidth = canvSizeObj.w;
+        this.canvHeight = canvSizeObj.h;
+  
+        // console.log('this.canvWidth, this.canvHeight in subscription: ', this.canvWidth, this.canvHeight)
+  
+        this.canvas.clear();
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      })
+    );
 
     const sketch = (s: p5) => {
       // P5 SCRIPT
@@ -86,6 +89,7 @@ export class PageNotFoundComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+    this.subscriptions.unsubscribe();
   }
 
   private generateDotMatrix (s: p5): DotMatrixPoint[] {

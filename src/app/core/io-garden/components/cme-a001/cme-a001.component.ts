@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cme-a001',
@@ -14,6 +15,8 @@ export class CmeA001Component implements OnInit, OnDestroy {
 
   public canvas: any;
   public curs: any;
+
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -33,9 +36,11 @@ export class CmeA001Component implements OnInit, OnDestroy {
     this.canvWidth = canvSizeObj.w;
     this.canvHeight = canvSizeObj.h;
 
-    this.windowSizeService.windowResize$.subscribe(() => {
-      this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-    })
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$.subscribe(() => {
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      })
+    );  
 
     const sketch = (s: any) => {
 
@@ -134,6 +139,7 @@ export class CmeA001Component implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+    this.subscriptions.unsubscribe();
   }
 
 }

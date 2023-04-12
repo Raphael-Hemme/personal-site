@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
+import { Subscription } from 'rxjs';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class TeA001Component implements OnInit, OnDestroy {
   public inputText = '';
 
   public canvas: any;
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -34,9 +36,11 @@ export class TeA001Component implements OnInit, OnDestroy {
     this.canvWidth = canvSizeObj.w;
     this.canvHeight = canvSizeObj.h;
 
-    this.windowSizeService.windowResize$.subscribe(() => {
-      this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-    })
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$.subscribe(() => {
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      })
+    );
 
     const sketch = (s: any) => {
       const chars: { [key: string]: {} } = {
@@ -318,6 +322,7 @@ export class TeA001Component implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+    this.subscriptions.unsubscribe();
   }
 
 }

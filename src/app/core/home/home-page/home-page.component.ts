@@ -46,15 +46,9 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    /* this.subscriptions.add(
-      this.splashScreenService.splashScreenTimer$.subscribe(next => {
-        this.splashScreenService.splashScreenStatus.next('off');
-      })
-    ) */
-
     this.subscriptions.add(
-      timer(1000).subscribe((t) => {
-        // console.log(t);
+      timer(1000)
+      .subscribe((t) => {
         this.delayToLoadIsOver = true;
       })
     )
