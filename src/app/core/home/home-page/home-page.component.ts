@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
@@ -18,7 +18,7 @@ interface CountObj {
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit, AfterViewInit {
+export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('tagResultOuterContainer') tagResultOuterContainer!: ElementRef;
 

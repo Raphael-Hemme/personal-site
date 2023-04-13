@@ -31,14 +31,6 @@ export class P5SketchContainerComponent implements OnInit, OnDestroy {
         s.circle(s.width /2, s.height / 2, 50);
         }
       };
-
-      /* s.mouseReleased = () => {
-
-      };
-
-      s.keyPressed = () => {
-
-      }; */
     };
 
     this.canvas = new p5(sketch);

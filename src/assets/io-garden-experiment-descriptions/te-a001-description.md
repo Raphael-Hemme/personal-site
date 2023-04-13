@@ -11,6 +11,7 @@ What I found really surprising, however, was that the 'live text' feature in iOS
 ```typescript
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
+import { Subscription } from 'rxjs';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
 @Component({
@@ -26,6 +27,7 @@ export class TeA001Component implements OnInit, OnDestroy {
   public inputText = '';
 
   public canvas: any;
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private windowSizeService: WindowSizeService
@@ -33,14 +35,23 @@ export class TeA001Component implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    const calculatedCanvSize = this.windowSizeService.calcCanvasSizeRelToMainContainerWidth({
-      wPercentL: 100,
-      wPercentS: 100,
-      hPercentL: 50,
-      hPercentS: 60
-    })
-    this.canvWidth = calculatedCanvSize.width;
-    this.canvHeight = calculatedCanvSize.height;
+    const canvasConfig = {
+      'isSquare': false,
+      'wPercentS': 100,
+      'wPercentL': 100,
+      'hPercentS': 80,
+      'hPercentL': 50
+    }
+
+    const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+    this.canvWidth = canvSizeObj.w;
+    this.canvHeight = canvSizeObj.h;
+
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$.subscribe(() => {
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      })
+    );
 
     const sketch = (s: any) => {
       const chars: { [key: string]: {} } = {
@@ -259,7 +270,7 @@ export class TeA001Component implements OnInit, OnDestroy {
       s.drawString = (stringArr: any[]) => {
         if (stringArr.includes('return')) {
           const preSubStringArr = stringArr.map(el => {
-            // maybe find a better solution for the substitution of characters
+            // maybe find a better solution for the substitution characters
             // in order to not block them. Maybe Reg-Ex...
             if (el === 'return') {
               return '~';
@@ -293,6 +304,7 @@ export class TeA001Component implements OnInit, OnDestroy {
             }
           }
         }
+
       };
 
       s.translateInputStringIntoIoArr = (inputStr: string): any[] => {
@@ -321,6 +333,7 @@ export class TeA001Component implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+    this.subscriptions.unsubscribe();
   }
 
 }
