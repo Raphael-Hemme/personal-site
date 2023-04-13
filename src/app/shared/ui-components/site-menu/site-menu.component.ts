@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import {
   BreakpointObserver,
@@ -15,13 +15,14 @@ import { WindowSizeService } from '../../services/window-size-service/window-siz
   templateUrl: './site-menu.component.html',
   styleUrls: ['./site-menu.component.scss']
 })
-export class SiteMenuComponent implements OnInit {
+export class SiteMenuComponent implements OnInit, OnDestroy {
 
   public menuVisible: boolean = false;
   public isMobileView: boolean = !this.breakpointObserver.isMatched(['(min-width: 768px)']);
-  private subscriptions: Subscription = new Subscription();
   public menuClass = '';
   public transitionDisabledClass = '';
+  
+  private subscriptions: Subscription = new Subscription();
 
   constructor(
     private router: Router,
@@ -39,23 +40,22 @@ export class SiteMenuComponent implements OnInit {
           this.menuClass += ' resize-animation-stopper'
         }),
         delay(500)
-      )
-      .subscribe(() => {
+      ).subscribe(() => {
         // console.log('removing resize animation stopper')
         this.menuClass = this.menuClass.replace(' resize-animation-stopper', '')
       })
-    )
+    );
+
     this.subscriptions.add(
-      this.menuService.siteMenuIsOpen$
-      .subscribe((menuVisible) => {
+      this.menuService.siteMenuIsOpen$.subscribe((menuVisible) => {
         this.menuVisible = menuVisible;
         this.getCorrectMenuClass(this.isMobileView, this.menuVisible);
       })
-    )
+    );
+
     this.subscriptions.add(
       this.breakpointObserver
-      .observe(['(min-width: 768px)'])
-      .subscribe((state: BreakpointState) => {
+      .observe(['(min-width: 768px)']).subscribe((state: BreakpointState) => {
         if (state.matches) {
           // console.log('Viewport width is 768px or greater!');
           // this.closeSiteMenu();
@@ -68,7 +68,11 @@ export class SiteMenuComponent implements OnInit {
           this.getCorrectMenuClass(this.isMobileView, this.menuVisible);
         }
       })
-    )
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   private getCorrectMenuClass(isMobileView: boolean, menuVisible: boolean): void {

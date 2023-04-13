@@ -22,41 +22,28 @@ export class IoGardenExperimentContainerComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
 
   constructor(
-    // private route: ActivatedRoute,
     private router: Router,
     private ioGardenService: IoGardenService,
     private dataService: DataService
   ) { }
 
   ngOnInit(): void {
-/*     this.route.params.subscribe(params => {
-      this.currExperimentId = params['id']
-      this.currexperimentMetaData = this.ioGardenService.getIoGardenMetaDataById(this.currExperimentId);
-      this.currExperimentIdAsArr = this.currexperimentMetaData.id.split('');
-    }); */
-
     this.currExperimentId = this.extractIdFromUrl();
 
     this.getExperimentMetaDataAndIdAsArr();
 
     this.subscriptions.add(
       this.dataService.originOfNavigation$.subscribe(origin => this.originUrl = origin)
-    )
+    );
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe()
+    this.subscriptions.unsubscribe();
   }
 
   public handleBackBtn() {
     const currPath = `/${this.originUrl}`;
     this.router.navigate([currPath]);
-    /* console.log('this.originUrl: ', this.originUrl)
-    if (this.originUrl === '') {
-      this.router.navigate(['/']);
-    } else {
-      this.router.navigate(['/io-garden']);
-    } */
   }
 
   private extractIdFromUrl(): string {

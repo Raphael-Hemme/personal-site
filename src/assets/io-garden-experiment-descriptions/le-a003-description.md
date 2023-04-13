@@ -69,26 +69,28 @@ export class LeA003Component implements OnInit, OnDestroy {
     this.canvWidth = canvSizeObj.w;
     this.canvHeight = canvSizeObj.w;
 
-    this.windowSizeService.windowResize$
-    .pipe(
-      debounceTime(800)
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$
+      .pipe(
+        debounceTime(800)
+      )
+      .subscribe((event) => {
+        if (event?.target?.innerWidth === this.windowWidth) {
+          return
+        }
+        this.windowWidth = window.innerWidth;
+        
+        const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+        this.canvWidth = canvSizeObj.w;
+        this.canvHeight = canvSizeObj.w;
+  
+        this.canvas.clear();
+  
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+        // setTimeout(() => this.reload(), 500)
+        this.reload()
+      })
     )
-    .subscribe((event) => {
-      if (event?.target?.innerWidth === this.windowWidth) {
-        return
-      }
-      this.windowWidth = window.innerWidth;
-      
-      const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-      this.canvWidth = canvSizeObj.w;
-      this.canvHeight = canvSizeObj.w;
-
-      this.canvas.clear();
-
-      this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-      // setTimeout(() => this.reload(), 500)
-      this.reload()
-    })
 
     const sketch = (s: p5) => {
 

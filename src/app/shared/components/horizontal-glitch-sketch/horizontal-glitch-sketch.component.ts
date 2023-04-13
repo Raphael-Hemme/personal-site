@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { LoadingService } from '../../services/loading-service/loading.service';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
+import { Subscription } from 'rxjs';
 
 interface RandomSlice {
   sliceXStart: number;
@@ -29,6 +30,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   private imgXStart: number = this.canvWidth / 2 - 250;
   private imgYStart: number = this.canvWidth / 2 - 250;
 
+  private subscriptions: Subscription = new Subscription();
+
   constructor(
     private windowSizeService: WindowSizeService,
     private loadingService: LoadingService
@@ -37,26 +40,20 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     setTimeout(() => this.loadingService.startLoading(), 0);
-    this.windowSizeService.windowResize$.subscribe(() => {
-      this.triggerResize();
-    })
+
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$.subscribe(() => {
+        this.triggerResize();
+      })
+    );
 
     const currWindowWidth = window.innerWidth;
     const currWindowHeight = window.innerHeight;
-
-
-
-/*     this.canvWidth = currWindowWidth // - 35;
-    // currWindowWidth < 992 ? this.canvWidth = currWindowWidth - 30 : this.canvWidth = currWindowWidth - 35;
-    this.canvHeight = currWindowHeight; */
 
     this.setCorrectCanvDimensions();
 
     const sketch = (s: any) => {
       let img: any;
-/*       let imgXStart = 0;
-      let imgYStart = 0; */
-
 
       // const bgColor = [53, 30, 87];
       // const bgColor = [8, 84, 94];
@@ -106,67 +103,13 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
               currSliceDataObj.sliceHeight
             )
           };
-          /* for (let i = 0; i <= randSlicesCount / 2; i++) {
-            const currSliceDataObj = s.generateRandomSlice();
-              s.noStroke()
-              s.fill(50)
-              s.rect(
-                s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart),
-                currSliceDataObj.sliceYStart,
-                currSliceDataObj.sliceWidth,
-                currSliceDataObj.sliceHeight
-              )
-          }; */
-          /* for (let i = 0; i <= randSlicesCount / 4; i++) {
-            const currSliceDataObj = s.generateRandomSlice();
-              s.noStroke()
-              s.fill(bgColor)
-              s.rect(
-                s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart),
-                currSliceDataObj.sliceYStart,
-                currSliceDataObj.sliceWidth,
-                currSliceDataObj.sliceHeight
-              )
-          }; */
         }
-
-/*         if (s.random(1) > 0.96) { // 0.98
-          const randSlicesCount = s.int(s.random(5, 10))
-          for (let i = 0; i <= randSlicesCount; i++) {
-            const currSliceDataObj = s.generateRandomSlice();
-            s.noStroke()
-            // s.fill(100, 40)
-            s.fill(70, 129, 137, 80)
-            s.rect(
-              s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, s.width - s.width / 6),
-              currSliceDataObj.sliceYStart,
-              currSliceDataObj.sliceWidth,
-              currSliceDataObj.sliceHeight
-            )
-          };
-          const randSlicesCount2 = s.int(s.random(5, 10))
-          for (let i = 0; i <= randSlicesCount2; i++) {
-            const currSliceDataObj = s.generateRandomSlice();
-            s.noStroke()
-            // s.fill(100, 40);
-            s.fill(175, 212, 209, 80);
-            s.rect(
-              s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, s.width - s.width / 6),
-              currSliceDataObj.sliceYStart,
-              currSliceDataObj.sliceWidth,
-              currSliceDataObj.sliceHeight
-            );
-          };
-        } */
       };
 
       s.generateRandomSlice = (): RandomSlice => {
-        /* const randSliceWidth = s.int(s.random(10, 100));
-        const randSliceHeight = s.int(s.random(2, 10)); */
         const randSliceWidth = Math.round(s.random(this.imgWidth / 50, this.imgWidth / 5));
         const randSliceHeight = Math.round(s.random(2, 10));
-        // console.log('this.imgWidth: ', this.imgWidth)
-        // console.log('randSliceWidth, randSliceHeight: ', randSliceWidth, randSliceHeight)
+
         return {
           sliceXStart: s.int(s.random(this.imgXStart, (this.imgXStart + (this.imgWidth - randSliceWidth)))),
           sliceYStart: s.int(s.random(this.imgYStart, (this.imgYStart + (this.imgHeight - randSliceHeight)))),
@@ -229,7 +172,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   private setCenteredPosition(canvWidth: number, canvHeight: number): void {
     this.imgXStart = canvWidth / 2 - this.imgWidth / 2;
     this.imgYStart = canvHeight / 2 - this.imgHeight / 2;
-    // console.log(this.imgXStart, this.imgYStart)
   }
 
   private setImgSize(canvWidth: number, canvHeight: number): void {
@@ -244,6 +186,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+    this.subscriptions.unsubscribe();
   }
 
 }

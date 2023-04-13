@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import _ from 'lodash';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
+import { Subscription } from 'rxjs';
 
 
 interface DotArrElement {
@@ -25,6 +26,8 @@ export class PceA001Component implements OnInit, OnDestroy {
   public saveFileName = '';
   public colorText = '';
 
+  private subscriptions: Subscription = new Subscription();
+
   constructor(
     private windowSizeService: WindowSizeService
   ) {}
@@ -44,17 +47,18 @@ export class PceA001Component implements OnInit, OnDestroy {
     this.canvHeight = canvSizeObj.w  * 0.36;
     console.log(this.canvHeight, this.canvWidth)
 
-
-    this.windowSizeService.windowResize$.subscribe(() => {
-      const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-      this.canvWidth = canvSizeObj.w;
-      this.canvHeight = canvSizeObj.w * 0.36;
-
-      this.canvas.clear();
-      this.dotArr.splice(1);
-
-      this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-    })
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$.subscribe(() => {
+        const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+        this.canvWidth = canvSizeObj.w;
+        this.canvHeight = canvSizeObj.w * 0.36;
+  
+        this.canvas.clear();
+        this.dotArr.splice(1);
+  
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      })
+    );
 
     const sketch = (s: p5) => {
 
@@ -126,6 +130,7 @@ export class PceA001Component implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+    this.subscriptions.unsubscribe();
   }
 
   public saveSketch() {
