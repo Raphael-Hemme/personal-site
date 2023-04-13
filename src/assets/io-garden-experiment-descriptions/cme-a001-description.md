@@ -6,6 +6,7 @@ Cursor Madness Experiment - A001 (`CME-A001`) aka 'The Curse of the Cursor' is p
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cme-a001',
@@ -20,20 +21,31 @@ export class CmeA001Component implements OnInit, OnDestroy {
   public canvas: any;
   public curs: any;
 
+  private subscriptions: Subscription = new Subscription();
+
   constructor(
     private windowSizeService: WindowSizeService
   ) {}
 
   ngOnInit() {
 
-    const calculatedCanvSize = this.windowSizeService.calcCanvasSizeRelToMainContainerWidth({
-      wPercentL: 100,
-      wPercentS: 90,
-      hPercentL: 50,
-      hPercentS: 80
-    })
-    this.canvWidth = calculatedCanvSize.width;
-    this.canvHeight = calculatedCanvSize.height;
+    const canvasConfig = {
+      'isSquare': false,
+      'wPercentS': 100,
+      'wPercentL': 100,
+      'hPercentS': 80,
+      'hPercentL': 50
+    }
+
+    const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+    this.canvWidth = canvSizeObj.w;
+    this.canvHeight = canvSizeObj.h;
+
+    this.subscriptions.add(
+      this.windowSizeService.windowResize$.subscribe(() => {
+        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+      })
+    );  
 
     const sketch = (s: any) => {
 
@@ -132,8 +144,7 @@ export class CmeA001Component implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.canvas.remove();
+    this.subscriptions.unsubscribe();
   }
-
 }
-
 ```

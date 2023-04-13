@@ -141,5 +141,4 @@ export class CmeA001Component implements OnInit, OnDestroy {
     this.canvas.remove();
     this.subscriptions.unsubscribe();
   }
-
 }

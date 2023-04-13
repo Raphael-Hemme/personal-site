@@ -91,7 +91,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
   constructor(
     private windowSizeService: WindowSizeService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.profile = this.loadProfile();
@@ -109,14 +109,15 @@ export class MaeA001Component implements OnInit, OnDestroy {
           }, 0);
         }
       })
-    )
+    );
+
     this.subscriptions.add(
       this.windowSizeService.windowResize$
-      .pipe(
-        throttleTime(50)
-      )
-      .subscribe(() => this.bootAndRenderD3Chart())
-    )
+        .pipe(
+          throttleTime(50)
+        )
+        .subscribe(() => this.bootAndRenderD3Chart())
+    );
   }
 
 
@@ -140,21 +141,20 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.session.timerIsRunning = true;
     this.isInFocusView = true;
 
-    this.baseIntervalSub = this.baseInterval$
-    .pipe(
+
+    this.baseIntervalSub = this.baseInterval$.pipe(
       tap(val => {
         if ((val * 20) % 1000 === 0) {
           this.countDownTimer();
           this.generateDisplayTimerStr();
         }
       })
-    )
-    .subscribe(val => {
+    ).subscribe(val => {
       if ((val * 20) % 5000 === 0 && (val * 20) % 10000 !== 0 && this.circleGrowDir === 'GROW') {
         this.circleGrowDir = 'SHRINK';
       } else if ((val * 20) % 10000 === 0 && this.circleGrowDir === 'SHRINK') {
         this.circleGrowDir = 'GROW';
-      } 
+      }
 
       if (this.circleGrowDir === 'GROW') {
         this.circleRadius = this.circleRadius + 0.3;
@@ -176,8 +176,8 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.session.stopTime = DateTime.now();
     this.session.completedSessionTime = Number(
       this.session.stopTime
-      .diff(this.session.startTime!, 'seconds')
-      .toFormat('s')
+        .diff(this.session.startTime!, 'seconds')
+        .toFormat('s')
     );
     this.saveSession();
     this.updateProfile();
@@ -229,7 +229,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
   }
 
   private returnDefaultValuesForSession(): SessionObj {
-     return {
+    return {
       timerIsRunning: false,
       completedSessionTime: 0,
       date: undefined,
@@ -254,7 +254,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
     setTimeout(() => {
       this.currMode$$.next('HOME');
       this.bootAndRenderD3Chart();
-    },0)
+    }, 0)
   }
 
   public goIntoSettingsMode(): void {
@@ -285,7 +285,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
       this.stopSession();
     }
   }
-  
+
   public handleModelChangeOnHours(): void {
     this.generateDisplayTimerStr()
   }
@@ -316,9 +316,9 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.displayTimer = result;
   }
 
-/*   public reload(): void {
-    this.canvas.clear();
-  } */
+  /*   public reload(): void {
+      this.canvas.clear();
+    } */
 
   public closeResetWarningDialog(): void {
     this.resetWarningDialogIsOpen = false;
@@ -343,43 +343,43 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
     this.subscriptions.add(
       this.windowSizeService.windowResize$
-      .subscribe(() => {
-        const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
-        this.canvWidth = canvSizeObj.w;
-        this.canvHeight = canvSizeObj.w;
+        .subscribe(() => {
+          const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
+          this.canvWidth = canvSizeObj.w;
+          this.canvHeight = canvSizeObj.w;
 
-        this.canvas.clear();
+          this.canvas.clear();
 
-        this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
-      })
+          this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
+        })
     )
   }
 
   private generateAndExecuteSketchAndCanvas(): void {
     const sketch = (s: p5) => {
       s.setup = () => {
-       let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
-       canvas2.parent('mae-a001-sketch-wrapper');
-       s.background(240, 240, 240);
-     };
+        let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
+        canvas2.parent('mae-a001-sketch-wrapper');
+        s.background(240, 240, 240);
+      };
 
-     s.draw = () => {
-       // s.background(240, 240, 240);
-       s.background(35, 81, 116);
+      s.draw = () => {
+        // s.background(240, 240, 240);
+        s.background(35, 81, 116);
 
-       if (this.session.timerIsRunning) {
+        if (this.session.timerIsRunning) {
           s.fill(186, 255, 41);
           s.noStroke();
-         // s.stroke(35, 81, 116);
-         // s.strokeWeight(2);
-         //s.noFill();
-         s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
-       }
-      
-     }
-   }
+          // s.stroke(35, 81, 116);
+          // s.strokeWeight(2);
+          //s.noFill();
+          s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
+        }
 
-   this.canvas = new p5(sketch);
+      }
+    }
+
+    this.canvas = new p5(sketch);
   }
 
   private generateD3Chart(w = 500, h = 150): void {
@@ -390,15 +390,15 @@ export class MaeA001Component implements OnInit, OnDestroy {
     const padding = h / 50;
     const colWidth = (w - colGap) / sessions.length - colGap;
     const maxYVal = d3.max(sessions, (session) => session.completedSessionTime) ?? h
-    
+
     const yScale = d3.scaleLinear()
-    .domain([0, maxYVal])
-    .range([padding, h * 0.8 - padding])
+      .domain([0, maxYVal])
+      .range([padding, h * 0.8 - padding])
 
     /* const xScale = d3.scaleLinear()
     .domain([0, sessions.length])
     .range([padding, w - padding]) */
-    
+
     // const xAxis = d3.axisBottom(xScale)
 
     const alreadyExistingSvgNodeList = document.getElementsByTagName('svg');
@@ -430,14 +430,14 @@ export class MaeA001Component implements OnInit, OnDestroy {
       .append('title')
       .text((d): string => {
         let result: string = d.date + ' : ';
-        let currValStr: string =  d.completedSessionTime < 60 
-        ? d.completedSessionTime + ' Sec.' 
-        : (d.completedSessionTime / 60).toFixed(2) + ' Min.'
+        let currValStr: string = d.completedSessionTime < 60
+          ? d.completedSessionTime + ' Sec.'
+          : (d.completedSessionTime / 60).toFixed(2) + ' Min.'
         result += currValStr;
-        return result ;
+        return result;
       })
 
-      // svgCols.on('click', (event) => console.log('test'))
+    // svgCols.on('click', (event) => console.log('test'))
 
     /* svg.append('g')
         .attr('transform', 'translate(0, ' + (h - padding) + ')')
@@ -459,22 +459,22 @@ export class MaeA001Component implements OnInit, OnDestroy {
     const endDate = DateTime.now();
     let startDate: DateTime;
     if (dateRangeNumber === -1) {
-      startDate = sessions[0].date ? DateTime.fromISO(sessions[0].date) : endDate.minus({'days': 7});
+      startDate = sessions[0].date ? DateTime.fromISO(sessions[0].date) : endDate.minus({ 'days': 7 });
     } else {
-      startDate = endDate.minus({'days': dateRangeNumber});
+      startDate = endDate.minus({ 'days': dateRangeNumber });
     }
 
     const result: SessionObj[] = [];
 
     const dateReducedSessionTimesArr = Object.values(_.groupBy(sessions, 'date'))
-    .map(dateArr => {
-      const resultObj = this.returnDefaultValuesForSession();
-      resultObj.completedSessionTime = dateArr.reduce((prev, curr) => prev + curr.completedSessionTime, 0)
-      resultObj.date = dateArr[0].date;
-      return resultObj;
-    })
+      .map(dateArr => {
+        const resultObj = this.returnDefaultValuesForSession();
+        resultObj.completedSessionTime = dateArr.reduce((prev, curr) => prev + curr.completedSessionTime, 0)
+        resultObj.date = dateArr[0].date;
+        return resultObj;
+      })
 
-    for (let i = startDate; i <= endDate; i = i.plus({'days': 1})) {
+    for (let i = startDate; i <= endDate; i = i.plus({ 'days': 1 })) {
       if (dateReducedSessionTimesArr.some(el => el.date === i.toFormat('yyyy-MM-dd'))) {
         const currSessionObj = dateReducedSessionTimesArr.find(el => el.date === i.toFormat('yyyy-MM-dd')) as SessionObj
         result.push(currSessionObj);
@@ -488,4 +488,5 @@ export class MaeA001Component implements OnInit, OnDestroy {
   }
 
 }
+
 ```
