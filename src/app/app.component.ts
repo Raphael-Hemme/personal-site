@@ -5,6 +5,7 @@ import {
   OnDestroy,
   ViewChild,
   ElementRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Router,
   NavigationEnd } from '@angular/router';
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('mainContentContainer') mainContentContainer!: ElementRef;
 
   public title = 'raphaelhemme';
-  public smallLogoIsVisible = false;
+  public smallLogoIsVisible!: boolean;
 
   private currRoute: BehaviorSubject<string> = new BehaviorSubject('');
 
@@ -39,7 +40,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private location: Location,
     private loadingService: LoadingService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private cD: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +60,10 @@ export class AppComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(
-      this.menuService.smallLogoIsVisible$.subscribe(smallLogoIsVisible => this.smallLogoIsVisible = smallLogoIsVisible)
+      this.menuService.smallLogoIsVisible$.subscribe(smallLogoIsVisible => {
+        this.smallLogoIsVisible = smallLogoIsVisible;
+        this.cD.detectChanges();
+      })
     );
   }
 
