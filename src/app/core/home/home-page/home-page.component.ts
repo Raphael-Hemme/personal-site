@@ -1,9 +1,9 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { Subscription, timer } from 'rxjs';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Subscription, fromEvent, timer } from 'rxjs';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
-// import { SplashScreenService } from 'src/app/shared/services/splash-screen-service/splash-screen.service';
 import _ from 'lodash';
+import { MenuService } from 'src/app/shared/services/menu-service/menu.service';
 
 interface TagObjNameAndCount {
   name: string;
@@ -18,7 +18,7 @@ interface CountObj {
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomePageComponent implements OnInit, OnDestroy {
 
   @ViewChild('tagResultOuterContainer') tagResultOuterContainer!: ElementRef;
 
@@ -38,11 +38,14 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public delayToLoadIsOver = false;
 
+  private scrollEventObserver = fromEvent(document, 'scroll');
+  private currScrollY$$: BehaviorSubject<number> = new BehaviorSubject(0);
+
 
   constructor(
-    // private splashScreenService: SplashScreenService,
     private ioGardenService: IoGardenService,
-    private blogService: BlogService
+    private blogService: BlogService,
+    private menuService: MenuService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +55,20 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.delayToLoadIsOver = true;
       })
     )
+
+    this.subscriptions.add(
+      this.scrollEventObserver.subscribe(() => this.currScrollY$$.next(window.scrollY))
+    )
+
+    this.subscriptions.add(
+      this.currScrollY$$.subscribe((currScrollY: number) => {
+        if (currScrollY <= window.innerHeight) {
+          this.menuService.setSmallLogoVisibile(false);
+        } else {
+          this.menuService.setSmallLogoVisibile(true);
+        }
+      })
+    );
 
     this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
@@ -63,12 +80,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.unifiedAndCountedTagsArr = _.orderBy(unorderedUnifiedAndCountedArr, 'count', 'desc');
   }
 
-  ngAfterViewInit(): void {
-
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.menuService.setSmallLogoVisibile(true);
   }
 
   private unifyAndCountTagArrays(arr1: string[], arr2: string[]): TagObjNameAndCount[]  {
@@ -102,7 +116,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       this.blogPostsAndExperimentsSelectedByTag = _.orderBy(resultArr, 'phase' ,'desc')
       this.currNameSelectedTag = tag;
     }
-    // this.tagResultOuterContainer.nativeElement.scrollIntoView({block: "end", behavior: "smooth"});
   }
 
 }
