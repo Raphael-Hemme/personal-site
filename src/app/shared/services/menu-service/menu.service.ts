@@ -7,8 +7,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class MenuService {
 
   private siteMenuIsOpen: boolean = false;
-  private siteMenuIsOpen$$: BehaviorSubject<boolean> = new BehaviorSubject(this.siteMenuIsOpen);
+  private siteMenuIsOpen$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.siteMenuIsOpen);
   public siteMenuIsOpen$: Observable<boolean> = this.siteMenuIsOpen$$.asObservable();
+
+  private smallLogoIsVisible$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public smallLogoIsVisible$: Observable<boolean> = this.smallLogoIsVisible$$.asObservable();
 
   constructor() { }
 
@@ -34,5 +37,9 @@ export class MenuService {
       this.siteMenuIsOpen = true;
       this.siteMenuIsOpen$$.next(true);
     }
+  }
+
+  public setSmallLogoVisibile(isVisible: boolean): void {
+    this.smallLogoIsVisible$$.next(isVisible);
   }
 }
