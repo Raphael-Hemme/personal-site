@@ -10,7 +10,7 @@ export class MenuService {
   private siteMenuIsOpen$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.siteMenuIsOpen);
   public siteMenuIsOpen$: Observable<boolean> = this.siteMenuIsOpen$$.asObservable();
 
-  private smallLogoIsVisible$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private smallLogoIsVisible$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   public smallLogoIsVisible$: Observable<boolean> = this.smallLogoIsVisible$$.asObservable();
 
   constructor() { }
