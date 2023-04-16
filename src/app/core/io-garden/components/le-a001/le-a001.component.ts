@@ -100,7 +100,6 @@ export class LeA001Component implements OnInit, OnDestroy {
         for (let cellArr of this.cellsArrReordered) {
           console.log('cellArr.length', cellArr.length);
           for (let cell of cellArr) {
-            // s.fill('deepPink')
             s.fill(...cell.color.fill);
             if (cell.color.stroke?.length) {
               s.stroke(...cell.color.stroke);
@@ -114,7 +113,6 @@ export class LeA001Component implements OnInit, OnDestroy {
 
         for (let textureSubArr of this.textureArr) {
           for (let point of textureSubArr) {
-            // s.fill('deepPink')
             s.fill(...point.color.fill);
             if (point.color.stroke?.length) {
               s.stroke(...point.color.stroke);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, fromEvent, switchMap, startWith, tap } from 'rxjs';
+import { BehaviorSubject, Observable, fromEvent, switchMap, tap } from 'rxjs';
 
 export interface CanvasSizeReturnObj {
   'w': number;
@@ -13,7 +13,6 @@ export interface CanvasConfigObj {
   'hPercentS': number;
   'hPercentL': number;
 }
-
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +53,6 @@ export class WindowSizeService {
 
   public setCurrentMainContainerHeight(value: number): void {
     this.currMainContainerHeight = value;
-    // console.log('setting mainContentHeight to: ', value);
   }
 
   public getCurrentMainContainerHeight(): number {
@@ -68,7 +66,7 @@ export class WindowSizeService {
     let canvHeight = canvSizeObj.h;
 
     canvas.resizeCanvas(canvWidth, canvHeight);
-    // canvas.redraw();
+    canvas.redraw();
   }
 
   public calculateCanvasSize(canvasConfig: CanvasConfigObj): CanvasSizeReturnObj {
@@ -76,24 +74,25 @@ export class WindowSizeService {
       w: 0,
       h: 0
     }
-
     
     if (window.innerWidth <= 768) {
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentS) - 35;
+      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentS) - 20;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentS);
+      console.log('result.w below 769: ', result.w);
     } else if (window.innerWidth > 768 && window.innerWidth < 1200) {
       // result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 175;
+      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 160;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
+      console.log('result.w: below 1200', result.w);
     } else {
       if (!canvasConfig.isSquare) {
+        // 1005px is the hard coded size of the main-content-container on windowInnerwidth of 1200 and up. 
+        // 1005 because it is the dynamic size before the breakpoint gets activated -> prevents size glitches. 
         result.w = 1005;
       } else {
         result.w = (1005 / 100) * canvasConfig.wPercentL;
       }
        
-      // 1005px is the hard coded size of the main-content-container on windowInnerwidth of 1200 and up. 
-      // 1005 because it is the dynamic size before the breakpoint gets activated -> prevents size glitches. 
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
     }
 
