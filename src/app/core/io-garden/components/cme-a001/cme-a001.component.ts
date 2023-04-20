@@ -40,7 +40,7 @@ export class CmeA001Component implements OnInit, OnDestroy {
       this.windowSizeService.windowResize$.subscribe(() => {
         this.windowSizeService.triggerCanvasResize(this.canvas, canvasConfig);
       })
-    );  
+    );
 
     const sketch = (s: any) => {
 
