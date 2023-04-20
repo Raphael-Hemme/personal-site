@@ -45,12 +45,6 @@ h1 {
     font-size: 7rem;
     line-height: 1.5;
   }
-
-  // experimental
-/*   text-shadow: -1px -1px 0 #baff29, 1px -1px 0 #baff29, -1px 1px 0 #baff29, 1px 1px 0 #baff29;
-  font-size: 8rem;
-  color: rgb(114 147 172);
-*/
 }
 
 
@@ -97,7 +91,7 @@ h4 {
 
 p,
 button,
-ol, ul,
+ol li, ul li,
 table,
 label,
 input,
@@ -177,9 +171,6 @@ button {
   color: $dark-gray;
   margin: 20px 0;
   font-size: 1rem;
-/*   @media (min-width: 992px) {
-    margin: 20px 0;
-  } */
 }
 
 .blog-post-markdown a {

@@ -4,34 +4,29 @@
     <h2>Raphael Hemme</h2>
 
     <h3>
-      <!-- <span>Developer</span>
-      <span class="dot-seperator">&#8226;</span>
-      <span>Cultural Anthropologist</span>
-      <span class="dot-seperator">&#8226;</span>
-      <span>Design Nerd</span> -->
-      <span 
-        (mouseenter)="toggleDevHighlight()" 
-        (mouseleave)="toggleDevHighlight()">
-        Developer
-      </span>, <br /> <span
-        (mouseenter)="toggleAnthropologyHighlight()" 
-        (mouseleave)="toggleAnthropologyHighlight()">
+      <span (mouseenter)="toggleDevHighlight()" (mouseleave)="toggleDevHighlight()">
+        Developer &
+      </span>
+      <span (mouseenter)="toggleAnthropologyHighlight()" (mouseleave)="toggleAnthropologyHighlight()">
         Anthropologist
-      </span>,<br /> <span
-        (mouseenter)="toggleDesignHighlight()" 
-        (mouseleave)="toggleDesignHighlight()">
-        Design Enthusiast
       </span>
     </h3>
-    
+
   </div>
 
   <div class="short-about-container">
-    <p>I'm a <span class="paragraph-anthropology-span" [ngClass]="anthropologyIsHighlighted ? 'highlighted-span' : ''">social and cultural anthroplogist</span> turned 
-      <span class="paragraph-dev-span" [ngClass]="devIsHighlighted ? 'highlighted-span' : ''">web developer</span> focusing on the frontend with a passion for 
-      <span class="paragraph-design-span" [ngClass]="designIsHighlighted ? 'highlighted-span' : ''">logo, type and generative design</span>.</p>
-    <p>When day turns night and the streets are getting crowded with super heroes, super villains and party people, I'm probably sitting in front of my screen
-       trying to integrate anthropological theory with coding practice and computational concepts. Sometimes struggling with minor merge conflicts.</p>
+    <p>I'm a <span class="paragraph-anthropology-span"
+        [ngClass]="anthropologyIsHighlighted ? 'highlighted-span' : ''">social and cultural anthropologist</span> turned
+      <span class="paragraph-dev-span" [ngClass]="devIsHighlighted ? 'highlighted-span' : ''">web developer</span>
+      focusing on frontend matters and data visualization.
+    </p>
+    <p>When day turns night and the streets are getting crowded with super heroes, super villains and party people, I'm
+      probably sitting in front of my screen
+      trying to integrate anthropological theory with coding practice and computational concepts or coding concepts with
+      anthropological practices. <br />
+      Sometimes struggling with minor merge conflicts.
+    </p>
+
     <!-- <button
       (click)="toggleLongAboutIsShown()"
       class="toggle-long-about-btn btn-primary-flat">
@@ -45,36 +40,49 @@
         </span>
     </button> -->
   </div>
-<!--   <div class="long-about-paragraphs">
+  <!--   <div class="long-about-paragraphs">
     <p>{{ aboutP1 }}</p>
     <p>{{ aboutP2 }}</p>
     <p>{{ aboutP3 }}</p>
     <p>{{ aboutP4 }}</p>
   </div> -->
-    
+
+  <div class="other-interests">
+    <h4>Also interested in: </h4>
+    <ul class="tag-container">
+      <li class="tag-item">creative coding & generative art</li>
+      <li class="tag-item">functional & reactive programming</li>
+      <li class="tag-item">cybernetics & complexity</li>
+      <li class="tag-item">logo & type design</li>
+      <li class="tag-item">mechanical & EC keyboards</li>
+      <!--       <li class="tag-item">
+        <input placeholder="your suggestion" type="text"/>
+        <button type="button"></button>
+      </li> -->
+    </ul>
+  </div>
+
+
   <div class="social-media-container">
     <p>Drop me a line on social media</p>
     <div class="social-media-link-wrapper">
       <div class="icon-white-bg"></div>
       <a href="https://linkedin.com/in/raphael-hemme" target="_blank" rel="external">
-        <img src="assets/images/social-icons/LI-In-Bug.png" alt="LinkedIn Logo"/>
+        <img src="assets/images/social-icons/LI-In-Bug.png" alt="LinkedIn Logo" />
       </a>
       <a href="https://twitter.com/raphael_hemme" target="_blank" rel="external">
-        <img src="assets/images/social-icons/Twitter social icons - rounded square - blue.png" alt="Twitter Logo"/>
+        <img src="assets/images/social-icons/Twitter social icons - rounded square - blue.png" alt="Twitter Logo" />
       </a>
       <a href="https://github.com/Raphael-Hemme" target="_blank" rel="external">
-        <img src="assets/images/social-icons/GitHub-Mark-Light-120px-plus.png" alt="Github Logo - inverted octocat"/>
+        <img src="assets/images/social-icons/GitHub-Mark-Light-120px-plus.png" alt="Github Logo - inverted octocat" />
       </a>
     </div>
   </div>
 
-  
+
   <div class="about-image">
     <div class="profile-picture-outline">
-      <img
-      src="../../../../assets/images/photos/profile-photo-20220410.jpg"
-      alt="Portrait"
-      class="prifile-picture"/>
+      <img src="../../../../assets/images/photos/profile-photo-20220410.jpg" alt="Portrait" class="prifile-picture" />
     </div>
   </div>
 
@@ -82,31 +90,31 @@
     <h3>Tech Stack</h3>
 
     <h4>In Focus</h4>
-    <p>These are the technologies I currently focus on:</p>
+    <p>Technologies I currently focus on:</p>
     <ul class="tag-container">
       <li class="tag-item">TypeScript</li>
       <li class="tag-item">JavaScript</li>
       <li class="tag-item">Angular</li>
       <li class="tag-item">RxJS</li>
       <li class="tag-item">P5</li>
-      <li class="tag-item">GraphQL</li>
       <li class="tag-item">HTML</li>
       <li class="tag-item">CSS / SCSS</li>
+      <li class="tag-item">GraphQL</li>
     </ul>
 
     <h4>Preview</h4>
-    <p>Frameworks and libraries, that I want to learn and use in upcoming projects:</p>
+    <p>Languages, frameworks and libraries I want to learn and use in upcoming projects:</p>
     <ul class="tag-container">
       <li class="tag-item">D3</li>
-      <li class="tag-item">Tauri</li>
-      <li class="tag-item">Svelte</li>
       <li class="tag-item">Qwik</li>
+      <li class="tag-item">Tauri</li>
       <li class="tag-item">Deno</li>
       <li class="tag-item">Fresh</li>
+      <li class="tag-item">Rust</li>
     </ul>
-    
+
     <h4>Peripheral Use</h4>
-    <p>These are technologies I used before and am considering getting back into at some point:</p>
+    <p>Technologies I used before and am considering getting back into at some point:</p>
     <ul class="tag-container">
       <li class="tag-item">React</li>
       <li class="tag-item">Vue</li>
@@ -118,5 +126,3 @@
 
   </div>
 </section>
-
-
