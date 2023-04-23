@@ -42,6 +42,34 @@
   align-self: flex-end;
 }
 
+.io-garden-detailed-explanation {
+  p {
+    margin: 0 0 60px 0;
+  }
+  summary {
+    font-family: Roboto, sans-serif;
+    font-size: 1.2rem;
+    color: $brand;
+    margin: 0 0 20px 0;
+    cursor: pointer;
+  }
+  .close-io-garden-detailed-explanation-btn {
+    margin: 0 0 20px 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    span {
+      font-family: Roboto, sans-serif;
+      font-size: 1.2rem;
+      color: $brand;
+    }
+    .close-triangle-character {
+      font-size: 1rem;
+    }
+  }
+}
+
+
 .io-garden-bench {
   width: 100%;
   padding: 25px 0;
