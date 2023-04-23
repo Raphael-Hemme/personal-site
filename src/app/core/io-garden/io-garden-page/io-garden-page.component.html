@@ -10,22 +10,35 @@
         <p class="paragraph-regular">
           {{ ioAbstract }}
         </p>
-        <button
+<!--         <button
         (click)="toggleIoGardenExplanation()"
         class="toggle-read-more-btn btn-accent-flat">
           more
-        </button>
+        </button> -->
       </div>
     </div>
   </section>
 
-  <app-modal 
+<!--   <app-modal 
     (modalCloseEvent)="toggleIoGardenExplanation()"
     *ngIf="ioExplanationIsShown">
       <p class="io-garden-explanation paragraph-regular">
         {{ ioNameExplainer }}
       </p>
-  </app-modal>
+  </app-modal> -->
+
+  <details class="io-garden-detailed-explanation" #ioGardenDetails>
+    <summary class="io-garden-tell-me-more-summary">tell me more.</summary>
+    <p class="io-garden-explanation two-col-p-on-lg">
+      {{ ioNameExplainer }}
+    </p>
+    <button type="button" 
+            (click)="closeIoGardenDetailedExplanation()"
+            class="close-io-garden-detailed-explanation-btn">
+            <span class="close-triangle-character">&#9650;</span>
+            <span> got it.</span>
+    </button>
+  </details>
 
   <section class="io-garden-bench">
     <div
