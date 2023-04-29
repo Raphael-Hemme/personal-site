@@ -49,11 +49,12 @@
     border-radius: 50%;
     height: 60px;
     width: 60px;
-}
-
-.focus-mode-btn span {
-    color: $brand;
-    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 30px;
+    }
 }
 
 .home-mode-btn {
@@ -61,9 +62,9 @@
     &:hover {
         background-color: $subtle-two;
     }
-    span {
+    img {
         color: $subtle-three;
-        font-size: 32px;
+        opacity: 0.8;
     }
 }
 
