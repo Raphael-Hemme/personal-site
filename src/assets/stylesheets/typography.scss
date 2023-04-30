@@ -28,10 +28,16 @@
 }
 
 // Roboto
-@font-face {
+/* @font-face {
   font-family: 'Roboto';
   font-style: normal;
   src: url('./../fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+} */
+
+// Inter
+@font-face {
+  font-family: 'Inter';
+  src: url('./../fonts/Inter/Inter-VariableFont.ttf') format('truetype');
 }
 
 // Roboto Mono
@@ -129,10 +135,10 @@ label,
 input,
 select,
 select option {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 300;
   font-size: 1.2rem;
-  line-height: 1.6rem;
+  line-height: 1.8rem;
 }
 
 a {
@@ -201,10 +207,11 @@ button {
 .experiment-description-markdown,
 .blog-post-markdown {
   p, span, ul, ol, em {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif;
     color: $dark-gray;
     margin: 20px 0;
     font-size: 1.3rem;
+    line-height: 1.8;
     @media (min-width: $md) {
       font-size: 1.2rem;
     }
@@ -227,14 +234,15 @@ button {
   }
 
   strong {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 500;
   }
 
   a {
     color: $info;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.3rem;
+    line-height: 1.8;
     @media (min-width: $md) {
       font-size: 1.2rem;
     }
