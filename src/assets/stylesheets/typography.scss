@@ -201,6 +201,7 @@ button {
 .experiment-description-markdown,
 .blog-post-markdown {
   p, span, ul, ol, em {
+    font-family: 'Roboto', sans-serif;
     color: $dark-gray;
     margin: 20px 0;
     font-size: 1.3rem;
@@ -232,6 +233,11 @@ button {
 
   a {
     color: $info;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    @media (min-width: $md) {
+      font-size: 1.2rem;
+    }
   }
 
   .token.interpolation {
