@@ -138,7 +138,11 @@ select option {
   font-family: 'Inter', sans-serif;
   font-weight: 300;
   font-size: 1.2rem;
-  line-height: 1.8rem;
+  line-height: 1.5rem;
+  @media (min-width: $md) {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+  }
 }
 
 a {
@@ -211,9 +215,10 @@ button {
     color: $dark-gray;
     margin: 20px 0;
     font-size: 1.3rem;
-    line-height: 1.8;
+    line-height: 1.5;
     @media (min-width: $md) {
       font-size: 1.2rem;
+      line-height: 1.8;
     }
   }
 
