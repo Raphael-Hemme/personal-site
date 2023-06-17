@@ -169,5 +169,23 @@
       ],
       "isPublished": true,
       "category": "post"
+    },
+    {
+      "id": "bp-2023-05-29-a",
+      "title": "Clojure & ClojureScript Learning Resources",
+      "abstract": "",
+      "dateOriginal": "2023-05-29",
+      "dateLastEdited": "2023-06-04",
+      "phase": 1,
+      "previewImageUrl": "assets/images/blog-preview-images/punchCardPattern-209-100-29.png",
+      "tags": [
+        "coding practice",
+        "clojure",
+        "clojurescript",
+        "learning resources",
+        "functional programming"
+      ],
+      "isPublished": true,
+      "category": "post"
     }
   ]
