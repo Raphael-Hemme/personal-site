@@ -123,6 +123,8 @@
       }
     }
   },
-  "defaultProject": "raphaelhemme"
+  "cli": {
+    "analytics": false
+  }
 }
 
