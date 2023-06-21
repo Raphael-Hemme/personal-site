@@ -1,5 +1,4 @@
 // dosis
-
 // oswald
 
 // noto sans mono
@@ -27,13 +26,6 @@
   src: url('./../fonts/Urbanist/Urbanist-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
-// Roboto
-/* @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  src: url('./../fonts/Roboto/Roboto-Regular.ttf') format('truetype');
-} */
-
 // Inter
 @font-face {
   font-family: 'Inter';
@@ -54,6 +46,7 @@
 }
 
 @import './breakpoints.scss';
+@import './variables.scss';
 
 
 * {
@@ -166,7 +159,10 @@ button {
 .two-col-p-on-lg {
   column-count: unset;
   column-gap: unset;
-  font-weight: 100;
+  background-color: $white;
+  color: $dark-gray;
+  padding: 10px;
+  border-radius: $card-boarder-radius;
   @media (min-width: $md) {
     column-count: 2;
     column-gap: 50px;
