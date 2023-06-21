@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { BehaviorSubject, Subscription, fromEvent, timer } from 'rxjs';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
-import _ from 'lodash';
+import { orderBy } from 'lodash';
 import { MenuService } from 'src/app/shared/services/menu-service/menu.service';
 
 interface TagObjNameAndCount {
@@ -77,7 +77,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.allBlogTags = this.blogService.getAllBlogTags();
 
     const unorderedUnifiedAndCountedArr = this.unifyAndCountTagArrays(this.allIoGardenTags, this.allBlogTags);
-    this.unifiedAndCountedTagsArr = _.orderBy(unorderedUnifiedAndCountedArr, 'count', 'desc');
+    this.unifiedAndCountedTagsArr = orderBy(unorderedUnifiedAndCountedArr, 'count', 'desc');
   }
 
   ngOnDestroy(): void {
@@ -113,7 +113,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
         ...this.blogService.getIoGardenExperimentsByTag(tag),
         ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
       ]
-      this.blogPostsAndExperimentsSelectedByTag = _.orderBy(resultArr, 'phase' ,'desc')
+      this.blogPostsAndExperimentsSelectedByTag = orderBy(resultArr, 'phase' ,'desc')
       this.currNameSelectedTag = tag;
     }
   }

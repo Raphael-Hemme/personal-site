@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
-import _ from 'lodash';
+import { orderBy } from 'lodash';
 
 @Component({
   selector: 'app-blog-page',
@@ -18,7 +18,7 @@ export class BlogPageComponent implements OnInit {
     private blogService: BlogService
   ) {
     this.postsData = this.blogService.getAllBlogPostsMetaData()
-    this.blogPostsMetaDataSortetByDate = _.orderBy(this.postsData, 'dateOriginal', 'desc')
+    this.blogPostsMetaDataSortetByDate = orderBy(this.postsData, 'dateOriginal', 'desc')
   }
 
   ngOnInit(): void {}
