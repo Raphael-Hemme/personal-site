@@ -22,13 +22,14 @@
       </button>
     </div>
 
+    <button type="button" class="btn-accent-flat search-btn" (click)="handleSearchBtnClick()">
+      search
+    </button>
+
+    <app-search *ngIf="searchComponentIsVisible$ | async"></app-search>
+
     <div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
       <div class="featured-io-garden-experiment">
-<!--         <app-io-garden-experiment-preview
-          [metaData]="featuredIoGardenExperiment"
-          [imgPosition]="'top'"
-          class="io-garden-experiment-card">
-        </app-io-garden-experiment-preview> -->
         <app-preview-card
           [metaData]="featuredIoGardenExperiment"
           [imgPosition]="'top'"

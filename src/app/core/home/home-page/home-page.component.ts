@@ -4,6 +4,7 @@ import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-serv
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { orderBy } from 'lodash';
 import { MenuService } from 'src/app/shared/services/menu-service/menu.service';
+import { SearchService } from 'src/app/shared/services/search-service/search.service';
 
 interface TagObjNameAndCount {
   name: string;
@@ -41,11 +42,14 @@ export class HomePageComponent implements OnInit, OnDestroy {
   private scrollEventObserver = fromEvent(document, 'scroll');
   private currScrollY$$: BehaviorSubject<number> = new BehaviorSubject(0);
 
+  public searchComponentIsVisible$ = this.searchService.searchComponentIsVisible$;
+
 
   constructor(
     private ioGardenService: IoGardenService,
     private blogService: BlogService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -116,6 +120,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
       this.blogPostsAndExperimentsSelectedByTag = orderBy(resultArr, 'phase' ,'desc')
       this.currNameSelectedTag = tag;
     }
+  }
+
+  public handleSearchBtnClick(): void {
+    this.searchService.toggleSearchComponentIsVisible();
   }
 
 }

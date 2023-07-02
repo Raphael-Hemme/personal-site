@@ -42,7 +42,8 @@ import { SearchComponent } from './components/search/search.component';
     IoGardenExperimentContainerComponent,
     TagListComponent,
     SiteMenuComponent,
-    ModalComponent
+    ModalComponent,
+    SearchComponent,
   ]
 })
 export class SharedModule { }
