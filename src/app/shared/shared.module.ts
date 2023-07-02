@@ -14,6 +14,7 @@ import { TagListComponent } from './ui-components/tag-list/tag-list.component';
 import { SiteMenuComponent } from './ui-components/site-menu/site-menu.component';
 import { ModalComponent } from './ui-components/modal/modal.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SiteMenuComponent,
     ModalComponent,
     PageNotFoundComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,
