@@ -1,4 +1,4 @@
-<div class="app-component-container">
+<div class="app-component-container" [ngClass]="(searchComponentIsVisible$ | async) ? 'no-scroll' : ''">
   <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
     <button class="menu-logo-btn" *ngIf="smallLogoIsVisible">
       <img
