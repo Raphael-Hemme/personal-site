@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
+import { FormsModule } from '@angular/forms';
+
 
 
 // import { P5SketchContainerComponent } from './components/p5-sketch-container/p5-sketch-container.component';
@@ -33,7 +35,8 @@ import { SearchComponent } from './components/search/search.component';
     CommonModule,
     RouterModule,
     AppRoutingModule,
-    MarkdownModule
+    MarkdownModule,
+    FormsModule
   ],
   exports: [
     // P5SketchContainerComponent,

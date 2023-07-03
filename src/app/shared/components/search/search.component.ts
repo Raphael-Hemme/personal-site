@@ -9,6 +9,8 @@ import { SearchService } from 'src/app/shared/services/search-service/search.ser
 })
 export class SearchComponent {
 
+  public searchInputValue= '';
+
   constructor(
     private searchService: SearchService,
   ) { }
@@ -17,5 +19,7 @@ export class SearchComponent {
     this.searchService.toggleSearchComponentIsVisible();
   }
 
-
+  public handleInputChanges(event: any): void {
+    console.log('handleSearchInput() event: ', event);
+  }
 }
