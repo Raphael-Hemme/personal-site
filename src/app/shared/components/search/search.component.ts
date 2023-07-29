@@ -21,5 +21,7 @@ export class SearchComponent {
 
   public handleInputChanges(event: any): void {
     console.log('handleSearchInput() event: ', event);
+    this.searchService.search(event);
+
   }
 }
