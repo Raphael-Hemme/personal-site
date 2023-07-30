@@ -27,10 +27,17 @@ export class SearchService {
     this.searchComponentIsVisible$$.next(!this.searchComponentIsVisible$$.value);
   }
 
-  public search(searchTerm: string): any {
-    const searchResults = this.searchIndexArr.filter(el => el.searchTerm.includes(searchTerm));
-    // console.log('results', searchResults);
-    this.searchResults$$.next(searchResults);
-    return searchResults;
+  public search(searchTerm: string): void {
+    if (searchTerm) {
+      const searchResults = this.searchIndexArr.filter(el => {
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        const lowerCaseElSearchTerm = el.searchTerm.toLowerCase();
+        return el.searchTerm.includes(searchTerm) || lowerCaseElSearchTerm.includes(lowerCaseSearchTerm);
+      });
+      this.searchResults$$.next(searchResults);
+    } else {
+      this.searchResults$$.next([]);
+    }
+    // return searchResults;
   }
 }

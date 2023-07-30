@@ -31,11 +31,16 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  public handleCloseBtnClick(): void {
+  public closeSearch(): void {
     this.searchService.toggleSearchComponentIsVisible();
   }
 
-  public handleInputChanges(event: any): void {
+  public preventUnwantedCloseEvent(event: Event): void {
+    event.stopPropagation();
+    return;
+  }
+
+  public handleInputChanges(event: string): void {
     console.log('handleSearchInput() event: ', event);
     this.searchService.search(event);
   }
