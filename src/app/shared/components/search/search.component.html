@@ -19,12 +19,14 @@
       
       <div class="search-component-input-container">
         <input 
-        type="text" 
-        class="search-component-input" 
-        placeholder="Search" 
-        [(ngModel)]="searchInputValue"
-        (ngModelChange)="handleInputChanges($event)"
-        autofocus/>
+          type="text" 
+          class="search-component-input" 
+          placeholder="Search" 
+          [(ngModel)]="searchInputValue"
+          (ngModelChange)="handleInputChanges($event)"
+          autofocus
+          tabindex="0"
+          #searchInput/>
         <!-- <button class="search-component-close-btn btn-dark-flat" (click)="closeSearch()">
           close
         </button> -->

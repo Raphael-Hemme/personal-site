@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SearchIndexEntry, SearchService } from 'src/app/shared/services/search-service/search.service';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -8,12 +9,18 @@ import { SearchIndexEntry, SearchService } from 'src/app/shared/services/search-
   styleUrls: ['./search.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public searchInputValue= '';
   public searchResults: SearchIndexEntry[] = [];
 
   private subscriptions: Subscription = new Subscription();
+
+  @HostListener('document:keydown.escape') escKeydownHandler() {
+    this.closeSearch();
+  }
+
+  @ViewChild('searchInput') searchInput!: HTMLInputElement;
 
   constructor(
     private searchService: SearchService,
@@ -25,6 +32,11 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.searchResults = searchResults;
       })
     );
+  }
+
+  ngAfterViewInit(): void {
+    this.searchInput.focus();
+    this.searchInput.select();
   }
 
   ngOnDestroy(): void {
