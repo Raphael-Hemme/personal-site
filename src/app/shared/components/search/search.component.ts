@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SearchIndexEntry, SearchService } from 'src/app/shared/services/search-service/search.service';
-import { HostListener } from '@angular/core';
+import { HostListener, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     this.closeSearch();
   }
 
-  @ViewChild('searchInput') searchInput!: HTMLInputElement;
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private searchService: SearchService,
@@ -35,16 +35,18 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.searchInput.focus();
-    this.searchInput.select();
+    this.searchInput.nativeElement.focus();
+    this.searchInput.nativeElement.select();
   }
 
   ngOnDestroy(): void {
+    this.searchService.resetSearchResults();
     this.subscriptions.unsubscribe();
   }
 
   public closeSearch(): void {
     this.searchService.toggleSearchComponentIsVisible();
+    this.ngOnDestroy();
   }
 
   public preventUnwantedCloseEvent(event: Event): void {

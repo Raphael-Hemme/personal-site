@@ -38,6 +38,9 @@ export class SearchService {
     } else {
       this.searchResults$$.next([]);
     }
-    // return searchResults;
+  }
+
+  public resetSearchResults(): void {
+    this.searchResults$$.next([]);
   }
 }
