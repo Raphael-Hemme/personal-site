@@ -29,5 +29,10 @@ app-search {
       display: flex;
       justify-content: space-between;
     }
+
+    .search-component-result-container {
+      height: 100%;
+      overflow-y: scroll;
+    }
   }
 }

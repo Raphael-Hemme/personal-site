@@ -17,8 +17,15 @@
     </div>
 
     <div class="search-component-result-container">
-      <div class="search-component-result-item">
+      <div class="search-component-result-item" *ngFor="let result of searchResults">
+        <div>
+          <h4>{{result.searchTerm}}</h4>
+          <div *ngFor="let resultEntry of result.searchResults">
+            <span>{{resultEntry.file}}</span><br/>
+            <span>{{resultEntry.line}}</span>
+          </div>
 
+        </div>
       </div>
     </div>
   </div>
