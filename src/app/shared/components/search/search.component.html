@@ -1,31 +1,39 @@
 <div class="search-component-background" (click)="closeSearch()">
   <div class="search-component-container" (click)="preventUnwantedCloseEvent($event)">
 
-    <div class="search-component-input-and-controlls-container">
-      <input 
+    <div class="search-component-result-sources-and-search-container">
+
+      <div class="search-component-result-sources-container">
+        <div class="search-component-result-item" *ngFor="let result of searchResults">
+          <div>
+            <h4>{{result.searchTerm}}</h4>
+            <div *ngFor="let resultEntry of result.searchResults">
+              <span>{{resultEntry.file}}</span>
+              <span> - on line: </span>
+              <span>{{resultEntry.line}}</span>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      
+      <div class="search-component-input-container">
+        <input 
         type="text" 
         class="search-component-input" 
         placeholder="Search" 
         [(ngModel)]="searchInputValue"
         (ngModelChange)="handleInputChanges($event)"
         autofocus/>
-      <!-- <button class="search-component-close-btn btn-dark-flat" (click)="closeSearch()">
-        close
-      </button> -->
-    </div>
-
-    <div class="search-component-result-container">
-      <div class="search-component-result-item" *ngFor="let result of searchResults">
-        <div>
-          <h4>{{result.searchTerm}}</h4>
-          <div *ngFor="let resultEntry of result.searchResults">
-            <span>{{resultEntry.file}}</span>
-            <span> - on line: </span>
-            <span>{{resultEntry.line}}</span>
-          </div>
-
-        </div>
+        <!-- <button class="search-component-close-btn btn-dark-flat" (click)="closeSearch()">
+          close
+        </button> -->
       </div>
+
     </div>
+    
+    <div class="search-component-result-preview-container"></div>
+
+
   </div>
 </div>

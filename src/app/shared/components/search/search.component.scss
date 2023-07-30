@@ -23,31 +23,52 @@ app-search {
     width: 70%;
     height: 50%;
     display: flex;
-    flex-direction: column-reverse;
     padding: 10px;
     gap: 5px;
 
-    .search-component-input-and-controlls-container {
+    .search-component-result-sources-and-search-container{
       display: flex;
-      justify-content: space-between;
-      .search-component-input {
-        width: 100%;
-        height: 35px;
-        border-radius: 5px;
+      flex-direction: column;
+      gap: 5px;
+      width: 50%;
+      
+      .search-component-result-sources-container {
+        height: 100%;
+        overflow-y: scroll;
+        padding: 10px;
         border: 1px solid #416770;
-        padding: 0 10px;
-        font-size: 1.2rem;
-        color: $light-gray;
-        // background-color: #2a2a2a;
-        background-color: transparent;
-        &:focus {
-          outline: transparent;
+        border-radius: 5px;
+        h4 {
+          color: $brand;
+        }
+        span {
+          color: $light-gray
+        }
+      }
+
+      .search-component-input-container {
+        display: flex;
+        justify-content: space-between;
+        .search-component-input {
+          width: 100%;
+          height: 35px;
+          border-radius: 5px;
+          border: 1px solid #416770;
+          padding: 0 10px;
+          font-size: 1.2rem;
+          color: $light-gray;
+          // background-color: #2a2a2a;
+          background-color: transparent;
+          &:focus {
+            outline: transparent;
+          }
         }
       }
     }
 
-    .search-component-result-container {
+    .search-component-result-preview-container {
       height: 100%;
+      width: 50%;
       overflow-y: scroll;
       padding: 10px;
       border: 1px solid #416770;
