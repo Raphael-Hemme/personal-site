@@ -21,7 +21,8 @@
         <div>
           <h4>{{result.searchTerm}}</h4>
           <div *ngFor="let resultEntry of result.searchResults">
-            <span>{{resultEntry.file}}</span><br/>
+            <span>{{resultEntry.file}}</span>
+            <span> - on line: </span>
             <span>{{resultEntry.line}}</span>
           </div>
 
