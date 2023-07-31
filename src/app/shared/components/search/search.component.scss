@@ -50,16 +50,23 @@ app-search {
             gap: 5px;
             padding: 5px 0;
             h4 {
-              color: $brand;
               margin: 0;
+              span {
+                color: rgb(151, 151, 151);
+              }
+              span.search-component-highlight {
+                color: $brand;
+                font-weight: 500;
+              }
             }
-            span {
-              color: $light-gray
+            .result-source-listing {
+              cursor: pointer;
+              span {
+                color: $light-gray
+              }
             }
           }
-
         }
-
       }
 
       .search-component-input-container {
@@ -115,4 +122,9 @@ app-search {
       }
     }
   }
+
+/*   .search-component-highlight {
+    color: $brand !important;
+    font-weight: 700;
+  } */
 }

@@ -3,6 +3,16 @@ import { Subscription } from 'rxjs';
 import { SearchIndexEntry, SearchResult, SearchService } from 'src/app/shared/services/search-service/search.service';
 import { HostListener, ElementRef } from '@angular/core';
 
+interface HighlightedSearchIndexEntry extends SearchIndexEntry {
+  highlightedSearchTerm: HighlightedSearchTermObj;
+}
+
+interface HighlightedSearchTermObj {
+  pre: string;
+  match: string;
+  post: string;
+}
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -12,7 +22,7 @@ import { HostListener, ElementRef } from '@angular/core';
 export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public searchInputValue= '';
-  public searchResults: SearchIndexEntry[] = [];
+  public searchResults: HighlightedSearchIndexEntry[] = [];
   public currPreviewPath = '';
 
   private subscriptions: Subscription = new Subscription();
@@ -30,7 +40,13 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.add(
       this.searchService.searchResults$.subscribe((searchResults: SearchIndexEntry[]) => {
-        this.searchResults = searchResults;
+        this.searchResults = searchResults.map(el => {
+          const result: HighlightedSearchIndexEntry = {
+            ...el,
+            highlightedSearchTerm: this.highlightSearchTerm(el.searchTerm, this.searchInputValue)
+          };
+          return result;
+        });
       })
     );
   }
@@ -64,5 +80,16 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     const fileName = searchResult.file.slice(2);
     this.currPreviewPath = '/assets/' + fileName;
     console.log('selectedPath: ', this.currPreviewPath)
+  }
+
+  private highlightSearchTerm(searchResultStr: string, searchTerm: string): HighlightedSearchTermObj {
+    const origCaseSearchResultIndexStart = searchResultStr.toLowerCase().indexOf(searchTerm.toLowerCase());
+    const origCaseSearchResultIndexEnd = origCaseSearchResultIndexStart + searchTerm.length;
+    
+    return {
+      pre: searchResultStr.slice(0, origCaseSearchResultIndexStart),
+      match: searchResultStr.slice(origCaseSearchResultIndexStart, origCaseSearchResultIndexEnd),
+      post: searchResultStr.slice(origCaseSearchResultIndexEnd)
+    };
   }
 }

@@ -6,10 +6,16 @@
       <div class="search-component-result-sources-container">
         <div class="result-sources-wrapper">
           <div class="search-component-result-item" *ngFor="let result of searchResults">
-            <h4>{{result.searchTerm}}</h4>
-            <div *ngFor="let resultEntry of result.searchResults" (click)="handleSearchResultClick(resultEntry)">
+            <h4>
+              <span>{{result.highlightedSearchTerm.pre}}</span>
+              <span class="search-component-highlight">{{result.highlightedSearchTerm.match}}</span>
+              <span>{{result.highlightedSearchTerm.post}}</span>
+            </h4>
+            <div *ngFor="let resultEntry of result.searchResults" 
+                 (click)="handleSearchResultClick(resultEntry)"
+                 class="result-source-listing">
               <span>{{resultEntry.file}}</span>
-              <span> - on line: </span>
+              <span>  -  line: </span>
               <span>{{resultEntry.line}}</span>
             </div>
           </div>
@@ -25,9 +31,6 @@
           (ngModelChange)="handleInputChanges($event)"
           tabindex="0"
           #searchInput/>
-        <!-- <button class="search-component-close-btn btn-dark-flat" (click)="closeSearch()">
-          close
-        </button> -->
       </div>
 
     </div>
