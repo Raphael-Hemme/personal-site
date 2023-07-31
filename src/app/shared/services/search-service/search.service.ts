@@ -5,8 +5,13 @@ import searchIndex from '../../../../assets/search-index.json';
 
 export interface SearchIndexEntry {
   searchTerm: string;
-  searchResults: { file: string; line: number; }[];
+  searchResults: SearchResult[];
 };
+
+export interface SearchResult {
+  file: string; 
+  line: number;
+}
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SearchIndexEntry, SearchService } from 'src/app/shared/services/search-service/search.service';
+import { SearchIndexEntry, SearchResult, SearchService } from 'src/app/shared/services/search-service/search.service';
 import { HostListener, ElementRef } from '@angular/core';
 
 @Component({
@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public searchInputValue= '';
   public searchResults: SearchIndexEntry[] = [];
+  public currPreviewPath = '';
 
   private subscriptions: Subscription = new Subscription();
 
@@ -57,5 +58,11 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   public handleInputChanges(event: string): void {
     console.log('handleSearchInput() event: ', event);
     this.searchService.search(event);
+  }
+
+  public handleSearchResultClick(searchResult: SearchResult): void {
+    const fileName = searchResult.file.slice(2);
+    this.currPreviewPath = '/assets/' + fileName;
+    console.log('selectedPath: ', this.currPreviewPath)
   }
 }
