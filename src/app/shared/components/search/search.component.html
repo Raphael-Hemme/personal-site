@@ -6,13 +6,11 @@
       <div class="search-component-result-sources-container">
         <div class="result-sources-wrapper">
           <div class="search-component-result-item" *ngFor="let result of searchResults">
-            <div>
-              <h4>{{result.searchTerm}}</h4>
-              <div *ngFor="let resultEntry of result.searchResults" (click)="handleSearchResultClick(resultEntry)">
-                <span>{{resultEntry.file}}</span>
-                <span> - on line: </span>
-                <span>{{resultEntry.line}}</span>
-              </div>
+            <h4>{{result.searchTerm}}</h4>
+            <div *ngFor="let resultEntry of result.searchResults" (click)="handleSearchResultClick(resultEntry)">
+              <span>{{resultEntry.file}}</span>
+              <span> - on line: </span>
+              <span>{{resultEntry.line}}</span>
             </div>
           </div>
         </div>

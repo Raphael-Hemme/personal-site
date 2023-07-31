@@ -43,12 +43,21 @@ app-search {
           width: 100%;
           overflow-y: scroll;
           font-family: Inter;
-          h4 {
-            color: $brand;
+
+          .search-component-result-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 5px 0;
+            h4 {
+              color: $brand;
+              margin: 0;
+            }
+            span {
+              color: $light-gray
+            }
           }
-          span {
-            color: $light-gray
-          }
+
         }
 
       }
@@ -97,7 +106,10 @@ app-search {
           blockquote {
             font-size: 1rem;
             color: $light-gray;
-          } 
+          }
+          h1, h2, h3, h4, h5, h6 {
+            color: $brand;
+          }
         }
 
       }
