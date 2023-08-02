@@ -95,7 +95,8 @@ h2 {
   }
 }
 
-.tag-selection-section {
+.tag-selection-section,
+.search-section {
   margin: 100px 0 0 0;
   display: flex;
   flex-direction: column;
@@ -196,4 +197,37 @@ h2 {
   align-items: center;
   color: $light-gray;
   padding: 10px;
+}
+
+.search-section {
+  margin: 70px 0 20px 0;
+  gap: 0;
+  @media (min-width: 1200px) {
+    margin: 150px 0 20px 0;
+  }
+
+  .search-section-text-and-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    .search-intro,
+    .search-btn-wrapper {
+      width: 100%;
+      button {
+        width: 100%;
+      }
+    }
+    
+    @media (min-width: $md) {
+      flex-direction: row-reverse;
+      
+      .search-intro {
+        width: 80%;
+      }
+      .search-btn-wrapper {
+        width: 20%;
+      }
+    }
+  }
 }

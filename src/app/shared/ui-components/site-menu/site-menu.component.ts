@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Subscription, tap, delay } from 'rxjs';
 import { MenuService } from '../../services/menu-service/menu.service';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
+import { SearchService } from '../../services/search-service/search.service';
 
 @Component({
   selector: 'app-site-menu',
@@ -28,7 +29,8 @@ export class SiteMenuComponent implements OnInit, OnDestroy {
     private router: Router,
     private menuService: MenuService,
     private breakpointObserver: BreakpointObserver,
-    private windowSizeService: WindowSizeService
+    private windowSizeService: WindowSizeService,
+    private searchService: SearchService
   ) { }
 
   ngOnInit(): void {
@@ -119,4 +121,8 @@ export class SiteMenuComponent implements OnInit, OnDestroy {
     this.menuService.closeMenu();
   }
 
+  public handleSerchBtn(): void {
+    this.searchService.openSearch();
+    this.menuService.closeMenu();
+  }
 }

@@ -15,32 +15,19 @@
         <a [routerLink]="['/io-garden']">io-garden</a> or <a [routerLink]="['/blog']">blog</a>
         for a list of all available posts and experiments.
       </p>
-      <button
-        class="btn-accent-flat refresh-btn"
-        (click)="handleRefreshFeaturedBtn()">
-          reload
+      <button class="btn-accent-flat refresh-btn" (click)="handleRefreshFeaturedBtn()">
+        reload
       </button>
     </div>
 
-    <button type="button" class="btn-accent-flat search-btn" (click)="handleSearchBtnClick()">
-      search
-    </button>
-
-    <app-search *ngIf="searchComponentIsVisible$ | async"></app-search>
 
     <div class="featured-container" *ngIf="featuredIoGardenExperiment && featuredBlogPost">
       <div class="featured-io-garden-experiment">
-        <app-preview-card
-          [metaData]="featuredIoGardenExperiment"
-          [imgPosition]="'top'"
-          class="blog-posts-preview-card">
+        <app-preview-card [metaData]="featuredIoGardenExperiment" [imgPosition]="'top'" class="blog-posts-preview-card">
         </app-preview-card>
       </div>
       <div class="featured-blog-post">
-        <app-preview-card
-          [metaData]="featuredBlogPost"
-          [imgPosition]="'top'"
-          class="blog-posts-preview-card">
+        <app-preview-card [metaData]="featuredBlogPost" [imgPosition]="'top'" class="blog-posts-preview-card">
         </app-preview-card>
       </div>
     </div>
@@ -50,37 +37,46 @@
     <div class="tag-selection-heading-and-tags">
       <h3>Select a topic of interest</h3>
       <ul class="tag-container">
-        <li
-          class="tag-item"
-          [ngClass]="tagItem.name === currNameSelectedTag? 'tag-selected' : ''"
-          *ngFor="let tagItem of unifiedAndCountedTagsArr"
-          (click)="handleTagSelection(tagItem.name)">
-            {{ tagItem.name }} | {{tagItem.count}}
+        <li class="tag-item" [ngClass]="tagItem.name === currNameSelectedTag? 'tag-selected' : ''"
+          *ngFor="let tagItem of unifiedAndCountedTagsArr" (click)="handleTagSelection(tagItem.name)">
+          {{ tagItem.name }} | {{tagItem.count}}
         </li>
       </ul>
     </div>
 
 
     <div class="tag-result-outer-container" #tagResultOuterContainer>
-      <div
-        class="tag-result-inner-container"
-        *ngIf="blogPostsAndExperimentsSelectedByTag">
-        <div
-          class="tag-selection-result-wrapper"
-          *ngFor="let result of blogPostsAndExperimentsSelectedByTag">
-            <app-preview-card
-              [metaData]="result"
-              [imgPosition]="'left'"
-              class="blog-posts-preview-card">
-            </app-preview-card>
+      <div class="tag-result-inner-container" *ngIf="blogPostsAndExperimentsSelectedByTag">
+        <div class="tag-selection-result-wrapper" *ngFor="let result of blogPostsAndExperimentsSelectedByTag">
+          <app-preview-card [metaData]="result" [imgPosition]="'left'" class="blog-posts-preview-card">
+          </app-preview-card>
         </div>
       </div>
       <p class="pre-selection-msg" *ngIf="!blogPostsAndExperimentsSelectedByTag">
         Select a tag to display related blog posts and experiments.
       </p>
     </div>
-    
+
   </section>
 
-</div>
+  <section class="search-section">
+    <h3>Search for a specific topic</h3>
+    
+    <div class="search-section-text-and-btn-wrapper">
+      <p class="search-intro">
+        If you still have not found what you were looking for, feel free to use my hand crafted search function to find blog posts and experiments related to a specific topic or word you have in mind.<br /><br />
+        <!-- Try it out! Search for 'search' for example to find out how I built this search function and the script to preprocess text files. -->
+        Go ahead, try it out! Search for 'javascript' or 'rxjs' or even just a word fragment like 'graph' to find among other things posts related to 'ethnography'. 
+      </p>
+      <div class="search-btn-wrapper">
+        <button type="button" class="btn-accent-flat search-btn" (click)="handleSearchBtnClick()">
+          search
+        </button>
+      </div>
+    </div>
+    
+    <app-search *ngIf="searchComponentIsVisible$ | async"></app-search>
+  </section>
+  
 
+</div>

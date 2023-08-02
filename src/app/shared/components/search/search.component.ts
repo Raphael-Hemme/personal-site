@@ -62,7 +62,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public closeSearch(): void {
-    this.searchService.toggleSearchComponentIsVisible();
+    this.searchService.closeSearch();
     this.ngOnDestroy();
   }
 

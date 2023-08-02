@@ -28,10 +28,6 @@ export class SearchService {
 
   constructor() { }
 
-  public toggleSearchComponentIsVisible() {
-    this.searchComponentIsVisible$$.next(!this.searchComponentIsVisible$$.value);
-  }
-
   public search(searchTerm: string): void {
     if (searchTerm) {
       const searchResults = this.searchIndexArr.filter(el => {
@@ -44,8 +40,21 @@ export class SearchService {
       this.searchResults$$.next([]);
     }
   }
-
+  
   public resetSearchResults(): void {
     this.searchResults$$.next([]);
+  }
+  
+  public openSearch(): void {
+    this.searchComponentIsVisible$$.next(true);
+  }
+  
+  public closeSearch(): void {
+    this.searchComponentIsVisible$$.next(false);
+    this.resetSearchResults();
+  }
+
+  public toggleSearchComponentIsVisible() {
+    this.searchComponentIsVisible$$.next(!this.searchComponentIsVisible$$.value);
   }
 }
