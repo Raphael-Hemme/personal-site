@@ -73,6 +73,10 @@ app-search {
           }
           .result-source-listing {
             cursor: pointer;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             span {
               color: $light-gray
             }
@@ -83,8 +87,6 @@ app-search {
 
     .search-component-input-container {
       grid-area: search-component-input-area;
-      display: flex;
-      justify-content: space-between;
       .search-component-input {
         width: 100%;
         height: 35px;
@@ -103,9 +105,6 @@ app-search {
 
     .search-component-result-preview-container {
       grid-area: search-component-result-preview-area;
-      // max-height: calc(100%);
-      // max-width: calc(100%);
-
       height: 100%;
       width: 100%;
 
