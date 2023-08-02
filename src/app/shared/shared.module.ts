@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
+import { FormsModule } from '@angular/forms';
+
 
 
 // import { P5SketchContainerComponent } from './components/p5-sketch-container/p5-sketch-container.component';
@@ -14,6 +16,7 @@ import { TagListComponent } from './ui-components/tag-list/tag-list.component';
 import { SiteMenuComponent } from './ui-components/site-menu/site-menu.component';
 import { ModalComponent } from './ui-components/modal/modal.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -26,12 +29,14 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SiteMenuComponent,
     ModalComponent,
     PageNotFoundComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     AppRoutingModule,
-    MarkdownModule
+    MarkdownModule,
+    FormsModule
   ],
   exports: [
     // P5SketchContainerComponent,
@@ -40,7 +45,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     IoGardenExperimentContainerComponent,
     TagListComponent,
     SiteMenuComponent,
-    ModalComponent
+    ModalComponent,
+    SearchComponent,
   ]
 })
 export class SharedModule { }

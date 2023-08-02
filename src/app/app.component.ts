@@ -16,6 +16,7 @@ import {
   map } from 'rxjs';
 import { LoadingService } from './shared/services/loading-service/loading.service';
 import { MenuService } from './shared/services/menu-service/menu.service';
+import { SearchService } from './shared/services/search-service/search.service';
 
 
 @Component({
@@ -35,6 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription()
   public currLoading!: boolean;
 
+  public searchComponentIsVisible$ = this.searchService.searchComponentIsVisible$;
+
 
   constructor(
     private router: Router,
@@ -42,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private menuService: MenuService,
     private cD: ChangeDetectorRef,
+    private searchService: SearchService,
   ) {}
 
   ngOnInit(): void {
