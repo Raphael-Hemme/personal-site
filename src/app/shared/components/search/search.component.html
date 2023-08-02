@@ -1,48 +1,40 @@
 <div class="search-component-background" (click)="closeSearch()">
   <div class="search-component-container" (click)="preventUnwantedCloseEvent($event)">
 
-    <div class="search-component-result-sources-and-search-container">
-
-      <div class="search-component-result-sources-container">
-        <div class="result-sources-wrapper">
-          <div class="search-component-result-item" *ngFor="let result of searchResults">
-            <h4>
-              <span>{{result.highlightedSearchTerm.pre}}</span>
-              <span class="search-component-highlight">{{result.highlightedSearchTerm.match}}</span>
-              <span>{{result.highlightedSearchTerm.post}}</span>
-            </h4>
-            <div *ngFor="let resultEntry of result.searchResults" 
-                 (click)="handleSearchResultClick(resultEntry)"
-                 class="result-source-listing">
-              <span>{{resultEntry.file}}</span>
-              <span>  -  line: </span>
-              <span>{{resultEntry.line}}</span>
-            </div>
+    <div class="search-component-result-sources-container">
+      <div class="result-sources-wrapper">
+        <div class="search-component-result-item" *ngFor="let result of searchResults">
+          <h4>
+            <span>{{result.highlightedSearchTerm.pre}}</span>
+            <span class="search-component-highlight">{{result.highlightedSearchTerm.match}}</span>
+            <span>{{result.highlightedSearchTerm.post}}</span>
+          </h4>
+          <div *ngFor="let resultEntry of result.searchResults" (click)="handleSearchResultClick(resultEntry)"
+            class="result-source-listing">
+            <span>{{resultEntry.file}}</span>
+            <span> - line: </span>
+            <span>{{resultEntry.line}}</span>
           </div>
         </div>
       </div>
-      
-      <div class="search-component-input-container">
-        <input 
-          type="text" 
-          class="search-component-input" 
-          placeholder="Search" 
-          [(ngModel)]="searchInputValue"
-          (ngModelChange)="handleInputChanges($event)"
-          tabindex="0"
-          #searchInput/>
-      </div>
-
     </div>
-    
+
+    <div class="search-component-input-container">
+      <input type="text" class="search-component-input" placeholder="Search" [(ngModel)]="searchInputValue"
+        (ngModelChange)="handleInputChanges($event)" tabindex="0" #searchInput />
+      
+    </div>
+
     <div class="search-component-result-preview-container">
       <div class="preview-inner-wrapper">
-        <markdown
-          [src]="currPreviewPath"
-          class="search-preview-markdown">
+        <markdown [src]="currPreviewPath" class="search-preview-markdown">
         </markdown>
       </div>
     </div>
+
+    <button class="search-component-close-btn btn-dark-flat" (click)="closeSearch()" tabindex="1">
+      x
+    </button>
 
   </div>
 </div>
