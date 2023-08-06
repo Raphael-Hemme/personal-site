@@ -77,6 +77,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
         s.background(...bgColor);
         this.loadingService.stopLoading();
+        this.removeLoadingScreen();
         // s.generateBackgroundGradient();
       };
 
@@ -181,6 +182,14 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
     } else {
       this.imgWidth = 500;
       this.imgHeight = 500;
+    }
+  }
+
+  private removeLoadingScreen(): void {
+    const initialLoadingScreen = document.getElementById('inititial-loading-screen');
+    if (initialLoadingScreen) {
+      initialLoadingScreen.classList.add('initial-loading-screen--hidden');
+      initialLoadingScreen.classList.remove('initial-loading-screen');
     }
   }
 
