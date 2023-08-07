@@ -87,8 +87,10 @@ app-search {
 
     .search-component-input-container {
       grid-area: search-component-input-area;
+      display: flex;
+      justify-content: space-between;
       .search-component-input {
-        width: 100%;
+        width: 80%;
         height: 35px;
         border-radius: 5px;
         border: 1px solid #416770;
@@ -96,8 +98,24 @@ app-search {
         font-size: 1.2rem;
         color: $light-gray;
         background-color: transparent;
+
+
         &:focus {
           outline: transparent;
+        }
+        @media (min-width: $md) {
+          width: 100%;
+        }
+      }
+      .search-component-close-btn {
+        width: 35px;
+        height: 35px;
+        min-width: unset;
+        padding: 0;
+        text-align: center;
+        border-radius: 50%;
+        @media (min-width: $md) {
+          display: none;
         }
       }
     }
@@ -138,19 +156,5 @@ app-search {
       }
     }
 
-  }
-  .search-component-close-btn {
-    position: sticky;
-    bottom: 15px;
-    right: 15px;
-    width: 35px;
-    height: 35px;
-    min-width: unset;
-    padding: 0;
-    text-align: center;
-    border-radius: 50%;
-    @media (min-width: $md) {
-      display: none;
-    }
   }
 }

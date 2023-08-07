@@ -27,7 +27,7 @@
 
   <div 
     class="loading-screen"
-    *ngIf="currLoading">
+    *ngIf="isLoading$ | async">
     <div class="loading-spinner"></div>
   </div>
 

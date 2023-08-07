@@ -9,6 +9,12 @@
 @import './assets/stylesheets/variables.scss';
 
 
+// still not sure why this is the only way to get permanantly rid of the loading screen 
+// and why removing the element will put it back in at a weired space inside the dom
+:root {
+  --loading-screen-display: block;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -104,25 +110,25 @@ li {
 }
 
 .initial-loading-screen {
+  display: var(--loading-screen-display);
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 110;
-  // background-color: $subtle-two;
-  background-color: deeppink;
+  background-color: $subtle-two;
 
   .initial-loading-spinner {
     position: fixed;
     top: calc(50% - 100px);
     left: calc(50% - 100px); 
-    border: 3px solid $subtle-two; 
-    border-top: 3px solid $brand;
+    border: 3px solid $subtle-three; 
+    border-top: 4px solid $brand;
     border-radius: 50%;
     width: 200px;
     height: 200px;
-    animation: spin 0.5s linear infinite;
+    animation: spin 0.7s linear infinite;
     z-index: 21;
 
     @media (min-width: 500px) and (max-width: 635px) {

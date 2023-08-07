@@ -12,7 +12,7 @@ export class LoadingService {
   private afterViewInitSignal$$ = new Subject<ViewInitSignalValue>();
   private initialLoadingScreenWasRemoved$$ = new Subject<boolean>();
 
-  private isLoading$$ = new BehaviorSubject<boolean>(false);
+  private isLoading$$ = new BehaviorSubject<boolean>(true);
   public isLoading$ = this.isLoading$$.asObservable();
   
   private subscriptions: Subscription = new Subscription();
@@ -41,7 +41,6 @@ export class LoadingService {
         filter((routerEvent) => routerEvent instanceof NavigationEnd),
         combineLatestWith(this.afterViewInitSignal$$),
       ).subscribe(([routerEvent, viewInitSignal]) => {
-        // console.log('test', routerEvent, viewInitSignal)
         if (viewInitSignal !== 'LOADING') {
           this.isLoading$$.next(false);
         }
@@ -54,11 +53,12 @@ export class LoadingService {
   }
 
   public removeInitialLoadingScreen(): void {
-    let initialLoadingScreen: HTMLElement | null = document.getElementById('inititial-loading-screen');
+    let initialLoadingScreen = document.getElementById('inititial-loading-screen');
     console.log('initialLoadingScreen before remove: ', initialLoadingScreen)
+    document.documentElement.style.setProperty('--loading-screen-display', 'none');
     if (initialLoadingScreen) {
-      initialLoadingScreen.classList.add('initial-loading-screen--hidden');
-      initialLoadingScreen.classList.remove('initial-loading-screen');
+      // initialLoadingScreen.classList.add('initial-loading-screen--hidden');
+      // initialLoadingScreen.classList.remove('initial-loading-screen');
       // initialLoadingScreen.remove();
       this.initialLoadingScreenWasRemoved$$.next(true);
       console.log('removed')

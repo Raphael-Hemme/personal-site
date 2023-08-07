@@ -72,7 +72,6 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public handleInputChanges(event: string): void {
-    console.log('handleSearchInput() event: ', event);
     this.searchService.search(event);
   }
 
