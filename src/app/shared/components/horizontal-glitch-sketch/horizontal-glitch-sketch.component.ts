@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import p5 from 'p5';
 import { LoadingService } from '../../services/loading-service/loading.service';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
@@ -19,6 +19,8 @@ interface RandomSlice {
   styleUrls: ['./horizontal-glitch-sketch.component.scss']
 })
 export class HorizontalGlitchSketchComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @Output() viewInitSignal = new EventEmitter<string>();
 
   public canvas: any;
 
@@ -82,7 +84,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, AfterViewInit, O
         s.image(img, this.imgXStart, this.imgYStart, this.imgWidth, this.imgHeight);
 
         if (s.frameCount === 3) {
-          this.loadingService.emitAfterViewInitSignal('HOME');
+          this.viewInitSignal.emit('GLITCH');
         }
 
         if (s.random(1) > 0.92) {

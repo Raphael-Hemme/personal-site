@@ -110,8 +110,9 @@ li {
   bottom: 0;
   left: 0;
   z-index: 110;
-  background-color: $subtle-two;
-  
+  // background-color: $subtle-two;
+  background-color: deeppink;
+
   .initial-loading-spinner {
     position: fixed;
     top: calc(50% - 100px);

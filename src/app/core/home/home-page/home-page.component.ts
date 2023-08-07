@@ -5,6 +5,7 @@ import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/serv
 import { orderBy } from 'lodash';
 import { MenuService } from 'src/app/shared/services/menu-service/menu.service';
 import { SearchService } from 'src/app/shared/services/search-service/search.service';
+import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
 
 interface TagObjNameAndCount {
   name: string;
@@ -37,29 +38,18 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   public currNameSelectedTag = '';
 
-  public delayToLoadIsOver = false;
-
   private scrollEventObserver = fromEvent(document, 'scroll');
   private currScrollY$$: BehaviorSubject<number> = new BehaviorSubject(0);
-
-  public searchComponentIsVisible$ = this.searchService.searchComponentIsVisible$;
-
 
   constructor(
     private ioGardenService: IoGardenService,
     private blogService: BlogService,
     private menuService: MenuService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
-    this.subscriptions.add(
-      timer(1000)
-      .subscribe((t) => {
-        this.delayToLoadIsOver = true;
-      })
-    )
-
     this.subscriptions.add(
       this.scrollEventObserver.subscribe(() => this.currScrollY$$.next(window.scrollY))
     )
@@ -124,6 +114,12 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   public handleSearchBtnClick(): void {
     this.searchService.toggleSearchComponentIsVisible();
+  }
+
+  public handleGlitchViewInitSignal(event: string) {
+    if (event === 'GLITCH') {
+      this.loadingService.emitAfterViewInitSignal('HOME');
+    }
   }
 
 }

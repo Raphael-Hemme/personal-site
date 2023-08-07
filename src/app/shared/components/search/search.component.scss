@@ -138,19 +138,19 @@ app-search {
       }
     }
 
-    .search-component-close-btn {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      width: 35px;
-      height: 35px;
-      min-width: unset;
-      padding: 0;
-      text-align: center;
-      border-radius: 50%;
-      @media (min-width: $md) {
-        display: none;
-      }
+  }
+  .search-component-close-btn {
+    position: sticky;
+    bottom: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    min-width: unset;
+    padding: 0;
+    text-align: center;
+    border-radius: 50%;
+    @media (min-width: $md) {
+      display: none;
     }
   }
 }
