@@ -1,15 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BlogPostMetaData, BlogService } from '../../services/blog-service/blog.service';
 import { DataService } from '../../services/data-service/data.service';
 import { Subscription } from 'rxjs';
+import { LoadingService } from '../../services/loading-service/loading.service';
 
 @Component({
   selector: 'app-blog-post',
   templateUrl: './blog-post.component.html',
   styleUrls: ['./blog-post.component.scss']
 })
-export class BlogPostComponent implements OnInit, OnDestroy {
+export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public currPath = '';
   public currPostId: string = '';
@@ -22,7 +23,8 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private blogService: BlogService,
-    private dataService: DataService
+    private dataService: DataService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +39,10 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.dataService.originOfNavigation$.subscribe(origin => this.originUrl = origin)
     );
+  }
+
+  ngAfterViewInit() {
+    this.loadingService.emitAfterViewInitSignal('BLOG-POST');
   }
 
   ngOnDestroy(): void {

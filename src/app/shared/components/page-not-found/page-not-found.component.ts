@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as p5 from 'p5';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 import { Subscription } from 'rxjs';
+import { LoadingService } from '../../services/loading-service/loading.service';
 
 
 interface DotMatrixPoint {
@@ -16,7 +17,7 @@ interface DotMatrixPoint {
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss']
 })
-export class PageNotFoundComponent implements OnInit, OnDestroy {
+export class PageNotFoundComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public canvas: any;
 
@@ -28,7 +29,8 @@ export class PageNotFoundComponent implements OnInit, OnDestroy {
 
   constructor(
     private windowSizeService: WindowSizeService,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit() {
@@ -85,6 +87,10 @@ export class PageNotFoundComponent implements OnInit, OnDestroy {
     };
 
     this.canvas = new p5(sketch);
+  }
+
+  ngAfterViewInit() {
+    this.loadingService.emitAfterViewInitSignal('PAGE-NOT-FOUND');
   }
 
   ngOnDestroy(): void {

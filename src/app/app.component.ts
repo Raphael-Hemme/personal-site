@@ -6,6 +6,7 @@ import {
   ViewChild,
   ElementRef,
   ChangeDetectorRef,
+  AfterViewInit,
 } from '@angular/core';
 import { Router,
   NavigationEnd } from '@angular/router';
@@ -34,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private currRoute: BehaviorSubject<string> = new BehaviorSubject('');
 
   private subscriptions: Subscription = new Subscription()
-  public currLoading!: boolean;
+  public currLoading = true;
 
   public searchComponentIsVisible$ = this.searchService.searchComponentIsVisible$;
 
@@ -59,9 +60,9 @@ export class AppComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.subscriptions.add(
+/*     this.subscriptions.add(
       this.loadingService.isLoading$.subscribe(loadingState => this.currLoading = loadingState)
-    );
+    ); */
 
     this.subscriptions.add(
       this.menuService.smallLogoIsVisible$.subscribe(smallLogoIsVisible => {
@@ -69,6 +70,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.cD.detectChanges();
       })
     );
+
+    this.handleLoadingState();
   }
 
   ngOnDestroy(): void {
@@ -83,6 +86,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.menuService.closeMenu();
     this.router.navigate(['/'])
     window.scroll(0, 0);
+  }
+
+  private handleLoadingState(): void {
+    this.subscriptions.add(
+      this.loadingService.isLoading$.subscribe(loadingState => {
+        this.currLoading = loadingState;
+        this.cD.detectChanges();
+      })
+    )
   }
 
 }

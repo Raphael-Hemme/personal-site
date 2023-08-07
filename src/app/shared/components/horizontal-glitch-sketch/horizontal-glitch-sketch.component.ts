@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import p5 from 'p5';
 import { LoadingService } from '../../services/loading-service/loading.service';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 import { Subscription } from 'rxjs';
+import { set } from 'lodash';
 
 interface RandomSlice {
   sliceXStart: number;
@@ -17,7 +18,7 @@ interface RandomSlice {
   templateUrl: './horizontal-glitch-sketch.component.html',
   styleUrls: ['./horizontal-glitch-sketch.component.scss']
 })
-export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
+export class HorizontalGlitchSketchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public canvas: any;
 
@@ -38,8 +39,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-
-    setTimeout(() => this.loadingService.startLoading(), 0);
 
     this.subscriptions.add(
       this.windowSizeService.windowResize$.subscribe(() => {
@@ -76,15 +75,15 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         s.pixelDensity(1);
 
         s.background(...bgColor);
-        this.loadingService.stopLoading();
-        this.removeLoadingScreen();
-        // s.generateBackgroundGradient();
       };
 
       s.draw = () => {
         s.background(...bgColor)
-        // s.generateBackgroundGradient();
         s.image(img, this.imgXStart, this.imgYStart, this.imgWidth, this.imgHeight);
+
+        if (s.frameCount === 3) {
+          this.loadingService.emitAfterViewInitSignal('HOME');
+        }
 
         if (s.random(1) > 0.92) {
           const randSlicesCount = s.int(s.random(5, 30))
@@ -144,6 +143,13 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
     this.canvas = new p5(sketch);
   }
 
+  ngAfterViewInit() {
+/*     setTimeout(() => {
+      this.loadingService.emitAfterViewInitSignal();
+    }, 500); */
+  }
+
+
   private triggerResize(): void {
 
     this.setCorrectCanvDimensions();
@@ -182,14 +188,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
     } else {
       this.imgWidth = 500;
       this.imgHeight = 500;
-    }
-  }
-
-  private removeLoadingScreen(): void {
-    const initialLoadingScreen = document.getElementById('inititial-loading-screen');
-    if (initialLoadingScreen) {
-      initialLoadingScreen.classList.add('initial-loading-screen--hidden');
-      initialLoadingScreen.classList.remove('initial-loading-screen');
     }
   }
 

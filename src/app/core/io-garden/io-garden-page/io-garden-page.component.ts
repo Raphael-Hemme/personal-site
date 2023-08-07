@@ -1,12 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IoGardenService, IoGardenExperimentMetaData } from 'src/app/shared/services/io-garden-service/io-garden.service';
+import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
 
 @Component({
   selector: 'app-io-garden-page',
   templateUrl: './io-garden-page.component.html',
   styleUrls: ['./io-garden-page.component.scss']
 })
-export class IoGardenPageComponent implements OnInit {
+export class IoGardenPageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('ioGardenDetails') ioGardenDetails!: ElementRef<HTMLDetailsElement>;
 
@@ -32,11 +33,15 @@ export class IoGardenPageComponent implements OnInit {
 
   constructor(
     private ioGardenService: IoGardenService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
     this.ioExperimentDataArr = this.ioGardenService.getAllIoGardenExperimentsMetaData()
+  }
 
+  ngAfterViewInit() {
+    this.loadingService.emitAfterViewInitSignal('IO-GARDEN');
   }
 
   public toggleIoGardenExplanation(): void {
