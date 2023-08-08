@@ -14,8 +14,8 @@ app-search {
     right: 0;
     height: 100vh;
     width: 100vw;
-    background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
+    background-color: rgba(119, 172, 162, 0.6);
+    backdrop-filter: blur(10px) brightness(0.8);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,7 +35,7 @@ app-search {
     
     @media (min-width: $md) {
       width: 70%;
-      height: 50%;
+      height: 70%;
       grid-template-columns: 50% 50%;
       grid-template-rows: calc(100% - 35px) 35px;
       grid-template-areas: "search-component-result-sources-area search-component-result-preview-area"
@@ -47,7 +47,7 @@ app-search {
       height: 100%;
       width: 100%;
       padding: 5px;
-      border: 1px solid #416770;
+      border: 1px solid $light-gray;
       border-radius: 5px;
 
       .result-sources-wrapper {
@@ -55,6 +55,7 @@ app-search {
         width: 100%;
         overflow: scroll;
         font-family: Inter;
+        border-radius: 4px;
 
         .search-component-result-item {
           display: flex;
@@ -64,7 +65,7 @@ app-search {
           h4 {
             margin: 0;
             span {
-              color: rgb(151, 151, 151);
+              color: $light-gray-hover;
             }
             span.search-component-highlight {
               color: $brand;
@@ -77,8 +78,9 @@ app-search {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: $light-gray-hover;
             span {
-              color: $light-gray
+              color: $light-gray-hover;
             }
           }
         }
@@ -91,16 +93,19 @@ app-search {
         width: 100%;
         height: 35px;
         border-radius: 5px;
-        border: 1px solid #416770;
+        border: 1px solid $light-gray;
         padding: 0 10px;
         font-size: 1.2rem;
-        color: $light-gray;
+        color: $light-gray-hover;
         background-color: transparent;
 
-
+        
         &:focus {
           outline: transparent;
         }
+      }
+      .search-component-input::placeholder {
+        color: $light-gray-hover;
       }
 
     }
@@ -112,29 +117,34 @@ app-search {
       width: 100%;
 
       padding: 5px;
-      border: 1px solid #416770;
+      border: 1px solid $light-gray;
       border-radius: 5px;
 
       .preview-inner-wrapper {
         overflow: scroll;
         height: 100%;
         width: 100%;
+        border-radius: 4px;
 
         .search-preview-markdown {
-          p, 
-          span,
+          p:not(.token), 
+          span:not(.token),
           ul,
           ol,
           li,
-          pre,
-          a,
           code,
+          pre,
           blockquote {
             font-size: 1rem;
-            color: $light-gray;
+            color: $light-gray-hover;
           }
           h1, h2, h3, h4, h5, h6 {
-            color: $brand;
+            color: $accent;
+          }
+          a {
+            font-family: Inter, sans-serif;
+            color: $accent;
+            text-decoration: underline;
           }
         }
 
