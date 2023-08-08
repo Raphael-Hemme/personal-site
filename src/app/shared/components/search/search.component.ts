@@ -91,4 +91,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
       post: searchResultStr.slice(origCaseSearchResultIndexEnd)
     };
   }
+
+  public hideKeyboard(): void {
+    this.searchInput.nativeElement.blur();
+  }
 }

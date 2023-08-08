@@ -1,7 +1,7 @@
 <div class="search-component-background" (click)="closeSearch()">
   <div class="search-component-container" (click)="preventUnwantedCloseEvent($event)">
 
-    <div class="search-component-result-sources-container">
+    <div class="search-component-result-sources-container" click="hideKeyboard()">
       <div class="result-sources-wrapper">
         <div class="search-component-result-item" *ngFor="let result of searchResults">
           <h4>
@@ -27,7 +27,7 @@
        </button>
     </div>
 
-    <div class="search-component-result-preview-container">
+    <div class="search-component-result-preview-container" click="hideKeyboard()">
       <div class="preview-inner-wrapper">
         <markdown [src]="currPreviewPath" class="search-preview-markdown">
         </markdown>

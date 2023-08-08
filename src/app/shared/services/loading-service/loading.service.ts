@@ -54,14 +54,13 @@ export class LoadingService {
 
   public removeInitialLoadingScreen(): void {
     let initialLoadingScreen = document.getElementById('inititial-loading-screen');
-    console.log('initialLoadingScreen before remove: ', initialLoadingScreen)
     document.documentElement.style.setProperty('--loading-screen-display', 'none');
     if (initialLoadingScreen) {
       // initialLoadingScreen.classList.add('initial-loading-screen--hidden');
       // initialLoadingScreen.classList.remove('initial-loading-screen');
       // initialLoadingScreen.remove();
       this.initialLoadingScreenWasRemoved$$.next(true);
-      console.log('removed')
+      // console.log('removed')
     }
   }
 }
