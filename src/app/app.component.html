@@ -27,7 +27,7 @@
 
   <div 
     class="loading-screen"
-    *ngIf="currLoading">
+    *ngIf="isLoading$ | async">
     <div class="loading-spinner"></div>
   </div>
 
@@ -38,5 +38,7 @@
       <router-outlet></router-outlet>
     </main>
   </div>
+
+  <app-search *ngIf="searchComponentIsVisible$ | async"></app-search>
 
 </div>

@@ -96,10 +96,13 @@ app-search {
         font-size: 1.2rem;
         color: $light-gray;
         background-color: transparent;
+
+
         &:focus {
           outline: transparent;
         }
       }
+
     }
     
 
@@ -138,19 +141,20 @@ app-search {
       }
     }
 
-    .search-component-close-btn {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      width: 35px;
-      height: 35px;
-      min-width: unset;
-      padding: 0;
-      text-align: center;
-      border-radius: 50%;
-      @media (min-width: $md) {
-        display: none;
-      }
+  }
+
+  .search-component-close-btn {
+    position: absolute;
+    top: calc(50% - 25px);
+    right: 17.5px;
+    width: 35px;
+    height: 35px;
+    min-width: unset;
+    padding: 0;
+    text-align: center;
+    border-radius: 50%;
+    @media (min-width: $md) {
+      display: none;
     }
   }
 }

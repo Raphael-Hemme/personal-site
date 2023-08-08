@@ -76,19 +76,33 @@ header {
   left: 0;
   z-index: 110;
   background-color: $subtle-two;
-}
+  
+  .loading-spinner {
+    position: fixed;
+    top: calc(50% - 100px);
+    left: calc(50% - 100px); 
+    border: 3px solid $subtle-three; 
+    border-top: 4px solid $brand;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    animation: spin 0.7s linear infinite;
+    z-index: 21;
 
-.loading-spinner {
-  position: fixed;
-  top: calc(50% - 50px);
-  left: calc(50% - 50px); 
-  border: 3px solid $subtle-two; 
-  border-top: 3px solid $brand;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  animation: spin 1s linear infinite;
-  z-index: 21;
+    @media (min-width: 500px) and (max-width: 635px) {
+      top: calc(50% - 150px);
+      left: calc(50% - 150px); 
+      width: 300px;
+      height: 300px;
+    }
+    @media (min-width: 635px) {
+      top: calc(50% - 225px);
+      left: calc(50% - 225px); 
+      width: 450px;
+      height: 450px;
+      border-top: 5px solid $brand;
+    }
+  }
 }
 
 @keyframes spin {

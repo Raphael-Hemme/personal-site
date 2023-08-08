@@ -72,7 +72,6 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public handleInputChanges(event: string): void {
-    console.log('handleSearchInput() event: ', event);
     this.searchService.search(event);
   }
 
@@ -91,5 +90,9 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
       match: searchResultStr.slice(origCaseSearchResultIndexStart, origCaseSearchResultIndexEnd),
       post: searchResultStr.slice(origCaseSearchResultIndexEnd)
     };
+  }
+
+  public hideKeyboard(): void {
+    this.searchInput.nativeElement.blur();
   }
 }

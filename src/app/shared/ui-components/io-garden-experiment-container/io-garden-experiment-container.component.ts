@@ -1,16 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../services/data-service/data.service';
 
 import { IoGardenExperimentMetaData, IoGardenService } from '../../services/io-garden-service/io-garden.service';
+import { LoadingService } from '../../services/loading-service/loading.service';
 
 @Component({
   selector: 'app-io-garden-experiment-container',
   templateUrl: './io-garden-experiment-container.component.html',
   styleUrls: ['./io-garden-experiment-container.component.scss']
 })
-export class IoGardenExperimentContainerComponent implements OnInit, OnDestroy {
+export class IoGardenExperimentContainerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public currExperiment: any;
   public currExperimentId: string = '';
@@ -24,7 +25,8 @@ export class IoGardenExperimentContainerComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private ioGardenService: IoGardenService,
-    private dataService: DataService
+    private dataService: DataService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +37,10 @@ export class IoGardenExperimentContainerComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.dataService.originOfNavigation$.subscribe(origin => this.originUrl = origin)
     );
+  }
+
+  ngAfterViewInit() {
+    this.loadingService.emitAfterViewInitSignal('IO-GARDEN-EXPERIMENT');
   }
 
   ngOnDestroy(): void {

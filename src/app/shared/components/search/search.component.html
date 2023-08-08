@@ -1,7 +1,7 @@
 <div class="search-component-background" (click)="closeSearch()">
   <div class="search-component-container" (click)="preventUnwantedCloseEvent($event)">
 
-    <div class="search-component-result-sources-container">
+    <div class="search-component-result-sources-container" click="hideKeyboard()">
       <div class="result-sources-wrapper">
         <div class="search-component-result-item" *ngFor="let result of searchResults">
           <h4>
@@ -22,19 +22,20 @@
     <div class="search-component-input-container">
       <input type="text" class="search-component-input" placeholder="Search" [(ngModel)]="searchInputValue"
         (ngModelChange)="handleInputChanges($event)" tabindex="0" #searchInput />
-      
+       <button class="search-component-close-btn btn-dark-flat" (click)="closeSearch()" tabindex="1">
+        x
+       </button>
     </div>
 
-    <div class="search-component-result-preview-container">
+    <div class="search-component-result-preview-container" click="hideKeyboard()">
       <div class="preview-inner-wrapper">
         <markdown [src]="currPreviewPath" class="search-preview-markdown">
         </markdown>
       </div>
     </div>
 
-    <button class="search-component-close-btn btn-dark-flat" (click)="closeSearch()" tabindex="1">
-      x
-    </button>
-
+    
   </div>
+  
+ 
 </div>

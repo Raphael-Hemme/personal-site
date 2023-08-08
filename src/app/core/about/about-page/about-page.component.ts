@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
 
 @Component({
   selector: 'app-about-page',
   templateUrl: './about-page.component.html',
   styleUrls: ['./about-page.component.scss']
 })
-export class AboutPageComponent implements OnInit {
+export class AboutPageComponent implements OnInit, AfterViewInit {
 
   public longAboutIsShown = false;
   public anthropologyIsHighlighted = false;
@@ -37,9 +38,15 @@ export class AboutPageComponent implements OnInit {
     technology and cultural context are mere taxonomic devices that can help us make sense of our everyday experiences 
     but shouldn't be taken too seriously.`;
 
-    constructor() { }
+  constructor(
+    private loadingService: LoadingService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    this.loadingService.emitAfterViewInitSignal('ABOUT');
   }
 
   public toggleLongAboutIsShown(): void {

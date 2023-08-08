@@ -1,6 +1,6 @@
-<app-horizontal-glitch-sketch></app-horizontal-glitch-sketch>
+<app-horizontal-glitch-sketch (viewInitSignal)="handleGlitchViewInitSignal($event)"></app-horizontal-glitch-sketch>
 
-<div class="home-page-container" *ngIf="delayToLoadIsOver">
+<div class="home-page-container">
   <h1>Raphael<br /> Hemme</h1>
   <h2>Developer && <br />Anthropologist</h2>
 
@@ -74,8 +74,6 @@
         </button>
       </div>
     </div>
-    
-    <app-search *ngIf="searchComponentIsVisible$ | async"></app-search>
   </section>
   
 
