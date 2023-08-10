@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router, RouterEvent } from '@angular/router';
-import { Subject, Subscription, tap, filter, fromEvent, BehaviorSubject, takeUntil, combineLatestWith, ReplaySubject, take } from 'rxjs';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Subject, Subscription, tap, filter, BehaviorSubject, combineLatestWith } from 'rxjs';
 
 
 export type ViewInitSignalValue = 'LOADING' | 'ABOUT' | 'BLOG' | 'BLOG-POST' | 'IO-GARDEN' | 'IO-GARDEN-EXPERIMENT' | 'HOME' | 'PAGE-NOT-FOUND';
@@ -10,7 +10,6 @@ export type ViewInitSignalValue = 'LOADING' | 'ABOUT' | 'BLOG' | 'BLOG-POST' | '
 })
 export class LoadingService {
   private afterViewInitSignal$$ = new Subject<ViewInitSignalValue>();
-  private initialLoadingScreenWasRemoved$$ = new Subject<boolean>();
 
   private isLoading$$ = new BehaviorSubject<boolean>(true);
   public isLoading$ = this.isLoading$$.asObservable();
@@ -20,16 +19,6 @@ export class LoadingService {
   constructor(
     private router: Router
   ) { 
-    this.subscriptions.add(
-      this.afterViewInitSignal$$.pipe(
-        tap((viewInitSignal) => console.log('view init signal', viewInitSignal)),
-        take(1)
-        // takeUntil(this.initialLoadingScreenWasRemoved$$)
-      ).subscribe(() => {
-        this.removeInitialLoadingScreen();
-      })
-    );
-
     this.subscriptions.add(
       this.router.events.pipe(
         tap((routerEvent) => {
@@ -50,17 +39,5 @@ export class LoadingService {
 
   public emitAfterViewInitSignal(path: ViewInitSignalValue): void {
     this.afterViewInitSignal$$.next(path);
-  }
-
-  public removeInitialLoadingScreen(): void {
-    let initialLoadingScreen = document.getElementById('inititial-loading-screen');
-    document.documentElement.style.setProperty('--loading-screen-display', 'none');
-    if (initialLoadingScreen) {
-      // initialLoadingScreen.classList.add('initial-loading-screen--hidden');
-      // initialLoadingScreen.classList.remove('initial-loading-screen');
-      // initialLoadingScreen.remove();
-      this.initialLoadingScreenWasRemoved$$.next(true);
-      // console.log('removed')
-    }
   }
 }
