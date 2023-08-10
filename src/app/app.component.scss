@@ -1,11 +1,10 @@
 @import '/src/assets/stylesheets/colors.scss';
 
 header {
-
   position: fixed;
   z-index: 100;
-  top: 25px;
-  right: 25px;
+  top: 10px;
+  right: 10px;
   width: 48px;
   height: 96px;
   background-color: rgba(119, 172, 162, 0.9);
@@ -16,8 +15,8 @@ header {
   justify-content: space-between;
   align-items: center;
   @media (min-width: 576px) {
-    top: 10px;
-    right: 10px;
+    top: 25px;
+    right: 25px;
   }
 }
 
@@ -76,11 +75,12 @@ header {
   left: 0;
   z-index: 110;
   background-color: $subtle-two;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0 0 0;
   
   .loading-spinner {
-    position: fixed;
-    top: calc(50% - 100px);
-    left: calc(50% - 100px); 
     border: 3px solid $subtle-three; 
     border-top: 4px solid $brand;
     border-radius: 50%;
@@ -90,14 +90,10 @@ header {
     z-index: 21;
 
     @media (min-width: 500px) and (max-width: 635px) {
-      top: calc(50% - 150px);
-      left: calc(50% - 150px); 
       width: 300px;
       height: 300px;
     }
     @media (min-width: 635px) {
-      top: calc(50% - 225px);
-      left: calc(50% - 225px); 
       width: 450px;
       height: 450px;
       border-top: 5px solid $brand;
