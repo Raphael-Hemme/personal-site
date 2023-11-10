@@ -1,22 +1,11 @@
-/* SCSS RGB */
-/* $mountain-meadow: rgba(0, 182, 133, 1);
-$byzantium: rgba(131, 33, 97, 1);
-$prussian-blue: rgba(0, 48, 73, 1);
-$maximum-red: rgba(214, 40, 40, 1);
-$orange: rgba(247, 127, 0, 1); */
-
-
 $brand: rgba(186, 255, 41, 1);
 $brand-hover: rgb(215, 255, 129);
 //$accent: rgb(35, 81, 116);
 $accent: rgb(24, 126, 190);
 $accent-hover: rgb(40, 91, 130);
 
-// $accent-hover: rgb(45, 100, 143);
-// $accent: rgb(95, 38, 184);
-// $accent: rgba(71, 13, 143, 1);
-// $accent: rgb(15, 188, 194);
-// $accent: rgb(15, 194, 170);
+$accent-dark: rgba(15, 84, 127, 1);
+
 
 $subtle-one: rgba(70, 129, 137, 1);
 // $subtle-two: rgba(119, 172, 162, 1);
@@ -25,7 +14,6 @@ $subtle-two: rgba(63, 162, 164, 1);
 // $subtle-three: rgba(157, 190, 187, 1);
 $subtle-three: rgb(175, 212, 209);
 
-// $danger: rgba(214, 40, 40, 1);
 $danger: rgba(232, 72, 85, 1);
 $danger-hover: rgb(245, 86, 99);
 $attention: rgba(219, 196, 61, 1);
@@ -44,17 +32,3 @@ $mid-gray-hover: rgb(99, 99, 99);
 
 // $dark-gray: rgb(51, 51, 51);
 $dark-gray: rgb(77, 77, 77);
-
-// Experimental
-
-/* $brand: rgb(35, 81, 116);
-$accent: rgb(218, 58, 0);
-// $accent: rgb(95, 38, 184);
-// $accent: rgba(71, 13, 143, 1);
-// $accent: rgb(15, 188, 194);
-// $accent: rgb(15, 194, 170);
-
-$subtle-one: rgba(70, 129, 137, 1);
-$subtle-two: rgba(119, 172, 162, 1);
-// $subtle-three: rgba(157, 190, 187, 1);
-$subtle-three: rgb(175, 212, 209); */
