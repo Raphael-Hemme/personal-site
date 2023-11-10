@@ -59,13 +59,9 @@ export class SiteMenuComponent implements OnInit, OnDestroy {
       this.breakpointObserver
       .observe(['(min-width: 768px)']).subscribe((state: BreakpointState) => {
         if (state.matches) {
-          // console.log('Viewport width is 768px or greater!');
-          // this.closeSiteMenu();
           this.isMobileView = false;
           this.getCorrectMenuClass(this.isMobileView, this.menuVisible);
         } else {
-          // console.log('Viewport width is less than 768px!');
-          // this.closeSiteMenu()
           this.isMobileView = true;
           this.getCorrectMenuClass(this.isMobileView, this.menuVisible);
         }
