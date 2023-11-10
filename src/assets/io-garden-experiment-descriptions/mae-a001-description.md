@@ -23,7 +23,7 @@ import { BehaviorSubject, interval, Subscription, tap, throttleTime } from 'rxjs
 import { DateTime } from 'luxon';
 import p5 from 'p5';
 import * as d3 from 'd3';
-import _ from 'lodash';
+import { groupBy } from 'lodash-es';
 
 interface SessionObj {
   timerIsRunning: boolean;
