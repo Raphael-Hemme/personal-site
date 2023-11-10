@@ -64,14 +64,14 @@ export class PageNotFoundComponent implements OnInit, AfterViewInit, OnDestroy {
     const sketch = (s: p5) => {
       // P5 SCRIPT
       s.setup = () => {
-        // console.log('this.canvWidth, this.canvHeight in setup: ', this.canvWidth, this.canvHeight)
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('page-not-found-sketch-wrapper');
         s.frameRate(7);
       }
 
       s.draw = () => {
-        s.background('rgba(119, 172, 162, 0.6)');
+        // s.background('rgba(119, 172, 162, 0.6)');
+        s.background('rgba(63, 162, 164, 0.6)');
         this.dotMatrixArr = this.generateDotMatrix(s);
         for (let dot of this.dotMatrixArr) {
           if (!dot.active) {

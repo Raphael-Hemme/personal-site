@@ -60,7 +60,8 @@ export class HorizontalGlitchSketchComponent implements OnInit, AfterViewInit, O
       // const bgColor = [8, 84, 94];
       // const bgColor = [35, 14, 59];
       // const bgColor = [70, 129, 137]
-      const bgColor = [119, 172, 162];
+      // const bgColor = [119, 172, 162];
+      const bgColor = [63, 162, 164];
 
       s.preload = () => {
         img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-06.png')
