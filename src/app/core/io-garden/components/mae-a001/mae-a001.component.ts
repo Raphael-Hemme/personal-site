@@ -4,7 +4,7 @@ import { BehaviorSubject, interval, Subscription, tap, throttleTime } from 'rxjs
 import { DateTime } from 'luxon';
 import p5 from 'p5';
 import * as d3 from 'd3';
-import { groupBy } from 'lodash-es';
+import _ from 'lodash';
 
 interface SessionObj {
   timerIsRunning: boolean;
@@ -447,7 +447,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
     const result: SessionObj[] = [];
 
-    const dateReducedSessionTimesArr = Object.values(groupBy(sessions, 'date'))
+    const dateReducedSessionTimesArr = Object.values(_.groupBy(sessions, 'date'))
       .map(dateArr => {
         const resultObj = this.returnDefaultValuesForSession();
         resultObj.completedSessionTime = dateArr.reduce((prev, curr) => prev + curr.completedSessionTime, 0)

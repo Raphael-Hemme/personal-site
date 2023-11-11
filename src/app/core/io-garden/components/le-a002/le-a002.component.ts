@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
-import { random } from 'lodash-es';
+import _ from 'lodash';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Subscription } from 'rxjs';
 
@@ -55,7 +55,7 @@ class Cell {
   bloom() {
     this.blooming = true;
     this.hsla.h = 26 // 19;
-    this.hsla.s = Math.round(random(40, 70, true));
+    this.hsla.s = Math.round(_.random(40, 70, true))
   }
 /*   changeSaturation() {
     this.hsla.s = map(this.traveledDist, 0, this.originalMaxDistForColorMap, 30, 90)

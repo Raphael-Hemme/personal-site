@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { BehaviorSubject, Subscription, fromEvent, timer } from 'rxjs';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
-import { orderBy } from 'lodash-es';
+import { orderBy } from 'lodash';
 import { MenuService } from 'src/app/shared/services/menu-service/menu.service';
 import { SearchService } from 'src/app/shared/services/search-service/search.service';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
