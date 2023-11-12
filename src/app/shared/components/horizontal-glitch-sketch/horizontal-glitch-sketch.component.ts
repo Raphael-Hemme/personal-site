@@ -1,9 +1,7 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import p5 from 'p5';
-import { LoadingService } from '../../services/loading-service/loading.service';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 import { Subscription } from 'rxjs';
-import { set } from 'lodash';
 
 interface RandomSlice {
   sliceXStart: number;
@@ -18,7 +16,7 @@ interface RandomSlice {
   templateUrl: './horizontal-glitch-sketch.component.html',
   styleUrls: ['./horizontal-glitch-sketch.component.scss']
 })
-export class HorizontalGlitchSketchComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   @Output() viewInitSignal = new EventEmitter<string>();
 
@@ -37,7 +35,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, AfterViewInit, O
 
   constructor(
     private windowSizeService: WindowSizeService,
-    private loadingService: LoadingService
   ) {}
 
   ngOnInit() {
@@ -56,11 +53,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, AfterViewInit, O
     const sketch = (s: any) => {
       let img: any;
 
-      // const bgColor = [53, 30, 87];
-      // const bgColor = [8, 84, 94];
-      // const bgColor = [35, 14, 59];
-      // const bgColor = [70, 129, 137]
-      // const bgColor = [119, 172, 162];
       const bgColor = [63, 162, 164];
 
       s.preload = () => {
@@ -145,13 +137,6 @@ export class HorizontalGlitchSketchComponent implements OnInit, AfterViewInit, O
 
     this.canvas = new p5(sketch);
   }
-
-  ngAfterViewInit() {
-/*     setTimeout(() => {
-      this.loadingService.emitAfterViewInitSignal();
-    }, 500); */
-  }
-
 
   private triggerResize(): void {
 
