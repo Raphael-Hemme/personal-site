@@ -23,7 +23,7 @@ import { BehaviorSubject, interval, Subscription, tap, throttleTime } from 'rxjs
 import { DateTime } from 'luxon';
 import p5 from 'p5';
 import * as d3 from 'd3';
-import _ from 'lodash';
+import { groupBy } from 'lodash_es';
 
 interface SessionObj {
   timerIsRunning: boolean;
@@ -68,7 +68,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
   public canvHeight = 300;
   private circleRadius = 0;
   private circleGrowDir: 'GROW' | 'SHRINK' = 'GROW';
-
 
   // RXJS STUFF
   private baseInterval$ = interval(20);
@@ -316,10 +315,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.displayTimer = result;
   }
 
-  /*   public reload(): void {
-      this.canvas.clear();
-    } */
-
   public closeResetWarningDialog(): void {
     this.resetWarningDialogIsOpen = false;
   }
@@ -364,15 +359,11 @@ export class MaeA001Component implements OnInit, OnDestroy {
       };
 
       s.draw = () => {
-        // s.background(240, 240, 240);
         s.background(35, 81, 116);
 
         if (this.session.timerIsRunning) {
           s.fill(186, 255, 41);
           s.noStroke();
-          // s.stroke(35, 81, 116);
-          // s.strokeWeight(2);
-          //s.noFill();
           s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
         }
 
@@ -394,12 +385,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
     const yScale = d3.scaleLinear()
       .domain([0, maxYVal])
       .range([padding, h * 0.8 - padding])
-
-    /* const xScale = d3.scaleLinear()
-    .domain([0, sessions.length])
-    .range([padding, w - padding]) */
-
-    // const xAxis = d3.axisBottom(xScale)
 
     const alreadyExistingSvgNodeList = document.getElementsByTagName('svg');
 
@@ -436,22 +421,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
         result += currValStr;
         return result;
       })
-
-    // svgCols.on('click', (event) => console.log('test'))
-
-    /* svg.append('g')
-        .attr('transform', 'translate(0, ' + (h - padding) + ')')
-        .call(xAxis); */
-
-    /* svg.selectAll('text')
-      .data(sessions)
-      .enter()
-      .append('text')
-      .text((d, i) => `${d.date?.replaceAll('-', '.')}`)
-      .attr('x', (d, i) => i < 1 ? colGap : colGap + i * (colWidth + colGap))
-      .attr('y', 50)
-      .attr('class', 'column-axis-labels') */
-
   }
 
   private generateDateRangeNormalizedSessions(sessions: SessionObj[], timeFrameInDays: number): SessionObj[] {
@@ -466,7 +435,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
 
     const result: SessionObj[] = [];
 
-    const dateReducedSessionTimesArr = Object.values(_.groupBy(sessions, 'date'))
+    const dateReducedSessionTimesArr = Object.values(groupBy(sessions, 'date'))
       .map(dateArr => {
         const resultObj = this.returnDefaultValuesForSession();
         resultObj.completedSessionTime = dateArr.reduce((prev, curr) => prev + curr.completedSessionTime, 0)

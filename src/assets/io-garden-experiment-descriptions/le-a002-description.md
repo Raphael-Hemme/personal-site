@@ -16,7 +16,7 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
 // Therefore my current version is highly inefficient and duplicates code etc. withouth geting the result nearly right.
 // This might be aimport { Component, OnInit, OnDestroy } from '@angular/core';
 import * as p5 from 'p5';
-import _ from 'lodash';
+import { random } from 'lodash_es';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
 
@@ -70,7 +70,7 @@ class Cell {
   bloom() {
     this.blooming = true;
     this.hsla.h = 19;
-    this.hsla.s = Math.round(_.random(40, 70, true))
+    this.hsla.s = Math.round(random(40, 70, true))
   }
 /*   changeSaturation() {
     this.hsla.s = map(this.traveledDist, 0, this.originalMaxDistForColorMap, 30, 90)

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
-import { orderBy } from 'lodash';
+import { orderBy } from 'lodash-es';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
 
 @Component({
@@ -28,15 +28,4 @@ export class BlogPageComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.loadingService.emitAfterViewInitSignal('BLOG');
   }
-
-/*   public handleBlogPreviewReadBtnEvent(id: string) {
-    this.isShowingOverview = false;
-    this.currSelectedPostId = id;
-  }
-
-  public handleBlogPostBackBtnEvent() {
-    this.isShowingOverview = true;
-    this.currSelectedPostId = '';
-  } */
-
 }
