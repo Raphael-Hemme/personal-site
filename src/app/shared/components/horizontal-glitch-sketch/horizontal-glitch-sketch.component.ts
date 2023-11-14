@@ -50,7 +50,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
     this.setCorrectCanvDimensions();
 
-    const sketch = (s: any) => {
+    const sketch = (s: p5) => {
       let img: any;
 
       const bgColor = [63, 162, 164];
@@ -69,11 +69,11 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         s.frameRate(15)
         s.pixelDensity(1);
 
-        s.background(...bgColor);
+        s.background(bgColor[0], bgColor[1], bgColor[2]);
       };
 
       s.draw = () => {
-        s.background(...bgColor)
+        s.background(bgColor[0], bgColor[1], bgColor[2])
         s.image(img, this.imgXStart, this.imgYStart, this.imgWidth, this.imgHeight);
 
         if (s.frameCount === 3) {
@@ -83,7 +83,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
         if (s.random(1) > 0.92) {
           const randSlicesCount = s.int(s.random(5, 30))
           for (let i = 0; i <= randSlicesCount; i++) {
-            const currSliceDataObj = s.generateRandomSlice();
+            const currSliceDataObj = this.generateRandomSlice(s);
             const currImgSlice = s.get(
               currSliceDataObj.sliceXStart,
               currSliceDataObj.sliceYStart,
@@ -92,7 +92,11 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
             )
             s.image(
               currImgSlice,
-              s.generateSliceShiftXStartPosition(currSliceDataObj.sliceXStart, 200),
+              this.generateSliceShiftXStartPosition(
+                s,
+                currSliceDataObj.sliceXStart, 
+                200
+              ),
               currSliceDataObj.sliceYStart,
               currSliceDataObj.sliceWidth,
               currSliceDataObj.sliceHeight
@@ -100,42 +104,32 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
           };
         }
       };
-
-      s.generateRandomSlice = (): RandomSlice => {
-        const randSliceWidth = Math.round(s.random(this.imgWidth / 50, this.imgWidth / 5));
-        const randSliceHeight = Math.round(s.random(2, 10));
-
-        return {
-          sliceXStart: s.int(s.random(this.imgXStart, (this.imgXStart + (this.imgWidth - randSliceWidth)))),
-          sliceYStart: s.int(s.random(this.imgYStart, (this.imgYStart + (this.imgHeight - randSliceHeight)))),
-          sliceWidth: randSliceWidth,
-          sliceHeight: randSliceHeight
-        }
-      }
-
-      s.generateSliceShiftXStartPosition = (currXStart: number, maxDist: number): number => {
-        const randShiftLength = s.int(s.random(50, maxDist));
-        return s.random(1) > 0.5
-        ? currXStart + randShiftLength
-        : currXStart - randShiftLength;
-      }
-
-      s.generateBackgroundGradient = () => {
-        let c1,c2;
-        c1 = s.color(70, 129, 137);
-        c2 = s.color(119, 172, 162);
-
-        for(let y=0; y < s.height; y++){
-          let n = s.map(y, 0, s.height, 0, 1);
-          let newc = s.lerpColor(c1, c2, n);
-          s.stroke(newc);
-          s.line(0, y, s.width, y);
-        }
-
-      }
     };
 
     this.canvas = new p5(sketch);
+  }
+
+  private generateRandomSlice = (s: p5): RandomSlice => {
+    const randSliceWidth = Math.round(s.random(this.imgWidth / 50, this.imgWidth / 5));
+    const randSliceHeight = Math.round(s.random(2, 10));
+
+    return {
+      sliceXStart: s.int(s.random(this.imgXStart, (this.imgXStart + (this.imgWidth - randSliceWidth)))),
+      sliceYStart: s.int(s.random(this.imgYStart, (this.imgYStart + (this.imgHeight - randSliceHeight)))),
+      sliceWidth: randSliceWidth,
+      sliceHeight: randSliceHeight
+    }
+  }
+
+  private generateSliceShiftXStartPosition = (
+    s: p5,
+    currXStart: number,
+    maxDist: number
+  ): number => {
+    const randShiftLength = s.int(s.random(50, maxDist));
+    return s.random(1) > 0.5
+    ? currXStart + randShiftLength
+    : currXStart - randShiftLength;
   }
 
   private triggerResize(): void {
@@ -152,7 +146,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       this.canvWidth = window.innerWidth - 35;
       this.canvHeight = window.innerHeight;
     } else if (window.innerWidth < 1000 && window.matchMedia("(orientation: landscape)").matches) {
-      // USE NON STANDARD MOBILE BREAKPOINT HERE TO PREVENT CUTING OFF LOGO ON MOBILE IN LANDSCAPE MODE
+      // USE NON STANDARD MOBILE BREAKPOINT HERE TO PREVENT CUTING OFF OF LOGO ON MOBILE IN LANDSCAPE MODE
       this.canvWidth = window.innerHeight;
       this.canvHeight = window.innerHeight;
     } else if (window.innerWidth > 768 && window.innerWidth < 1200) {
@@ -183,5 +177,4 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
     this.canvas.remove();
     this.subscriptions.unsubscribe();
   }
-
 }
