@@ -100,7 +100,8 @@ h3 {
   line-height: 2;
   margin: 0 0 30px 0;
   font-weight: 300;
-  color: $accent;
+  // color: $accent;
+  color: $accent-dark;
   @media (min-width: $md) {
     font-size: 1.8rem;
   }
@@ -112,7 +113,7 @@ h4 {
   margin: 0 0 15px 0;
   font-weight: 400;
   letter-spacing: 1.7px;
-  color: $accent;
+  color: $accent-dark;
   @media (min-width: $md) {
     font-size: 1.3rem;
     line-height: 1.2;
@@ -139,7 +140,8 @@ select option {
 }
 
 a {
-  color: $accent;
+  // color: $accent;
+  color: $accent-dark;
 }
 
 button span .mat-icon,

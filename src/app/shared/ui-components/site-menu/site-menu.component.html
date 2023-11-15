@@ -1,8 +1,9 @@
-<div [ngClass]="menuVisible ? 'darken-background-active' : 'darken-background-inactive'"></div>
+<div [ngClass]="menuVisible ? 'darken-background-active' : 'darken-background-inactive'"
+     (click)="closeSiteMenu()">
+</div>
 
 <nav class="menu-container"
-  [ngClass]="menuClass"
-  (click)="closeSiteMenu()">
+  [ngClass]="menuClass">
   <ul class="nav-list">
     <li class="menu-logo-btn nav-item" (click)="handleHomeBtn()">
       <img

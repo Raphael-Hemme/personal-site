@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import * as p5 from 'p5';
+import p5 from 'p5';
 import { Subscription } from 'rxjs';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
