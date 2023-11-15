@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as p5 from 'p5';
+import p5 from 'p5';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 import { Subscription } from 'rxjs';
 import { LoadingService } from '../../services/loading-service/loading.service';

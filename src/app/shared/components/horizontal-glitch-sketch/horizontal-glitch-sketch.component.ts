@@ -10,7 +10,6 @@ interface RandomSlice {
   sliceHeight: number;
 }
 
-
 @Component({
   selector: 'app-horizontal-glitch-sketch',
   templateUrl: './horizontal-glitch-sketch.component.html',
@@ -31,6 +30,9 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
   private imgXStart: number = this.canvWidth / 2 - 250;
   private imgYStart: number = this.canvWidth / 2 - 250;
 
+  private bgColor = [63, 162, 164];
+  private img!: p5.Image;
+
   private subscriptions: Subscription = new Subscription();
 
   constructor(
@@ -45,68 +47,73 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       })
     );
 
-    const currWindowWidth = window.innerWidth;
-    const currWindowHeight = window.innerHeight;
-
     this.setCorrectCanvDimensions();
 
-    const sketch = (s: p5) => {
-      let img: any;
+    this.canvas = new p5(this.sketchMethod);
+  }
 
-      const bgColor = [63, 162, 164];
+  ngOnDestroy(): void {
+    this.canvas.remove();
+    this.subscriptions.unsubscribe();
+  }
 
-      s.preload = () => {
-        img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-06.png')
-      }
+  private sketchMethod = (s: p5): void => {
+    s.preload = () => {
+      this.img = s.loadImage('./../../../../../assets/images/own-logo/rh-logo-06.png')
+    }
 
-      s.setup = () => {
-        let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
+    s.setup = () => {
+      this.setupMethod(s);
+    };
+
+    s.draw = () => {
+      this.drawMethod(s);
+    };
+  }
+
+  private setupMethod = (s: p5): void => {
+    let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('horizontal-glitch-sketch-wrapper');
-        const currSketchWidth = s.width;
         this.setImgSize(this.canvWidth, this.canvHeight);
         this.setCenteredPosition(this.canvWidth, this.canvHeight);
 
         s.frameRate(15)
         s.pixelDensity(1);
 
-        s.background(bgColor[0], bgColor[1], bgColor[2]);
+        s.background(this.bgColor[0], this.bgColor[1], this.bgColor[2]);
+  }
+
+  private drawMethod = (s: p5): void => {
+    s.background(this.bgColor[0], this.bgColor[1], this.bgColor[2])
+    s.image(this.img, this.imgXStart, this.imgYStart, this.imgWidth, this.imgHeight);
+
+    if (s.frameCount === 3) {
+      this.viewInitSignal.emit('GLITCH');
+    }
+
+    if (s.random(1) > 0.92) {
+      const randSlicesCount = s.int(s.random(5, 30))
+      for (let i = 0; i <= randSlicesCount; i++) {
+        const currSliceDataObj = this.generateRandomSlice(s);
+        const currImgSlice = s.get(
+          currSliceDataObj.sliceXStart,
+          currSliceDataObj.sliceYStart,
+          currSliceDataObj.sliceWidth,
+          currSliceDataObj.sliceHeight,
+        )
+        s.image(
+          currImgSlice,
+          this.generateSliceShiftXStartPosition(
+            s,
+            currSliceDataObj.sliceXStart, 
+            200
+          ),
+          currSliceDataObj.sliceYStart,
+          currSliceDataObj.sliceWidth,
+          currSliceDataObj.sliceHeight
+        )
       };
-
-      s.draw = () => {
-        s.background(bgColor[0], bgColor[1], bgColor[2])
-        s.image(img, this.imgXStart, this.imgYStart, this.imgWidth, this.imgHeight);
-
-        if (s.frameCount === 3) {
-          this.viewInitSignal.emit('GLITCH');
-        }
-
-        if (s.random(1) > 0.92) {
-          const randSlicesCount = s.int(s.random(5, 30))
-          for (let i = 0; i <= randSlicesCount; i++) {
-            const currSliceDataObj = this.generateRandomSlice(s);
-            const currImgSlice = s.get(
-              currSliceDataObj.sliceXStart,
-              currSliceDataObj.sliceYStart,
-              currSliceDataObj.sliceWidth,
-              currSliceDataObj.sliceHeight,
-            )
-            s.image(
-              currImgSlice,
-              this.generateSliceShiftXStartPosition(
-                s,
-                currSliceDataObj.sliceXStart, 
-                200
-              ),
-              currSliceDataObj.sliceYStart,
-              currSliceDataObj.sliceWidth,
-              currSliceDataObj.sliceHeight
-            )
-          };
-        }
-      };
-    };
-
-    this.canvas = new p5(sketch);
+    }
   }
 
   private generateRandomSlice = (s: p5): RandomSlice => {
@@ -171,10 +178,5 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
       this.imgWidth = 500;
       this.imgHeight = 500;
     }
-  }
-
-  ngOnDestroy(): void {
-    this.canvas.remove();
-    this.subscriptions.unsubscribe();
   }
 }
