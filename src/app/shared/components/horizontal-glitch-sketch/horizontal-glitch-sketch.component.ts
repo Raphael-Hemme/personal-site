@@ -19,7 +19,7 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   @Output() viewInitSignal = new EventEmitter<string>();
 
-  public canvas: any;
+  public canvas!: p5;
 
   public canvWidth = 500;
   public canvHeight = 500;
