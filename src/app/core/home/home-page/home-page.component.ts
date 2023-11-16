@@ -121,34 +121,37 @@ export class HomePageComponent implements OnInit, OnDestroy {
   public handleGlitchViewInitSignal(event: string) {
     if (event === 'GLITCH') {
       this.loadingService.emitAfterViewInitSignal('HOME');
-      // Select the image element
-
-      const glitchSketchWrapper = document.getElementById('horizontal-glitch-sketch-wrapper') as HTMLElement;
-
-      // Callback function for the Intersection Observer
-      const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-          entries.forEach((entry: IntersectionObserverEntry) => {
-              if (!entry.isIntersecting) {
-                  console.log('Glitch sketch invisible');
-                  this.menuService.setSmallLogoVisibile(true);
-              } else {
-                  console.log('Glitch sketch visible');
-                  this.menuService.setSmallLogoVisibile(false);
-              }
-          });
-      };
-
-      // Create an Intersection Observer with the callback
-      const observer = new IntersectionObserver(callback, {
-          root: null, // null means the viewport is the root
-          rootMargin: '0px',
-          threshold: 0 // Trigger when the image is just starting to go out of view
-      });
-
-      // Start observing the image
-      observer.observe(glitchSketchWrapper);
+      this.registerIntersectionObserverAndHandleLogoVisibility();
     }
 
+  }
+
+  private registerIntersectionObserverAndHandleLogoVisibility() {
+    // Select the wrapper element around the sketch element
+    const glitchSketchWrapper = document.getElementById('horizontal-glitch-sketch-wrapper') as HTMLElement;
+
+    // Callback function for the Intersection Observer
+    const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+        entries.forEach((entry: IntersectionObserverEntry) => {
+            if (!entry.isIntersecting) {
+                console.log('Glitch sketch invisible');
+                this.menuService.setSmallLogoVisibile(true);
+            } else {
+                console.log('Glitch sketch visible');
+                this.menuService.setSmallLogoVisibile(false);
+            }
+        });
+    };
+
+    // Create an Intersection Observer with the callback
+    const observer = new IntersectionObserver(callback, {
+        root: null, // null means the viewport is the root
+        rootMargin: '0px',
+        threshold: 0 // Trigger when the image is just starting to go out of view
+    });
+
+    // Start observing the image
+    observer.observe(glitchSketchWrapper);
   }
 
 }
