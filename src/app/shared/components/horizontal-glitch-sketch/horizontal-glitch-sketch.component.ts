@@ -73,14 +73,14 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
   private setupMethod = (s: p5): void => {
     let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
-        canvas2.parent('horizontal-glitch-sketch-wrapper');
-        this.setImgSize(this.canvWidth, this.canvHeight);
-        this.setCenteredPosition(this.canvWidth, this.canvHeight);
+    canvas2.parent('horizontal-glitch-sketch-wrapper');
+    this.setImgSize(this.canvWidth, this.canvHeight);
+    this.setCenteredPosition(this.canvWidth, this.canvHeight);
 
-        s.frameRate(15)
-        s.pixelDensity(1);
+    s.frameRate(15)
+    s.pixelDensity(1);
 
-        s.background(this.bgColor[0], this.bgColor[1], this.bgColor[2]);
+    s.background(this.bgColor[0], this.bgColor[1], this.bgColor[2]);
   }
 
   private drawMethod = (s: p5): void => {

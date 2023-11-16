@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Subscription, fromEvent, timer } from 'rxjs';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
@@ -22,6 +22,8 @@ interface CountObj {
 })
 export class HomePageComponent implements OnInit, OnDestroy {
 
+  @Output() horizontalGlitchSketchInViewport = new EventEmitter<boolean>();
+
   @ViewChild('tagResultOuterContainer') tagResultOuterContainer!: ElementRef;
 
   private subscriptions: Subscription = new Subscription()
@@ -38,8 +40,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   public currNameSelectedTag = '';
 
-  private scrollEventObserver = fromEvent(document, 'scroll');
-  private currScrollY$$: BehaviorSubject<number> = new BehaviorSubject(0);
+  // private scrollEventObserver = fromEvent(document, 'scroll');
+  // private currScrollY$$: BehaviorSubject<number> = new BehaviorSubject(0);
 
   constructor(
     private ioGardenService: IoGardenService,
@@ -50,11 +52,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscriptions.add(
+/*     this.subscriptions.add(
       this.scrollEventObserver.subscribe(() => this.currScrollY$$.next(window.scrollY))
-    )
+    ) */
 
-    this.subscriptions.add(
+/*     this.subscriptions.add(
       this.currScrollY$$.subscribe((currScrollY: number) => {
         if (currScrollY <= window.innerHeight) {
           this.menuService.setSmallLogoVisibile(false);
@@ -62,7 +64,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
           this.menuService.setSmallLogoVisibile(true);
         }
       })
-    );
+    ); */
 
     this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
@@ -119,7 +121,34 @@ export class HomePageComponent implements OnInit, OnDestroy {
   public handleGlitchViewInitSignal(event: string) {
     if (event === 'GLITCH') {
       this.loadingService.emitAfterViewInitSignal('HOME');
+      // Select the image element
+
+      const glitchSketchWrapper = document.getElementById('horizontal-glitch-sketch-wrapper') as HTMLElement;
+
+      // Callback function for the Intersection Observer
+      const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+          entries.forEach((entry: IntersectionObserverEntry) => {
+              if (!entry.isIntersecting) {
+                  console.log('Glitch sketch invisible');
+                  this.menuService.setSmallLogoVisibile(true);
+              } else {
+                  console.log('Glitch sketch visible');
+                  this.menuService.setSmallLogoVisibile(false);
+              }
+          });
+      };
+
+      // Create an Intersection Observer with the callback
+      const observer = new IntersectionObserver(callback, {
+          root: null, // null means the viewport is the root
+          rootMargin: '0px',
+          threshold: 0 // Trigger when the image is just starting to go out of view
+      });
+
+      // Start observing the image
+      observer.observe(glitchSketchWrapper);
     }
+
   }
 
 }
