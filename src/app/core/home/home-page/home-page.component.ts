@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { BehaviorSubject, Subscription, fromEvent, timer } from 'rxjs';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { orderBy } from 'lodash-es';
@@ -20,13 +19,9 @@ interface CountObj {
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit, OnDestroy {
-
-  @Output() horizontalGlitchSketchInViewport = new EventEmitter<boolean>();
-
-  @ViewChild('tagResultOuterContainer') tagResultOuterContainer!: ElementRef;
-
-  private subscriptions: Subscription = new Subscription()
+export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
+  // @ViewChild('tagResultOuterContainer') tagResultOuterContainer!: ElementRef;
+  @ViewChild('glitchSketch') glitchSketch!: ElementRef;
 
   public featuredBlogPost!: BlogPostMetaData;
 
@@ -40,9 +35,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   public currNameSelectedTag = '';
 
-  // private scrollEventObserver = fromEvent(document, 'scroll');
-  // private currScrollY$$: BehaviorSubject<number> = new BehaviorSubject(0);
-
   constructor(
     private ioGardenService: IoGardenService,
     private blogService: BlogService,
@@ -51,21 +43,13 @@ export class HomePageComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService
   ) {}
 
+  /**
+   * Initializes the component.
+   * Sets the featured IoGarden experiment and blog post.
+   * Gets all IoGarden experiment and blog tags.
+   * Unifies and counts the tags arrays.
+   */
   ngOnInit(): void {
-/*     this.subscriptions.add(
-      this.scrollEventObserver.subscribe(() => this.currScrollY$$.next(window.scrollY))
-    ) */
-
-/*     this.subscriptions.add(
-      this.currScrollY$$.subscribe((currScrollY: number) => {
-        if (currScrollY <= window.innerHeight) {
-          this.menuService.setSmallLogoVisibile(false);
-        } else {
-          this.menuService.setSmallLogoVisibile(true);
-        }
-      })
-    ); */
-
     this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
 
@@ -76,29 +60,41 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.unifiedAndCountedTagsArr = orderBy(unorderedUnifiedAndCountedArr, 'count', 'desc');
   }
 
+  /**
+   * Lifecycle hook that is called after the view is initialized.
+   * It registers an Intersection Observer to handle the visibility of the small logo based on the visibility
+   * of the sketch wrapper element. The registerIntersectionObserverAndHandleLogoVisibility method is called in this hook
+   * because after the view has been initialized and the view child this.glitchSketch is truthy, the sketch wrapper element
+   * is guaranteed to be in the DOM, wherese before, it was not guaranteed.
+   */
+  ngAfterViewInit(): void {
+    if (this.glitchSketch) {
+      this.registerIntersectionObserverAndHandleLogoVisibility();
+    }
+  }
+
+  /**
+   * Lifecycle hook that is called when the component is destroyed.
+   * It sets the small logo to visible to true because it should be visible on all other pages and if the HomePageComponent
+   * is destroyed the user necessarily navigated to another page.
+   */
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
     this.menuService.setSmallLogoVisibile(true);
   }
 
-  private unifyAndCountTagArrays(arr1: string[], arr2: string[]): TagObjNameAndCount[]  {
-    const rawCombinedArr = [...arr1, ...arr2];
-    const countObj: CountObj = rawCombinedArr.reduce((acc, curr) => ({...acc, [curr]:0}), {});
-    rawCombinedArr.forEach(entry => countObj[entry] += 1);
-    const resultArr = Object.keys(countObj).map(el => {
-      return {
-        name: el,
-        count: countObj[el]
-      }
-    })
-    return resultArr;
-  }
-
+  /**
+   * Handles the refresh button click event by updating the featured IoGarden experiment and blog post.
+   */
   public handleRefreshFeaturedBtn() {
     this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
     this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
   }
-
+  
+  /**
+   * Handles the selection of a tag by filtering the blog posts and experiments based on the selected tag.
+   * If the same tag is selected twice, the filter is reset.
+   * @param tag - The tag to filter by.
+   */
   public handleTagSelection(tag: string): void {
     if (tag === this.currNameSelectedTag) {
       this.currNameSelectedTag = '';
@@ -113,45 +109,68 @@ export class HomePageComponent implements OnInit, OnDestroy {
       this.currNameSelectedTag = tag;
     }
   }
-
+  
+  /**
+   * Handles the click event of the search button and toggles the visibility of the search component.
+   */
   public handleSearchBtnClick(): void {
     this.searchService.toggleSearchComponentIsVisible();
   }
-
+  
+  /**
+   * Handles the initialization signal emitted by the Glitch component.
+   * If the event is 'GLITCH', it emits an afterViewInit signal for the loading service
+   * @param event The event emitted by the Glitch component.
+   */
   public handleGlitchViewInitSignal(event: string) {
     if (event === 'GLITCH') {
       this.loadingService.emitAfterViewInitSignal('HOME');
-      this.registerIntersectionObserverAndHandleLogoVisibility();
     }
-
   }
-
+  
+  /**
+   * Registers an Intersection Observer to handle the visibility of the small logo based on the visibility
+   * of the sketch wrapper element.
+   */
   private registerIntersectionObserverAndHandleLogoVisibility() {
     // Select the wrapper element around the sketch element
     const glitchSketchWrapper = document.getElementById('horizontal-glitch-sketch-wrapper') as HTMLElement;
-
+    
     // Callback function for the Intersection Observer
     const callback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-        entries.forEach((entry: IntersectionObserverEntry) => {
-            if (!entry.isIntersecting) {
-                console.log('Glitch sketch invisible');
-                this.menuService.setSmallLogoVisibile(true);
-            } else {
-                console.log('Glitch sketch visible');
-                this.menuService.setSmallLogoVisibile(false);
-            }
-        });
+      entries.forEach((entry: IntersectionObserverEntry) => {
+        // set the small logo to visible if the sketch wrapper is not in view
+        this.menuService.setSmallLogoVisibile(!entry.isIntersecting);
+      });
     };
-
+    
     // Create an Intersection Observer with the callback
     const observer = new IntersectionObserver(callback, {
-        root: null, // null means the viewport is the root
-        rootMargin: '0px',
-        threshold: 0 // Trigger when the image is just starting to go out of view
+      root: null, // null means the viewport is the root
+      rootMargin: '0px',
+      threshold: 0 // Trigger when the sketch wrapper is just starting to go out of view
     });
-
-    // Start observing the image
+    
+    // Start observing the sketch wrapper element
     observer.observe(glitchSketchWrapper);
   }
-
+  
+  /**
+   * Unifies two arrays of strings and counts the occurrences of each string.
+   * @param arr1 - The first array of strings.
+   * @param arr2 - The second array of strings.
+   * @returns An array of objects containing the name and count of each string.
+   */
+  private unifyAndCountTagArrays(arr1: string[], arr2: string[]): TagObjNameAndCount[]  {
+    const rawCombinedArr = [...arr1, ...arr2];
+    const countObj: CountObj = rawCombinedArr.reduce((acc, curr) => ({...acc, [curr]:0}), {});
+    rawCombinedArr.forEach(entry => countObj[entry] += 1);
+    const resultArr = Object.keys(countObj).map(el => {
+      return {
+        name: el,
+        count: countObj[el]
+      }
+    })
+    return resultArr;
+  }
 }
