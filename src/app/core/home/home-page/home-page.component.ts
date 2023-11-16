@@ -20,7 +20,6 @@ interface CountObj {
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
-  // @ViewChild('tagResultOuterContainer') tagResultOuterContainer!: ElementRef;
   @ViewChild('glitchSketch') glitchSketch!: ElementRef;
 
   public featuredBlogPost!: BlogPostMetaData;
