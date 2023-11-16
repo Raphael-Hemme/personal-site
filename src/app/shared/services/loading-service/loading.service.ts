@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router, RouterEvent } from '@angular/router';
-import { Subject, Subscription, tap, filter, fromEvent, BehaviorSubject, takeUntil, combineLatestWith, ReplaySubject, take } from 'rxjs';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Subject, Subscription, tap, filter, BehaviorSubject, combineLatestWith, take } from 'rxjs';
 
 
 export type ViewInitSignalValue = 'LOADING' | 'ABOUT' | 'BLOG' | 'BLOG-POST' | 'IO-GARDEN' | 'IO-GARDEN-EXPERIMENT' | 'HOME' | 'PAGE-NOT-FOUND';
@@ -40,7 +40,7 @@ export class LoadingService {
         }),
         filter((routerEvent) => routerEvent instanceof NavigationEnd),
         combineLatestWith(this.afterViewInitSignal$$),
-      ).subscribe(([routerEvent, viewInitSignal]) => {
+      ).subscribe(([ , viewInitSignal]) => {
         if (viewInitSignal !== 'LOADING') {
           this.isLoading$$.next(false);
         }
@@ -48,19 +48,23 @@ export class LoadingService {
     );
   }
 
+  /**
+   * Emits the view init signal to the afterViewInitSignal$$ subject.
+   * @param path The path to emit.
+   */
   public emitAfterViewInitSignal(path: ViewInitSignalValue): void {
     this.afterViewInitSignal$$.next(path);
   }
 
+  /**
+   * Removes the initial loading screen and sets the loading screen display to none.
+   * If the initial loading screen exists, it emits a boolean value of true to the initialLoadingScreenWasRemoved$$ subject.
+   */
   public removeInitialLoadingScreen(): void {
     let initialLoadingScreen = document.getElementById('inititial-loading-screen');
     document.documentElement.style.setProperty('--loading-screen-display', 'none');
     if (initialLoadingScreen) {
-      // initialLoadingScreen.classList.add('initial-loading-screen--hidden');
-      // initialLoadingScreen.classList.remove('initial-loading-screen');
-      // initialLoadingScreen.remove();
       this.initialLoadingScreenWasRemoved$$.next(true);
-      // console.log('removed')
     }
   }
 }
