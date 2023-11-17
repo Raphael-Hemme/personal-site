@@ -4,8 +4,6 @@ import { AboutPageComponent } from './about/about-page/about-page.component';
 import { BlogPageComponent } from './blog/blog-page/blog-page.component';
 import { IoGardenPageComponent } from './io-garden/io-garden-page/io-garden-page.component';
 import { SharedModule } from '../shared/shared.module';
-// import { SplashScreenComponent } from './splash-screen/splash-screen.component';
-
 import { MarkdownModule } from 'ngx-markdown';
 import { PreviewCardComponent } from '../shared/ui-components/preview-card/preview-card.component';
 import { BlogPostComponent } from '../shared/ui-components/blog-post/blog-post.component';
@@ -25,7 +23,6 @@ import { LeA003Component } from './io-garden/components/le-a003/le-a003.componen
     AboutPageComponent,
     BlogPageComponent,
     IoGardenPageComponent,
-    // SplashScreenComponent,
     PreviewCardComponent,
     BlogPostComponent,
     HomePageComponent,
@@ -44,8 +41,6 @@ import { LeA003Component } from './io-garden/components/le-a003/le-a003.componen
     MarkdownModule,
     RouterModule
   ],
-  exports: [
-    // SplashScreenComponent,
-  ]
+  exports: []
 })
 export class CoreModule { }
