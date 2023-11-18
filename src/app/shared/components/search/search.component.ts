@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, filter, tap } from 'rxjs';
 import { SearchIndexEntry, SearchResult, SearchService } from 'src/app/shared/services/search-service/search.service';
 import { HostListener, ElementRef } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { LoadingService } from '../../services/loading-service/loading.service';
 
 interface HighlightedSearchIndexEntry extends SearchIndexEntry {
   highlightedSearchTerm: HighlightedSearchTermObj;
@@ -24,6 +26,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   public searchInputValue= '';
   public searchResults: HighlightedSearchIndexEntry[] = [];
   public currPreviewPath = '';
+  public currPreviewRoute = '';
 
   private subscriptions: Subscription = new Subscription();
 
@@ -35,6 +38,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private searchService: SearchService,
+    private router: Router,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +54,22 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       })
     );
+
+    this.subscriptions.add(
+      this.router.events.pipe(
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        tap((e) => {
+          // console.log('event: ', e)
+          if (e.url.includes('io-garden')) {
+            this.loadingService.emitAfterViewInitSignal('IO-GARDEN');
+          } else {
+            this.loadingService.emitAfterViewInitSignal('BLOG-POST');
+          }
+        })
+      ).subscribe(() => {
+        this.closeSearch();
+      })
+    )
   }
 
   ngAfterViewInit(): void {
@@ -76,10 +97,11 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public handleSearchResultClick(searchResult: SearchResult): void {
-    console.log('searchResult: ', searchResult);
+    // console.log('searchResult: ', searchResult);
     const fileName = searchResult.file.slice(2);
     this.currPreviewPath = '/assets/' + fileName;
-    console.log('selectedPath: ', this.currPreviewPath)
+    // console.log('selectedPath: ', this.currPreviewPath)
+    this.currPreviewRoute = this.getCurrPreviewRoute(searchResult.file);
     this.hideKeyboard();
   }
 
@@ -96,5 +118,15 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public hideKeyboard(): void {
     this.searchInput.nativeElement.blur();
+  }
+
+  private getCurrPreviewRoute(filePath: string): string {
+    const kind = filePath.replace('./', '').split('/')[0];
+    const subRoute = kind.includes('experiment') ? 'io-garden/experiment/' : 'blog/post/'
+    const rawFileName = filePath.replace('./', '').split('/')[1];
+    const fileName = subRoute === 'io-garden/experiment/' ? rawFileName.replace('-description', '') : rawFileName;
+    const result = subRoute + fileName.replace('.md', '');
+    console.log('currPreviewRoute: ', result)
+    return result
   }
 }
