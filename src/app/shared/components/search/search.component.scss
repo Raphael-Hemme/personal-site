@@ -130,22 +130,35 @@ app-search {
         .search-preview-markdown {
           p:not(.token), 
           span:not(.token),
+          em,
+          strong,
+          sub,
           ul,
           ol,
           li,
           code,
           pre,
-          blockquote {
+          blockquote,
+          cite {
             font-size: 1rem;
             color: $light-gray-hover;
           }
           h1, h2, h3, h4, h5, h6 {
-            color: $accent;
+            color: $subtle-three;
+          }
+          a,
+          cite,
+          blockquote,
+          sub {
+            font-family: Inter, sans-serif;
           }
           a {
-            font-family: Inter, sans-serif;
-            color: $accent;
+            color: $accent-light;
             text-decoration: underline;
+          }
+          code {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
           }
         }
 

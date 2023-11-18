@@ -76,9 +76,11 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public handleSearchResultClick(searchResult: SearchResult): void {
+    console.log('searchResult: ', searchResult);
     const fileName = searchResult.file.slice(2);
     this.currPreviewPath = '/assets/' + fileName;
     console.log('selectedPath: ', this.currPreviewPath)
+    this.hideKeyboard();
   }
 
   private highlightSearchTerm(searchResultStr: string, searchTerm: string): HighlightedSearchTermObj {
