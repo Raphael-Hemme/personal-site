@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { orderBy } from 'lodash-es';
@@ -20,7 +20,7 @@ interface CountObj {
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('glitchSketch') glitchSketch!: ElementRef;
+  @ViewChild('glitchSketch') glitchSketch!: ElementRef | undefined;
 
   public featuredBlogPost!: BlogPostMetaData;
 
@@ -43,7 +43,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   /**
-   * Initializes the component.
+   * Initiate the component.
    * Sets the featured IoGarden experiment and blog post.
    * Gets all IoGarden experiment and blog tags.
    * Unifies and counts the tags arrays.

@@ -4,9 +4,6 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule } from '@angular/forms';
 
-
-
-// import { P5SketchContainerComponent } from './components/p5-sketch-container/p5-sketch-container.component';
 import { HorizontalGlitchSketchComponent } from './components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
 // import { IoGardenExperimentPreviewComponent } from './ui-components/io-garden-experiment-preview/io-garden-experiment-preview.component';
 import { IoGardenExperimentContainerComponent } from './ui-components/io-garden-experiment-container/io-garden-experiment-container.component';
@@ -21,7 +18,6 @@ import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
-    // P5SketchContainerComponent,
     HorizontalGlitchSketchComponent,
     // IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
@@ -39,7 +35,6 @@ import { SearchComponent } from './components/search/search.component';
     FormsModule
   ],
   exports: [
-    // P5SketchContainerComponent,
     HorizontalGlitchSketchComponent,
     // IoGardenExperimentPreviewComponent,
     IoGardenExperimentContainerComponent,
