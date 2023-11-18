@@ -98,7 +98,7 @@ export class LeA001Component implements OnInit, OnDestroy {
         s.colorMode(s.RGBA)
 
         for (let cellArr of this.cellsArrReordered) {
-          console.log('cellArr.length', cellArr.length);
+          // console.log('cellArr.length', cellArr.length);
           for (let cell of cellArr) {
             s.fill(...cell.color.fill);
             if (cell.color.stroke?.length) {
