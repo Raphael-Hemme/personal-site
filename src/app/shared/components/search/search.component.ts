@@ -59,7 +59,6 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
       this.router.events.pipe(
         filter((e): e is NavigationEnd => e instanceof NavigationEnd),
         tap((e) => {
-          // console.log('event: ', e)
           if (e.url.includes('io-garden')) {
             this.loadingService.emitAfterViewInitSignal('IO-GARDEN');
           } else {
@@ -72,39 +71,68 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     )
   }
 
+  /**
+   * Lifecycle hook that is called after Angular has fully initialized the component's view.
+   * It is responsible for focusing and selecting the search input element.
+   */
   ngAfterViewInit(): void {
     this.searchInput.nativeElement.focus();
     this.searchInput.nativeElement.select();
   }
 
+  /**
+   * Lifecycle hook that is called when the component is about to be destroyed.
+   * It is responsible for resetting the search results and unsubscribing from any subscriptions.
+   */
   ngOnDestroy(): void {
     this.searchService.resetSearchResults();
     this.subscriptions.unsubscribe();
   }
 
+  /**
+   * Closes the search component.
+   */
   public closeSearch(): void {
     this.searchService.closeSearch();
     this.ngOnDestroy();
   }
 
+  /**
+   * Prevents the unwanted close event.
+   * @param event - The event object.
+   */
   public preventUnwantedCloseEvent(event: Event): void {
     event.stopPropagation();
     return;
   }
 
+  /**
+   * Handles the input changes in the search component.
+   * @param event The input event value.
+   */
   public handleInputChanges(event: string): void {
     this.searchService.search(event);
   }
 
+  /**
+   * Handles the click event of a search result.
+   * It sets the current preview path and route based on the provided search result and hides the keyboard.
+   * @param searchResult The search result object.
+   * @returns void
+   */
   public handleSearchResultClick(searchResult: SearchResult): void {
-    // console.log('searchResult: ', searchResult);
     const fileName = searchResult.file.slice(2);
     this.currPreviewPath = '/assets/' + fileName;
-    // console.log('selectedPath: ', this.currPreviewPath)
     this.currPreviewRoute = this.getCurrPreviewRoute(searchResult.file);
     this.hideKeyboard();
   }
 
+  /**
+   * Returns an object to use for assigning CSS classes that highlight the search term within the search result string.
+   * @param searchResultStr - The search result string.
+   * @param searchTerm - The search term to highlight.
+   * @returns An object containing the highlighted search term parts.
+   */
   private highlightSearchTerm(searchResultStr: string, searchTerm: string): HighlightedSearchTermObj {
     const origCaseSearchResultIndexStart = searchResultStr.toLowerCase().indexOf(searchTerm.toLowerCase());
     const origCaseSearchResultIndexEnd = origCaseSearchResultIndexStart + searchTerm.length;
@@ -116,17 +144,24 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
-  public hideKeyboard(): void {
+  /**
+   * Hides the keyboard by blurring the search input element. Relevant for mobile devices.
+   */
+  private hideKeyboard(): void {
     this.searchInput.nativeElement.blur();
   }
 
+  /**
+   * Returns the current preview route based on the provided file path.
+   * @param filePath The file path to extract the preview route from.
+   * @returns The current preview route.
+   */
   private getCurrPreviewRoute(filePath: string): string {
     const kind = filePath.replace('./', '').split('/')[0];
     const subRoute = kind.includes('experiment') ? 'io-garden/experiment/' : 'blog/post/'
     const rawFileName = filePath.replace('./', '').split('/')[1];
     const fileName = subRoute === 'io-garden/experiment/' ? rawFileName.replace('-description', '') : rawFileName;
     const result = subRoute + fileName.replace('.md', '');
-    console.log('currPreviewRoute: ', result)
     return result
   }
 }
