@@ -3,6 +3,8 @@ import p5 from 'p5';
 import { Subscription } from 'rxjs';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
+interface LineObj { start: p5.Vector, end: p5.Vector }
+
 class DotTriplet {
   constructor(x1: number, y1: number) {
     this.firstDot.x = x1;
@@ -161,7 +163,7 @@ export class TeA001Component implements OnInit, OnDestroy {
         s.frameRate(20);
 
         s.fill(237, 34, 93);
-        s.noStroke();
+        // s.noStroke();
       }
 
       s.draw = () => {
@@ -172,6 +174,11 @@ export class TeA001Component implements OnInit, OnDestroy {
         this.ioStringArr = this.translateInputStringIntoIoArr(s, this.inputText);
 
         this.drawString(s, this.ioStringArr);
+        // const {start, end} = this.generateDiagonalLineStartAndEnd(s);
+        // s.stroke(255);
+        // s.strokeWeight(2);
+        // s.line(start[0], start[1], end[0], end[1]);
+        // s.noLoop();
       }
     };
 
@@ -183,8 +190,7 @@ export class TeA001Component implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  private drawChar = (s: p5, charPointArr: any) => {
-
+  private drawChar(s: p5, charPointArr: any): any {
     // new drawing function: charPointArr is not renamed to be less confusing if old function
     // is restored. It is an object however.
     for (let hbar of charPointArr.horizontalBarArr) {
@@ -214,7 +220,7 @@ export class TeA001Component implements OnInit, OnDestroy {
     )
   };
 
-  private drawString = (s: p5, stringArr: any[]) => {
+  private drawString(s: p5, stringArr: any[]) {
     if (stringArr.includes('return')) {
       const preSubStringArr = stringArr.map(el => {
         // maybe find a better solution for the substitution characters
@@ -321,6 +327,146 @@ export class TeA001Component implements OnInit, OnDestroy {
       return switchedChar;
     })
     return outputArr
+  }
+
+  /* private generateDiagonalLineStartAndEnd(s: p5): {start: number[], end: number[]} {
+    // Generate random start point within canvas
+    const startX = s.random(10, 90);
+    const startY = s.random(10, 90);
+  
+    // Generate random line length between 10 and 100
+    const length = s.random(20, 80);
+  
+    // Calculate end point
+    const endX = startX + length;
+    const endY = Math.random() < 0.5 ? startY - length : startY + length;
+  
+    // Ensure end point is within canvas
+    if (endX > 90 || endY > 90 || endY < 10) {
+      return this.generateDiagonalLineStartAndEnd(s);
+    }
+  
+    return {
+      start: [startX, startY],
+      end: [endX, endY]
+    };
+  } */
+
+  // ------ New Approach including diagonal lines with help of ChatGPT-4
+
+  // Each line is represented as an object with a start and end point
+  private createLine(s: p5, x1: number, y1: number, x2: number, y2: number): LineObj {
+    return { start: s.createVector(x1, y1), end: s.createVector(x2, y2) };
+  }
+
+  // Function to generate a random line within the canvas constraints
+  private generateRandomLine(s: p5, padding: number, size: number) {
+    let x1, y1, x2, y2!: number;
+    switch (s.int(s.random(3))) { // 0: horizontal, 1: vertical, 2: diag down-right, 3: diag up-right
+      case 0: // horizontal
+        x1 = s.random(padding, size - padding);
+        x2 = s.random(x1, size - padding);
+        y1 = y2 = s.random(padding, size - padding);
+        break;
+      case 1: // vertical
+        y1 = s.random(padding, size - padding);
+        y2 = s.random(y1, size - padding);
+        x1 = x2 = s.random(padding, size - padding);
+        break;
+      case 3: // diagona2
+        let length = s.random(5, size/2 - padding);
+        x1 = s.random(padding, size - padding - length);
+        y1 = s.random(padding, size - padding - length);
+        if (s.random(1) < 0.5) {
+          // diagonal down-right
+          x2 = x1 + length;
+          y2 = y1 + length;
+        } else {
+          // diagonal up-right
+          x2 = x1 + length;
+          y2 = y1 - length;
+        }
+        break;
+    }
+    return this.createLine(s, x1 as number, y1 as number, x2 as number, y2 as number);
+  }
+
+  // Function to check if two lines touch or cross
+  // This function returns true if the two lines intersect
+  private linesTouchOrCross(s: p5, l1: LineObj, l2: LineObj) {
+    // Convert points to vectors for easier calculation
+    let p1 = l1.start.copy();
+    let p2 = l1.end.copy();
+    let p3 = l2.start.copy();
+    let p4 = l2.end.copy();
+    
+    // Get the vectors for the lines themselves
+    let line1 = p2.copy().sub(p1);
+    let line2 = p4.copy().sub(p3);
+    
+    // Calculate denominators for the line equations
+    let denom = line1.x * line2.y - line1.y * line2.x;
+    
+    // Lines are parallel if denominator is 0; here, we assume they don't overlap if parallel
+    if (denom === 0) return false;
+
+    // Calculate the numerator for the equations
+    let num1 = p1.x * p2.y - p1.y * p2.x;
+    let num2 = p3.x * p4.y - p3.y * p4.x;
+    
+    // Intersection point
+    let ix = (num1 * line2.x - line1.x * num2) / denom;
+    let iy = (num1 * line2.y - line1.y * num2) / denom;
+    
+    // Check if intersection point is within the line segments
+    let intersection = s.createVector(ix, iy);
+    if (intersection.x < s.min(p1.x, p2.x) || intersection.x > s.max(p1.x, p2.x) ||
+        intersection.x < s.min(p3.x, p4.x) || intersection.x > s.max(p3.x, p4.x) ||
+        intersection.y < s.min(p1.y, p2.y) || intersection.y > s.max(p1.y, p2.y) ||
+        intersection.y < s.min(p3.y, p4.y) || intersection.y > s.max(p3.y, p4.y)) {
+      // Intersection point is outside the line segments
+      return false;
+    }
+    
+    // If the intersection point is within both line segments, they cross
+    return true;
+  }
+
+  // Main function to create an array of touching lines
+  private createTouchingLines(s: p5, maxLines: number, padding: number, size: number) {
+    let lines = [];
+    while (lines.length < maxLines) {
+      let newLine = this.generateRandomLine(s, padding, size);
+      let doesTouchOrCross = lines.some(line => this.linesTouchOrCross(s, line, newLine));
+      if (!doesTouchOrCross) {
+        lines.push(newLine);
+      }
+    }
+    return lines;
+  }
+
+  // p5.js setup function
+  setupMethod(s: p5) {
+    s.createCanvas(100, 100);
+    s.background(255);
+    s.stroke(0);
+    
+
+    let padding = 10;
+    let maxLines = 6;
+    let lines = this.createTouchingLines(s, maxLines, padding, 100);
+
+    lines.forEach(l => {
+      // console.log(l.start.x, l.start.y)
+      s.strokeWeight(s.random(1, 3));
+      s.line(l.start.x, l.start.y, l.end.x, l.end.y);
+    });
+  }
+
+  // p5.js draw function
+  drawMethod(s: p5) {
+    // The drawing logic is handled in setup
+    s.noLoop(); // No need to loop since the drawing only needs to happen once
   }
 
 }
