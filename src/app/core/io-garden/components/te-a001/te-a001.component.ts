@@ -3,34 +3,44 @@ import p5 from 'p5';
 import { Subscription } from 'rxjs';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
+interface LineObj {
+  start: p5.Vector;
+  end: p5.Vector;
+  orientation: 'horizontal' | 'vertical' | 'diagonal';
+  strokeWidth: number;
+}
+
 @Component({
   selector: 'app-te-a001',
   templateUrl: './te-a001.component.html',
-  styleUrls: ['./te-a001.component.scss']
+  styleUrls: ['./te-a001.component.scss'],
 })
 export class TeA001Component implements OnInit, OnDestroy {
-
   public canvWidth = 500;
   public canvHeight = 500;
+
+  private charWidth = 100;
 
   public inputText = '';
 
   public canvas: any;
+
+  private allCurrLines: LineObj[] = [];
+
+  private chars: Map<number, any> = new Map();
+
   private subscriptions: Subscription = new Subscription();
 
-  constructor(
-    private windowSizeService: WindowSizeService
-  ) {}
+  constructor(private windowSizeService: WindowSizeService) {}
 
   ngOnInit() {
-
     const canvasConfig = {
-      'isSquare': false,
-      'wPercentS': 100,
-      'wPercentL': 100,
-      'hPercentS': 80,
-      'hPercentL': 50
-    }
+      isSquare: false,
+      wPercentS: 100,
+      wPercentL: 100,
+      hPercentS: 80,
+      hPercentL: 50,
+    };
 
     const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
     this.canvWidth = canvSizeObj.w;
@@ -43,278 +53,23 @@ export class TeA001Component implements OnInit, OnDestroy {
     );
 
     const sketch = (s: any) => {
-      const chars: { [key: string]: {} } = {
-        a: {},
-        b: {},
-        c: {},
-        d: {},
-        e: {},
-        f: {},
-        g: {},
-        h: {},
-        i: {},
-        j: {},
-        k: {},
-        l: {},
-        m: {},
-        n: {},
-        o: {},
-        p: {},
-        q: {},
-        r: {},
-        s: {},
-        t: {},
-        u: {},
-        v: {},
-        w: {},
-        x: {},
-        y: {},
-        z: {},
-        'ß': {},
-        'ä': {},
-        'á': {},
-        'é': {},
-        'è': {},
-        'ì': {},
-        'ö': {},
-        'ü': {},
-        '0': {},
-        '1': {},
-        '2': {},
-        '3': {},
-        '4': {},
-        '5': {},
-        '6': {},
-        '7': {},
-        '8': {},
-        '9': {},
-        space: 'space',
-        return: 'return',
-        '!': {},
-        '@': {},
-        '#': {},
-        '$': {},
-        '%': {},
-        '^': {},
-        '&': {},
-        '*': {},
-        '(': {},
-        ')': {},
-        '-': {},
-        '_': {},
-        '+': {},
-        '=': {},
-        '[': {},
-        ']': {},
-        '{': {},
-        '}': {},
-        ',': {},
-        '.': {},
-        '?': {},
-        '/': {},
-        '<': {},
-        '>': {},
-        '~': {},
-        '`': {},
-        '"': {},
-        "'": {},
-        "|": {},
-        "\\": {},
-      }
-
-      let ioStringArr: any[] = [];
-
-      let yOffset = 100;
-      let counter = 0;
-
-      class DotTriplet {
-        constructor(x1: number, y1: number) {
-          this.firstDot.x = x1;
-          this.firstDot.y = y1;
-          this.secondDot.x = x1 + 10;
-          this.secondDot.y = y1;
-          this.thirdDot.x = x1;
-          this.thirdDot.y = y1 + 10;
-        }
-        firstDot = {
-          x: 0,
-          y: 0
-        };
-        secondDot = {
-          x: 0,
-          y: 0
-        };
-        thirdDot = {
-          x: 0,
-          y: 0
-        };
-      }
-
       s.setup = () => {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('te-a001-sketch-wrapper');
 
-        s.generateAlphabet();
-
         s.background(50);
-        s.frameRate(20);
+        s.frameRate(10);
 
         s.fill(237, 34, 93);
-        s.noStroke();
-      }
+        // s.noStroke();
+      };
 
       s.draw = () => {
         s.frameCount === 1 ?? s.translate(0, 10);
 
         s.background(50);
-        ioStringArr.splice(0, ioStringArr.length);
-        ioStringArr = s.translateInputStringIntoIoArr(this.inputText);
-
-        s.drawString(ioStringArr);
-      }
-
-      s.generateHorizontalBarArr = (n: number) => {
-        const result = [];
-        for(let i = 0; i < n; i++) {
-          const currX = s.int(s.random(0, 80));
-          result.push({
-            x: currX,
-            y: s.int(s.random(0, 90)),
-            w: s.int(s.random(10, 100 - currX)),
-            h: 5
-          });
-        };
-        return result;
-      }
-
-      s.generateVerticalBarArr = (n: number) => {
-        const result = [];
-        for(let i = 0; i < n; i++) {
-          const currY = s.int(s.random(0, 80));
-          result.push({
-            x: s.int(s.random(0, 90)),
-            y: currY,
-            w: 5,
-            h: s.int(s.random(10, 100 - currY))
-          });
-        };
-        return result;
-      }
-
-      s.generateLetter= () => {
-        // New shape-data generation:
-        const horizontalBarCount = s.random(0, 5);
-        const dotTriplet = new DotTriplet(s.int(s.random(10, 91)), s.int(s.random(10, 91)));
-        const verticalBarCount = s.random(0, 5);
-        return {
-          horizontalBarArr: s.generateHorizontalBarArr(horizontalBarCount),
-          verticalBarArr: s.generateVerticalBarArr(verticalBarCount),
-          dotTriplet: dotTriplet
-        }
-      }
-
-      s.generateAlphabet = () => {
-        for (let char in chars) {
-          if (char === 'space' ||  char === 'return') {
-            //chars[char] = char;
-            continue;
-          };
-          const currLetter = s.generateLetter()
-          chars[char] = currLetter;
-        }
-      }
-
-      s.drawChar = (charPointArr: any) => {
-
-        // new drawing function: charPointArr is not renamed to be less confusing if old function
-        // is restored. It is an object however.
-        for (let hbar of charPointArr.horizontalBarArr) {
-          s.rect(hbar.x, hbar.y, hbar.w, hbar.h);
-        }
-        for (let vbar of charPointArr.verticalBarArr) {
-          s.rect(vbar.x, vbar.y, vbar.w, vbar.h);
-        }
-        for (let dot in charPointArr.dotTriplet) {
-          // console.log(dot)
-          // circle(charPointArr[dot].x, charPointArr[dot].y, charPointArr[dot].w, charPointArr[dot].h)
-        }
-        s.circle(
-          charPointArr.dotTriplet.firstDot.x,
-          charPointArr.dotTriplet.firstDot.y,
-          5
-        );
-        s.circle(
-          charPointArr.dotTriplet.secondDot.x,
-          charPointArr.dotTriplet.secondDot.y,
-          5
-        )
-        s.circle(
-          charPointArr.dotTriplet.thirdDot.x,
-          charPointArr.dotTriplet.thirdDot.y,
-          5
-        )
-
+        this.drawString(s, this.inputText);
       };
-
-      s.drawString = (stringArr: any[]) => {
-        if (stringArr.includes('return')) {
-          const preSubStringArr = stringArr.map(el => {
-            // maybe find a better solution for the substitution characters
-            // in order to not block them. Maybe Reg-Ex...
-            if (el === 'return') {
-              return '~';
-            } else if (el === 'space') {
-              return '_';
-            } else {
-              return el;
-            }
-          })
-          const subStringArr = preSubStringArr.join('').split('~');
-          for (let i = 0; i < subStringArr.length; i++) {
-            const currYOffset = i > 0 ? 150 : 0;
-            const currXOffset = i > 0 ? -1 * (subStringArr[i - 1].length * 100) : 0;
-            s.translate(currXOffset, currYOffset);
-            for (let char of subStringArr[i]) {
-              if (char === '_') {
-                s.translate(100, 0);
-              } else {
-                s.translate(100, 0);
-                s.drawChar(chars[char]);
-              }
-            }
-          }
-        } else {
-          for (let char of stringArr) {
-            if (char === 'space') {
-              s.translate(100, 0);
-            } else {
-              s.translate(100, 0);
-              s.drawChar(chars[char]);
-            }
-          }
-        }
-
-      };
-
-      s.translateInputStringIntoIoArr = (inputStr: string): any[] => {
-        const strAsArr = inputStr.split('');
-        const outputArr = strAsArr.map(char => {
-          let switchedChar = ''
-          switch (char) {
-            case '\n':
-              switchedChar = 'return';
-              break;
-            case ' ':
-              switchedChar = 'space';
-              break;
-            default:
-              switchedChar = char.toLowerCase();
-          }
-          return switchedChar;
-        })
-        return outputArr
-      }
-
     };
 
     this.canvas = new p5(sketch);
@@ -325,4 +80,192 @@ export class TeA001Component implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  private drawString(s: p5, inputStr: string) {
+    // split inputStr into array of strings for each line.
+    const gap = 20
+    const lineHeight = 120;
+    const charWidth = 100;
+    let currLine  = 1;
+    const lineStrArr = inputStr.split('\n');
+    for (const [i, line] of lineStrArr.entries()) {
+      const currYOffset = currLine < 2 ? gap : (currLine - 1) * lineHeight + gap;
+      for (const [j, char] of line.split('').entries()) {
+        const currXOffset = j < 1 ? gap : j * charWidth + gap;;
+        const currCharCode = char.toLowerCase().charCodeAt(0);
+        if (this.chars.has(currCharCode)) {
+          s.push();
+            s.translate(currXOffset, currYOffset);
+            this.drawChar(s, this.chars.get(currCharCode));
+          s.pop();
+        }
+      }
+      currLine++;
+    }
+  }
+
+  private updateCharacterMapFromInputVal(s: p5, inputVal: string): void {
+    const cleanedInputVal = inputVal.replace(/(\r\n|\n|\r|\s)/gm, '');
+    const inputValArr = cleanedInputVal.split('');
+    for (const char of inputValArr) {
+      const currCharCode = char.toLowerCase().charCodeAt(0);
+      if (!this.chars.has(currCharCode)) {
+        const maxLines = s.int(s.random(3, 6));
+        const padding = 10;
+        const charSize = 100;
+        
+        // Generate the starting line with extra padding
+        let startingLine = this.generateRandomLine(s, 15, 85); // 15% padding
+        this.allCurrLines = [startingLine];
+        
+        // First iteration: extend 1 to 2 lines from the starting line
+        this.extendLinesFromLine(s, startingLine, this.allCurrLines, 2);
+        
+        this.chars.set(currCharCode, this.allCurrLines);
+      }
+    }
+  }
+
+  public handleInputTextChange(inputVal: string): void {
+    this.updateCharacterMapFromInputVal(this.canvas, inputVal);
+  }
+
+  // ------ New Approach including diagonal lines with help of ChatGPT-4
+
+  private drawChar(s: p5, lineArr: LineObj[]) {
+    lineArr.forEach((l) => {
+      s.stroke(237, 34, 93);
+      s.strokeWeight(l.strokeWidth);
+      s.line(l.start.x, l.start.y, l.end.x, l.end.y);
+    });
+  }
+
+  /// newest approach
+  
+  private generateRandomLine(s: p5, padding: number, size: number): LineObj {
+    let x1, y1, x2, y2, orientation, strokeWidth;
+    let rand = s.random();
+    if (rand < 1/3) {
+      // horizontal - potentially shorter but thicker
+      x1 = s.random(padding, size - 30); // Allowing for potentially shorter lines
+      x2 = s.random(x1 + 10, size); // Ensuring at least some minimal length
+      y1 = y2 = s.random(padding, size);
+      orientation = 'horizontal';
+      strokeWidth = s.int(s.random(3, 6)); // Thicker lines for horizontal
+    } else if (rand < 2/3) {
+      // vertical - average thickness
+      y1 = s.random(padding, size);
+      y2 = s.random(y1, size);
+      x1 = x2 = s.random(padding, size);
+      orientation = 'vertical';
+      strokeWidth = s.int(s.random(1, 3)); // Thinnest lines for vertical
+    } else {
+      // diagonal - with a higher chance of being longer
+      let startPoint = s.createVector(s.random(padding, size), s.random(padding, size));
+      let angle = s.random([s.QUARTER_PI, -s.QUARTER_PI]); // 45 degrees or -45 degrees
+      let minLength = size/2; // Ensuring diagonals are longer on average
+      let maxLength = size - s.max(startPoint.x, startPoint.y) - padding;
+      let length = s.random(minLength, maxLength);
+      let endPoint = p5.Vector.fromAngle(angle).setMag(length).add(startPoint);
+      x1 = startPoint.x;
+      y1 = startPoint.y;
+      x2 = endPoint.x;
+      y2 = endPoint.y;
+      orientation = 'diagonal';
+      strokeWidth = s.int(s.random(1, 4)); // Variable thickness for diagonal
+    }
+  
+    return { 
+      start: s.createVector(x1, y1),
+      end: s.createVector(x2, y2),
+      orientation: orientation as 'horizontal' | 'vertical' | 'diagonal',
+      strokeWidth: strokeWidth
+    };
+  }
+  
+  private extendLinesFromLine(s: p5, l: LineObj, allLines: LineObj[], depth: number): void {
+    if (depth > 2) return; // Limit recursion depth
+  
+    let numLinesToExtend = s.int(s.random(2, 5)); // 2 to 5 lines
+    for (let i = 0; i < numLinesToExtend; i++) {
+      // Choose a random point along the line
+      let t = s.random();
+      let pointOnLine = p5.Vector.lerp(l.start, l.end, t);
+      // Generate a new line starting from this point
+      let newLine = this.generateRandomLineFromPoint(s, pointOnLine, 10, 90, l.orientation);
+      this.allCurrLines.push(newLine);
+  
+      // Recursive call for the new line
+      if (s.random() < 0.7) { // 50% chance to extend further
+        this.extendLinesFromLine(s, newLine, this.allCurrLines, depth + 1);
+      }
+    }
+  }
+  
+  generateRandomLineFromPoint(
+    s: p5,
+    point: p5.Vector, 
+    padding: number,
+    size: number,
+    excludeOrientation: 'horizontal' | 'vertical' | 'diagonal'
+  ): LineObj {
+    let x2, y2;
+    let orientation: 'horizontal' | 'vertical' | 'diagonal';
+    if (excludeOrientation === 'horizontal') {
+      // vertical or diagonal
+      let rand = s.random();
+      if (rand < 0.5) {
+        orientation = 'vertical';
+        y2 = s.random(padding, size);
+        return { 
+          start: point,
+          end: s.createVector(point.x, y2),
+          orientation: orientation,
+          strokeWidth: s.int(s.random(1, 2)) // Thinnest lines for vertical
+        };
+      } else {
+        orientation = 'diagonal';
+        let angle = s.random([s.QUARTER_PI, -s.QUARTER_PI]);
+        let length = s.random(10, size - s.max(point.x, point.y));
+        let endPoint = p5.Vector.fromAngle(angle).setMag(length).add(point);
+        return { 
+          start: point, 
+          end: endPoint, 
+          orientation: orientation,
+          strokeWidth: s.int(s.random(1, 4)) // Variable thickness for diagonal
+        };
+      }
+    } else if (excludeOrientation === 'vertical') {
+      // horizontal or diagonal
+      orientation = 'horizontal';
+      x2 = s.random(padding, size);
+      return { 
+        start: point,
+        end: s.createVector(x2, point.y),
+        orientation: orientation,
+        strokeWidth: s.int(s.random(1, 4))
+      };
+    } else {
+      // horizontal or vertical
+      let rand = s.random();
+      if (rand < 0.5) {
+        orientation = 'horizontal';
+        x2 = s.random(padding, size);
+        return { 
+          start: point,
+          end: s.createVector(x2, point.y), 
+          orientation: orientation,
+          strokeWidth: s.int(s.random(1, 4)) // Thicker lines for horizontal
+        };
+      } else {
+        orientation = 'vertical';
+        y2 = s.random(padding, size);
+        return { 
+          start: point,
+          end: s.createVector(point.x, y2),
+          orientation: orientation,
+          strokeWidth: s.int(s.random(1, 2)) // Thinnest lines for vertical
+        };
+      }
+    }
+  }
 }

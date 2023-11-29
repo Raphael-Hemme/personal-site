@@ -9,6 +9,7 @@
     name="userTextArea"
     rows="5"
     [(ngModel)]="inputText"
+    (ngModelChange)="handleInputTextChange($event)"
     placeholder="Enter your text here.">
   </textarea>
 </div>
