@@ -6,6 +6,8 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
 interface LineObj {
   start: p5.Vector;
   end: p5.Vector;
+  orientation: 'horizontal' | 'vertical' | 'diagonal';
+  strokeWidth: number;
 }
 
 @Component({
@@ -23,12 +25,9 @@ export class TeA001Component implements OnInit, OnDestroy {
 
   public canvas: any;
 
+  private allCurrLines: LineObj[] = [];
+
   private chars: Map<number, any> = new Map();
-
-  private ioStringArr: any[] = [];
-
-  private yOffset = 100;
-  private counter = 0;
 
   private subscriptions: Subscription = new Subscription();
 
@@ -113,7 +112,15 @@ export class TeA001Component implements OnInit, OnDestroy {
         const maxLines = s.int(s.random(3, 6));
         const padding = 10;
         const charSize = 100;
-        this.chars.set(currCharCode, this.createTouchingLines(s, maxLines, padding, charSize));
+        
+        // Generate the starting line with extra padding
+        let startingLine = this.generateRandomLine(s, 15, 85); // 15% padding
+        this.allCurrLines = [startingLine];
+        
+        // First iteration: extend 1 to 2 lines from the starting line
+        this.extendLinesFromLine(s, startingLine, this.allCurrLines, 2);
+        
+        this.chars.set(currCharCode, this.allCurrLines);
       }
     }
   }
@@ -124,56 +131,47 @@ export class TeA001Component implements OnInit, OnDestroy {
 
   // ------ New Approach including diagonal lines with help of ChatGPT-4
 
-  // Each line is represented as an object with a start and end point
-  private createLine(
-    s: p5,
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number
-  ): LineObj {
-    return { start: s.createVector(x1, y1), end: s.createVector(x2, y2) };
-  }
-
-  // Function to generate a random line within the canvas constraints
-  private generateRandomLine(s: p5, padding: number, size: number) {
-    let x1, y1, x2, y2!: number;
-    switch (
-      s.int(s.random(3)) // 0: horizontal, 1: vertical, 2: diagonal
-    ) {
-      case 0: // horizontal
-        x1 = s.random(padding, size - padding);
-        x2 = s.random(x1, size - padding);
-        y1 = y2 = s.random(padding, size - padding);
-        break;
-      case 1: // vertical
-        y1 = s.random(padding, size - padding);
-        y2 = s.random(y1, size - padding);
-        x1 = x2 = s.random(padding, size - padding);
-        break;
-      case 2: // diagona2
-        console.log('case 3');
-        let length = s.random(5, size / 2 - padding);
-        x1 = s.random(padding, size - padding - length);
-        y1 = s.random(padding, size - padding - length);
-        if (s.random(1) < 0.5) {
-          // diagonal down-right
-          x2 = x1 + length;
-          y2 = y1 + length;
-        } else {
-          // diagonal up-right
-          x2 = x1 + length;
-          y2 = y1 - length;
-        }
-        break;
+  private linesTouch(s: p5, l1: LineObj, l2: LineObj, touchThreshold = 1) {
+    function onSegment(p: {x: number, y: number}, q: {x: number, y: number}, r: {x: number, y: number}) {
+      if (q.x <= s.max(p.x, r.x) && q.x >= s.min(p.x, r.x) && q.y <= s.max(p.y, r.y) && q.y >= s.min(p.y, r.y)) {
+        return true;
+      }
+      return false;
     }
-    return this.createLine(
-      s,
-      x1 as number,
-      y1 as number,
-      x2 as number,
-      y2 as number
-    );
+    
+    function orientation(p: {x: number, y: number}, q: {x: number, y: number}, r: {x: number, y: number}) {
+      let val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+      if (val === 0) return 0; // colinear
+      return (val > 0) ? 1 : 2; // clock or counterclock wise
+    }
+    
+    function doIntersect(p1: {x: number, y: number}, q1: {x: number, y: number}, p2: {x: number, y: number}, q2: {x: number, y: number}) {
+      let o1 = orientation(p1, q1, p2);
+      let o2 = orientation(p1, q1, q2);
+      let o3 = orientation(p2, q2, p1);
+      let o4 = orientation(p2, q2, q1);
+      
+      if (o1 != o2 && o3 != o4) return true;
+      
+      if (o1 === 0 && onSegment(p1, p2, q1)) return true;
+      if (o2 === 0 && onSegment(p1, q2, q1)) return true;
+      if (o3 === 0 && onSegment(p2, p1, q2)) return true;
+      if (o4 === 0 && onSegment(p2, q1, q2)) return true;
+      
+      return false;
+    }
+    
+    // Check if line1 and line2 endpoints are touching without crossing
+    let endpoints = [l1.start, l1.end, l2.start, l2.end];
+    for (let i = 0; i < endpoints.length; i++) {
+      for (let j = 0; j < endpoints.length; j++) {
+        if (i !== j && endpoints[i].dist(endpoints[j]) <= touchThreshold && !doIntersect(l1.start, l1.end, endpoints[j], endpoints[(j + 2) % endpoints.length])) {
+          return true;
+        }
+      }
+    }
+    
+    return false;
   }
 
   // Function to check if two lines touch or cross
@@ -223,50 +221,179 @@ export class TeA001Component implements OnInit, OnDestroy {
     return true;
   }
 
-  // Main function to create an array of touching lines
-  private createTouchingLines(
-    s: p5,
-    maxLines: number,
-    padding: number,
-    size: number
-  ) {
+  private createTouchingLines(s: p5, maxLines: number, padding: number, size: number) {
     let lines = [];
     while (lines.length < maxLines) {
       let newLine = this.generateRandomLine(s, padding, size);
-      let doesTouchOrCross = lines.some((line) =>
-        this.linesTouchOrCross(s, line, newLine)
-      );
-      if (!doesTouchOrCross) {
+      let touches = lines.some(l => this.linesTouch(s, l, newLine));
+      let crosses = lines.some(l => this.linesTouchOrCross(s, l, newLine));
+      if (touches && !crosses) {
         lines.push(newLine);
       }
     }
     return lines;
   }
 
-  private drawChar(s: p5, lineArr: any[]) {
+  private drawChar(s: p5, lineArr: LineObj[]) {
     lineArr.forEach((l) => {
-      s.strokeWeight(2);
       s.stroke(237, 34, 93);
+      s.strokeWeight(l.strokeWidth);
       s.line(l.start.x, l.start.y, l.end.x, l.end.y);
     });
   }
 
-  // p5.js setup function
+  /// newest approach
+
   private setupMethod(s: p5) {
     s.createCanvas(100, 100);
     s.background(255);
     s.stroke(0);
-
-    let padding = 10;
-    let maxLines = 6;
-    let lines = this.createTouchingLines(s, maxLines, padding, 50);
-
-    this.drawChar(s, lines);
+    s.strokeWeight(1);
+  
+    // Generate the starting line with extra padding
+    let startingLine = this.generateRandomLine(s, 15, 85); // 15% padding
+    this.allCurrLines = [startingLine];
+  
+    // First iteration: extend 1 to 2 lines from the starting line
+    this.extendLinesFromLine(s, startingLine, this.allCurrLines, 2);
+  
+    // Draw all lines
+    this.allCurrLines.forEach(l => {
+      s.strokeWeight(l.strokeWidth);
+      s.line(l.start.x, l.start.y, l.end.x, l.end.y);
+    });
   }
-
-  // p5.js draw function
-  private drawMethod(s: p5) {
-    // The drawing logic is handled in setup
-    s.noLoop(); // No need to loop since the drawing only needs to happen once
+  
+  private generateRandomLine(s: p5, padding: number, size: number): LineObj {
+    let x1, y1, x2, y2, orientation, strokeWidth;
+    let rand = s.random();
+    if (rand < 1/3) {
+      // horizontal - potentially shorter but thicker
+      x1 = s.random(padding, size - 30); // Allowing for potentially shorter lines
+      x2 = s.random(x1 + 10, size); // Ensuring at least some minimal length
+      y1 = y2 = s.random(padding, size);
+      orientation = 'horizontal';
+      strokeWidth = s.int(s.random(3, 6)); // Thicker lines for horizontal
+    } else if (rand < 2/3) {
+      // vertical - average thickness
+      y1 = s.random(padding, size);
+      y2 = s.random(y1, size);
+      x1 = x2 = s.random(padding, size);
+      orientation = 'vertical';
+      strokeWidth = s.int(s.random(1, 3)); // Thinnest lines for vertical
+    } else {
+      // diagonal - with a higher chance of being longer
+      let startPoint = s.createVector(s.random(padding, size), s.random(padding, size));
+      let angle = s.random([s.QUARTER_PI, -s.QUARTER_PI]); // 45 degrees or -45 degrees
+      let minLength = size/2; // Ensuring diagonals are longer on average
+      let maxLength = size - s.max(startPoint.x, startPoint.y) - padding;
+      let length = s.random(minLength, maxLength);
+      let endPoint = p5.Vector.fromAngle(angle).setMag(length).add(startPoint);
+      x1 = startPoint.x;
+      y1 = startPoint.y;
+      x2 = endPoint.x;
+      y2 = endPoint.y;
+      orientation = 'diagonal';
+      strokeWidth = s.int(s.random(1, 4)); // Variable thickness for diagonal
+    }
+  
+    return { 
+      start: s.createVector(x1, y1),
+      end: s.createVector(x2, y2),
+      orientation: orientation as 'horizontal' | 'vertical' | 'diagonal',
+      strokeWidth: strokeWidth
+    };
   }
+  
+  private extendLinesFromLine(s: p5, l: LineObj, allLines: LineObj[], depth: number): void {
+    if (depth > 2) return; // Limit recursion depth
+  
+    let numLinesToExtend = s.int(s.random(2, 5)); // 2 to 5 lines
+    for (let i = 0; i < numLinesToExtend; i++) {
+      // Choose a random point along the line
+      let t = s.random();
+      let pointOnLine = p5.Vector.lerp(l.start, l.end, t);
+      // Generate a new line starting from this point
+      let newLine = this.generateRandomLineFromPoint(s, pointOnLine, 10, 90, l.orientation);
+      this.allCurrLines.push(newLine);
+  
+      // Recursive call for the new line
+      if (s.random() < 0.7) { // 50% chance to extend further
+        this.extendLinesFromLine(s, newLine, this.allCurrLines, depth + 1);
+      }
+    }
+  }
+  
+  generateRandomLineFromPoint(
+    s: p5,
+    point: p5.Vector, 
+    padding: number,
+    size: number,
+    excludeOrientation: 'horizontal' | 'vertical' | 'diagonal'
+  ): LineObj {
+    let x2, y2;
+    let orientation: 'horizontal' | 'vertical' | 'diagonal';
+    if (excludeOrientation === 'horizontal') {
+      // vertical or diagonal
+      let rand = s.random();
+      if (rand < 0.5) {
+        orientation = 'vertical';
+        y2 = s.random(padding, size);
+        return { 
+          start: point,
+          end: s.createVector(point.x, y2),
+          orientation: orientation,
+          strokeWidth: s.int(s.random(1, 2)) // Thinnest lines for vertical
+        };
+      } else {
+        orientation = 'diagonal';
+        let angle = s.random([s.QUARTER_PI, -s.QUARTER_PI]);
+        let length = s.random(10, size - s.max(point.x, point.y));
+        let endPoint = p5.Vector.fromAngle(angle).setMag(length).add(point);
+        return { 
+          start: point, 
+          end: endPoint, 
+          orientation: orientation,
+          strokeWidth: s.int(s.random(1, 4)) // Variable thickness for diagonal
+        };
+      }
+    } else if (excludeOrientation === 'vertical') {
+      // horizontal or diagonal
+      orientation = 'horizontal';
+      x2 = s.random(padding, size);
+      return { 
+        start: point,
+        end: s.createVector(x2, point.y),
+        orientation: orientation,
+        strokeWidth: s.int(s.random(1, 4))
+      };
+    } else {
+      // horizontal or vertical
+      let rand = s.random();
+      if (rand < 0.5) {
+        orientation = 'horizontal';
+        x2 = s.random(padding, size);
+        return { 
+          start: point,
+          end: s.createVector(x2, point.y), 
+          orientation: orientation,
+          strokeWidth: s.int(s.random(1, 4)) // Thicker lines for horizontal
+        };
+      } else {
+        orientation = 'vertical';
+        y2 = s.random(padding, size);
+        return { 
+          start: point,
+          end: s.createVector(point.x, y2),
+          orientation: orientation,
+          strokeWidth: s.int(s.random(1, 2)) // Thinnest lines for vertical
+        };
+      }
+    }
+  }
+  
+  // Ensure the draw function does not loop
+/*   private drawMethod(s: p5) {
+    s.noLoop();
+  } */
 }
