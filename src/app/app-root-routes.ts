@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
+
 import { AboutPageComponent } from './core/about/about-page/about-page.component';
 import { BlogPageComponent } from './core/blog/blog-page/blog-page.component';
 import { HomePageComponent } from './core/home/home-page/home-page.component';
@@ -18,7 +18,7 @@ import { TeA001Component } from './core/io-garden/components/te-a001/te-a001.com
 import { LeA003Component } from './core/io-garden/components/le-a003/le-a003.component';
 
 
-const routes: Routes = [
+export const rootRoutes: Routes = [
   { path: 'about', component: AboutPageComponent},
   { path: 'blog', component: BlogPageComponent},
   { path: 'blog/post/:id', component: BlogPostComponent },
@@ -40,9 +40,3 @@ const routes: Routes = [
   { path: '', component: HomePageComponent},
   { path: '**', component: PageNotFoundComponent}
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
