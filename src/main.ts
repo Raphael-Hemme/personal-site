@@ -9,8 +9,6 @@ import { SecurityContext } from '@angular/core';
 import { provideMarkdown } from 'ngx-markdown';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 
-
-
 if (environment.production) {
   enableProdMode();
 }
