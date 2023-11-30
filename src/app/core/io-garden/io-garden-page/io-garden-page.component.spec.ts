@@ -8,8 +8,8 @@ describe('IoGardenPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IoGardenPageComponent ]
-    })
+    imports: [IoGardenPageComponent]
+})
     .compileComponents();
   });
 

@@ -17,31 +17,29 @@ import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
-  declarations: [
-    HorizontalGlitchSketchComponent,
-    // IoGardenExperimentPreviewComponent,
-    IoGardenExperimentContainerComponent,
-    TagListComponent,
-    SiteMenuComponent,
-    ModalComponent,
-    PageNotFoundComponent,
-    SearchComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    AppRoutingModule,
-    MarkdownModule,
-    FormsModule
-  ],
-  exports: [
-    HorizontalGlitchSketchComponent,
-    // IoGardenExperimentPreviewComponent,
-    IoGardenExperimentContainerComponent,
-    TagListComponent,
-    SiteMenuComponent,
-    ModalComponent,
-    SearchComponent,
-  ]
+    imports: [
+        CommonModule,
+        RouterModule,
+        AppRoutingModule,
+        MarkdownModule,
+        FormsModule,
+        HorizontalGlitchSketchComponent,
+        // IoGardenExperimentPreviewComponent,
+        IoGardenExperimentContainerComponent,
+        TagListComponent,
+        SiteMenuComponent,
+        ModalComponent,
+        PageNotFoundComponent,
+        SearchComponent
+    ],
+    exports: [
+        HorizontalGlitchSketchComponent,
+        // IoGardenExperimentPreviewComponent,
+        IoGardenExperimentContainerComponent,
+        TagListComponent,
+        SiteMenuComponent,
+        ModalComponent,
+        SearchComponent,
+    ]
 })
 export class SharedModule { }

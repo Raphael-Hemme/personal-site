@@ -4,11 +4,16 @@ import { BlogPostMetaData, BlogService } from '../../services/blog-service/blog.
 import { DataService } from '../../services/data-service/data.service';
 import { Subscription } from 'rxjs';
 import { LoadingService } from '../../services/loading-service/loading.service';
+import { MarkdownModule } from 'ngx-markdown';
+import { TagListComponent } from '../tag-list/tag-list.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-blog-post',
-  templateUrl: './blog-post.component.html',
-  styleUrls: ['./blog-post.component.scss']
+    selector: 'app-blog-post',
+    templateUrl: './blog-post.component.html',
+    styleUrls: ['./blog-post.component.scss'],
+    standalone: true,
+    imports: [NgIf, TagListComponent, MarkdownModule]
 })
 export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
 

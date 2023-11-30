@@ -1,11 +1,15 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IoGardenService, IoGardenExperimentMetaData } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
+import { PreviewCardComponent } from '../../../shared/ui-components/preview-card/preview-card.component';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-io-garden-page',
-  templateUrl: './io-garden-page.component.html',
-  styleUrls: ['./io-garden-page.component.scss']
+    selector: 'app-io-garden-page',
+    templateUrl: './io-garden-page.component.html',
+    styleUrls: ['./io-garden-page.component.scss'],
+    standalone: true,
+    imports: [NgFor, PreviewCardComponent]
 })
 export class IoGardenPageComponent implements OnInit, AfterViewInit {
 

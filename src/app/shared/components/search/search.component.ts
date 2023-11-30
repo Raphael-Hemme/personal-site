@@ -2,8 +2,11 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulati
 import { Subscription, filter, tap } from 'rxjs';
 import { SearchIndexEntry, SearchResult, SearchService } from 'src/app/shared/services/search-service/search.service';
 import { HostListener, ElementRef } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { LoadingService } from '../../services/loading-service/loading.service';
+import { MarkdownModule } from 'ngx-markdown';
+import { FormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
 
 interface HighlightedSearchIndexEntry extends SearchIndexEntry {
   highlightedSearchTerm: HighlightedSearchTermObj;
@@ -16,10 +19,17 @@ interface HighlightedSearchTermObj {
 }
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgFor,
+        FormsModule,
+        RouterLink,
+        MarkdownModule,
+    ],
 })
 export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 

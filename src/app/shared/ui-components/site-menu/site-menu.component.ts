@@ -10,11 +10,14 @@ import { Subscription, tap, delay } from 'rxjs';
 import { MenuService } from '../../services/menu-service/menu.service';
 import { WindowSizeService } from '../../services/window-size-service/window-size.service';
 import { SearchService } from '../../services/search-service/search.service';
+import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-site-menu',
-  templateUrl: './site-menu.component.html',
-  styleUrls: ['./site-menu.component.scss']
+    selector: 'app-site-menu',
+    templateUrl: './site-menu.component.html',
+    styleUrls: ['./site-menu.component.scss'],
+    standalone: true,
+    imports: [NgClass]
 })
 export class SiteMenuComponent implements OnInit, OnDestroy {
 

@@ -8,8 +8,8 @@ describe('HorizontalGlitchSketchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HorizontalGlitchSketchComponent ]
-    })
+    imports: [HorizontalGlitchSketchComponent]
+})
     .compileComponents();
   });
 

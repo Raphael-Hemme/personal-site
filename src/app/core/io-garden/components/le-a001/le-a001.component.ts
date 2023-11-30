@@ -43,9 +43,10 @@ interface SubCellConfigObj {
 }
 
 @Component({
-  selector: 'app-le-a001',
-  templateUrl: './le-a001.component.html',
-  styleUrls: ['./le-a001.component.scss']
+    selector: 'app-le-a001',
+    templateUrl: './le-a001.component.html',
+    styleUrls: ['./le-a001.component.scss'],
+    standalone: true
 })
 export class LeA001Component implements OnInit, OnDestroy {
 

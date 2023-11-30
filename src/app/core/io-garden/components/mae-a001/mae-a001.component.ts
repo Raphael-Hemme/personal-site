@@ -5,6 +5,9 @@ import { DateTime } from 'luxon';
 import p5 from 'p5';
 import * as d3 from 'd3';
 import { groupBy } from 'lodash-es';
+import { FormsModule } from '@angular/forms';
+import { ModalComponent } from '../../../../shared/ui-components/modal/modal.component';
+import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
 
 interface SessionObj {
   timerIsRunning: boolean;
@@ -30,9 +33,11 @@ type Mode = 'FOCUS' | 'HOME' | 'SETTINGS';
 
 
 @Component({
-  selector: 'app-mae-a001',
-  templateUrl: './mae-a001.component.html',
-  styleUrls: ['./mae-a001.component.scss']
+    selector: 'app-mae-a001',
+    templateUrl: './mae-a001.component.html',
+    styleUrls: ['./mae-a001.component.scss'],
+    standalone: true,
+    imports: [NgIf, ModalComponent, NgTemplateOutlet, FormsModule, NgFor]
 })
 export class MaeA001Component implements OnInit, OnDestroy {
 

@@ -4,9 +4,10 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-cme-a001',
-  templateUrl: './cme-a001.component.html',
-  styleUrls: ['./cme-a001.component.scss']
+    selector: 'app-cme-a001',
+    templateUrl: './cme-a001.component.html',
+    styleUrls: ['./cme-a001.component.scss'],
+    standalone: true
 })
 export class CmeA001Component implements OnInit, OnDestroy {
 

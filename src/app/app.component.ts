@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { Location, NgClass, NgIf, AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -7,8 +7,7 @@ import {
   ElementRef,
   ChangeDetectorRef,
 } from '@angular/core';
-import { Router,
-  NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import {
   BehaviorSubject,
   Subscription,
@@ -17,12 +16,16 @@ import {
 import { LoadingService } from './shared/services/loading-service/loading.service';
 import { MenuService } from './shared/services/menu-service/menu.service';
 import { SearchService } from './shared/services/search-service/search.service';
+import { SearchComponent } from './shared/components/search/search.component';
+import { SiteMenuComponent } from './shared/ui-components/site-menu/site-menu.component';
 
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: true,
+    imports: [NgClass, NgIf, SiteMenuComponent, RouterOutlet, SearchComponent, AsyncPipe]
 })
 export class AppComponent implements OnInit, OnDestroy {
 

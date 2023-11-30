@@ -8,8 +8,8 @@ describe('IoGardenExperimentPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IoGardenExperimentPreviewComponent ]
-    })
+    declarations: [IoGardenExperimentPreviewComponent]
+})
     .compileComponents();
   });
 

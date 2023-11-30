@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import p5 from 'p5';
 import { Subscription } from 'rxjs';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
+import { FormsModule } from '@angular/forms';
 
 interface LineObj {
   start: p5.Vector;
@@ -11,9 +12,11 @@ interface LineObj {
 }
 
 @Component({
-  selector: 'app-te-a001',
-  templateUrl: './te-a001.component.html',
-  styleUrls: ['./te-a001.component.scss'],
+    selector: 'app-te-a001',
+    templateUrl: './te-a001.component.html',
+    styleUrls: ['./te-a001.component.scss'],
+    standalone: true,
+    imports: [FormsModule],
 })
 export class TeA001Component implements OnInit, OnDestroy {
   public canvWidth = 500;

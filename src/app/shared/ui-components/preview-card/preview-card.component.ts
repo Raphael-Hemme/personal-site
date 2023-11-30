@@ -3,13 +3,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { BlogPostMetaData } from '../../services/blog-service/blog.service';
 import { DataService } from '../../services/data-service/data.service';
+import { NgClass, NgIf, NgFor } from '@angular/common';
 
 type ImgOrientation = 'top' | 'left' | 'right';
 
 @Component({
-  selector: 'app-preview-card',
-  templateUrl: './preview-card.component.html',
-  styleUrls: ['./preview-card.component.scss']
+    selector: 'app-preview-card',
+    templateUrl: './preview-card.component.html',
+    styleUrls: ['./preview-card.component.scss'],
+    standalone: true,
+    imports: [NgClass, NgIf, NgFor]
 })
 export class PreviewCardComponent implements OnInit {
 

@@ -19,28 +19,26 @@ import { MaeA001Component } from './io-garden/components/mae-a001/mae-a001.compo
 import { LeA003Component } from './io-garden/components/le-a003/le-a003.component';
 
 @NgModule({
-  declarations: [
-    AboutPageComponent,
-    BlogPageComponent,
-    IoGardenPageComponent,
-    PreviewCardComponent,
-    BlogPostComponent,
-    HomePageComponent,
-    TeA001Component,
-    CmeA001Component,
-    LeA001Component,
-    LeA002Component,
-    PceA001Component,
-    MaeA001Component,
-    LeA003Component,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharedModule,
-    MarkdownModule,
-    RouterModule
-  ],
-  exports: []
+    imports: [
+        CommonModule,
+        FormsModule,
+        SharedModule,
+        MarkdownModule,
+        RouterModule,
+        AboutPageComponent,
+        BlogPageComponent,
+        IoGardenPageComponent,
+        PreviewCardComponent,
+        BlogPostComponent,
+        HomePageComponent,
+        TeA001Component,
+        CmeA001Component,
+        LeA001Component,
+        LeA002Component,
+        PceA001Component,
+        MaeA001Component,
+        LeA003Component
+    ],
+    exports: []
 })
 export class CoreModule { }

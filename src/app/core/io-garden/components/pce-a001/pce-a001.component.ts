@@ -10,9 +10,10 @@ interface DotArrElement {
 }
 
 @Component({
-  selector: 'app-pce-a001',
-  templateUrl: './pce-a001.component.html',
-  styleUrls: ['./pce-a001.component.scss']
+    selector: 'app-pce-a001',
+    templateUrl: './pce-a001.component.html',
+    styleUrls: ['./pce-a001.component.scss'],
+    standalone: true
 })
 export class PceA001Component implements OnInit, OnDestroy {
 

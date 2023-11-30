@@ -1,15 +1,19 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from '../../services/data-service/data.service';
 
 import { IoGardenExperimentMetaData, IoGardenService } from '../../services/io-garden-service/io-garden.service';
 import { LoadingService } from '../../services/loading-service/loading.service';
+import { MarkdownModule } from 'ngx-markdown';
+import { NgFor, NgClass, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-io-garden-experiment-container',
-  templateUrl: './io-garden-experiment-container.component.html',
-  styleUrls: ['./io-garden-experiment-container.component.scss']
+    selector: 'app-io-garden-experiment-container',
+    templateUrl: './io-garden-experiment-container.component.html',
+    styleUrls: ['./io-garden-experiment-container.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgClass, RouterOutlet, NgIf, MarkdownModule]
 })
 export class IoGardenExperimentContainerComponent implements OnInit, AfterViewInit, OnDestroy {
 
