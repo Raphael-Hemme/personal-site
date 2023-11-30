@@ -1,10 +1,13 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
+import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-about-page',
-  templateUrl: './about-page.component.html',
-  styleUrls: ['./about-page.component.scss']
+    selector: 'app-about-page',
+    templateUrl: './about-page.component.html',
+    styleUrls: ['./about-page.component.scss'],
+    standalone: true,
+    imports: [NgClass]
 })
 export class AboutPageComponent implements OnInit, AfterViewInit {
 

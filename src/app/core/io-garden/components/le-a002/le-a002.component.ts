@@ -3,6 +3,7 @@ import * as p5 from 'p5';
 import { random } from 'lodash-es';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Subscription } from 'rxjs';
+import { NgClass } from '@angular/common';
 
 
 class Cell {
@@ -63,9 +64,11 @@ class Cell {
 }
 
 @Component({
-  selector: 'app-le-a002',
-  templateUrl: './le-a002.component.html',
-  styleUrls: ['./le-a002.component.scss']
+    selector: 'app-le-a002',
+    templateUrl: './le-a002.component.html',
+    styleUrls: ['./le-a002.component.scss'],
+    standalone: true,
+    imports: [NgClass]
 })
 export class LeA002Component implements OnInit, OnDestroy {
 

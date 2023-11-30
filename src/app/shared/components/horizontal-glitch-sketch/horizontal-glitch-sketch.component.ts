@@ -11,9 +11,10 @@ interface RandomSlice {
 }
 
 @Component({
-  selector: 'app-horizontal-glitch-sketch',
-  templateUrl: './horizontal-glitch-sketch.component.html',
-  styleUrls: ['./horizontal-glitch-sketch.component.scss']
+    selector: 'app-horizontal-glitch-sketch',
+    templateUrl: './horizontal-glitch-sketch.component.html',
+    styleUrls: ['./horizontal-glitch-sketch.component.scss'],
+    standalone: true
 })
 export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 

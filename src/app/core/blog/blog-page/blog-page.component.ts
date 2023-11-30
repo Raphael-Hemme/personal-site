@@ -2,11 +2,15 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { orderBy } from 'lodash-es';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
+import { PreviewCardComponent } from '../../../shared/ui-components/preview-card/preview-card.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-blog-page',
-  templateUrl: './blog-page.component.html',
-  styleUrls: ['./blog-page.component.scss']
+    selector: 'app-blog-page',
+    templateUrl: './blog-page.component.html',
+    styleUrls: ['./blog-page.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, PreviewCardComponent]
 })
 export class BlogPageComponent implements OnInit, AfterViewInit {
 

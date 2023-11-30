@@ -8,8 +8,8 @@ describe('PceA001Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PceA001Component ]
-    })
+    imports: [PceA001Component]
+})
     .compileComponents();
   });
 

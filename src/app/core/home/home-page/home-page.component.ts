@@ -5,6 +5,10 @@ import { orderBy } from 'lodash-es';
 import { MenuService } from 'src/app/shared/services/menu-service/menu.service';
 import { SearchService } from 'src/app/shared/services/search-service/search.service';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
+import { PreviewCardComponent } from '../../../shared/ui-components/preview-card/preview-card.component';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { HorizontalGlitchSketchComponent } from '../../../shared/components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
 
 interface TagObjNameAndCount {
   name: string;
@@ -15,9 +19,11 @@ interface CountObj {
 }
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+    selector: 'app-home-page',
+    templateUrl: './home-page.component.html',
+    styleUrls: ['./home-page.component.scss'],
+    standalone: true,
+    imports: [HorizontalGlitchSketchComponent, RouterLink, NgIf, PreviewCardComponent, NgFor, NgClass]
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('glitchSketch') glitchSketch!: ElementRef | undefined;

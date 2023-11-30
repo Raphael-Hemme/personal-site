@@ -3,11 +3,14 @@ import * as p5 from 'p5';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { Branch } from './branch';
 import {  debounceTime, delay, interval, Subscription, take } from 'rxjs'
-import { DateTime } from 'luxon' 
+import { DateTime } from 'luxon'
+import { NgIf } from '@angular/common'; 
 @Component({
-  selector: 'app-le-a003',
-  templateUrl: './le-a003.component.html',
-  styleUrls: ['./le-a003.component.scss']
+    selector: 'app-le-a003',
+    templateUrl: './le-a003.component.html',
+    styleUrls: ['./le-a003.component.scss'],
+    standalone: true,
+    imports: [NgIf]
 })
 export class LeA003Component implements OnInit, OnDestroy {
 
