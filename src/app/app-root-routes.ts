@@ -1,23 +1,5 @@
 import { Routes } from '@angular/router';
 
-// import { AboutPageComponent } from './core/about/about-page/about-page.component';
-// import { BlogPageComponent } from './core/blog/blog-page/blog-page.component';
-// import { HomePageComponent } from './core/home/home-page/home-page.component';
-// import { IoGardenPageComponent } from './core/io-garden/io-garden-page/io-garden-page.component';
-// import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
-// import { BlogPostComponent } from './shared/ui-components/blog-post/blog-post.component';
-// import { IoGardenExperimentContainerComponent } from './shared/ui-components/io-garden-experiment-container/io-garden-experiment-container.component';
-
-// IO-GARDEN EXPERIMENT COMPONENTS
-// import { CmeA001Component } from './core/io-garden/components/cme-a001/cme-a001.component';
-// import { LeA001Component } from './core/io-garden/components/le-a001/le-a001.component';
-// import { LeA002Component } from './core/io-garden/components/le-a002/le-a002.component';
-// import { MaeA001Component } from './core/io-garden/components/mae-a001/mae-a001.component';
-// import { PceA001Component } from './core/io-garden/components/pce-a001/pce-a001.component';
-// import { TeA001Component } from './core/io-garden/components/te-a001/te-a001.component';
-// import { LeA003Component } from './core/io-garden/components/le-a003/le-a003.component';
-
-
 export const rootRoutes: Routes = [
   { 
     path: 'about', 
