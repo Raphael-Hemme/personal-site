@@ -3,7 +3,7 @@ import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
 
 import { bootstrapApplication } from '@angular/platform-browser';
-import { rootRoutes } from './app/app-root-routes';
+import { ROOTROUTES } from './app/app-root-routes';
 import { provideRouter } from '@angular/router';
 import { SecurityContext } from '@angular/core';
 import { provideMarkdown } from 'ngx-markdown';
@@ -16,7 +16,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, { 
   providers: [
     // you can pass all providers from your AppModule
-    provideRouter(rootRoutes),
+    provideRouter(ROOTROUTES),
     provideHttpClient(),
     provideMarkdown({ 
       sanitize: SecurityContext.NONE,
