@@ -3,12 +3,12 @@ import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
 
 import { bootstrapApplication } from '@angular/platform-browser';
-import { ROOTROUTES } from './app/app-root-routes';
+import { ROOTROUTES } from './app/routing/app-root-routes';
 import { provideRouter, withPreloading } from '@angular/router';
 import { SecurityContext } from '@angular/core';
 import { provideMarkdown } from 'ngx-markdown';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { AppPreloadingStrategy } from './app/app-preloading-strategy';
+import { AppPreloadingStrategy } from './app/routing/app-preloading-strategy';
 
 
 if (environment.production) {
