@@ -12,19 +12,19 @@
     "social-media-area"
     "image-area"
     "short-about-area"
-    "other-interests"
     "tech-stack-area"
-    "long-about-area";
+    "long-about-area"
+    "other-interests";
   @media (min-width: 768px) and (max-width: 992px) {
     gap: 60px;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(5, min-content);
+    grid-template-rows: repeat(4, min-content);
     grid-template-areas: 
       "headings-area    image-area"
       "short-about-area social-media-area"
       // "long-about-area  long-about-area"
-      "other-interests  ."
-      "tech-stack-area  tech-stack-area";
+      "tech-stack-area  tech-stack-area"
+      "other-interests .";
   }
   @media (min-width: 992px) {
     gap: 80px;
@@ -34,8 +34,8 @@
       "headings-area    image-area"
       "short-about-area social-media-area"
       // "long-about-area  tech-stack-area";
-      "other-interests  ."
       "tech-stack-area  tech-stack-area"
+      "other-interests .";
   }
 }
 
@@ -80,6 +80,7 @@
 }
 
 .other-interests {
+  grid-area: other-interests;
   h4,
   ul {
     width: 100%;
