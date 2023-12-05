@@ -100,7 +100,30 @@
     justify-content: space-between;
     gap: 20px;
     @media (min-width: 768px) {
+      display: flex;
       flex-direction: row;
+      justify-content: space-between;
+      .focus-col,
+      .preview-col,
+      .peripheral-col {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1.5fr;
+        grid-template-areas: 
+          "top"
+          "bottom";
+        gap: 10px;
+        .heading-and-paragraph-wrapper {
+          grid-area: top;
+        }
+        .focus-list,
+        .preview-list,
+        .peripheral-list {
+          grid-area: bottom;
+          display: flex;
+          align-items: flex-start;
+        }
+      }
     }
   }
 }
