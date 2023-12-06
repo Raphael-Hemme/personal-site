@@ -1,5 +1,7 @@
 @import '/src/styles.scss';
 
+$portrait-transition: filter 0.3s ease-in-out;
+
 .about-section {
   width: 100%;
   padding: 0;
@@ -169,11 +171,15 @@
     height: 300px;
   }
   filter: grayscale(1) brightness(1.2);
+  transition: $portrait-transition;
   &:hover,
   &:active {
     filter: none;
+    transition: $portrait-transition;
   }
 }
+
+
 
 .social-media-container {
   grid-area: social-media-area;
