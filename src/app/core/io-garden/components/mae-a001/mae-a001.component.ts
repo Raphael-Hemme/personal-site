@@ -3,7 +3,7 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
 import { BehaviorSubject, interval, Subscription, tap, throttleTime } from 'rxjs';
 import { DateTime } from 'luxon';
 import p5 from 'p5';
-import * as d3 from 'd3';
+import { scaleLinear, select, max } from 'd3';
 import { groupBy } from 'lodash-es';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../../../shared/ui-components/modal/modal.component';
@@ -375,9 +375,9 @@ export class MaeA001Component implements OnInit, OnDestroy {
     const colGap = maxColWidth / 5;
     const padding = h / 50;
     const colWidth = (w - colGap) / sessions.length - colGap;
-    const maxYVal = d3.max(sessions, (session) => session.completedSessionTime) ?? h
+    const maxYVal = max(sessions, (session) => session.completedSessionTime) ?? h
 
-    const yScale = d3.scaleLinear()
+    const yScale = scaleLinear()
       .domain([0, maxYVal])
       .range([padding, h * 0.8 - padding])
 
@@ -396,7 +396,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
       }
     }
 
-    const svg = d3.select('.statistics')
+    const svg = select('.statistics')
       .append('svg')
       .attr('width', w)
       .attr('height', h)

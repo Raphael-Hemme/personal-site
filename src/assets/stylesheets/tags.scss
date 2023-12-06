@@ -10,16 +10,46 @@
   gap: 5px;
 }
 
-.tag-item {
+.tag-item,
+ul .tag-item {
   background-color: $light-gray;
   border-radius: 5px;
   padding: 5px 10px;
   margin: 0;
   list-style: none;
   cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  @media (min-width: $sm) {
+    font-size: 1.1rem;
+    padding: 3px 8px;
+  }
 }
 
 .tag-item:hover,
-.tag-item:active {
+ul .tag-item:hover,
+.tag-item:active,
+ul .tag-item:active {
   background-color: $brand;
 }
+
+/* ul .tag-item  {
+  color: $subtle-three;
+  // border-radius: 5px;
+  padding: 2px 5px;
+  margin: 0;
+  list-style: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1.2;
+  // font-family: 'Inter', sans-serif;
+  font-family: 'Roboto Mono', sans-serif;
+  font-weight: 400;
+}
+
+ul .tag-item:hover,
+ul .tag-item:active {
+  color: $brand;
+} */
