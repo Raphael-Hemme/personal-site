@@ -110,7 +110,7 @@
       "tags": [
         "coding",
         "javascript",
-        "p5.js",
+        "p5js",
         "procedural design",
         "retro tech",
         "punch card"
@@ -137,7 +137,7 @@
         "d3",
         "lodash",
         "luxon",
-        "canvas.js"
+        "canvasjs"
       ],
       "isPublished": true,
       "category": "experiment"

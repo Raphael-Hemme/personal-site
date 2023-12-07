@@ -302,10 +302,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.displayTimer = result;
   }
 
-  /*   public reload(): void {
-      this.canvas.clear();
-    } */
-
   public closeResetWarningDialog(): void {
     this.resetWarningDialogIsOpen = false;
   }
@@ -350,15 +346,11 @@ export class MaeA001Component implements OnInit, OnDestroy {
       };
 
       s.draw = () => {
-        // s.background(240, 240, 240);
-        s.background(35, 81, 116);
+        s.background(24, 126, 190);
 
         if (this.session.timerIsRunning) {
           s.fill(186, 255, 41);
           s.noStroke();
-          // s.stroke(35, 81, 116);
-          // s.strokeWeight(2);
-          //s.noFill();
           s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
         }
 
@@ -409,7 +401,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
       .attr('y', (d, i) => h - yScale(d.completedSessionTime))
       .attr('width', colWidth)
       .attr('height', (d, i) => {
-        // console.log(yScale(d.completedSessionTime))
         return yScale(d.completedSessionTime) - padding
       })
       .attr('class', 'single-chart-column')
