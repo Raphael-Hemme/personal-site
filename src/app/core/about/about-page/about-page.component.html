@@ -1,18 +1,20 @@
 <section class="about-section">
-  <div class="about-headings-container">
-    <h1>About</h1>
-    <h2>Raphael Hemme</h2>
-
-    <h3>
-      <span (mouseenter)="toggleDevHighlight()" (mouseleave)="toggleDevHighlight()">
-        Developer &&
-      </span>
-      <span (mouseenter)="toggleAnthropologyHighlight()" (mouseleave)="toggleAnthropologyHighlight()">
-        Anthropologist
-      </span>
-    </h3>
-
-  </div>
+  @if (isFullAboutComponent) {
+    <div class="about-headings-container">
+      <h1>About</h1>
+      <h2>Raphael Hemme</h2>
+  
+      <h3>
+        <span (mouseenter)="toggleDevHighlight()" (mouseleave)="toggleDevHighlight()">
+          Developer &&
+        </span>
+        <span (mouseenter)="toggleAnthropologyHighlight()" (mouseleave)="toggleAnthropologyHighlight()">
+          Anthropologist
+        </span>
+      </h3>
+  
+    </div>
+  }
 
   <div class="short-about-container">
     <p>I'm a <span class="paragraph-anthropology-span"
@@ -47,12 +49,13 @@
     </div>
   </div>
 
-
-  <div class="about-image">
-    <div class="profile-picture-outline">
-      <img src="../../../../assets/images/photos/profile-photo-20220410.jpg" alt="Portrait" class="prifile-picture" />
+  @if (isFullAboutComponent) {
+    <div class="about-image">
+      <div class="profile-picture-outline">
+        <img src="../../../../assets/images/photos/profile-photo-20220410.jpg" alt="Portrait" class="prifile-picture" />
+      </div>
     </div>
-  </div>
+  }
 
   <div class="tech-stack">
     <h3>Tech Stack</h3>

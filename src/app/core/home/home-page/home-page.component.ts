@@ -9,6 +9,7 @@ import { PreviewCardComponent } from '../../../shared/ui-components/preview-card
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HorizontalGlitchSketchComponent } from '../../../shared/components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
+import { AboutPageComponent } from '../../about/about-page/about-page.component';
 
 interface TagObjNameAndCount {
   name: string;
@@ -23,7 +24,14 @@ interface CountObj {
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     standalone: true,
-    imports: [HorizontalGlitchSketchComponent, RouterLink, NgIf, PreviewCardComponent, NgFor, NgClass]
+    imports: [
+      HorizontalGlitchSketchComponent,
+      AboutPageComponent,
+      RouterLink, NgIf, 
+      PreviewCardComponent,
+      NgFor, 
+      NgClass
+    ]
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('glitchSketch') glitchSketch!: ElementRef | undefined;

@@ -42,6 +42,12 @@
   src: url('./../fonts/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  src: url('./../fonts/Oswald/Oswald-VariableFont_wght.ttf') format('truetype');
+}
+
 @import './breakpoints.scss';
 @import './variables.scss';
 
@@ -60,12 +66,14 @@ h1 {
   // font-family: 'Titillium Web', sans-serif;
   // font-family: 'Koh Santepheap', cursive;
   // font-family: 'Vollkorn', serif;
-  font-family: 'Italiana', serif;
+  
+  // font-family: 'Italiana', serif;
+  font-family: 'Oswald', monospace;
   // font-size: 5rem;
   font-size: 4rem;
   line-height: 1.5;
   letter-spacing: 0.15rem;
-  font-weight: 400;
+  font-weight: 200;
   // text-transform: uppercase;
   color: $brand;
   // color: $light-gray;

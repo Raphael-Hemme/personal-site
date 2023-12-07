@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
 import { NgClass } from '@angular/common';
 
@@ -10,6 +10,8 @@ import { NgClass } from '@angular/common';
     imports: [NgClass]
 })
 export class AboutPageComponent implements OnInit, AfterViewInit {
+
+  @Input() isFullAboutComponent = true;
 
   public longAboutIsShown = false;
   public anthropologyIsHighlighted = false;

@@ -8,7 +8,10 @@
   h1, h2 {
     width: 100%;
     display: flex;
-    justify-content: center;
+    // justify-content: center;
+  }
+  h1 {
+    font-size: 11rem;
   }
 }
 
@@ -125,19 +128,6 @@ h2 {
   margin: 0 0 20px 0;
   gap: 5px;
 }
-
-/* .tag-item {
-  background-color: $light-gray;
-  border-radius: 5px;
-  padding: 5px 10px;
-  margin: 0;
-  list-style: none;
-  cursor: pointer;
-  &:hover,
-  &:active {
-    background-color: $brand;
-  }
-} */
 
 .tag-selected {
   background-color: $brand;
