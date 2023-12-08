@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { orderBy } from 'lodash-es';
@@ -6,7 +6,7 @@ import { MenuService } from 'src/app/shared/services/menu-service/menu.service';
 import { SearchService } from 'src/app/shared/services/search-service/search.service';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
 import { PreviewCardComponent } from '../../../shared/ui-components/preview-card/preview-card.component';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HorizontalGlitchSketchComponent } from '../../../shared/components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
 import { AboutPageComponent } from '../../about/about-page/about-page.component';
@@ -27,9 +27,8 @@ interface CountObj {
     imports: [
       HorizontalGlitchSketchComponent,
       AboutPageComponent,
-      RouterLink, NgIf, 
+      RouterLink,
       PreviewCardComponent,
-      NgFor, 
       NgClass
     ]
 })
@@ -37,7 +36,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('glitchSketch') glitchSketch!: ElementRef | undefined;
 
   public featuredBlogPost!: BlogPostMetaData;
-
   public featuredIoGardenExperiment!: IoGardenExperimentMetaData;
 
   public allIoGardenTags: string[] = [];

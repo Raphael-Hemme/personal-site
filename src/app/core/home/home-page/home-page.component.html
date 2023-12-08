@@ -33,67 +33,68 @@
         </button>
       </div>
 
-      <div
-        class="featured-container"
-        *ngIf="featuredIoGardenExperiment && featuredBlogPost"
-      >
-        <div class="featured-io-garden-experiment">
-          <app-preview-card
-            [metaData]="featuredIoGardenExperiment"
-            [imgPosition]="'top'"
-            class="blog-posts-preview-card"
-          >
-          </app-preview-card>
+      @if (featuredIoGardenExperiment && featuredBlogPost) {
+        <div class="featured-container">
+          <div class="featured-io-garden-experiment">
+            <app-preview-card
+              [metaData]="featuredIoGardenExperiment"
+              [imgPosition]="'top'"
+              class="blog-posts-preview-card"
+            >
+            </app-preview-card>
+          </div>
+          <div class="featured-blog-post">
+            <app-preview-card
+              [metaData]="featuredBlogPost"
+              [imgPosition]="'top'"
+              class="blog-posts-preview-card"
+            >
+            </app-preview-card>
+          </div>
         </div>
-        <div class="featured-blog-post">
-          <app-preview-card
-            [metaData]="featuredBlogPost"
-            [imgPosition]="'top'"
-            class="blog-posts-preview-card"
-          >
-          </app-preview-card>
-        </div>
-      </div>
+      }
     </section>
 
     <section class="tag-selection-section">
       <div class="tag-selection-heading-and-tags">
         <h3>Select a topic of interest</h3>
         <ul class="tag-container">
-          <li
-            class="tag-item"
-            [ngClass]="tagItem.name === currNameSelectedTag ? 'tag-selected' : ''"
-            *ngFor="let tagItem of unifiedAndCountedTagsArr"
-            (click)="handleTagSelection(tagItem.name)"
-          >
-            {{ tagItem.name }} | {{ tagItem.count }}
-          </li>
+          @for (tagItem of unifiedAndCountedTagsArr; track tagItem.name) {
+            <li
+              class="tag-item"
+              [ngClass]="
+                tagItem.name === currNameSelectedTag ? 'tag-selected' : ''
+              "
+              (click)="handleTagSelection(tagItem.name)"
+            >
+              {{ tagItem.name }} | {{ tagItem.count }}
+            </li>
+          }
         </ul>
       </div>
 
       <div class="tag-result-outer-container" #tagResultOuterContainer>
-        <div
-          class="tag-result-inner-container"
-          *ngIf="blogPostsAndExperimentsSelectedByTag"
-        >
-          <div
-            class="tag-selection-result-wrapper"
-            *ngFor="let result of blogPostsAndExperimentsSelectedByTag"
-          >
-            <app-preview-card
-              [metaData]="result"
-              [imgPosition]="'left'"
-              class="blog-posts-preview-card"
-            >
-            </app-preview-card>
+
+        @if (blogPostsAndExperimentsSelectedByTag) {
+          <div class="tag-result-inner-container">
+            @for (result of blogPostsAndExperimentsSelectedByTag; track result.id) {
+              <div class="tag-selection-result-wrapper">
+                <app-preview-card
+                  [metaData]="result"
+                  [imgPosition]="'left'"
+                  class="blog-posts-preview-card"
+                >
+                </app-preview-card>
+              </div>
+            }
           </div>
-        </div>
-        <p
-          class="pre-selection-msg"
-          *ngIf="!blogPostsAndExperimentsSelectedByTag"
-        >
-          Select a tag to display related blog posts and experiments.
-        </p>
+        }
+
+        @if (!blogPostsAndExperimentsSelectedByTag) {
+          <p class="pre-selection-msg">
+            Select a tag to display related blog posts and experiments.
+          </p>
+        }
       </div>
     </section>
 
@@ -103,8 +104,8 @@
       <div class="search-section-text-and-btn-wrapper">
         <p class="search-intro">
           If you havn't yet found what you were looking for, feel free to use my
-          hand crafted search function to find blog posts and experiments related
-          to a specific topic or word you have in mind.<br /><br />
+          hand crafted search function to find blog posts and experiments
+          related to a specific topic or word you have in mind.<br /><br />
           <!-- Try it out! Search for 'search' for example to find out how I built this search function and the script to preprocess text files. -->
           Go ahead, try it out! Search for 'javascript' or 'rxjs' or even just a
           word fragment like 'graph' to find among other things posts related to
@@ -122,6 +123,4 @@
       </div>
     </section>
   </div>
-
-  
 </div>
