@@ -116,14 +116,18 @@
   flex-wrap: wrap;
   justify-content: center;
   margin: 0 0 20px 0;
-  gap: 5px;
+  row-gap: 5px;
+  column-gap: 10px;
 }
 
 .tag-selected {
-  background-color: $brand;
+  // background-color: $brand;
+  outline: 1px solid $brand;
+  color: $brand;
+  border-radius: 5px;
   &:hover {
-    background-color: $mid-gray;
-    color: $white
+    color: $mid-gray;
+    outline: 1px solid $mid-gray;
   }
 }
 

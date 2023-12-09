@@ -7,8 +7,8 @@
   flex-wrap: wrap;
   justify-content: center;
   margin: 0 0 20px 0;
-  row-gap: 10px;
-  column-gap: 5px;
+  row-gap: 5px;
+  column-gap: 10px;
 }
 
 /* .tag-item,
@@ -58,4 +58,16 @@ ul .tag-item:active  {
   color: $brand;
   outline: 1px solid $brand;
   border-radius: 5px;
+}
+
+.tag-selected,
+ul .tag-selected {
+  // background-color: $brand;
+  outline: 1px solid $brand;
+  color: $brand;
+  border-radius: 5px;
+  &:hover {
+    color: $dark-gray;
+    outline: 1px solid $dark-gray;
+  }
 }
