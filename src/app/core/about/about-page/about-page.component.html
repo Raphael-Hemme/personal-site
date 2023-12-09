@@ -6,8 +6,9 @@
   
       <h3>
         <span (mouseenter)="toggleDevHighlight()" (mouseleave)="toggleDevHighlight()">
-          Developer &&
+          Developer
         </span>
+        <span> and </span>
         <span (mouseenter)="toggleAnthropologyHighlight()" (mouseleave)="toggleAnthropologyHighlight()">
           Anthropologist
         </span>
@@ -17,10 +18,14 @@
   }
 
   <div class="short-about-container">
-    <p>I'm a <span class="paragraph-anthropology-span"
-        [ngClass]="anthropologyIsHighlighted ? 'highlighted-span' : ''">social and cultural anthropologist</span> turned
-      <span class="paragraph-dev-span" [ngClass]="devIsHighlighted ? 'highlighted-span' : ''">web developer</span>
-      focusing on frontend matters and data visualization.
+    <p>
+      I'm a 
+      <span class="paragraph-dev-span" [ngClass]="devIsHighlighted ? 'highlighted-span' : ''">
+        web developer</span>
+      with a background in 
+      <span class="paragraph-anthropology-span" [ngClass]="anthropologyIsHighlighted ? 'highlighted-span' : ''">
+        social and cultural anthropology</span>.
+      My current focus is on frontend development and data visualization.
     </p>
     <p>When day turns night and the streets are getting crowded with super heroes, super villains and party people, I'm
       probably sitting in front of my screen
