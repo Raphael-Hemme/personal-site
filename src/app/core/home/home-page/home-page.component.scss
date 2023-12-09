@@ -1,17 +1,25 @@
 @import '/src/styles.scss';
 
 .home-page-container {
-  padding: 0;
-  @media (min-width: 768px) {
-    // padding: 20px 80px;
-  }
-  h1, h2 {
-    width: 100%;
-    display: flex;
-    // justify-content: center;
-  }
-  h1 {
-    font-size: 11rem;
+  .home-heading-wrapper {
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      @media (min-width: $sm) {
+        text-align: left;
+        font-size: 2rem;
+      }
+    }
+    h2 {
+      text-align: center;
+      margin: 0;
+      font-size: 3rem;
+      @media (min-width: $sm) {
+        text-align: left;
+        font-size: 3.5rem;
+        font-weight: 400;
+      }
+    }
   }
 }
 
@@ -81,24 +89,6 @@
   @media (min-width: 992px) {
     min-width: 48%;
     height: 100%;
-  }
-}
-
-h1 {
-  @media (min-width: 610px) {
-    br {
-      display: none;
-    }
-  }
-}
-
-h2 {
-  text-align: center;
-  margin: 0;
-  @media (min-width: 1440px) {
-    br {
-      display: none;
-    }
   }
 }
 
