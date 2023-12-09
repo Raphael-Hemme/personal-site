@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 import blogPostsMetaData from 'src/assets/blog-posts-meta-data.json';
 
