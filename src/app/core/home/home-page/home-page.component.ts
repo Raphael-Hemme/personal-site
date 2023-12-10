@@ -10,6 +10,7 @@ import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HorizontalGlitchSketchComponent } from '../../../shared/components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
 import { AboutPageComponent } from '../../about/about-page/about-page.component';
+import { TagResultListComponent } from 'src/app/shared/ui-components/tag-result-list/tag-result-list.component';
 
 interface TagObjNameAndCount {
   name: string;
@@ -29,6 +30,7 @@ interface CountObj {
       AboutPageComponent,
       RouterLink,
       PreviewCardComponent,
+      TagResultListComponent,
       NgClass
     ]
 })

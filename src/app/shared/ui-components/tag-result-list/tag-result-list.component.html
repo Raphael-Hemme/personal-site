@@ -1,23 +1,24 @@
-<div class="tag-result-outer-container" #tagResultOuterContainer>
-
+<div
+  class="tag-result-outer-container"
+  [ngClass]="
+    tagResultList.length > 0
+      ? 'tag-result-container-open'
+      : 'tag-result-container-closed'
+  "
+  #tagResultOuterContainer
+>
   @if (tagResultList.length > 0) {
-    <div class="tag-result-inner-container">
-      @for (result of tagResultList; track result.id) {
-        <div class="tag-selection-result-wrapper">
-          <app-preview-card
-            [metaData]="result"
-            [imgPosition]="'left'"
-            class="blog-posts-preview-card"
-          >
-          </app-preview-card>
-        </div>
-      }
+  <div class="tag-result-inner-container">
+    @for (result of tagResultList; track result.id) {
+    <div class="tag-selection-result-wrapper">
+      <app-preview-card
+        [metaData]="result"
+        [imgPosition]="'left'"
+        class="blog-posts-preview-card"
+      >
+      </app-preview-card>
     </div>
-  }
-
-  @else {
-    <p class="pre-selection-msg">
-      Select a tag to display related blog posts and experiments.
-    </p>
-  }
+    }
+  </div>
+  } 
 </div>

@@ -70,29 +70,9 @@
         </ul>
       </div>
 
-      <div class="tag-result-outer-container" #tagResultOuterContainer>
-
-        @if (blogPostsAndExperimentsSelectedByTag) {
-          <div class="tag-result-inner-container">
-            @for (result of blogPostsAndExperimentsSelectedByTag; track result.id) {
-              <div class="tag-selection-result-wrapper">
-                <app-preview-card
-                  [metaData]="result"
-                  [imgPosition]="'left'"
-                  class="blog-posts-preview-card"
-                >
-                </app-preview-card>
-              </div>
-            }
-          </div>
-        }
-
-        @else {
-          <p class="pre-selection-msg">
-            Select a tag to display related blog posts and experiments.
-          </p>
-        }
-      </div>
+      <app-tag-result-list
+        [tagResultList]="blogPostsAndExperimentsSelectedByTag || []">
+      </app-tag-result-list>
     </section>
 
     <section class="search-section">
