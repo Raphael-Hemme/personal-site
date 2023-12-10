@@ -3,19 +3,12 @@ $tag-result-container-height-tablet-down: calc(200px + 2px);
 $tag-result-container-height-tablet-up: calc(230px + 2px);
 
 :root {
-  --row-count: 1;
-  --row-height: 200px;
   --tag-result-container-height: 202px;
 }
 
 .tag-result-container-open {
   width: calc(100% + 2px);
-  // height: calc(var(--row-count, 1) * var(--row-height, 200px) + 2px + (var(--row-count, 1) - 1) * 10px);
   height: var(--tag-result-container-height, 202px);
-  // height: $tag-result-container-height-tablet-down;
-  /* @media (min-width: 992px) {
-    height: $tag-result-container-height-tablet-up;
-  } */
 
   overflow-y: scroll;
   transition: $tag-result-container-aniation;
