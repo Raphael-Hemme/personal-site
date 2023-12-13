@@ -8,7 +8,7 @@
   #tagResultOuterContainer
 >
   <div class="tag-result-inner-container">
-    @for (result of tagResultListSelectivelyDelayed; track result.id) {
+    @for (result of tagResultList; track result.id) {
       <div class="tag-selection-result-wrapper">
         <app-preview-card
           [metaData]="result"
