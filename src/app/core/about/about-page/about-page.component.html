@@ -74,7 +74,12 @@
 
         <div class="focus-list">
           <ul class="tag-container">
-            <li class="tag-item" (click)="tagMappingService.toggleSelectionOfTag('TypeScript')">TypeScript</li>
+            @for (tagObj of inFocusTagArr; track tagObj.name) {
+              <li class="tag-item" (click)="toggleTagSelection(tagObj)" [ngClass]="tagObj.isActive ? 'tag-selected' : ''">
+                {{ tagObj.name }}
+              </li>
+            }
+<!--             <li class="tag-item" (click)="tagMappingService.toggleSelectionOfTag('TypeScript')">TypeScript</li>
             <li class="tag-item" (click)="tagMappingService.toggleSelectionOfTag('javascript')">JavaScript</li>
             <li class="tag-item">Clojure</li>
             <li class="tag-item">HTML</li>
@@ -82,7 +87,7 @@
             <li class="tag-item">Angular</li>
             <li class="tag-item">RxJS</li>
             <li class="tag-item">P5</li>
-            <li class="tag-item">Jest</li>
+            <li class="tag-item">Jest</li> -->
           </ul>
         </div>
       </div>
