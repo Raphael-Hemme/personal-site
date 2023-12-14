@@ -4,15 +4,10 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import { TagMappingService } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
 import { TagResultListComponent } from 'src/app/shared/ui-components/tag-result-list/tag-result-list.component';
 
-export type LocalSrcRef =
-  | 'inFocusTagArr'
-  | 'previewTagArr'
-  | 'peripheralUseTagArr'
-  | 'alsoInterestedInTagArr';
+
 export interface TagInfoObj {
   name: string;
   isActive: boolean;
-  localSourceArr: LocalSrcRef;
   count: number;
 }
 
@@ -30,7 +25,7 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
   public anthropologyIsHighlighted = false;
   public devIsHighlighted = false;
 
-  public inFocusTagNameArr = [
+  private readonly inFocusTagNameArr = [
     'TypeScript',
     'JavaScript',
     'Clojure',
@@ -42,7 +37,7 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
     'Cypress',
     'P5JS',
   ];
-  public previewTagNameArr = [
+  private readonly previewTagNameArr = [
     'Rust',
     'Qwik',
     'Babashka',
@@ -51,7 +46,7 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
     'Deno',
     'Fresh',
   ];
-  public peripheralUseTagNameArr = [
+  private readonly peripheralUseTagNameArr = [
     'React',
     'Vue',
     'Node',
@@ -60,7 +55,7 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
     'PostgresSQL',
     'Python',
   ];
-  public alsoInterestedInTagNameArr = [
+  private readonly alsoInterestedInTagNameArr = [
     'creative coding',
     'generative art',
     'functional programming',
@@ -83,14 +78,18 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.inFocusTagArr = this.generateExtendedTagObjArr(this.inFocusTagNameArr, 'inFocusTagArr');
-    this.previewTagArr = this.generateExtendedTagObjArr(this.previewTagNameArr, 'previewTagArr');
-    this.peripheralUseTagArr = this.generateExtendedTagObjArr(this.peripheralUseTagNameArr, 'peripheralUseTagArr');
-    this.alsoInterestedInTagArr = this.generateExtendedTagObjArr(this.alsoInterestedInTagNameArr, 'alsoInterestedInTagArr');
+    this.inFocusTagArr = this.generateExtendedTagObjArr(this.inFocusTagNameArr);
+    this.previewTagArr = this.generateExtendedTagObjArr(this.previewTagNameArr);
+    this.peripheralUseTagArr = this.generateExtendedTagObjArr(this.peripheralUseTagNameArr);
+    this.alsoInterestedInTagArr = this.generateExtendedTagObjArr(this.alsoInterestedInTagNameArr);
   }
 
   ngAfterViewInit() {
     this.loadingService.emitAfterViewInitSignal('ABOUT');
+  }
+
+  ngOnDestroy(): void {
+    this.tagMappingService.resetTagSelection();
   }
 
   public toggleLongAboutIsShown(): void {
@@ -114,13 +113,11 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
 
   private generateExtendedTagObjArr(
     tagNameArr: string[],
-    localSrcRef: LocalSrcRef
   ): TagInfoObj[] {
     return tagNameArr.map((tagName) => {
       const resultTagObj = {
         name: tagName,
         isActive: false,
-        localSourceArr: localSrcRef,
         count: this.tagMappingService.getResultCountForTag(
           tagName.toLowerCase()
         ),

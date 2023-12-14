@@ -68,4 +68,9 @@ export class TagMappingService {
       return result;
     }
   }
+
+  public resetTagSelection(): void {
+    this.selectedTags$$.next([]);
+    this.tagSelectionResults$$.next([]);
+  }
 }
