@@ -12,7 +12,7 @@ export interface IoGardenExperimentMetaData {
   'dateLastEdited'?: string;
   'phase': number;
   'previewImageUrl': string;
-  'tags': any[];
+  'tags': string[];
   'isPublished': boolean;
   'category': string;
 }
@@ -54,8 +54,31 @@ export class IoGardenService {
     return resultArr;
   }
 
+  public getAllIoGardenExperimentTagsAndCount(): { name: string, count: number }[] {
+    const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
+    const resultObj: { [key: string]: number } = {};
+    publishedExperimentArr.forEach(entry => {
+      entry.tags.forEach(tag => {
+        if (resultObj[tag]) {
+          resultObj[tag]++;
+        } else {
+          resultObj[tag] = 1;
+        }
+      });
+    });
+    const resultArr = Object.keys(resultObj).map(key => {
+      return { name: key, count: resultObj[key] }
+    });
+    return resultArr;
+  }
+
   public getIoGardenExperimentsByTag(tag: string): IoGardenExperimentMetaData[] {
     const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
     return publishedExperimentArr.filter(el => el.tags.includes(tag));
+  }
+
+  public getIoGardenExperimentCountByTag(tag: string): number {
+    const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
+    return publishedExperimentArr.filter(el => el.tags.includes(tag)).length;
   }
 }

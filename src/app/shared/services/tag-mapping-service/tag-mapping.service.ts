@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { BlogPostMetaData, BlogService } from '../blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from '../io-garden-service/io-garden.service';
-import { orderBy } from 'lodash-es';
+import { isNumber, orderBy } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,6 @@ export class TagMappingService {
     }
 
     const currResultList = this.retrieveUniqueResultListForAllSelectedTags(this.selectedTags$$.value);
-    console.log(currResultList);
     this.tagSelectionResults$$.next(currResultList);
   }
 
@@ -50,17 +49,23 @@ export class TagMappingService {
     
     for (const tag of selectedTags){
       const iterationResultArr = [
-        ...this.blogService.getIoGardenExperimentsByTag(tag),
+        ...this.blogService.getBlogPostsByTag(tag),
         ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
       ]
       resultArr.push(...iterationResultArr);
     };
 
-    console.log('selectedTags', selectedTags);
-    console.log('resultArr', resultArr);
-
     const uniqueRestultArr = [...new Set(resultArr)];
 
     return orderBy(uniqueRestultArr, 'phase' ,'desc');
+  }
+
+  public getResultCountForTag(tag: string): number {
+    const result = this.blogService.getBlogPostCountByTag(tag) + this.ioGardenService.getIoGardenExperimentCountByTag(tag);
+    if (!result || isNaN(result)) {
+      return 0;
+    } else {
+      return result;
+    }
   }
 }

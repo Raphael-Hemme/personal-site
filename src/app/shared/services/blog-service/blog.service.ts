@@ -12,7 +12,7 @@ export interface BlogPostMetaData {
   'dateLastEdited'?: string;
   'phase': number;
   'previewImageUrl': string;
-  'tags': any[];
+  'tags': string[];
   'isPublished': boolean;
   'category': string;
 }
@@ -54,8 +54,13 @@ export class BlogService {
     return resultArr;
   }
 
-  public getIoGardenExperimentsByTag(tag: string): BlogPostMetaData[] {
+  public getBlogPostsByTag(tag: string): BlogPostMetaData[] {
     const publishedPostsArr: BlogPostMetaData[] = this.getAllBlogPostsMetaData();
     return publishedPostsArr.filter(el => el.tags.includes(tag));
+  }
+
+  public getBlogPostCountByTag(tag: string): number {
+    const publishedExperimentArr: BlogPostMetaData[] = this.getAllBlogPostsMetaData();
+    return publishedExperimentArr.filter(el => el.tags.includes(tag)).length;
   }
 }

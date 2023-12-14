@@ -115,7 +115,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.blogPostsAndExperimentsSelectedByTag = [];
       const resultArr = [
-        ...this.blogService.getIoGardenExperimentsByTag(tag),
+        ...this.blogService.getBlogPostsByTag(tag),
         ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
       ]
       this.blogPostsAndExperimentsSelectedByTag = orderBy(resultArr, 'phase' ,'desc')

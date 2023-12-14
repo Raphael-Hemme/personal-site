@@ -109,6 +109,8 @@ $portrait-transition: filter 0.3s ease-in-out;
       .preview-col,
       .peripheral-col {
         display: grid;
+        // Take 100% of the width minus 40px (20px gap between the three columns) and divide by 3
+        width: calc((100% - 40px) / 3);
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1.5fr;
         grid-template-areas: 

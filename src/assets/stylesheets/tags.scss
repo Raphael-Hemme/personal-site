@@ -71,3 +71,14 @@ ul .tag-selected {
     outline: 1px solid $dark-gray;
   }
 }
+
+.tag-item.tag-disabled,
+ul .tag-disabled {
+  color: rgb(215, 215, 215);
+  cursor: cursor;
+  pointer-events: none;
+  &:hover {
+    color: $light-gray;
+    outline: 1px dotted $light-gray;
+  }
+}
