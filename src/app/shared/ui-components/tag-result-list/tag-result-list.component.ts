@@ -18,10 +18,10 @@ import { take, tap, timer } from 'rxjs';
 export class TagResultListComponent implements OnChanges {
 
   @Input() tagResultList: (BlogPostMetaData | IoGardenExperimentMetaData)[] = [];
-  public tagResultListSelectivelyDelayed: (BlogPostMetaData | IoGardenExperimentMetaData)[] = [];
+  // public tagResultListSelectivelyDelayed: (BlogPostMetaData | IoGardenExperimentMetaData)[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['tagResultList'].currentValue.length > 0) {
+    /* if (changes['tagResultList'].currentValue.length > 0) {
       this.calculateAndSetTagResultContainerHeight();
       this.tagResultListSelectivelyDelayed = this.tagResultList;
     } else {
@@ -29,7 +29,7 @@ export class TagResultListComponent implements OnChanges {
         take(1),
         tap(() => this.tagResultListSelectivelyDelayed = this.tagResultList)
       ).subscribe();
-    }
+    } */
   }
 
   /**
@@ -38,7 +38,7 @@ export class TagResultListComponent implements OnChanges {
    * Otherwise, it is half the length of the array rounded up to the nearest integer.
    * @returns void
    */
-  private calculateAndSetTagResultContainerHeight(): void {
+  /* private calculateAndSetTagResultContainerHeight(): void {
     const isMobile = window.innerWidth <= 768;
     const rowHeight = isMobile ? 200 : 230;
     // if the display is mobile, then the row count is the length of the array, 
@@ -47,5 +47,5 @@ export class TagResultListComponent implements OnChanges {
     const rowCount = isMobile ? this.tagResultList.length : Math.ceil(this.tagResultList.length / 2);
     const tagResultContainerHeight = rowCount * rowHeight + 4 + ((rowCount - 1) * 10)
     document.documentElement.style.setProperty('--tag-result-container-height', `${tagResultContainerHeight}px`);
-  }
+  } */
 }

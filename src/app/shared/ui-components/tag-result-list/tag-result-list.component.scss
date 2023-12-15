@@ -6,11 +6,7 @@
 
 .tag-result-container-open {
   width: calc(100% + 4px);
-  height: var(--tag-result-container-height, 202px);
-  overflow-y: scroll;
   transition: width 0.5s ease-in-out, height 0.3s ease-in-out;;
-  padding: 2px;
-  margin: -2px;
   border-radius: 10px;
 
   .tag-result-inner-container {
@@ -22,11 +18,11 @@
     gap: 10px;
     
     .tag-selection-result-wrapper {
-      width: 100%;
+      width: calc(100% - 4px);
       height: 200px;
       
       @media (min-width: 992px) {
-        width: calc(50% - 5px);
+        width: calc(50% - 7px);
         height: 230px;
       }
     }

@@ -191,11 +191,16 @@
     </div>
   </div>
 
-  <div>
-    <app-tag-result-list
-      [tagResultList]="(tagMappingService.tagSelectionResults$ | async) || []"
-    ></app-tag-result-list>
-  </div>
+  <!-- @if ((tagMappingService.tagSelectionResults$ | async)?.length) { -->
+    <div class="tag-result-list-backdrop">
+      
+        <app-tag-result-list
+          [tagResultList]="(tagMappingService.tagSelectionResults$ | async) || []"
+        ></app-tag-result-list>
+
+    </div>
+  <!-- } -->
+
 
   <div class="other-interests">
     <h4>Also interested in:</h4>
