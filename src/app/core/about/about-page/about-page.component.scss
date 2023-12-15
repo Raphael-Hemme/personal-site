@@ -23,7 +23,7 @@ $portrait-transition: filter 0.3s ease-in-out;
   @media (min-width: 768px) and (max-width: 992px) {
     gap: 60px;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(5, min-content);
+    grid-template-rows: repeat(5, minmax(0px, min-content));
     grid-template-areas: 
       "headings-area headings-area image-area"
       "short-about-area short-about-area social-media-area"
@@ -139,18 +139,15 @@ $portrait-transition: filter 0.3s ease-in-out;
 
 .tag-result-list-backdrop {
   grid-area: tag-result-list-area;
-  height: 204px; // card height + padding for the border / outline
-  // width: calc(100% + 4px);
-  // width: calc(100% - 2px);
+  height: min-content;
+  max-height: 204px; // card height + padding for the border / outline
   width: 100%;
   @media (min-width: $md) {
-    height: 234px; // card height + padding for the border / outline
+    height: min-content;
+    max-height: 234px; // card height + padding for the border / outline
   }
   overflow-y: scroll;
-  // overflow-x: hidden;
   padding: 2px;
-  // padding: 2px;
-  // margin: -2px;
 }
 
 .about-image {
