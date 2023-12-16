@@ -1,9 +1,5 @@
 @import '/src/styles.scss';
 
-:root {
-  --tag-result-container-height: 202px;
-}
-
 .tag-result-container-open {
   width: calc(100% + 4px);
   transition: width 0.5s ease-in-out, height 0.3s ease-in-out;;
