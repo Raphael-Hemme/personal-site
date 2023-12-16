@@ -18,13 +18,13 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   animations: [
     trigger('fadeInOut', [
       state('enter', style({ 
-        opacity: 0,
+        opacity: 1,
       })),
       state('leave', style({ 
         opacity: 0,
       })),
       transition('enter => leave', [
-        animate(300)
+        animate(150)
       ]),
       transition('leave => enter', [
         animate(300)
