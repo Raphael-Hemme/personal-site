@@ -88,6 +88,13 @@ $portrait-transition: filter 0.3s ease-in-out;
 .other-interests {
   grid-area: other-interests;
   width: 100%;
+  // The height is the height of the tag-result-card that might be displayed next to the other-interests container under certain conditions
+  // Todo: refactor and calculate this height dynamically for the correct container instead of this workaround that only  works for certain conditions. 
+  height: 204px;  
+  @media (min-width: 992px) {
+    height: 234px;
+  }
+
   h4,
   ul {
     width: 100%;

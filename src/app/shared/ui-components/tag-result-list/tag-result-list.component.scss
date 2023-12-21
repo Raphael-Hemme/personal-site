@@ -1,7 +1,10 @@
 @import '/src/styles.scss';
 
 .tag-result-outer-container {
-  width: calc(100% + 4px);
+  // width: calc(100% + 4px);
+  height: 0;
+  width: 0;
+  border-radius: 10px;
 
   .tag-result-inner-container {
     width: 100%;
@@ -36,14 +39,17 @@
 
 .tag-result-container-open {
   width: calc(100% + 4px);
-  transition: width 0.5s ease-in-out, height 0.3s ease-in-out;;
-  border-radius: 10px;
+  height: 200px;
+  @media (min-width: 992px) {
+    height: 230px;
+  }
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;;
 }
 
 .tag-result-container-closed {
   width: 0;
   height: 0;
-  transition: width 0.5s ease-in-out, height 0.2s ease-in-out;;
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;;
 }
 
 

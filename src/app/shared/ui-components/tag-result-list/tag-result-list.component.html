@@ -1,16 +1,16 @@
-<!-- <div
+<div
   class="tag-result-outer-container"
   [ngClass]="
-    tagResultListSelectivelyDelayed.length > 0
+    tagResultListIsOpen
       ? 'tag-result-container-open'
       : 'tag-result-container-closed'
   "
   #tagResultOuterContainer
-> -->
-<div
+>
+<!-- <div
   class="tag-result-outer-container"
   #tagResultOuterContainer
->
+> -->
   <div class="tag-result-inner-container">
     @for (result of tagResultListSelectivelyDelayed; track result.id) {
       <div class="tag-selection-result-wrapper" [ngClass]="tagResultEntryIsVisible ? 'enter' : 'leave'">
