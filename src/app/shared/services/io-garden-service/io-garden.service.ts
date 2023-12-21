@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import ioGardenExperimentMetaData from 'src/assets/io-garden-experiment-meta-data.json';
+import { TagInfoObj } from '../tag-mapping-service/tag-mapping.service';
 
 
 export interface IoGardenExperimentMetaData {
@@ -45,13 +46,19 @@ export class IoGardenService {
     return publishedExperimentArr[randomIndex]
   }
 
-  public getAllIoGardenExperimentTags(): string[] {
+  public getAllIoGardenExperimentTags(): TagInfoObj[] {
     const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
-    const resultArr: string[] = [];
+    const tagStrArr: string[] = [];
     publishedExperimentArr.forEach(entry => {
-      resultArr.push(...entry.tags)
+      tagStrArr.push(...entry.tags)
     });
-    return resultArr;
+    return tagStrArr.map((tagName: string) => {
+      return {
+        name: tagName,
+        isActive: false,
+        count: tagStrArr.filter(el => el === tagName).length
+      };
+    });;
   }
 
   public getAllIoGardenExperimentTagsAndCount(): { name: string, count: number }[] {

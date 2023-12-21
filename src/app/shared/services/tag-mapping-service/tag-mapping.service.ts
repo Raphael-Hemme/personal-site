@@ -4,6 +4,12 @@ import { BlogPostMetaData, BlogService } from '../blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from '../io-garden-service/io-garden.service';
 import { isNumber, orderBy } from 'lodash-es';
 
+export interface TagInfoObj {
+  name: string;
+  isActive: boolean;
+  count: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })

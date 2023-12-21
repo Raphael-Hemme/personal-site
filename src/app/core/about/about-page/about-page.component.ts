@@ -1,15 +1,9 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { TagMappingService } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
+import { TagInfoObj, TagMappingService } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
 import { TagResultListComponent } from 'src/app/shared/ui-components/tag-result-list/tag-result-list.component';
 
-
-export interface TagInfoObj {
-  name: string;
-  isActive: boolean;
-  count: number;
-}
 
 @Component({
   selector: 'app-about-page',

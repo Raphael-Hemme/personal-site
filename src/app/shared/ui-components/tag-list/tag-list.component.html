@@ -1,7 +1,14 @@
 <ul class="blog-post-tag-container">
+  @for (tagItem of tags; track tagItem.name) {
   <li
     class="blog-post-tag-item"
-    *ngFor="let tagItem of tags">
-      {{ tagItem }}
-</li>
+    [ngClass]="{
+        'tag-selected': tagItem.isActive,
+        'tag-disabled': tagItem.count < 1
+    }"
+  >
+    {{ tagItem.name }}
+  </li>
+
+  }
 </ul>

@@ -1,16 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
+import { TagInfoObj, TagMappingService } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
 
 @Component({
     selector: 'app-tag-list',
     templateUrl: './tag-list.component.html',
     styleUrls: ['./tag-list.component.scss'],
     standalone: true,
-    imports: [NgFor]
+    imports: [NgClass]
 })
 export class TagListComponent implements OnInit {
 
-  @Input() tags: string[] = [];
+  @Input() tags: TagInfoObj[] = [];
 
   constructor() { }
 

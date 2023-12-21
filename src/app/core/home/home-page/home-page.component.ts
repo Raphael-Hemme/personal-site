@@ -11,11 +11,8 @@ import { RouterLink } from '@angular/router';
 import { HorizontalGlitchSketchComponent } from '../../../shared/components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
 import { AboutPageComponent } from '../../about/about-page/about-page.component';
 import { TagResultListComponent } from 'src/app/shared/ui-components/tag-result-list/tag-result-list.component';
+import { TagInfoObj } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
 
-interface TagObjNameAndCount {
-  name: string;
-  count: number;
-}
 interface CountObj {
   [key: string]: number;
 }
@@ -40,9 +37,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   public featuredBlogPost!: BlogPostMetaData;
   public featuredIoGardenExperiment!: IoGardenExperimentMetaData;
 
-  public allIoGardenTags: string[] = [];
-  public allBlogTags: string[] = [];
-  public unifiedAndCountedTagsArr!: TagObjNameAndCount[];
+  public allIoGardenTags: TagInfoObj[] = [];
+  public allBlogTags: TagInfoObj[] = [];
+  public unifiedAndCountedTagsArr!: TagInfoObj[];
 
   public blogPostsAndExperimentsSelectedByTag!: (BlogPostMetaData | IoGardenExperimentMetaData)[];
 
@@ -174,14 +171,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param arr2 - The second array of strings.
    * @returns An array of objects containing the name and count of each string.
    */
-  private unifyAndCountTagArrays(arr1: string[], arr2: string[]): TagObjNameAndCount[]  {
+  private unifyAndCountTagArrays(arr1: TagInfoObj[], arr2: TagInfoObj[]): TagInfoObj[]  {
     const rawCombinedArr = [...arr1, ...arr2];
-    const countObj: CountObj = rawCombinedArr.reduce((acc, curr) => ({...acc, [curr]:0}), {});
-    rawCombinedArr.forEach(entry => countObj[entry] += 1);
+    const countObj: CountObj = rawCombinedArr.reduce((acc, curr) => ({...acc, [curr.name]:0}), {});
+    rawCombinedArr.forEach(entry => countObj[entry.name] += 1);
     const resultArr = Object.keys(countObj).map(el => {
       return {
         name: el,
-        count: countObj[el]
+        count: countObj[el],
+        isActive: false
       }
     })
     return resultArr;

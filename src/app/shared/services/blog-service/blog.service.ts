@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import blogPostsMetaData from 'src/assets/blog-posts-meta-data.json';
+import { TagInfoObj } from '../tag-mapping-service/tag-mapping.service';
 
 
 export interface BlogPostMetaData {
@@ -45,13 +46,20 @@ export class BlogService {
     return publishedPostsArr[randomIndex]
   }
 
-  public getAllBlogTags(): string[] {
+  public getAllBlogTags(): TagInfoObj[] {
     const publishedPostsArr: BlogPostMetaData[] = this.getAllBlogPostsMetaData();
-    const resultArr: string[] = [];
+    const tagStrArr: string[] = [];
     publishedPostsArr.forEach((entry: BlogPostMetaData) => {
-      resultArr.push(...entry.tags)
+      tagStrArr.push(...entry.tags)
     });
-    return resultArr;
+
+    return tagStrArr.map((tagName: string) => {
+      return {
+        name: tagName,
+        isActive: false,
+        count: tagStrArr.filter(el => el === tagName).length
+      };
+    });
   }
 
   public getBlogPostsByTag(tag: string): BlogPostMetaData[] {
