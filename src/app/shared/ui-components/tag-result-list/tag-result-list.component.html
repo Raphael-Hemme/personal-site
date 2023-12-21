@@ -1,4 +1,4 @@
-<div
+<!-- <div
   class="tag-result-outer-container"
   [ngClass]="
     tagResultListSelectivelyDelayed.length > 0
@@ -6,14 +6,14 @@
       : 'tag-result-container-closed'
   "
   #tagResultOuterContainer
->
-<!-- <div
+> -->
+<div
   class="tag-result-outer-container"
   #tagResultOuterContainer
-> -->
+>
   <div class="tag-result-inner-container">
     @for (result of tagResultListSelectivelyDelayed; track result.id) {
-      <div class="tag-selection-result-wrapper" [@fadeInOut]="tagResultEntryIsVisible ? 'enter' : 'leave'">
+      <div class="tag-selection-result-wrapper" [ngClass]="tagResultEntryIsVisible ? 'enter' : 'leave'">
         <app-preview-card
           [metaData]="result"
           imgPosition="left"

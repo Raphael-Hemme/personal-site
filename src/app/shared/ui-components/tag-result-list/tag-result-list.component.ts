@@ -4,7 +4,6 @@ import { IoGardenExperimentMetaData } from '../../services/io-garden-service/io-
 import { PreviewCardComponent } from '../preview-card/preview-card.component';
 import { NgClass } from '@angular/common';
 import { take, tap, timer } from 'rxjs';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-tag-result-list',
@@ -15,22 +14,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     NgClass,
     PreviewCardComponent 
   ],
-  animations: [
-    trigger('fadeInOut', [
-      state('enter', style({ 
-        opacity: 1,
-      })),
-      state('leave', style({ 
-        opacity: 0,
-      })),
-      transition('enter => leave', [
-        animate(150)
-      ]),
-      transition('leave => enter', [
-        animate(300)
-      ])
-    ])
-  ]
 })
 export class TagResultListComponent implements OnChanges {
 
@@ -41,9 +24,11 @@ export class TagResultListComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tagResultList'].currentValue.length > 0) {
       console.log('tagResultList filled -- setting tagResultEntryIsVisible to true');
-
-      this.tagResultEntryIsVisible = true;
       this.tagResultListSelectivelyDelayed = this.tagResultList;
+      timer(0).pipe(
+        take(1),
+        tap(() => this.tagResultEntryIsVisible = true)
+      ).subscribe();
     } else {
       console.log('tagResultList is empty -- setting tagResultEntryIsVisible to false');
       this.tagResultEntryIsVisible = false;

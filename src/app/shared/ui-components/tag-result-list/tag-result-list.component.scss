@@ -1,9 +1,7 @@
 @import '/src/styles.scss';
 
-.tag-result-container-open {
+.tag-result-outer-container {
   width: calc(100% + 4px);
-  transition: width 0.5s ease-in-out, height 0.3s ease-in-out;;
-  border-radius: 10px;
 
   .tag-result-inner-container {
     width: 100%;
@@ -16,13 +14,30 @@
     .tag-selection-result-wrapper {
       width: calc(100% - 4px);
       height: 200px;
+      opacity: 0;
       
       @media (min-width: 992px) {
         width: calc(50% - 7px);
         height: 230px;
       }
     }
+  
+    .enter {
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+  
+    .leave {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
   }
+}
+
+.tag-result-container-open {
+  width: calc(100% + 4px);
+  transition: width 0.5s ease-in-out, height 0.3s ease-in-out;;
+  border-radius: 10px;
 }
 
 .tag-result-container-closed {
@@ -30,3 +45,5 @@
   height: 0;
   transition: width 0.5s ease-in-out, height 0.2s ease-in-out;;
 }
+
+
