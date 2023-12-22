@@ -1,14 +1,50 @@
-<ul class="blog-post-tag-container">
-  @for (tagItem of tags; track tagItem.name) {
-  <li
-    class="blog-post-tag-item"
-    [ngClass]="{
-        'tag-selected': tagItem.isActive,
-        'tag-disabled': tagItem.count < 1
-    }"
-  >
-    {{ tagItem.name }}
-  </li>
 
-  }
-</ul>
+@if (isExpandable) {
+  <details>
+    <summary>
+      <ul class="blog-post-tag-container">
+      @for (tagItem of summaryTagArr; track tagItem.name) {
+        <li
+          class="blog-post-tag-item"
+          [ngClass]="{
+              'tag-selected': tagItem.isActive,
+              'tag-disabled': tagItem.count < 1
+          }"
+        >
+          {{ tagItem.name }}
+        </li>
+      }
+    </ul>
+    </summary>
+    
+    <ul class="blog-post-tag-container">
+    @for (tagItem of detailTagArr; track tagItem.name) {
+      <li
+        class="blog-post-tag-item"
+        [ngClass]="{
+            'tag-selected': tagItem.isActive,
+            'tag-disabled': tagItem.count < 1
+        }"
+      >
+        {{ tagItem.name }}
+      </li>
+    }
+  </ul>
+  </details>
+} 
+
+@else {
+  <ul class="blog-post-tag-container">
+    @for (tagItem of tagArr; track tagItem.name) {
+      <li
+        class="blog-post-tag-item"
+        [ngClass]="{
+            'tag-selected': tagItem.isActive,
+            'tag-disabled': tagItem.count < 1
+        }"
+      >
+        {{ tagItem.name }}
+      </li>
+    }
+  </ul>
+}

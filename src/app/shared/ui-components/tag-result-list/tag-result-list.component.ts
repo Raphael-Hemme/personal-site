@@ -24,7 +24,6 @@ export class TagResultListComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['tagResultList'].currentValue.length > 0) {
-      console.log('tagResultList filled -- setting tagResultEntryIsVisible to true');
       this.tagResultListSelectivelyDelayed = this.tagResultList;
       this.tagResultListIsOpen = true;
       timer(0).pipe(
@@ -32,7 +31,6 @@ export class TagResultListComponent implements OnChanges {
         tap(() => this.tagResultEntryIsVisible = true)
       ).subscribe();
     } else {
-      console.log('tagResultList is empty -- setting tagResultEntryIsVisible to false');
       this.tagResultEntryIsVisible = false;
       timer(500).pipe(
         take(1),
