@@ -9,10 +9,25 @@
   gap: 5px;
 }
 
-.blog-post-tag-item {
-  background-color: $light-gray;
-  border-radius: 5px;
+summary {
+  min-width: 60px;
+  max-width: 195px;
+  height: 35px;
   padding: 5px 10px;
-  margin: 0;
-  list-style: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  cursor: pointer;
+  outline: transparent;
+  color: $white;
+  background-color: $accent;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  margin: 0 0 20px 0;
+  &:hover {
+    background-color: $accent-hover;
+  }
 }

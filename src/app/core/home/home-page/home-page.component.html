@@ -55,7 +55,7 @@
     <section class="tag-selection-section">
       <div class="tag-selection-heading-and-tags">
         <h3>Select a topic of interest</h3>
-        <ul class="tag-container">
+        <!-- <ul class="tag-container">
           @for (tagItem of unifiedAndCountedTagsArr; track tagItem.name) {
             <li
               class="tag-item"
@@ -67,7 +67,14 @@
               {{ tagItem.name }} | {{ tagItem.count }}
             </li>
           }
-        </ul>
+        </ul> -->
+        <app-tag-list
+          [tagArr]="unifiedAndCountedTagsArr"
+          [isExpandable]="true"
+          [tagsDisplayMatchCount]="true"
+          (tagSelectionEvent)="handleTagSelection($event)"
+        >
+        </app-tag-list>
       </div>
 
       <app-tag-result-list

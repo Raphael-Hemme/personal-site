@@ -36,7 +36,8 @@ ul .tag-item:active {
   background-color: $brand;
 } */
 
-ul .tag-item  {
+ul .tag-item,
+ul .tag-item span  {
   color: $white;
   // border-radius: 5px;
   padding: 2px 5px;
@@ -51,10 +52,15 @@ ul .tag-item  {
 }
 
 
+ul .tag-item:hover span,
+ul .tag-item:active span {
+  color: $brand;
+}
+
 .tag-item:hover,
 .tag-item:active,
 ul .tag-item:hover,
-ul .tag-item:active  {
+ul .tag-item:active {
   color: $brand;
   outline: 1px solid $brand;
   border-radius: 5px;
@@ -66,9 +72,16 @@ ul .tag-selected {
   outline: 1px solid $brand;
   color: $brand;
   border-radius: 5px;
+  span {
+    color: $brand;
+  }
+  &:hover,
   &:hover {
     color: $dark-gray;
     outline: 1px solid $dark-gray;
+    span {
+      color: $dark-gray;
+    }
   }
 }
 
@@ -77,8 +90,14 @@ ul .tag-disabled {
   color: rgb(215, 215, 215);
   cursor: cursor;
   pointer-events: none;
+  span {
+    color: rgb(215, 215, 215);
+  }
   &:hover {
     color: $light-gray;
     outline: 1px dotted $light-gray;
+    span {
+      color: $light-gray;
+    }
   }
 }

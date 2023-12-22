@@ -12,6 +12,7 @@ import { HorizontalGlitchSketchComponent } from '../../../shared/components/hori
 import { AboutPageComponent } from '../../about/about-page/about-page.component';
 import { TagResultListComponent } from 'src/app/shared/ui-components/tag-result-list/tag-result-list.component';
 import { TagInfoObj } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
+import { TagListComponent } from 'src/app/shared/ui-components/tag-list/tag-list.component';
 
 interface CountObj {
   [key: string]: number;
@@ -23,12 +24,13 @@ interface CountObj {
     styleUrls: ['./home-page.component.scss'],
     standalone: true,
     imports: [
-      HorizontalGlitchSketchComponent,
-      AboutPageComponent,
       RouterLink,
+      NgClass,
+      AboutPageComponent,
+      HorizontalGlitchSketchComponent,
       PreviewCardComponent,
       TagResultListComponent,
-      NgClass
+      TagListComponent
     ]
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -42,8 +44,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   public unifiedAndCountedTagsArr!: TagInfoObj[];
 
   public blogPostsAndExperimentsSelectedByTag!: (BlogPostMetaData | IoGardenExperimentMetaData)[];
-
-  public currNameSelectedTag = '';
 
   constructor(
     private ioGardenService: IoGardenService,
@@ -105,19 +105,26 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    * If the same tag is selected twice, the filter is reset.
    * @param tag - The tag to filter by.
    */
-  public handleTagSelection(tag: string): void {
-    if (tag === this.currNameSelectedTag) {
-      this.currNameSelectedTag = '';
-      this.blogPostsAndExperimentsSelectedByTag = [];
-    } else {
-      this.blogPostsAndExperimentsSelectedByTag = [];
-      const resultArr = [
-        ...this.blogService.getBlogPostsByTag(tag),
-        ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
+  public handleTagSelection(selectedTagObj: TagInfoObj): void {
+    const updatedTagObjArr = this.unifiedAndCountedTagsArr.map(tagObj => {
+      if (tagObj.name === selectedTagObj.name) {
+        tagObj.isActive = !tagObj.isActive;
+      }
+      return tagObj;
+    });
+    this.unifiedAndCountedTagsArr = updatedTagObjArr;
+
+    const activeTags = this.unifiedAndCountedTagsArr.filter(tagObj => tagObj.isActive);
+
+    this.blogPostsAndExperimentsSelectedByTag = [];
+    const resultArr = activeTags.map(tagObj => {
+      return [
+        ...this.blogService.getBlogPostsByTag(tagObj.name),
+        ...this.ioGardenService.getIoGardenExperimentsByTag(tagObj.name)
       ]
-      this.blogPostsAndExperimentsSelectedByTag = orderBy(resultArr, 'phase' ,'desc')
-      this.currNameSelectedTag = tag;
-    }
+    }).flat();
+      
+    this.blogPostsAndExperimentsSelectedByTag = orderBy(resultArr, 'phase' ,'desc')
   }
   
   /**
