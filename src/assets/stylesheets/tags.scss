@@ -1,5 +1,9 @@
 // Tags
 
+// General styles for tags 
+// (further below are seperate rule changes for blog posts and io-garden experiments since there they have to be visible
+// on white background)
+
 .tag-container {
   width: 100%;
   display: flex;
@@ -11,35 +15,9 @@
   column-gap: 10px;
 }
 
-/* .tag-item,
-ul .tag-item {
-  background-color: $light-gray;
-  border-radius: 5px;
-  padding: 5px 10px;
-  margin: 0;
-  list-style: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  line-height: 1.2;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  @media (min-width: $sm) {
-    font-size: 1.1rem;
-    padding: 3px 8px;
-  }
-}
-
-.tag-item:hover,
-ul .tag-item:hover,
-.tag-item:active,
-ul .tag-item:active {
-  background-color: $brand;
-} */
-
 ul .tag-item,
 ul .tag-item span  {
   color: $white;
-  // border-radius: 5px;
   padding: 2px 5px;
   margin: 0;
   list-style: none;
@@ -47,7 +25,6 @@ ul .tag-item span  {
   font-size: 1rem;
   line-height: 1.2;
   font-family: 'Inter', sans-serif;
-  // font-family: 'Roboto Mono', sans-serif;
   font-weight: 300;
 }
 
@@ -68,7 +45,6 @@ ul .tag-item:active {
 
 .tag-selected,
 ul .tag-selected {
-  // background-color: $brand;
   outline: 1px solid $brand;
   color: $brand;
   border-radius: 5px;
@@ -100,4 +76,61 @@ ul .tag-disabled {
       color: $light-gray;
     }
   }
+}
+
+// Blog post and io-garden style changes for tags
+
+ul.tag-list-white-bg {
+    .tag-item,
+    .tag-item span  {
+      color: $dark-gray;
+      background-color: $light-gray;
+      border-radius: 5px;
+      padding: 2px 5px;
+    }
+    
+    .tag-item:hover span,
+    .tag-item:active span {
+      color: $accent;
+      background-color: transparent;
+    }
+    
+    .tag-item:hover,
+    .tag-item:active {
+      color: $accent-light;
+      background-color: rgb(179, 179, 179);
+      outline: 1px solid $accent-light;
+    }
+    
+    .tag-selected {
+      outline: 1px solid $accent-light;
+      color: $accent-light;
+      span {
+        color: $accent-light;
+      }
+      &:hover,
+      &:hover {
+        color: $dark-gray;
+        outline: 1px solid $dark-gray;
+        span {
+          color: $dark-gray;
+        }
+      }
+    }
+    
+    .tag-item.tag-disabled,
+    .tag-disabled {
+      color: rgb(215, 215, 215);
+      span {
+        color: rgb(215, 215, 215);
+      }
+      &:hover {
+        color: $light-gray;
+        outline: 1px dotted $light-gray;
+        span {
+          color: $light-gray;
+        }
+      }
+    }
+  
 }

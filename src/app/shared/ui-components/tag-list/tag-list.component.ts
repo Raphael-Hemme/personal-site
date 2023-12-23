@@ -14,6 +14,7 @@ export class TagListComponent implements OnChanges {
   @Input() tagArr: TagInfoObj[] = [];
   @Input() isExpandable = false;
   @Input() tagsDisplayMatchCount = false;
+  @Input() isDisplayedOnWhiteBg = false;
   @Output() tagSelectionEvent = new EventEmitter<TagInfoObj>();
 
   public isExpanded = false;

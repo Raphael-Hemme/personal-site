@@ -81,7 +81,7 @@ export class WindowSizeService {
       console.log('result.w below 769: ', result.w);
     } else {
       // result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 120;
+      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 140;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
       console.log('result.w: below 1200', result.w);
     } 

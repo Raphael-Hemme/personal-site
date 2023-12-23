@@ -1,5 +1,8 @@
 @if (isExpandable) {
-  <ul class="blog-post-tag-container">
+  <ul 
+    class="tag-list" 
+    [ngClass]="isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
+  >
     @for (tagItem of summaryTagArr; track tagItem.name) {
     <li
       class="tag-item"
@@ -20,7 +23,10 @@
   <details>
     <summary>show more</summary>
 
-    <ul class="blog-post-tag-container">
+    <ul 
+      class="tag-list"
+      [ngClass]="isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
+    >
       @for (tagItem of detailTagArr; track tagItem.name) {
       <li
         class="tag-item"
@@ -39,7 +45,10 @@
     </ul>
   </details>
 } @else {
-  <ul class="blog-post-tag-container">
+  <ul 
+    class="tag-list"
+    [ngClass]="isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
+  >
     @for (tagItem of tagArr; track tagItem.name) {
     <li
       class="tag-item"

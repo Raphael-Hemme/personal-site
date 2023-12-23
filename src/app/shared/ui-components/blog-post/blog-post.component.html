@@ -16,17 +16,14 @@
     <article>
       <div class="blog-post-meta-info-container">
         <p class="meta-label">tags</p>
-        <!-- <div class="blog-post-tag-container">
-          <div
-            class="blog-post-tag-item"
-            *ngFor="let tagItem of currPostMetaData.tags">
-              {{ tagItem }}
-          </div>
-        </div> -->
-        <app-tag-list
-          *ngIf="currPostMetaData.tags"
-          [tagArr]="currPostTags">
-        </app-tag-list>
+
+        <div class="blog-post-tag-list-wrapper">
+          <app-tag-list
+            *ngIf="currPostMetaData.tags"
+            [tagArr]="currPostTags"
+            [isDisplayedOnWhiteBg]="true">
+          </app-tag-list>
+        </div>
 
         <div class="published-updated-container">
           <table class="blog-post-meta-date-table">
