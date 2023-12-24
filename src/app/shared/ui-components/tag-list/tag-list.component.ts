@@ -32,6 +32,7 @@ export class TagListComponent implements OnChanges {
 
   public toggleIsExpanded(): void {
     this.isExpanded = !this.isExpanded;
+    console.log('isExpanded', this.isExpanded);
   }
 
   public selectTag(tag: TagInfoObj): void {

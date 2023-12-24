@@ -55,19 +55,6 @@
     <section class="tag-selection-section">
       <div class="tag-selection-heading-and-tags">
         <h3>Select a topic of interest</h3>
-        <!-- <ul class="tag-container">
-          @for (tagItem of unifiedAndCountedTagsArr; track tagItem.name) {
-            <li
-              class="tag-item"
-              [ngClass]="
-                tagItem.name === currNameSelectedTag ? 'tag-selected' : ''
-              "
-              (click)="handleTagSelection(tagItem.name)"
-            >
-              {{ tagItem.name }} | {{ tagItem.count }}
-            </li>
-          }
-        </ul> -->
         <app-tag-list
           [tagArr]="unifiedAndCountedTagsArr"
           [isExpandable]="true"

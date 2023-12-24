@@ -1,6 +1,6 @@
 @if (isExpandable) {
   <ul 
-    class="tag-list" 
+    class="tag-list tag-list-first-row-in-collapsed-state" 
     [ngClass]="isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
   >
     @for (tagItem of summaryTagArr; track tagItem.name) {
@@ -20,9 +20,15 @@
     }
   </ul>
 
-  <details>
-    <summary>show more</summary>
 
+  <button 
+    (click)="toggleIsExpanded()"
+    class="btn-accent-flat"
+    [ngClass]="isExpanded ? 'show-more-btn-invisible' : 'show-more-btn-visible'">
+    show more
+  </button>
+
+  <div class="expand-list" [ngClass]="isExpanded ? 'expanded' : 'collapsed'">
     <ul 
       class="tag-list"
       [ngClass]="isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
@@ -43,8 +49,16 @@
       </li>
       }
     </ul>
-  </details>
-} @else {
+
+    <button 
+      (click)="toggleIsExpanded()"
+      class="btn-accent-flat">
+      show less
+    </button>
+  </div>
+} 
+
+@else {
   <ul 
     class="tag-list"
     [ngClass]="isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"

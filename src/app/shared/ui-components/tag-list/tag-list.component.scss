@@ -9,7 +9,11 @@
   gap: 5px;
 }
 
-summary {
+.tag-list-first-row-in-collapsed-state {
+  margin: 0 0 5px 0;
+}
+
+/* summary {
   min-width: 60px;
   max-width: 195px;
   height: 35px;
@@ -30,4 +34,35 @@ summary {
   &:hover {
     background-color: $accent-hover;
   }
+} */
+
+.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-in-out;
+}
+
+.expanded {
+  margin: -4px;
+  padding: 4px;
+  max-height: 1000px;
+  opacity: 1;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-in-out;
+}
+
+.show-more-btn-visible {
+  opacity: 1;
+  margin: 10px 0 0 0;
+  position: static;
+  transition: opacity 0.5s ease-in-out, position 0.5s ease-in-out;
+}
+
+.show-more-btn-invisible {
+  height: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.2s ease-in-out, height 0.5s ease-in-out, margin 0.5s ease-in-out, padding 0.5s ease-in-out;
 }
