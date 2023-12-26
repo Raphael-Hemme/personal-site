@@ -38,17 +38,15 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+    height: 30px;
   }
 }
 
-/* Tooltip container */
-.tooltip {
+/* .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
 
-/* Tooltip text */
 .tooltip .tooltip-text {
   visibility: hidden;
   width: 120px;
@@ -66,7 +64,7 @@
   margin-left: -60px;
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltip-text {
   visibility: visible;
 }
+ */

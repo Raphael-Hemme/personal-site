@@ -52,7 +52,8 @@
   <div class="expand-collapse-btn-wrapper">
     <button 
       (click)="toggleIsExpanded()"
-      class="expand-collapse-tag-list-btn tooltip">
+      class="expand-collapse-tag-list-btn"
+      [tooltip]="isExpanded ? 'show less' : 'show more'">
       @if (isExpanded) {
         <!-- expand less arrow -->
         <svg 
@@ -77,7 +78,7 @@
           <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
         </svg>
       }
-      <span class="tooltip-text">{{ isExpanded ? 'show less' : 'show more'}}</span>
+      <!-- <span class="tooltip-text">{{ isExpanded ? 'show less' : 'show more'}}</span> -->
     </button>
   </div>
 } 

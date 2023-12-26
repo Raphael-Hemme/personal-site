@@ -1,13 +1,17 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { TagInfoObj, TagMappingService } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
+import { TooltipDirective } from '../tooltip/tooltip.directive';
 
 @Component({
     selector: 'app-tag-list',
     templateUrl: './tag-list.component.html',
     styleUrls: ['./tag-list.component.scss'],
     standalone: true,
-    imports: [NgClass]
+    imports: [
+      NgClass,
+      TooltipDirective
+    ]
 })
 export class TagListComponent implements OnChanges {
 
