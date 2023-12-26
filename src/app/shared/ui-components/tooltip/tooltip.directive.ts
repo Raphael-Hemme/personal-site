@@ -8,6 +8,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { TooltipComponent } from './tooltip.component';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 /**
  * Based on this tutorial: https://accesto.com/blog/how-to-create-angular-tooltip-directive/
@@ -19,11 +20,13 @@ import { TooltipComponent } from './tooltip.component';
 export class TooltipDirective implements OnDestroy {
   @Input() tooltip = '';
 
-  private componentRef: ComponentRef<any> | null = null;
+  private componentRef: ComponentRef<TooltipComponent> | null = null;
+  private isMobile = this.breakpointObserver.isMatched('(max-width: 768px)');
 
   constructor(
     private elementRef: ElementRef,
-    private readonly viewRef: ViewContainerRef
+    private readonly viewRef: ViewContainerRef,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnDestroy(): void {
@@ -32,7 +35,7 @@ export class TooltipDirective implements OnDestroy {
 
   @HostListener('mouseenter')
   onMouseEnter(): void {
-    if (this.componentRef === null) {
+    if (!this.isMobile && this.componentRef === null) {
       this.componentRef = this.viewRef.createComponent(TooltipComponent);
       this.setTooltipComponentProperties();
     }
