@@ -1,9 +1,9 @@
-@if (isExpandable) {
+@if (options.isExpandable) {
   <ul 
     class="tag-list tag-list-first-row-in-collapsed-state" 
-    [ngClass]="isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
+    [ngClass]="options.isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
   >
-    @for (tagItem of summaryTagArr; track tagItem.name) {
+    @for (tagItem of tagArr.slice(0, options.numOfTagsInExpandPreview); track tagItem.name) {
     <li
       class="tag-item"
       [ngClass]="{
@@ -13,8 +13,8 @@
       (click)="selectTag(tagItem)"
     >
       <span>{{ tagItem.name }}</span>
-      @if (tagsDisplayMatchCount) {
-      <span> | {{ tagItem.count }}</span>
+      @if (options.tagsDisplayMatchCount) {
+        <span> | {{ tagItem.count }}</span>
       }
     </li>
     }
@@ -23,9 +23,9 @@
   <div class="expand-list" [ngClass]="isExpanded ? 'expanded' : 'collapsed'">
     <ul 
       class="tag-list"
-      [ngClass]="isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
+      [ngClass]="options.isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
     >
-      @for (tagItem of detailTagArr; track tagItem.name) {
+      @for (tagItem of tagArr.slice(options.numOfTagsInExpandPreview); track tagItem.name) {
       <li
         class="tag-item"
         [ngClass]="{
@@ -35,7 +35,7 @@
         (click)="selectTag(tagItem)"
       >
         <span>{{ tagItem.name }}</span>
-        @if (tagsDisplayMatchCount) {
+        @if (options.tagsDisplayMatchCount) {
         <span> | {{ tagItem.count }}</span>
         }
       </li>
@@ -43,50 +43,49 @@
     </ul>
 
   </div>
-<!--   <button 
-    (click)="toggleIsExpanded()"
-    class="btn-accent-flat">
-    {{ isExpanded ? 'show less' : 'show more' }}
-  </button> -->
 
   <div class="expand-collapse-btn-wrapper">
-    <button 
-      (click)="toggleIsExpanded()"
-      class="expand-collapse-tag-list-btn"
-      [tooltip]="isExpanded ? 'show less' : 'show more'">
-      @if (isExpanded) {
-        <!-- expand less arrow -->
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          height="30" 
-          viewBox="0 -960 960 960" 
-          width="30" 
-          fill="rgba(186, 255, 41, 1)"
-        >
-          <path d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z"/>
-        </svg>
-      }
-      @else {
-        <!-- expand more arrow -->
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          height="30" 
-          viewBox="0 -960 960 960" 
-          width="30" 
-          fill="rgba(186, 255, 41, 1)"
-        >
-          <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
-        </svg>
-      }
-      <!-- <span class="tooltip-text">{{ isExpanded ? 'show less' : 'show more'}}</span> -->
-    </button>
+    @if (isExpanded) {
+      <button 
+        (click)="toggleIsExpanded()"
+        class="expand-collapse-tag-list-btn"
+        tooltip="show less">
+          <!-- expand less arrow -->
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            height="30" 
+            viewBox="0 -960 960 960" 
+            width="30" 
+            fill="rgba(186, 255, 41, 1)"
+          >
+            <path d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z"/>
+          </svg>
+      </button>
+    }
+    @else {
+      <button 
+        (click)="toggleIsExpanded()"
+        class="expand-collapse-tag-list-btn"
+        tooltip="show more">
+          <!-- expand more arrow -->
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            height="30" 
+            viewBox="0 -960 960 960" 
+            width="30" 
+            fill="rgba(186, 255, 41, 1)"
+          >
+            <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+          </svg>
+      </button>
+    }
   </div>
 } 
 
 @else {
   <ul 
     class="tag-list"
-    [ngClass]="isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
+    [ngClass]="options.isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
   >
     @for (tagItem of tagArr; track tagItem.name) {
     <li
@@ -98,7 +97,7 @@
       (click)="selectTag(tagItem)"
     >
       <span>{{ tagItem.name }}</span>
-      @if (tagsDisplayMatchCount) {
+      @if (options.tagsDisplayMatchCount) {
       <span> | {{ tagItem.count }}</span>
       }
     </li>

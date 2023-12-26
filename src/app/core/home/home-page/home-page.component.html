@@ -57,8 +57,12 @@
         <h3>Select a topic of interest</h3>
         <app-tag-list
           [tagArr]="unifiedAndCountedTagsArr"
-          [isExpandable]="true"
-          [tagsDisplayMatchCount]="true"
+          [options]="{
+            isExpandable: true,
+            numOfTagsInExpandPreview: 7,
+            isDisplayedOnWhiteBg: false,
+            tagsDisplayMatchCount: true
+          }"
           (tagSelectionEvent)="handleTagSelection($event)"
         >
         </app-tag-list>

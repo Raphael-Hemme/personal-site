@@ -12,7 +12,6 @@
 
   <div class="blog-post-container">
 
-   
     <article>
       <div class="blog-post-meta-info-container">
         <p class="meta-label">tags</p>
@@ -21,7 +20,8 @@
           <app-tag-list
             *ngIf="currPostMetaData.tags"
             [tagArr]="currPostTags"
-            [isDisplayedOnWhiteBg]="true">
+            [options]="{ isDisplayedOnWhiteBg: true }"
+          >
           </app-tag-list>
         </div>
 

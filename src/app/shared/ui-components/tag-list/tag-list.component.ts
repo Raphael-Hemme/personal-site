@@ -1,7 +1,14 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { TagInfoObj } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
 import { TooltipDirective } from '../tooltip/tooltip.directive';
+
+export interface TagListOptions {
+  isExpandable: boolean;
+  numOfTagsInExpandPreview: number;
+  isDisplayedOnWhiteBg: boolean;
+  tagsDisplayMatchCount: boolean;
+}
 
 @Component({
     selector: 'app-tag-list',
@@ -13,25 +20,19 @@ import { TooltipDirective } from '../tooltip/tooltip.directive';
       TooltipDirective
     ]
 })
-export class TagListComponent implements OnChanges {
+export class TagListComponent {
 
   @Input() tagArr: TagInfoObj[] = [];
-  @Input() isExpandable = false;
-  @Input() tagsDisplayMatchCount = false;
-  @Input() isDisplayedOnWhiteBg = false;
+  @Input() options: Partial<TagListOptions> = {
+    isExpandable: false,
+    numOfTagsInExpandPreview: 0,
+    isDisplayedOnWhiteBg: false,
+    tagsDisplayMatchCount: false,
+  }
+
   @Output() tagSelectionEvent = new EventEmitter<TagInfoObj>();
 
   public isExpanded = false;
-
-  public summaryTagArr: TagInfoObj[] = [];
-  public detailTagArr: TagInfoObj[] = [];
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.isExpandable && 'tagArr' in changes) {
-      this.summaryTagArr = this.tagArr.slice(0, 5);
-      this.detailTagArr = this.tagArr.slice(5);
-    }
-  }
 
   public toggleIsExpanded(): void {
     this.isExpanded = !this.isExpanded;
