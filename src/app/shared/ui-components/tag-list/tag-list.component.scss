@@ -33,7 +33,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // margin: 5px 0 0 0;
   .expand-collapse-tag-list-btn {
     background-color: transparent;
     border: none;
@@ -41,30 +40,3 @@
     height: 30px;
   }
 }
-
-/* .tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltip-text {
-  visibility: hidden;
-  width: 120px;
-  max-height: $tag-height;
-  background-color: rgba(82, 82, 82, 0.60);
-  color: #fff;
-  text-align: center;
-  line-height: 1.2;
-  padding: 2px 0;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-  top: 90%;
-  left: 50%;
-  margin-left: -60px;
-}
-
-.tooltip:hover .tooltip-text {
-  visibility: visible;
-}
- */

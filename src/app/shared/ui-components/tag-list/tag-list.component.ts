@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { TagInfoObj, TagMappingService } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
+import { TagInfoObj } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
 import { TooltipDirective } from '../tooltip/tooltip.directive';
 
 @Component({
@@ -28,7 +28,6 @@ export class TagListComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.isExpandable && 'tagArr' in changes) {
-      console.log('test', this.tagArr );
       this.summaryTagArr = this.tagArr.slice(0, 5);
       this.detailTagArr = this.tagArr.slice(5);
     }
@@ -36,7 +35,6 @@ export class TagListComponent implements OnChanges {
 
   public toggleIsExpanded(): void {
     this.isExpanded = !this.isExpanded;
-    console.log('isExpanded', this.isExpanded);
   }
 
   public selectTag(tag: TagInfoObj): void {
