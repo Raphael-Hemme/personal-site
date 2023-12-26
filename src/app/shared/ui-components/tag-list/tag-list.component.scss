@@ -52,10 +52,12 @@
 .tooltip .tooltip-text {
   visibility: hidden;
   width: 120px;
-  background-color: rgba(82, 82, 82, 0.73);
+  max-height: $tag-height;
+  background-color: rgba(82, 82, 82, 0.60);
   color: #fff;
   text-align: center;
-  padding: 5px 0;
+  line-height: 1.2;
+  padding: 2px 0;
   border-radius: 6px;
   position: absolute;
   z-index: 1;
