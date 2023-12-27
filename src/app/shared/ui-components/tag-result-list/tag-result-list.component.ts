@@ -4,6 +4,8 @@ import { IoGardenExperimentMetaData } from '../../services/io-garden-service/io-
 import { PreviewCardComponent } from '../preview-card/preview-card.component';
 import { NgClass } from '@angular/common';
 import { take, tap, timer } from 'rxjs';
+import { ScrollIndicatorComponent } from '../scroll-indicator/scroll-indicator.component';
+import { ScrollIndicatorDirective } from '../scroll-indicator/scroll-indicator.directive';
 
 @Component({
   selector: 'app-tag-result-list',
@@ -12,7 +14,8 @@ import { take, tap, timer } from 'rxjs';
   standalone: true,
   imports: [ 
     NgClass,
-    PreviewCardComponent 
+    PreviewCardComponent,
+    ScrollIndicatorDirective,
   ],
 })
 export class TagResultListComponent implements OnChanges {

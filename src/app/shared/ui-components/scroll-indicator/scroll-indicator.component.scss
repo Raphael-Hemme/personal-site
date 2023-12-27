@@ -1,0 +1,25 @@
+@import '/src/styles.scss';
+
+.scroll-indicator-container {
+  // height: 100%;
+  width: 20px;
+  padding: 0 1px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2px;
+
+  .scroll-indicator-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: transparnet;
+  }
+  .scroll-indicator-dot.active {
+    background-color: $brand;
+  }
+  .scroll-indicator-dot.inactive {
+    background-color: transparnet;
+  }
+}

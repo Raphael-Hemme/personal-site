@@ -6,11 +6,8 @@
       : 'tag-result-container-closed'
   "
   #tagResultOuterContainer
+  [scrollIndicator]="tagResultEntryIsVisible"
 >
-<!-- <div
-  class="tag-result-outer-container"
-  #tagResultOuterContainer
-> -->
   <div class="tag-result-inner-container">
     @for (result of tagResultListSelectivelyDelayed; track result.id) {
       <div class="tag-selection-result-wrapper" [ngClass]="tagResultEntryIsVisible ? 'enter' : 'leave'">
