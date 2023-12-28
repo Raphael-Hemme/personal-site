@@ -19,6 +19,10 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
   private tagSelectionListPrevState = false;
 
   private windowResize$: Observable<any> = fromEvent(window, 'resize');
+  private resizeObserver = new ResizeObserver(entries => {
+    this.setScrollIndicatorComponentProperties();
+  });
+
   private subscriptions = new Subscription();
 
   constructor(
@@ -31,6 +35,7 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
         tap(() => this.createOrUpdateScrollIndicatorInstance())
       ).subscribe()
     )
+    this.resizeObserver.observe(document.body);
   }
 
   ngOnChanges(changes: SimpleChanges): void  {
@@ -88,6 +93,7 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
       this.componentRef.destroy();
       this.componentRef = null;
       this.subscriptions.unsubscribe();
+      this.resizeObserver.disconnect();
     }
   }
 }
