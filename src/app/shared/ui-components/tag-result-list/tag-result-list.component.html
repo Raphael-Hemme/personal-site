@@ -6,7 +6,7 @@
       : 'tag-result-container-closed'
   "
   #tagResultOuterContainer
-  [scrollIndicator]="tagResultEntryIsVisible"
+  [scrollIndicator]="{tagResultListIsVisible: tagResultEntryIsVisible, tagSelectionListIsExpanded: tagSelectionListIsExpanded}"
 >
   <div class="tag-result-inner-container">
     @for (result of tagResultListSelectivelyDelayed; track result.id) {

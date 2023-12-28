@@ -31,11 +31,13 @@ export class TagListComponent {
   }
 
   @Output() tagSelectionEvent = new EventEmitter<TagInfoObj>();
+  @Output() tagListIsExpandedEvent = new EventEmitter<boolean>();
 
   public isExpanded = false;
 
   public toggleIsExpanded(): void {
     this.isExpanded = !this.isExpanded;
+    this.tagListIsExpandedEvent.emit(this.isExpanded);
   }
 
   public selectTag(tag: TagInfoObj): void {

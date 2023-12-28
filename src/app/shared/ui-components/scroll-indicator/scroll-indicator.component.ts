@@ -36,6 +36,7 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
   private rowNum = Math.floor(this.height / this.rowHeight);
 
   private subscriptions = new Subscription();
+  // private animationSubscription
 
   ngOnInit(): void {
     this.dotMatrix = this.generateInactiveDotMatrix(this.columnNum, this.rowNum);
@@ -50,8 +51,8 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
     this.top = props.top;
     this.height = props.height;
     this.rowNum = Math.floor(this.height / this.rowHeight);
-    // this.dotMatrix = this.generateInactiveDotMatrix(this.columnNum, this.rowNum);
-    this.startAnimation();
+    // this.startAnimation();
+    this.rebootAnimation();
   }
 
   private generateInactiveDotMatrix(colNum: number, rowNum: number): DotMatrixEntry[] {
@@ -103,5 +104,17 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
       result = intervalValue;
     }
     return result;
+  }
+
+  private rebootAnimation(): void {
+    this.subscriptions.unsubscribe();
+    this.subscriptions = new Subscription();
+    this.startAnimation()
+  }
+
+  public stopAnimation(): void {
+    this.subscriptions.unsubscribe();
+    this.subscriptions = new Subscription();
+    this.dotMatrix$$.next([]);
   }
 }

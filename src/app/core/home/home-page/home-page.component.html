@@ -64,12 +64,15 @@
             tagsDisplayMatchCount: true
           }"
           (tagSelectionEvent)="handleTagSelection($event)"
+          (tagListIsExpandedEvent)="handleTagListIsExpandedEvent($event)"
         >
         </app-tag-list>
       </div>
 
       <app-tag-result-list
-        [tagResultList]="blogPostsAndExperimentsSelectedByTag || []">
+        [tagResultList]="blogPostsAndExperimentsSelectedByTag || []"
+        [tagSelectionListIsExpanded]="tagSelectionListIsExpanded"
+      >
       </app-tag-result-list>
     </section>
 

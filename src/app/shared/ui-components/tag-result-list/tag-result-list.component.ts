@@ -4,7 +4,6 @@ import { IoGardenExperimentMetaData } from '../../services/io-garden-service/io-
 import { PreviewCardComponent } from '../preview-card/preview-card.component';
 import { NgClass } from '@angular/common';
 import { take, tap, timer } from 'rxjs';
-import { ScrollIndicatorComponent } from '../scroll-indicator/scroll-indicator.component';
 import { ScrollIndicatorDirective } from '../scroll-indicator/scroll-indicator.directive';
 
 @Component({
@@ -21,11 +20,16 @@ import { ScrollIndicatorDirective } from '../scroll-indicator/scroll-indicator.d
 export class TagResultListComponent implements OnChanges {
 
   @Input() tagResultList: (BlogPostMetaData | IoGardenExperimentMetaData)[] = [];
+  @Input() tagSelectionListIsExpanded = false;
+
   public tagResultListSelectivelyDelayed: (BlogPostMetaData | IoGardenExperimentMetaData)[] = [];
   public tagResultEntryIsVisible = false;
   public tagResultListIsOpen = false;
 
   ngOnChanges(changes: SimpleChanges): void {
+    if ('tagSelectionListIsExpanded' in changes) {
+      return;
+    }
     if (changes['tagResultList'].currentValue.length > 0) {
       this.tagResultListSelectivelyDelayed = this.tagResultList;
       this.tagResultListIsOpen = true;

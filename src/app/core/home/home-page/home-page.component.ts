@@ -45,6 +45,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public blogPostsAndExperimentsSelectedByTag!: (BlogPostMetaData | IoGardenExperimentMetaData)[];
 
+  public tagSelectionListIsExpanded = false;
+
   constructor(
     private ioGardenService: IoGardenService,
     private blogService: BlogService,
@@ -125,6 +127,10 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     }).flat();
       
     this.blogPostsAndExperimentsSelectedByTag = orderBy(resultArr, 'phase' ,'desc')
+  }
+
+  public handleTagListIsExpandedEvent(isExpanded: boolean): void {
+    this.tagSelectionListIsExpanded = isExpanded;
   }
   
   /**
