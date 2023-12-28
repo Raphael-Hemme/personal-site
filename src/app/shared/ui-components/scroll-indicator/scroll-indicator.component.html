@@ -3,7 +3,7 @@
   [style.left]="left + 'px'" 
   [style.top]="top + 'px'"
 >
-  @for (dot of dotMatrix; track dot.id) {
+  @for (dot of (dotMatrix$ | async); track dot.id) {
     <div 
       class="scroll-indicator-dot"
       [ngClass]="dot.isActive ? 'active' : 'inactive'"
