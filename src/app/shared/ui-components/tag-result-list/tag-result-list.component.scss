@@ -1,7 +1,6 @@
 @import '/src/styles.scss';
 
 .tag-result-outer-container {
-  // width: calc(100% + 4px);
   height: 0;
   width: 0;
   border-radius: 10px;
@@ -42,8 +41,8 @@
   height: calc(200px + 4px);
   margin: -2px;
   padding: 2px;
-
   overflow-y: scroll;
+
   @media (min-width: 992px) {
     height:  calc(230px + 4px);
   }

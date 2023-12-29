@@ -6,11 +6,18 @@
       : 'tag-result-container-closed'
   "
   #tagResultOuterContainer
-  [scrollIndicator]="{tagResultListIsVisible: tagResultEntryIsVisible, tagSelectionListIsExpanded: tagSelectionListIsExpanded}"
+  [scrollIndicator]="{
+    tagResultListIsVisible: tagResultEntryIsVisible,
+    tagSelectionListIsExpanded: tagSelectionListIsExpanded,
+    tagResultListLength: tagResultListSelectivelyDelayed.length,
+  }"
 >
   <div class="tag-result-inner-container">
     @for (result of tagResultListSelectivelyDelayed; track result.id) {
-      <div class="tag-selection-result-wrapper" [ngClass]="tagResultEntryIsVisible ? 'enter' : 'leave'">
+      <div 
+        class="tag-selection-result-wrapper" 
+        [ngClass]="tagResultEntryIsVisible ? 'enter' : 'leave'"
+      >
         <app-preview-card
           [metaData]="result"
           imgPosition="left"

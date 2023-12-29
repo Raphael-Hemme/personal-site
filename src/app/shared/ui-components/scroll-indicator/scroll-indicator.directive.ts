@@ -10,7 +10,8 @@ import { Observable, Subscription, fromEvent, take, tap, timer } from 'rxjs';
 export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
   @Input() scrollIndicator = {
       tagResultListIsVisible: false,
-      tagSelectionListIsExpanded: false
+      tagSelectionListIsExpanded: false,
+      tagResultListLength: 0,
     };
 
   private componentRef: ComponentRef<ScrollIndicatorComponent> | null = null;
@@ -21,7 +22,7 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
   private windowResize$: Observable<any> = fromEvent(window, 'resize');
   private isMobile = this.breakpointObserver.isMatched('(max-width: 768px)');
 
-  private resizeObserver = new ResizeObserver(entries => {
+  private resizeObserver = new ResizeObserver(() => {
     this.setScrollIndicatorComponentProperties();
   });
 
