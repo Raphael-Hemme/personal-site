@@ -49,7 +49,9 @@
       "tags": [
         "coding practice",
         "resources",
-        "p5.js"
+        "p5js",
+        "typescript",
+        "angular"
       ],
       "isPublished": false,
       "category": "post"
@@ -63,6 +65,9 @@
       "phase": 1,
       "previewImageUrl": "assets/images/blog-preview-images/punchCardPattern-235-100-51.png",
       "tags": [
+        "angular",
+        "javascript",
+        "typescript",
         "coding practice",
         "resources",
         "rxjs"

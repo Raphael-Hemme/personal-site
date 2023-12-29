@@ -79,22 +79,12 @@ export class WindowSizeService {
       result.w = ((window.innerWidth / 100) * canvasConfig.wPercentS) - 20;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentS);
       console.log('result.w below 769: ', result.w);
-    } else if (window.innerWidth > 768 && window.innerWidth < 1200) {
+    } else {
       // result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 160;
+      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 140;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
       console.log('result.w: below 1200', result.w);
-    } else {
-      if (!canvasConfig.isSquare) {
-        // 1005px is the hard coded size of the main-content-container on windowInnerwidth of 1200 and up. 
-        // 1005 because it is the dynamic size before the breakpoint gets activated -> prevents size glitches. 
-        result.w = 1005;
-      } else {
-        result.w = (1005 / 100) * canvasConfig.wPercentL;
-      }
-       
-      result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
-    }
+    } 
 
     if (canvasConfig.isSquare) {
       result.h = result.w;

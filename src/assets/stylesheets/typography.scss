@@ -1,6 +1,3 @@
-// dosis
-// oswald
-
 // noto sans mono
 @font-face {
   font-family: 'Noto Sans Mono';
@@ -45,6 +42,12 @@
   src: url('./../fonts/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  src: url('./../fonts/Oswald/Oswald-VariableFont_wght.ttf') format('truetype');
+}
+
 @import './breakpoints.scss';
 @import './variables.scss';
 
@@ -63,12 +66,14 @@ h1 {
   // font-family: 'Titillium Web', sans-serif;
   // font-family: 'Koh Santepheap', cursive;
   // font-family: 'Vollkorn', serif;
-  font-family: 'Italiana', serif;
+  
+  // font-family: 'Italiana', serif;
+  font-family: 'Oswald', monospace;
   // font-size: 5rem;
   font-size: 4rem;
   line-height: 1.5;
   letter-spacing: 0.15rem;
-  font-weight: 400;
+  font-weight: 200;
   // text-transform: uppercase;
   color: $brand;
   // color: $light-gray;
@@ -101,7 +106,7 @@ h3 {
   margin: 0 0 30px 0;
   font-weight: 300;
   // color: $accent;
-  color: $accent-dark;
+  color: $white;
   @media (min-width: $md) {
     font-size: 1.8rem;
   }
@@ -113,7 +118,8 @@ h4 {
   margin: 0 0 15px 0;
   font-weight: 400;
   letter-spacing: 1.7px;
-  color: $accent-dark;
+  // color: $accent-dark;
+  color: $brand;
   @media (min-width: $md) {
     font-size: 1.3rem;
     line-height: 1.2;
@@ -123,7 +129,8 @@ h4 {
 
 p,
 button,
-ol li, ul li,
+ol li,
+ul li,
 table,
 label,
 input,
@@ -134,8 +141,9 @@ select option {
   font-size: 1.2rem;
   line-height: 1.5rem;
   @media (min-width: $md) {
-    font-size: 1.2rem;
-    line-height: 1.8rem;
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    font-weight: 200;
   }
 }
 
@@ -251,6 +259,15 @@ button {
         }
       }
     }
+
+  }
+
+  h3 {
+    color: $accent-dark;
+  }
+  
+  h4 {
+    color: $accent-dark;
   }
 
   pre * {

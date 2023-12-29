@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { orderBy } from 'lodash-es';
@@ -6,14 +6,14 @@ import { MenuService } from 'src/app/shared/services/menu-service/menu.service';
 import { SearchService } from 'src/app/shared/services/search-service/search.service';
 import { LoadingService } from 'src/app/shared/services/loading-service/loading.service';
 import { PreviewCardComponent } from '../../../shared/ui-components/preview-card/preview-card.component';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HorizontalGlitchSketchComponent } from '../../../shared/components/horizontal-glitch-sketch/horizontal-glitch-sketch.component';
+import { AboutPageComponent } from '../../about/about-page/about-page.component';
+import { TagResultListComponent } from 'src/app/shared/ui-components/tag-result-list/tag-result-list.component';
+import { TagInfoObj } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
+import { TagListComponent } from 'src/app/shared/ui-components/tag-list/tag-list.component';
 
-interface TagObjNameAndCount {
-  name: string;
-  count: number;
-}
 interface CountObj {
   [key: string]: number;
 }
@@ -23,22 +23,29 @@ interface CountObj {
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     standalone: true,
-    imports: [HorizontalGlitchSketchComponent, RouterLink, NgIf, PreviewCardComponent, NgFor, NgClass]
+    imports: [
+      RouterLink,
+      NgClass,
+      AboutPageComponent,
+      HorizontalGlitchSketchComponent,
+      PreviewCardComponent,
+      TagResultListComponent,
+      TagListComponent
+    ]
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('glitchSketch') glitchSketch!: ElementRef | undefined;
 
   public featuredBlogPost!: BlogPostMetaData;
-
   public featuredIoGardenExperiment!: IoGardenExperimentMetaData;
 
-  public allIoGardenTags: string[] = [];
-  public allBlogTags: string[] = [];
-  public unifiedAndCountedTagsArr!: TagObjNameAndCount[];
+  public allIoGardenTags: TagInfoObj[] = [];
+  public allBlogTags: TagInfoObj[] = [];
+  public unifiedAndCountedTagsArr!: TagInfoObj[];
 
   public blogPostsAndExperimentsSelectedByTag!: (BlogPostMetaData | IoGardenExperimentMetaData)[];
 
-  public currNameSelectedTag = '';
+  public tagSelectionListIsExpanded = false;
 
   constructor(
     private ioGardenService: IoGardenService,
@@ -100,19 +107,30 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    * If the same tag is selected twice, the filter is reset.
    * @param tag - The tag to filter by.
    */
-  public handleTagSelection(tag: string): void {
-    if (tag === this.currNameSelectedTag) {
-      this.currNameSelectedTag = '';
-      this.blogPostsAndExperimentsSelectedByTag = [];
-    } else {
-      this.blogPostsAndExperimentsSelectedByTag = [];
-      const resultArr = [
-        ...this.blogService.getIoGardenExperimentsByTag(tag),
-        ...this.ioGardenService.getIoGardenExperimentsByTag(tag)
+  public handleTagSelection(selectedTagObj: TagInfoObj): void {
+    const updatedTagObjArr = this.unifiedAndCountedTagsArr.map(tagObj => {
+      if (tagObj.name === selectedTagObj.name) {
+        tagObj.isActive = !tagObj.isActive;
+      }
+      return tagObj;
+    });
+    this.unifiedAndCountedTagsArr = updatedTagObjArr;
+
+    const activeTags = this.unifiedAndCountedTagsArr.filter(tagObj => tagObj.isActive);
+
+    this.blogPostsAndExperimentsSelectedByTag = [];
+    const resultArr = activeTags.map(tagObj => {
+      return [
+        ...this.blogService.getBlogPostsByTag(tagObj.name),
+        ...this.ioGardenService.getIoGardenExperimentsByTag(tagObj.name)
       ]
-      this.blogPostsAndExperimentsSelectedByTag = orderBy(resultArr, 'phase' ,'desc')
-      this.currNameSelectedTag = tag;
-    }
+    }).flat();
+      
+    this.blogPostsAndExperimentsSelectedByTag = orderBy(resultArr, 'phase' ,'desc')
+  }
+
+  public handleTagListIsExpandedEvent(isExpanded: boolean): void {
+    this.tagSelectionListIsExpanded = isExpanded;
   }
   
   /**
@@ -166,14 +184,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param arr2 - The second array of strings.
    * @returns An array of objects containing the name and count of each string.
    */
-  private unifyAndCountTagArrays(arr1: string[], arr2: string[]): TagObjNameAndCount[]  {
+  private unifyAndCountTagArrays(arr1: TagInfoObj[], arr2: TagInfoObj[]): TagInfoObj[]  {
     const rawCombinedArr = [...arr1, ...arr2];
-    const countObj: CountObj = rawCombinedArr.reduce((acc, curr) => ({...acc, [curr]:0}), {});
-    rawCombinedArr.forEach(entry => countObj[entry] += 1);
+    const countObj: CountObj = rawCombinedArr.reduce((acc, curr) => ({...acc, [curr.name]:0}), {});
+    rawCombinedArr.forEach(entry => countObj[entry.name] += 1);
     const resultArr = Object.keys(countObj).map(el => {
       return {
         name: el,
-        count: countObj[el]
+        count: countObj[el],
+        isActive: false
       }
     })
     return resultArr;

@@ -8,6 +8,7 @@ import { provideRouter } from '@angular/router';
 import { SecurityContext } from '@angular/core';
 import { provideMarkdown } from 'ngx-markdown';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 if (environment.production) {
   enableProdMode();
@@ -18,6 +19,7 @@ bootstrapApplication(AppComponent, {
     // you can pass all providers from your AppModule
     provideRouter(rootRoutes),
     provideHttpClient(),
+    provideAnimationsAsync(),
     provideMarkdown({ 
       sanitize: SecurityContext.NONE,
       loader: HttpClient

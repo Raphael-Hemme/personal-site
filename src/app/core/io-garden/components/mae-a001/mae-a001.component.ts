@@ -3,7 +3,7 @@ import { WindowSizeService } from 'src/app/shared/services/window-size-service/w
 import { BehaviorSubject, interval, Subscription, tap, throttleTime } from 'rxjs';
 import { DateTime } from 'luxon';
 import p5 from 'p5';
-import * as d3 from 'd3';
+import { scaleLinear, select, max } from 'd3';
 import { groupBy } from 'lodash-es';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../../../shared/ui-components/modal/modal.component';
@@ -302,10 +302,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
     this.displayTimer = result;
   }
 
-  /*   public reload(): void {
-      this.canvas.clear();
-    } */
-
   public closeResetWarningDialog(): void {
     this.resetWarningDialogIsOpen = false;
   }
@@ -350,15 +346,11 @@ export class MaeA001Component implements OnInit, OnDestroy {
       };
 
       s.draw = () => {
-        // s.background(240, 240, 240);
-        s.background(35, 81, 116);
+        s.background(24, 126, 190);
 
         if (this.session.timerIsRunning) {
           s.fill(186, 255, 41);
           s.noStroke();
-          // s.stroke(35, 81, 116);
-          // s.strokeWeight(2);
-          //s.noFill();
           s.circle(this.canvWidth / 2, this.canvHeight / 2, this.circleRadius * 2);
         }
 
@@ -375,9 +367,9 @@ export class MaeA001Component implements OnInit, OnDestroy {
     const colGap = maxColWidth / 5;
     const padding = h / 50;
     const colWidth = (w - colGap) / sessions.length - colGap;
-    const maxYVal = d3.max(sessions, (session) => session.completedSessionTime) ?? h
+    const maxYVal = max(sessions, (session) => session.completedSessionTime) ?? h
 
-    const yScale = d3.scaleLinear()
+    const yScale = scaleLinear()
       .domain([0, maxYVal])
       .range([padding, h * 0.8 - padding])
 
@@ -396,7 +388,7 @@ export class MaeA001Component implements OnInit, OnDestroy {
       }
     }
 
-    const svg = d3.select('.statistics')
+    const svg = select('.statistics')
       .append('svg')
       .attr('width', w)
       .attr('height', h)
@@ -409,7 +401,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
       .attr('y', (d, i) => h - yScale(d.completedSessionTime))
       .attr('width', colWidth)
       .attr('height', (d, i) => {
-        // console.log(yScale(d.completedSessionTime))
         return yScale(d.completedSessionTime) - padding
       })
       .attr('class', 'single-chart-column')

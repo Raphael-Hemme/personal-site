@@ -7,6 +7,7 @@ import { LoadingService } from '../../services/loading-service/loading.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { TagListComponent } from '../tag-list/tag-list.component';
 import { NgIf } from '@angular/common';
+import { TagInfoObj } from '../../services/tag-mapping-service/tag-mapping.service';
 
 @Component({
     selector: 'app-blog-post',
@@ -20,6 +21,8 @@ export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
   public currPath = '';
   public currPostId: string = '';
   public currPostMetaData!: BlogPostMetaData;
+  public currPostTags!: TagInfoObj[];
+
   private originUrl = '';
 
   private subscriptions: Subscription = new Subscription();
@@ -38,6 +41,7 @@ export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
         this.currPostId = params['id']
         this.currPath = '/assets/blog-posts/' + this.currPostId + '.md';
         this.currPostMetaData = this.blogService.getBlogPostMetaDataById(this.currPostId);
+        this.currPostTags = this.addAdditionalInfoToTagObjsInArr(this.currPostMetaData.tags);
       })
     );
 
@@ -57,5 +61,15 @@ export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
   public handleBackBtn() {
     const currPath = `/${this.originUrl}`;
     this.router.navigate([currPath]);
+  }
+
+  private addAdditionalInfoToTagObjsInArr(tagStrArr: string[]): TagInfoObj[] {
+    return tagStrArr.map(tagName => {
+      return {
+        name: tagName,
+        isActive: false,
+        count: this.blogService.getBlogPostCountByTag(tagName.toLowerCase())
+      };
+    })
   }
 }

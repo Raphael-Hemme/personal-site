@@ -1,4 +1,8 @@
 @import '/src/styles.scss';
+@import '/src/assets/stylesheets/variables.scss';
+
+
+$portrait-transition: filter 0.3s ease-in-out;
 
 .about-section {
   width: 100%;
@@ -6,36 +10,38 @@
   display: grid;
   gap: 50px;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(7, min-content);
+  grid-template-rows: repeat(8, min-content);
   grid-template-areas: 
     "headings-area"
     "social-media-area"
     "image-area"
     "short-about-area"
-    "other-interests"
     "tech-stack-area"
-    "long-about-area";
+    "long-about-area"
+    "other-interests"
+    "tag-result-list-area";
   @media (min-width: 768px) and (max-width: 992px) {
     gap: 60px;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(5, min-content);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, minmax(0px, min-content));
     grid-template-areas: 
-      "headings-area    image-area"
-      "short-about-area social-media-area"
-      // "long-about-area  long-about-area"
-      "other-interests  ."
-      "tech-stack-area  tech-stack-area";
+      "headings-area headings-area image-area"
+      "short-about-area short-about-area social-media-area"
+      // ". long-about-area long-about-area"
+      "tech-stack-area tech-stack-area tech-stack-area"
+      "tag-result-list-area tag-result-list-area tag-result-list-area"
+      "other-interests other-interests .";
   }
   @media (min-width: 992px) {
     gap: 80px;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, min-content);
     grid-template-areas: 
-      "headings-area    image-area"
-      "short-about-area social-media-area"
+      "headings-area headings-area image-area"
+      "short-about-area short-about-area social-media-area"
       // "long-about-area  tech-stack-area";
-      "other-interests  ."
-      "tech-stack-area  tech-stack-area"
+      "tech-stack-area tech-stack-area tech-stack-area"
+      "other-interests tag-result-list-area tag-result-list-area";
   }
 }
 
@@ -80,6 +86,15 @@
 }
 
 .other-interests {
+  grid-area: other-interests;
+  width: 100%;
+  // The height is the height of the tag-result-card that might be displayed next to the other-interests container under certain conditions
+  // Todo: refactor and calculate this height dynamically for the correct container instead of this workaround that only  works for certain conditions. 
+  height: 204px;  
+  @media (min-width: 992px) {
+    height: 234px;
+  }
+
   h4,
   ul {
     width: 100%;
@@ -93,6 +108,53 @@
 
 .tech-stack {
   grid-area: tech-stack-area;
+  .tech-stack-column-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    @media (min-width: 768px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .focus-col,
+      .preview-col,
+      .peripheral-col {
+        display: grid;
+        // Take 100% of the width minus 40px (20px gap between the three columns) and divide by 3
+        width: calc((100% - 40px) / 3);
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1.5fr;
+        grid-template-areas: 
+          "top"
+          "bottom";
+        gap: 10px;
+        .heading-and-paragraph-wrapper {
+          grid-area: top;
+        }
+        .focus-list,
+        .preview-list,
+        .peripheral-list {
+          grid-area: bottom;
+          display: flex;
+          align-items: flex-start;
+        }
+      }
+    }
+  }
+}
+
+.tag-result-list-backdrop {
+  grid-area: tag-result-list-area;
+  height: min-content;
+  max-height: 204px; // card height + padding for the border / outline
+  width: 100%;
+  @media (min-width: $md) {
+    height: min-content;
+    max-height: 234px; // card height + padding for the border / outline
+  }
+  overflow-y: scroll;
+  padding: 2px;
 }
 
 .about-image {
@@ -136,9 +198,11 @@
     height: 300px;
   }
   filter: grayscale(1) brightness(1.2);
+  transition: $portrait-transition;
   &:hover,
   &:active {
     filter: none;
+    transition: $portrait-transition;
   }
 }
 
@@ -155,7 +219,7 @@
   position: relative;
 
   a img {
-    height:25px;
+    height: 25px;
     margin: 0 20px 0 0;
     filter: grayscale(1) brightness(1);
     &:hover, 

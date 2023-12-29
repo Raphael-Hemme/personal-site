@@ -33,18 +33,18 @@ a {
   background-color: $subtle-one;
 } */
 
-/* body {
+body {
   min-height: 100vh;
-  background-size: 15px 15px;
-  background-color: $subtle-one;
+  background-size: 30px 30px;
+  background-color: $subtle-two;
   background-image: radial-gradient(
     circle,
-    #9b9b9bce 0.5px,
+    #c3c3c3ce 0.5px,
     rgba(143, 207, 197, 0) 1px
   );
-} */
+}
 
-body {
+/* body {
   min-height: 100vh;
   background: $subtle-two;
   // background: $subtle-one;
@@ -54,7 +54,7 @@ body {
   // background: $dark-gray;
   // background-color: rgba(39,45, 55, 1);
   // background: linear-gradient(180deg, $subtle-one 0%, $subtle-two 100%);
-}
+} */
 
 li {
   margin: 0 0 0 30px;
