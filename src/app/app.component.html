@@ -1,16 +1,18 @@
 <div class="app-component-container" [ngClass]="(searchComponentIsVisible$ | async) ? 'no-scroll' : ''">
   <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
-    <button class="menu-logo-btn" *ngIf="smallLogoIsVisible">
-      <img
-        src="assets/images/own-logo/rh-logo-06-green-small.png"
-        class="logo-small"
-        alt="logo and home button"
-        role="presentation"
-        (click)="handleLogoClick()" 
-        aria-hidden="true" 
-        focusable="false"/>
-        <span class="visually-hidden">home</span>
-    </button>
+    @if (smallLogoIsVisible) {
+      <button class="menu-logo-btn">
+        <img
+          src="assets/images/own-logo/rh-logo-06-green-small.png"
+          class="logo-small"
+          alt="logo and home button"
+          role="presentation"
+          (click)="handleLogoClick()" 
+          aria-hidden="true" 
+          focusable="false"/>
+          <span class="visually-hidden">home</span>
+      </button>
+    }
 
     <button
       (click)="openSiteMenu()"
@@ -25,11 +27,11 @@
     </button>
   </header>
 
-  <div 
-    class="loading-screen"
-    *ngIf="currLoading">
-    <div class="loading-spinner"></div>
-  </div>
+  @if (currLoading) {
+    <div class="loading-screen">
+      <div class="loading-spinner"></div>
+    </div>
+  }
 
   <app-site-menu></app-site-menu>
 
@@ -39,6 +41,8 @@
     </main>
   </div>
 
-  <app-search *ngIf="searchComponentIsVisible$ | async"></app-search>
+  @if (searchComponentIsVisible$ | async) {
+    <app-search></app-search>
+  }
 
 </div>
