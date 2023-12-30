@@ -6,7 +6,6 @@ import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { LoadingService } from '../../services/loading-service/loading.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
 
 interface HighlightedSearchIndexEntry extends SearchIndexEntry {
   highlightedSearchTerm: HighlightedSearchTermObj;
@@ -25,7 +24,6 @@ interface HighlightedSearchTermObj {
     encapsulation: ViewEncapsulation.None,
     standalone: true,
     imports: [
-        NgFor,
         FormsModule,
         RouterLink,
         MarkdownModule,
