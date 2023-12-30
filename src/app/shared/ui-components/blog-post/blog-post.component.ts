@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { LoadingService } from '../../services/loading-service/loading.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { TagListComponent } from '../tag-list/tag-list.component';
-import { NgIf } from '@angular/common';
 import { TagInfoObj } from '../../services/tag-mapping-service/tag-mapping.service';
 
 @Component({
@@ -14,7 +13,10 @@ import { TagInfoObj } from '../../services/tag-mapping-service/tag-mapping.servi
     templateUrl: './blog-post.component.html',
     styleUrls: ['./blog-post.component.scss'],
     standalone: true,
-    imports: [NgIf, TagListComponent, MarkdownModule]
+    imports: [
+      TagListComponent,
+      MarkdownModule
+    ]
 })
 export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
 

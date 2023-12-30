@@ -17,12 +17,13 @@
         <p class="meta-label">tags</p>
 
         <div class="blog-post-tag-list-wrapper">
-          <app-tag-list
-            *ngIf="currPostMetaData.tags"
-            [tagArr]="currPostTags"
-            [options]="{ isDisplayedOnWhiteBg: true }"
-          >
-          </app-tag-list>
+          @if (currPostMetaData.tags) {
+            <app-tag-list
+              [tagArr]="currPostTags"
+              [options]="{ isDisplayedOnWhiteBg: true }"
+            >
+            </app-tag-list>
+          }
         </div>
 
         <div class="published-updated-container">
