@@ -11,21 +11,24 @@
 
   <div class="io-garden-experiment-container">
     <h2>
-    <!--   <span *ngFor="let char of currExperimentIdAsArr; let i = index" [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{ char }}</span> -->
-      <span
-        *ngFor="let char of currExperimentIdAsArr; let i = index"
-        [ngClass]="i !== currExperimentIdAsArr.length -4 ? 'color-coded-heading' : 'color-coded-heading-letter'">{{char}}</span>
+      @for(entry of currExperimentIdAsArr; track entry.index) {
+        <span [ngClass]="entry.index !== currExperimentIdAsArr.length -4 
+          ? 'color-coded-heading' 
+          : 'color-coded-heading-letter'"
+        >{{entry.char}}</span>
+      }
     </h2>
 
     <div class="sketch-container">
       <router-outlet></router-outlet>
     </div>
 
-    <markdown
-      *ngIf="currexperimentMetaData.descriptionUrl"
-      [src]="currexperimentMetaData.descriptionUrl"
-      class="experiment-description-markdown">
-    </markdown>
+    @if (currexperimentMetaData.descriptionUrl) {
+      <markdown
+        [src]="currexperimentMetaData.descriptionUrl"
+        class="experiment-description-markdown">
+      </markdown>
+    }
 
   </div>
 

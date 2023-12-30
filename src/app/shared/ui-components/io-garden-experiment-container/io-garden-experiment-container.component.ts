@@ -6,21 +6,24 @@ import { DataService } from '../../services/data-service/data.service';
 import { IoGardenExperimentMetaData, IoGardenService } from '../../services/io-garden-service/io-garden.service';
 import { LoadingService } from '../../services/loading-service/loading.service';
 import { MarkdownModule } from 'ngx-markdown';
-import { NgFor, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-io-garden-experiment-container',
     templateUrl: './io-garden-experiment-container.component.html',
     styleUrls: ['./io-garden-experiment-container.component.scss'],
     standalone: true,
-    imports: [NgFor, NgClass, RouterOutlet, NgIf, MarkdownModule]
+    imports: [
+      NgClass, 
+      RouterOutlet, 
+      MarkdownModule
+    ]
 })
 export class IoGardenExperimentContainerComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  public currExperiment: any;
   public currExperimentId: string = '';
   public currexperimentMetaData!: IoGardenExperimentMetaData;
-  public currExperimentIdAsArr: any;
+  public currExperimentIdAsArr: {char: string, index: number}[] = [];
 
   private originUrl = '';
 
@@ -64,7 +67,14 @@ export class IoGardenExperimentContainerComponent implements OnInit, AfterViewIn
 
   private getExperimentMetaDataAndIdAsArr(): void {
     this.currexperimentMetaData = this.ioGardenService.getIoGardenMetaDataById(this.currExperimentId);
-    this.currExperimentIdAsArr = this.currexperimentMetaData.id.split('');
+    this.currExperimentIdAsArr = this.currexperimentMetaData.id
+      .split('')
+      .map((el: string, index: number) => {
+        return {
+          char: el,
+          index: index
+        }
+      });
   }
 
 
