@@ -1,4 +1,4 @@
-@import '/src/assets/stylesheets/colors.scss';
+@import 'src/styles.scss';
 
 .start-session-btn {
     margin: 10px 0 0 10px;
@@ -24,7 +24,6 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: "home-mode-btn-area focus-mode-btn-area settings-mode-btn-area";
-    // border: 1px solid deeppink;
     .home-mode-btn-container {
         grid-area: 'home-mode-btn-area';
     }
