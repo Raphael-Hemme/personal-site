@@ -1,9 +1,16 @@
-<app-horizontal-glitch-sketch
+<!-- <app-horizontal-glitch-sketch
   (viewInitSignal)="handleGlitchViewInitSignal($event)"
   class="home-glitch-sketch"
   [ngClass]="glitchSketchHasLoaded ? 'visible' : 'invisible'"
   #glitchSketch
-></app-horizontal-glitch-sketch>
+></app-horizontal-glitch-sketch> -->
+<div class="logo-test">
+  <img 
+    src="assets/images/own-logo/rh-logo-06.png"
+    #glitchSketch
+    alt=""
+  />
+</div>
 <app-loading-spinner 
   class="glitch-loading-spinner"
   [ngClass]="!glitchSketchHasLoaded ? 'visible' : 'invisible'"

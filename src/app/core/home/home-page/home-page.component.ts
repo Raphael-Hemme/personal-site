@@ -85,6 +85,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    * is guaranteed to be in the DOM, wherese before, it was not guaranteed.
    */
   ngAfterViewInit(): void {
+    this.handleGlitchViewInitSignal('GLITCH');
     if (this.glitchSketch) {
       // this.glitchSketchHasLoaded = true;
       // this.changeDetectorRef.detectChanges();
