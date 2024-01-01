@@ -1,13 +1,19 @@
 @import '/src/styles.scss';
 
-.logo-test {
-  width: 100vw;
-  height: 100vh;
+.home-page-logo {
+  width: 100%;
+  height: calc(100vh - 10px);
+  @media (min-width: $sm) {
+    height: calc(100vh - 10px);
+  }
   display: flex;
   justify-content: center;
   align-items: center;
   img {
-    height: 60%;
+    height: 60vw;
+    @media (min-width: $sm) {
+      height: 60%;
+    }
   }
 }
 
