@@ -1,37 +1,37 @@
 <div class="app-component-container" [ngClass]="(searchComponentIsVisible$ | async) ? 'no-scroll' : ''">
-  <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
-    @if (smallLogoIsVisible) {
-      <button class="menu-logo-btn">
-        <img
-          src="assets/images/own-logo/rh-logo-06-green-small.png"
-          class="logo-small"
-          alt="logo and home button"
-          role="presentation"
-          (click)="handleLogoClick()" 
-          aria-hidden="true" 
-          focusable="false"/>
-          <span class="visually-hidden">home</span>
+  @if (!currLoading) {
+    <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
+      @if (smallLogoIsVisible) {
+        <button class="menu-logo-btn">
+          <img
+            src="assets/images/own-logo/rh-logo-06-green-small.png"
+            class="logo-small"
+            alt="logo and home button"
+            role="presentation"
+            (click)="handleLogoClick()" 
+            aria-hidden="true" 
+            focusable="false"/>
+            <span class="visually-hidden">home</span>
+        </button>
+      }
+  
+      <button
+        (click)="openSiteMenu()"
+        class="menu-burger"
+        type="button">
+          <img src="assets/fonts/icons/menu_wght500_30_green.svg"
+            aria-hidden="true" 
+            focusable="false" 
+            class="menu-icon"
+            alt=""/>
+          <span class="visually-hidden">menu</span>
       </button>
-    }
+    </header>
+  }
 
-    <button
-      (click)="openSiteMenu()"
-      class="menu-burger"
-      type="button">
-        <img src="assets/fonts/icons/menu_wght500_30_green.svg"
-          aria-hidden="true" 
-          focusable="false" 
-          class="menu-icon"
-          alt=""/>
-        <span class="visually-hidden">menu</span>
-    </button>
-  </header>
-
-<!--   @if (currLoading) {
-    <div class="loading-screen">
-      <div class="loading-spinner"></div>
-    </div>
-  } -->
+  @if (currLoading) {
+    <app-loading-spinner></app-loading-spinner>
+  }
 
   <app-site-menu></app-site-menu>
 

@@ -156,7 +156,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   public handleGlitchViewInitSignal(event: string) {
     if (event === 'GLITCH') {
-      console.log('glitch has loaded');
       this.loadingService.emitAfterViewInitSignal('HOME');
       this.glitchSketchHasLoaded = true;
       this.changeDetectorRef.detectChanges();
