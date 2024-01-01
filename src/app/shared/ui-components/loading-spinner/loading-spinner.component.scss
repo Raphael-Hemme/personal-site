@@ -7,7 +7,15 @@
   bottom: 0;
   left: 0;
   z-index: 110;
+  // background-color: $subtle-two;
+
+  background-size: 30px 30px;
   background-color: $subtle-two;
+  background-image: radial-gradient(
+    circle,
+    #c3c3c3ce 0.5px,
+    rgba(143, 207, 197, 0) 1px
+  );
   
   .loading-spinner {
     position: fixed;
