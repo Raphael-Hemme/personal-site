@@ -1,5 +1,23 @@
 @import '/src/styles.scss';
 
+.home-glitch-sketch {
+  &.visible {
+    opacity: 1;
+  }
+  &.invisible {
+    opacity: 0;
+  }
+}
+
+.glitch-loading-spinner {
+  &.visible {
+    display: block;
+  }
+  &.invisible {
+    display: none;
+  }
+}
+
 .home-page-container {
   .home-heading-wrapper {
     h1 {

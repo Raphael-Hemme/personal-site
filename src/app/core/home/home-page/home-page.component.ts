@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { BlogPostMetaData, BlogService } from 'src/app/shared/services/blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from 'src/app/shared/services/io-garden-service/io-garden.service';
 import { orderBy } from 'lodash-es';
@@ -13,6 +13,7 @@ import { AboutPageComponent } from '../../about/about-page/about-page.component'
 import { TagResultListComponent } from 'src/app/shared/ui-components/tag-result-list/tag-result-list.component';
 import { TagInfoObj } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
 import { TagListComponent } from 'src/app/shared/ui-components/tag-list/tag-list.component';
+import { LoadingSpinnerComponent } from 'src/app/shared/ui-components/loading-spinner/loading-spinner.component';
 
 interface CountObj {
   [key: string]: number;
@@ -30,7 +31,8 @@ interface CountObj {
       HorizontalGlitchSketchComponent,
       PreviewCardComponent,
       TagResultListComponent,
-      TagListComponent
+      TagListComponent,
+      LoadingSpinnerComponent
     ]
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -47,12 +49,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public tagSelectionListIsExpanded = false;
 
+  public glitchSketchHasLoaded = false;
+
   constructor(
     private ioGardenService: IoGardenService,
     private blogService: BlogService,
     private menuService: MenuService,
     private searchService: SearchService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private readonly changeDetectorRef: ChangeDetectorRef
   ) {}
 
   /**
@@ -81,6 +86,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   ngAfterViewInit(): void {
     if (this.glitchSketch) {
+      // this.glitchSketchHasLoaded = true;
+      // this.changeDetectorRef.detectChanges();
       this.registerIntersectionObserverAndHandleLogoVisibility();
     }
   }
@@ -91,6 +98,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    * is destroyed the user necessarily navigated to another page.
    */
   ngOnDestroy(): void {
+    this.glitchSketchHasLoaded = false;
+    this.changeDetectorRef.detectChanges();
     this.menuService.setSmallLogoVisibile(true);
   }
 
@@ -147,7 +156,10 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   public handleGlitchViewInitSignal(event: string) {
     if (event === 'GLITCH') {
+      console.log('glitch has loaded');
       this.loadingService.emitAfterViewInitSignal('HOME');
+      this.glitchSketchHasLoaded = true;
+      this.changeDetectorRef.detectChanges();
     }
   }
   

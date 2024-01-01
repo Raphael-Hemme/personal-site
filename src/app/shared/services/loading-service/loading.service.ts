@@ -10,7 +10,7 @@ export type ViewInitSignalValue = 'LOADING' | 'ABOUT' | 'BLOG' | 'BLOG-POST' | '
 })
 export class LoadingService {
   private afterViewInitSignal$$ = new Subject<ViewInitSignalValue>();
-  private initialLoadingScreenWasRemoved$$ = new Subject<boolean>();
+  // private initialLoadingScreenWasRemoved$$ = new Subject<boolean>();
 
   private isLoading$$ = new BehaviorSubject<boolean>(true);
   public isLoading$ = this.isLoading$$.asObservable();
@@ -20,7 +20,7 @@ export class LoadingService {
   constructor(
     private router: Router
   ) { 
-    this.subscriptions.add(
+    /* this.subscriptions.add(
       this.afterViewInitSignal$$.pipe(
         tap((viewInitSignal) => console.log('view init signal', viewInitSignal)),
         take(1)
@@ -28,7 +28,7 @@ export class LoadingService {
       ).subscribe(() => {
         this.removeInitialLoadingScreen();
       })
-    );
+    ); */
 
     this.subscriptions.add(
       this.router.events.pipe(
@@ -60,11 +60,11 @@ export class LoadingService {
    * Removes the initial loading screen and sets the loading screen display to none.
    * If the initial loading screen exists, it emits a boolean value of true to the initialLoadingScreenWasRemoved$$ subject.
    */
-  public removeInitialLoadingScreen(): void {
+  /* public removeInitialLoadingScreen(): void {
     let initialLoadingScreen = document.getElementById('inititial-loading-screen');
     document.documentElement.style.setProperty('--loading-screen-display', 'none');
     if (initialLoadingScreen) {
       this.initialLoadingScreenWasRemoved$$.next(true);
     }
-  }
+  } */
 }

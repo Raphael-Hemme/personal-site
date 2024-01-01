@@ -1,104 +1,114 @@
 <app-horizontal-glitch-sketch
   (viewInitSignal)="handleGlitchViewInitSignal($event)"
+  class="home-glitch-sketch"
+  [ngClass]="glitchSketchHasLoaded ? 'visible' : 'invisible'"
   #glitchSketch
 ></app-horizontal-glitch-sketch>
+<app-loading-spinner 
+  class="glitch-loading-spinner"
+  [ngClass]="!glitchSketchHasLoaded ? 'visible' : 'invisible'"
+>
+</app-loading-spinner>
 
-<div class="home-page-container">
-  <div class="home-heading-wrapper">
-    <h1>Raphael Hemme</h1>
-    <h2>Developer and Anthropologist</h2>
-  </div>
-
-  <app-about-page [isFullAboutComponent]="false"></app-about-page>
-
-  <div class="background-card">
-    <section class="featured-section">
-      <div class="featured-section-text">
-        <h3>Interested in a randomly picked blog post or experiment?</h3>
-        <p>Let chance decide what you might read. 🔮🤖<br /></p>
-        <p>
-          Curious? Use the button below to get a new random selection or go to
-          <a [routerLink]="['/io-garden']">io-garden</a> or
-          <a [routerLink]="['/blog']">blog</a>
-          for a list of all available posts and experiments.
-        </p>
-        <button
-          class="btn-accent-flat refresh-btn"
-          (click)="handleRefreshFeaturedBtn()"
-        >
-          reload
-        </button>
-      </div>
-
-      @if (featuredIoGardenExperiment && featuredBlogPost) {
-        <div class="featured-container">
-          <div class="featured-io-garden-experiment">
-            <app-preview-card
-              [metaData]="featuredIoGardenExperiment"
-              [imgPosition]="'top'"
-              class="blog-posts-preview-card"
-            >
-            </app-preview-card>
-          </div>
-          <div class="featured-blog-post">
-            <app-preview-card
-              [metaData]="featuredBlogPost"
-              [imgPosition]="'top'"
-              class="blog-posts-preview-card"
-            >
-            </app-preview-card>
-          </div>
-        </div>
-      }
-    </section>
-
-    <section class="tag-selection-section">
-      <div class="tag-selection-heading-and-tags">
-        <h3>Select a topic of interest</h3>
-        <app-tag-list
-          [tagArr]="unifiedAndCountedTagsArr"
-          [options]="{
-            isExpandable: true,
-            numOfTagsInExpandPreview: 7,
-            isDisplayedOnWhiteBg: false,
-            tagsDisplayMatchCount: true
-          }"
-          (tagSelectionEvent)="handleTagSelection($event)"
-          (tagListIsExpandedEvent)="handleTagListIsExpandedEvent($event)"
-        >
-        </app-tag-list>
-      </div>
-
-      <app-tag-result-list
-        [tagResultList]="blogPostsAndExperimentsSelectedByTag || []"
-        [tagSelectionListIsExpanded]="tagSelectionListIsExpanded"
-      >
-      </app-tag-result-list>
-    </section>
-
-    <section class="search-section">
-      <h3>Search for a specific topic</h3>
-
-      <div class="search-section-text-and-btn-wrapper">
-        <p class="search-intro">
-          If you havn't yet found what you were looking for, feel free to use my
-          hand crafted search function to find blog posts and experiments
-          related to a specific topic or word you have in mind.<br /><br />
-          <!-- Try it out! Search for 'search' for example to find out how I built this search function and the script to preprocess text files. -->
-          Go ahead, try it out! Search for 'javascript' or 'rxjs' or even just a
-          word fragment like 'graph' to find among other things posts related to
-          'ethnography'.
-        </p>
-        <div class="search-btn-wrapper">
+@defer (when glitchSketchHasLoaded) {
+  <div class="home-page-container">
+    <div class="home-heading-wrapper">
+      <h1>Raphael Hemme</h1>
+      <h2>Developer and Anthropologist</h2>
+    </div>
+  
+    <app-about-page [isFullAboutComponent]="false"></app-about-page>
+  
+    <div class="background-card">
+      <section class="featured-section">
+        <div class="featured-section-text">
+          <h3>Interested in a randomly picked blog post or experiment?</h3>
+          <p>Let chance decide what you might read. 🔮🤖<br /></p>
+          <p>
+            Curious? Use the button below to get a new random selection or go to
+            <a [routerLink]="['/io-garden']">io-garden</a> or
+            <a [routerLink]="['/blog']">blog</a>
+            for a list of all available posts and experiments.
+          </p>
           <button
-            type="button"
-            class="btn-accent-flat search-btn"
-            (click)="handleSearchBtnClick()"
+            class="btn-accent-flat refresh-btn"
+            (click)="handleRefreshFeaturedBtn()"
           >
-            search
+            reload
           </button>
         </div>
-      </div>
-    </section>
+  
+        @if (featuredIoGardenExperiment && featuredBlogPost) {
+          <div class="featured-container">
+            <div class="featured-io-garden-experiment">
+              <app-preview-card
+                [metaData]="featuredIoGardenExperiment"
+                [imgPosition]="'top'"
+                class="blog-posts-preview-card"
+              >
+              </app-preview-card>
+            </div>
+            <div class="featured-blog-post">
+              <app-preview-card
+                [metaData]="featuredBlogPost"
+                [imgPosition]="'top'"
+                class="blog-posts-preview-card"
+              >
+              </app-preview-card>
+            </div>
+          </div>
+        }
+      </section>
+  
+      <section class="tag-selection-section">
+        <div class="tag-selection-heading-and-tags">
+          <h3>Select a topic of interest</h3>
+          <app-tag-list
+            [tagArr]="unifiedAndCountedTagsArr"
+            [options]="{
+              isExpandable: true,
+              numOfTagsInExpandPreview: 7,
+              isDisplayedOnWhiteBg: false,
+              tagsDisplayMatchCount: true
+            }"
+            (tagSelectionEvent)="handleTagSelection($event)"
+            (tagListIsExpandedEvent)="handleTagListIsExpandedEvent($event)"
+          >
+          </app-tag-list>
+        </div>
+  
+        <app-tag-result-list
+          [tagResultList]="blogPostsAndExperimentsSelectedByTag || []"
+          [tagSelectionListIsExpanded]="tagSelectionListIsExpanded"
+        >
+        </app-tag-result-list>
+      </section>
+  
+      <section class="search-section">
+        <h3>Search for a specific topic</h3>
+  
+        <div class="search-section-text-and-btn-wrapper">
+          <p class="search-intro">
+            If you havn't yet found what you were looking for, feel free to use my
+            hand crafted search function to find blog posts and experiments
+            related to a specific topic or word you have in mind.<br /><br />
+            <!-- Try it out! Search for 'search' for example to find out how I built this search function and the script to preprocess text files. -->
+            Go ahead, try it out! Search for 'javascript' or 'rxjs' or even just a
+            word fragment like 'graph' to find among other things posts related to
+            'ethnography'.
+          </p>
+          <div class="search-btn-wrapper">
+            <button
+              type="button"
+              class="btn-accent-flat search-btn"
+              (click)="handleSearchBtnClick()"
+            >
+              search
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
-</div>
+} 
+

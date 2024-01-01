@@ -1,0 +1,43 @@
+@import 'src/styles.scss';
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 110;
+  background-color: $subtle-two;
+  
+  .loading-spinner {
+    position: fixed;
+    top: calc(50% - 100px);
+    left: calc(50% - 100px); 
+    border: 3px solid $subtle-three; 
+    border-top: 4px solid $brand;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    animation: spin 0.7s linear infinite;
+    z-index: 21;
+
+    @media (min-width: 500px) and (max-width: 635px) {
+      top: calc(50% - 150px);
+      left: calc(50% - 150px); 
+      width: 300px;
+      height: 300px;
+    }
+    @media (min-width: 635px) {
+      top: calc(50% - 225px);
+      left: calc(50% - 225px); 
+      width: 450px;
+      height: 450px;
+      border-top: 5px solid $brand;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
