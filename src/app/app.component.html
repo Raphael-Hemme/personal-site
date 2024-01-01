@@ -1,5 +1,5 @@
 <div class="app-component-container" [ngClass]="(searchComponentIsVisible$ | async) ? 'no-scroll' : ''">
-  @if (!currLoading) {
+  <!-- @if (!currLoading) {
     <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
       @if (smallLogoIsVisible) {
         <button class="menu-logo-btn">
@@ -11,7 +11,7 @@
             (click)="handleLogoClick()" 
             aria-hidden="true" 
             focusable="false"/>
-            <span class="visually-hidden">home</span>
+          <span class="visually-hidden">home</span>
         </button>
       }
   
@@ -27,7 +27,7 @@
           <span class="visually-hidden">menu</span>
       </button>
     </header>
-  }
+  } -->
 
   @if (currLoading) {
     <app-loading-spinner></app-loading-spinner>
