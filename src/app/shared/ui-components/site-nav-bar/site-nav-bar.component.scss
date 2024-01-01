@@ -1,6 +1,6 @@
-@import 'src/styles.scss';
+@import '/src/styles.scss';
 
-/* header {
+header {
   position: fixed;
   z-index: 100;
   top: 25px;
@@ -35,7 +35,6 @@
   }
 }
 
-
 // ----- Logo
 
 .menu-logo-btn {
@@ -47,18 +46,4 @@
   cursor: pointer;
   height: 40px;
   border-radius: 10px;
-} */
-
-.main-content-container {
-  width: 100%;
-  height: 100%;
-  padding: $main-content-vertical-padding-sm-down $main-content-horizontal-padding-sm-down;
-  @media (min-width: $sm) {
-    padding: $main-content-vertical-padding-sm-up $main-content-horizontal-padding-sm-up;
-  }
-}
-
-.no-scroll {
-  overflow: hidden;
-  max-height: 100vh;
 }

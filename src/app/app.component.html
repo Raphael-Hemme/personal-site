@@ -1,6 +1,6 @@
 <div class="app-component-container" [ngClass]="(searchComponentIsVisible$ | async) ? 'no-scroll' : ''">
   @if (!currLoading) {
-    <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
+    <!-- <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
       @if (smallLogoIsVisible) {
         <button class="menu-logo-btn">
           <img
@@ -26,7 +26,8 @@
             alt=""/>
           <span class="visually-hidden">menu</span>
       </button>
-    </header>
+    </header> -->
+    <app-site-nav-bar [smallLogoIsVisible]="smallLogoIsVisible"></app-site-nav-bar>
   }
 
   @if (currLoading) {

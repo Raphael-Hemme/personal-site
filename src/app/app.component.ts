@@ -19,6 +19,7 @@ import { SearchService } from './shared/services/search-service/search.service';
 import { SearchComponent } from './shared/components/search/search.component';
 import { SiteMenuComponent } from './shared/ui-components/site-menu/site-menu.component';
 import { LoadingSpinnerComponent } from './shared/ui-components/loading-spinner/loading-spinner.component';
+import { SiteNavBarComponent } from './shared/ui-components/site-nav-bar/site-nav-bar.component';
 
 
 @Component({
@@ -32,7 +33,8 @@ import { LoadingSpinnerComponent } from './shared/ui-components/loading-spinner/
       RouterOutlet, 
       SearchComponent, 
       AsyncPipe,
-      LoadingSpinnerComponent
+      LoadingSpinnerComponent,
+      SiteNavBarComponent
     ]
 })
 export class AppComponent implements OnInit, OnDestroy {
