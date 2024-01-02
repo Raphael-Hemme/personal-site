@@ -1,25 +1,5 @@
 @import '/src/styles.scss';
 
-/* header {
-  position: fixed;
-  z-index: 100;
-  top: 25px;
-  right: 25px;
-  width: 48px;
-  height: 96px;
-  background-color: rgba(63, 162, 164, 0.9);
-  padding: 5px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  @media (min-width: 576px) {
-    top: 10px;
-    right: 10px;
-  }
-} */
-
 header {
   position: sticky;
   z-index: 100;
@@ -29,7 +9,6 @@ header {
   background-color: rgba(63, 162, 164, 0.9);
   backdrop-filter: blur(3px);
   padding: 10px 10px 5px 10px;
-  // border-radius: 10px;
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-start;
@@ -37,14 +16,14 @@ header {
   gap: 10px;
   @media (min-width: 576px) {
     position: fixed;
-    top: 25px;
+    top: 20px;
     right: 20px;
     width: 48px;
     height: 102px;
     padding: 5px;
     border-radius: 10px;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
   }
 }
@@ -69,12 +48,46 @@ header {
 .menu-logo-btn {
   border: none;
   background-color: transparent;
-  height: 44px;
+  // height: 44px;
+  // height: 0;
+  // opacity: 0;
+  margin: 0;
+  @media (min-width: 576px) {
+    margin: -10px 0 0 0;
+  }
+
   display: flex;
   align-items: center;
   .logo-small {
-    cursor: pointer;
-    height: 41px;
-    border-radius: 10px;
+    // cursor: pointer;
+    height: 0;
+    opacity: 0;
+    // border-radius: 10px;
+  }
+  &.visible {
+    height: 44px;
+    margin: 0;
+    opacity: 1;
+    transition: height 150ms ease-in-out, opacity 300ms ease-in-out, margin 100ms ease-in-out;
+    .logo-small {
+      // cursor: pointer;
+      height: 41px;
+      opacity: 1;
+      transition: height 150ms ease-in-out, opacity 300ms ease-in-out;
+      // border-radius: 10px;
+    }
+  }
+  &.invisible {
+    height: 0;
+    margin: -10px 0 0 0;
+    opacity: 0;
+    transition: height 150ms ease-in-out, opacity 300ms ease-in-out, margin 100ms ease-in-out;
+    .logo-small {
+      // cursor: pointer;
+      height: 0;
+      opacity: 0;
+      transition: height 150ms ease-in-out, opacity 300ms ease-in-out;
+      // border-radius: 10px;
+    }
   }
 }

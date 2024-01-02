@@ -1,17 +1,21 @@
 <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
-  @if (smallLogoIsVisible) {
-    <button class="menu-logo-btn">
+  <!-- @if (smallLogoIsVisible) { -->
+    <button 
+      class="menu-logo-btn"
+      type="button"
+      (click)="handleLogoClick()"
+      [ngClass]="smallLogoIsVisible ? 'visible' : 'invisible'"
+    >
       <img
         src="assets/images/own-logo/rh-logo-06-green-small.png"
         class="logo-small"
         alt="logo and home button"
         role="presentation"
-        (click)="handleLogoClick()" 
         aria-hidden="true" 
         focusable="false"/>
       <span class="visually-hidden">home</span>
     </button>
-  }
+  <!-- } -->
 
   <button
     (click)="openSiteMenu()"
