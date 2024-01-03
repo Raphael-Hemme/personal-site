@@ -40,8 +40,7 @@ interface CountObj {
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('glitchSketch') glitchSketch!: ElementRef | undefined;
 
-  public featuredBlogPost!: BlogPostMetaData;
-  public featuredIoGardenExperiment!: IoGardenExperimentMetaData;
+  public featuredContentMetaData!: BlogPostMetaData | IoGardenExperimentMetaData;
 
   public allIoGardenTags: TagInfoObj[] = [];
   public allBlogTags: TagInfoObj[] = [];
@@ -69,8 +68,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    * Unifies and counts the tags arrays.
    */
   ngOnInit(): void {
-    this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
-    this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
+    this.featuredContentMetaData = this.getFeaturedContentMetaData();
 
     this.allIoGardenTags = this.ioGardenService.getAllIoGardenExperimentTags();
     this.allBlogTags = this.blogService.getAllBlogTags();
@@ -110,8 +108,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
    * Handles the refresh button click event by updating the featured IoGarden experiment and blog post.
    */
   public handleRefreshFeaturedBtn() {
-    this.featuredIoGardenExperiment = this.ioGardenService.getRandomIoGardenExperimentMetaData();
-    this.featuredBlogPost = this.blogService.getRandomBlogPostMetaData();
+    this.featuredContentMetaData = this.getFeaturedContentMetaData();
+  }
+
+  private getFeaturedContentMetaData(): BlogPostMetaData | IoGardenExperimentMetaData {
+    if (Math.random() > 0.5) {
+      return this.ioGardenService.getRandomIoGardenExperimentMetaData();
+    } else {
+      return this.blogService.getRandomBlogPostMetaData();
+    }
   }
   
   /**

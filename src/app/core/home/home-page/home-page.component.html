@@ -27,7 +27,10 @@
     <app-about-page [isFullAboutComponent]="false"></app-about-page>
   
     <div class="background-card">
-      <app-featured></app-featured>
+      <app-featured 
+        [featuredContentMetaData]="featuredContentMetaData"
+        (refreshFeaturedBtnEvent)="handleRefreshFeaturedBtn()"
+      ></app-featured>
   
       <section class="tag-selection-section">
         <div class="tag-selection-heading-and-tags">

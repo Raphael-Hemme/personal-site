@@ -16,19 +16,11 @@
     </button>
   </div>
 
-  @if (featuredIoGardenExperiment && featuredBlogPost) {
+  @if (featuredContentMetaData) {
     <div class="featured-container">
-      <div class="featured-io-garden-experiment">
+      <div class="featured-content">
         <app-preview-card
-          [metaData]="featuredIoGardenExperiment"
-          imgPosition="top"
-          class="blog-posts-preview-card"
-        >
-        </app-preview-card>
-      </div>
-      <div class="featured-blog-post">
-        <app-preview-card
-          [metaData]="featuredBlogPost"
+          [metaData]="featuredContentMetaData"
           imgPosition="top"
           class="blog-posts-preview-card"
         >
