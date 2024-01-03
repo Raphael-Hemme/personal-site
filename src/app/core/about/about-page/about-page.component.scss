@@ -1,10 +1,8 @@
 @import '/src/styles.scss';
-@import '/src/assets/stylesheets/variables.scss';
-
 
 $portrait-transition: filter 0.3s ease-in-out;
 
-.about-section {
+.full-about-section {
   width: 100%;
   padding: 0;
   display: grid;
@@ -38,6 +36,44 @@ $portrait-transition: filter 0.3s ease-in-out;
     grid-template-rows: repeat(4, min-content);
     grid-template-areas: 
       "headings-area headings-area image-area"
+      "short-about-area short-about-area social-media-area"
+      // "long-about-area  tech-stack-area";
+      "tech-stack-area tech-stack-area tech-stack-area"
+      "other-interests tag-result-list-area tag-result-list-area";
+  }
+}
+
+.partial-about-section {
+  width: 100%;
+  padding: 0;
+  margin: 70px 0 0 0;
+  display: grid;
+  gap: 50px;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(6, min-content);
+  grid-template-areas: 
+    "social-media-area"
+    "short-about-area"
+    "tech-stack-area"
+    "long-about-area"
+    "other-interests"
+    "tag-result-list-area";
+  @media (min-width: 768px) and (max-width: 992px) {
+    gap: 60px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, minmax(0px, min-content));
+    grid-template-areas: 
+      ". short-about-area short-about-area"
+      // ". long-about-area long-about-area"
+      "tech-stack-area tech-stack-area tech-stack-area"
+      "tag-result-list-area tag-result-list-area tag-result-list-area"
+      "other-interests other-interests .";
+  }
+  @media (min-width: 992px) {
+    gap: 80px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, min-content);
+    grid-template-areas: 
       "short-about-area short-about-area social-media-area"
       // "long-about-area  tech-stack-area";
       "tech-stack-area tech-stack-area tech-stack-area"

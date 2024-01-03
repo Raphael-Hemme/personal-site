@@ -140,7 +140,7 @@ select option {
   font-weight: 300;
   font-size: 1.2rem;
   line-height: 1.5rem;
-  @media (min-width: $md) {
+  @media (min-width: $sm) {
     font-size: 1.1rem;
     line-height: 1.5rem;
     font-weight: 200;
@@ -159,6 +159,8 @@ button span .mat-icon,
 
 p {
   color: $white;
+  letter-spacing: 0.02em;
+  word-spacing: 0.16em;
 }
 
 li p {
