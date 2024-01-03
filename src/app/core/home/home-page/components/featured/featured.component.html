@@ -1,0 +1,39 @@
+<section class="featured-section">
+  <div class="featured-section-text">
+    <h3>Interested in a randomly picked blog post or experiment?</h3>
+    <p>Let chance decide what you might read. 🔮🤖<br /></p>
+    <p>
+      Curious? Use the button below to get a new random selection or go to
+      <a [routerLink]="['/io-garden']">io-garden</a> or
+      <a [routerLink]="['/blog']">blog</a>
+      for a list of all available posts and experiments.
+    </p>
+    <button
+      class="btn-accent-flat refresh-btn"
+      (click)="handleRefreshFeaturedBtn()"
+    >
+      reload
+    </button>
+  </div>
+
+  @if (featuredIoGardenExperiment && featuredBlogPost) {
+    <div class="featured-container">
+      <div class="featured-io-garden-experiment">
+        <app-preview-card
+          [metaData]="featuredIoGardenExperiment"
+          imgPosition="top"
+          class="blog-posts-preview-card"
+        >
+        </app-preview-card>
+      </div>
+      <div class="featured-blog-post">
+        <app-preview-card
+          [metaData]="featuredBlogPost"
+          imgPosition="top"
+          class="blog-posts-preview-card"
+        >
+        </app-preview-card>
+      </div>
+    </div>
+  }
+</section>

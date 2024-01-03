@@ -14,6 +14,7 @@ import { TagResultListComponent } from 'src/app/shared/ui-components/tag-result-
 import { TagInfoObj } from 'src/app/shared/services/tag-mapping-service/tag-mapping.service';
 import { TagListComponent } from 'src/app/shared/ui-components/tag-list/tag-list.component';
 import { LoadingSpinnerComponent } from 'src/app/shared/ui-components/loading-spinner/loading-spinner.component';
+import { FeaturedComponent } from './components/featured/featured.component';
 
 interface CountObj {
   [key: string]: number;
@@ -29,6 +30,7 @@ interface CountObj {
       NgClass,
       AboutPageComponent,
       HorizontalGlitchSketchComponent,
+      FeaturedComponent,
       PreviewCardComponent,
       TagResultListComponent,
       TagListComponent,
