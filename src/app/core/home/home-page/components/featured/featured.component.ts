@@ -17,12 +17,17 @@ import { PreviewCardComponent } from 'src/app/shared/ui-components/preview-card/
 export class FeaturedComponent {
 
   @Input() public featuredContentMetaData!: BlogPostMetaData | IoGardenExperimentMetaData;
-  @Output() refreshFeaturedBtnEvent = new EventEmitter();
+  @Output() refreshFeaturedBtnEvent = new EventEmitter<void>();
+  @Output() searchBtnClickEvent = new EventEmitter<void>();
 
   /**
  * Handles the refresh button click event by updating the featured IoGarden experiment and blog post.
  */
-  public handleRefreshFeaturedBtn() {
+  public handleRefreshFeaturedBtn(): void {
     this.refreshFeaturedBtnEvent.emit();
+  }
+
+  public handleSearchBtnClick(): void {
+    this.searchBtnClickEvent.emit();
   }
 }

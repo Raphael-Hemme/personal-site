@@ -141,7 +141,7 @@ select option {
   font-size: 1.2rem;
   line-height: 1.5rem;
   @media (min-width: $sm) {
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.5rem;
     font-weight: 200;
   }
@@ -149,7 +149,13 @@ select option {
 
 a {
   // color: $accent;
-  color: $accent-dark;
+  color: $subtle-three;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 0.05em;
+  &:hover {
+    color: $brand;
+  }
 }
 
 button span .mat-icon,
