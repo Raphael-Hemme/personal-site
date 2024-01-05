@@ -114,12 +114,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private getFeaturedContentMetaData(): BlogPostMetaData | IoGardenExperimentMetaData {
-    /* if (Math.random() > 0.5) {
-      console.log('reccommended io garden: ', this.ioGardenService.getRecomendedIoGardenExperimentMetaData());
-      return this.ioGardenService.getRandomIoGardenExperimentMetaData();
-    } else {
-      return this.blogService.getRandomBlogPostMetaData();
-    } */
     return this.recommendationService.getRecomendedContentMetaData();
   }
   
