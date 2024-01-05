@@ -15,6 +15,7 @@ import { TagInfoObj } from 'src/app/shared/services/tag-mapping-service/tag-mapp
 import { TagListComponent } from 'src/app/shared/ui-components/tag-list/tag-list.component';
 import { LoadingSpinnerComponent } from 'src/app/shared/ui-components/loading-spinner/loading-spinner.component';
 import { FeaturedComponent } from './components/featured/featured.component';
+import { RecommendationService } from 'src/app/shared/services/recommendation-service/recommendation.service';
 
 interface CountObj {
   [key: string]: number;
@@ -58,7 +59,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     private menuService: MenuService,
     private searchService: SearchService,
     private loadingService: LoadingService,
-    private readonly changeDetectorRef: ChangeDetectorRef
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly recommendationService: RecommendationService
   ) {}
 
   /**
@@ -112,12 +114,13 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private getFeaturedContentMetaData(): BlogPostMetaData | IoGardenExperimentMetaData {
-    if (Math.random() > 0.5) {
+    /* if (Math.random() > 0.5) {
       console.log('reccommended io garden: ', this.ioGardenService.getRecomendedIoGardenExperimentMetaData());
       return this.ioGardenService.getRandomIoGardenExperimentMetaData();
     } else {
       return this.blogService.getRandomBlogPostMetaData();
-    }
+    } */
+    return this.recommendationService.getRecomendedContentMetaData();
   }
   
   /**
