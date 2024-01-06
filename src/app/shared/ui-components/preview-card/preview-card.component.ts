@@ -32,10 +32,6 @@ export class PreviewCardComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-/*     for (let i = 0; i < this.metaData.phase; i++) {
-      this.phaseIteratorArr.push('i' + i);
-    } */
-
     this.previewOrintationClass = this.getPreviewOrientationClass(this.imgPosition);
   }
 
