@@ -113,6 +113,10 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.featuredContentMetaData = this.getFeaturedContentMetaData();
   }
 
+  /**
+   * Retrieves the metadata for the featured content from RecommendationService.
+   * @returns The metadata for the featured content.
+   */
   private getFeaturedContentMetaData(): BlogPostMetaData | IoGardenExperimentMetaData {
     return this.recommendationService.getRecomendedContentMetaData();
   }
