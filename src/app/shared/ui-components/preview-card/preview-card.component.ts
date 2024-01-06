@@ -45,6 +45,10 @@ export class PreviewCardComponent implements OnInit, OnChanges {
     }
   }
   
+  /**
+   * Generates an array to loop over in the template and display the phase of the current content.
+   * @param phase The number of phases.
+   */
   private generatePhaseIteratorArr(phase: number): void {
     this.phaseIteratorArr = [];
     for (let i = 0; i < phase; i++) {
@@ -52,6 +56,11 @@ export class PreviewCardComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Returns the CSS class for the preview card based on the image position input.
+   * @param imgPosition The position of the image ('top', 'left', or 'right').
+   * @returns The CSS class for the preview card.
+   */
   private getPreviewOrientationClass(imgPosition: 'top' | 'left' | 'right'): ImgOrientationClass {
     switch (imgPosition) {
       case ('top'):
@@ -65,6 +74,11 @@ export class PreviewCardComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Handles the click event on the preview card and navigates to the corresponding page.
+   * @param id - The ID of the preview card.
+   * @returns void
+   */
   public handlePreviewClick(id: string): void {
     const originUrl: string = this.route.snapshot.url.join('');
     this.dataService.originOfNavigation$.next(originUrl);
