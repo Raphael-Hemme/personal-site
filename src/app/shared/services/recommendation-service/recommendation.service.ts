@@ -29,8 +29,12 @@ export class RecommendationService {
   ): (BlogPostMetaData | IoGardenExperimentMetaData)[] {
     const maxPhasePresent = Math.max(...inputArr.map(el => el.phase));
     const probMap = this.generateProbabilityMap(maxPhasePresent, 5);
-    // console.log(probMap);
-    return inputArr.filter(el => Math.random() < probMap[el.phase]);
+    const resultArr = inputArr.filter(el => Math.random() < probMap[el.phase]);
+    if (resultArr.length > 0) {
+      return resultArr;
+    } else {
+      return this.generateRecomendationPool(inputArr);
+    }
   }
 
   private generateProbabilityMap(presentMaximum: number, fullScale: number) {
