@@ -19,8 +19,6 @@ export class RecommendationService {
     ];
     const recommendationPool = this.generateRecomendationPool(mergedContentArr);
     const randomIndex = Math.floor(Math.random() * recommendationPool.length);
-    console.log('recommendation pool length', recommendationPool.length);
-    console.log('recommendation pool', recommendationPool);
     return recommendationPool[randomIndex];
   }
 
