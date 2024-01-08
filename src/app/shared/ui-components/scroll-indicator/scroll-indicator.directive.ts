@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ComponentRef, Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { ScrollIndicatorComponent } from './scroll-indicator.component';
-import { Observable, Subscription, fromEvent, take, tap, timer } from 'rxjs';
+import { Observable, Subscription, fromEvent, take, tap, timer, debounceTime, BehaviorSubject } from 'rxjs';
 
 @Directive({
   selector: '[scrollIndicator]',
@@ -22,8 +22,9 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
   private windowResize$: Observable<any> = fromEvent(window, 'resize');
   private isMobile = this.breakpointObserver.isMatched('(max-width: 768px)');
 
-  private resizeObserver = new ResizeObserver(() => {
-    this.setScrollIndicatorComponentProperties();
+  private bodyHeightByExpansionResize$$ = new BehaviorSubject<number>(document.body.scrollHeight);
+  private bodyResizeByExpansionObserver = new ResizeObserver(() => {
+    this.bodyHeightByExpansionResize$$.next(document.body.scrollHeight)
   });
 
   private subscriptions = new Subscription();
@@ -33,15 +34,28 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
     private readonly breakpointObserver: BreakpointObserver,
     private readonly viewRef: ViewContainerRef,
   ) { 
-    this.subscriptions.add(
+    /* this.subscriptions.add(
       this.windowResize$.pipe(
+        debounceTime(200),
         tap(() => {
           this.isMobile = this.breakpointObserver.isMatched('(max-width: 768px)');
-          this.createOrUpdateScrollIndicatorInstance()
+          this.createOrUpdateScrollIndicatorInstance();
         })
       ).subscribe()
+    ) */
+
+    this.bodyResizeByExpansionObserver.observe(document.body);
+
+    this.subscriptions.add(
+      this.bodyHeightByExpansionResize$$.pipe(
+        debounceTime(50),
+        tap(() => {
+          this.isMobile = this.breakpointObserver.isMatched('(max-width: 768px)');
+          this.setScrollIndicatorComponentProperties()
+        })
+        // tap(() => this.createOrUpdateScrollIndicatorInstance())
+      ).subscribe()
     )
-    this.resizeObserver.observe(document.body);
   }
 
   ngOnChanges(changes: SimpleChanges): void  {
@@ -77,7 +91,7 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
 
   private setScrollIndicatorComponentProperties(): void {
     if (this.componentRef !== null) {
-      this.componentRef.instance.stopAnimation();
+      // this.componentRef.instance.stopAnimation();
       timer(500).pipe(
         take(1),
         tap(() => {
@@ -93,7 +107,7 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
           // and add scrollY to account for the current scroll-position
           const topPos = top + 5 + window.scrollY 
 
-          this.componentRef!.instance.updateIndicatorFromProps({
+          this.componentRef!.instance.updatePositionAndDimensions({
             left: leftPos,
             top: topPos,
             height: bottom - top
@@ -112,7 +126,7 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
       this.componentRef.destroy();
       this.componentRef = null;
       this.subscriptions.unsubscribe();
-      this.resizeObserver.disconnect();
+      this.bodyResizeByExpansionObserver.disconnect();
     }
   }
 }

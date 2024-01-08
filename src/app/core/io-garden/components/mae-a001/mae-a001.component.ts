@@ -7,7 +7,7 @@ import { scaleLinear, select, max } from 'd3';
 import { groupBy } from 'lodash-es';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../../../shared/ui-components/modal/modal.component';
-import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 interface SessionObj {
   timerIsRunning: boolean;
@@ -37,7 +37,11 @@ type Mode = 'FOCUS' | 'HOME' | 'SETTINGS';
     templateUrl: './mae-a001.component.html',
     styleUrls: ['./mae-a001.component.scss'],
     standalone: true,
-    imports: [NgIf, ModalComponent, NgTemplateOutlet, FormsModule, NgFor]
+    imports: [
+      ModalComponent, 
+      NgTemplateOutlet, 
+      FormsModule
+    ]
 })
 export class MaeA001Component implements OnInit, OnDestroy {
 
@@ -105,7 +109,6 @@ export class MaeA001Component implements OnInit, OnDestroy {
         .subscribe(() => this.bootAndRenderD3Chart())
     );
   }
-
 
   ngOnDestroy(): void {
     if (this.canvas) {

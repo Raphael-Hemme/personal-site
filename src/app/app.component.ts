@@ -1,4 +1,4 @@
-import { Location, NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { Location, NgClass, AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -18,6 +18,8 @@ import { MenuService } from './shared/services/menu-service/menu.service';
 import { SearchService } from './shared/services/search-service/search.service';
 import { SearchComponent } from './shared/components/search/search.component';
 import { SiteMenuComponent } from './shared/ui-components/site-menu/site-menu.component';
+import { LoadingSpinnerComponent } from './shared/ui-components/loading-spinner/loading-spinner.component';
+import { SiteNavBarComponent } from './shared/ui-components/site-nav-bar/site-nav-bar.component';
 
 
 @Component({
@@ -25,7 +27,15 @@ import { SiteMenuComponent } from './shared/ui-components/site-menu/site-menu.co
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     standalone: true,
-    imports: [NgClass, NgIf, SiteMenuComponent, RouterOutlet, SearchComponent, AsyncPipe]
+    imports: [
+      NgClass, 
+      SiteMenuComponent, 
+      RouterOutlet, 
+      SearchComponent, 
+      AsyncPipe,
+      LoadingSpinnerComponent,
+      SiteNavBarComponent
+    ]
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -47,7 +57,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private location: Location,
     private loadingService: LoadingService,
     private menuService: MenuService,
-    private cD: ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
     private searchService: SearchService,
   ) {}
 
@@ -65,7 +75,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.menuService.smallLogoIsVisible$.subscribe(smallLogoIsVisible => {
         this.smallLogoIsVisible = smallLogoIsVisible;
-        this.cD.detectChanges();
+        this.changeDetectorRef.detectChanges();
       })
     );
 
@@ -91,9 +101,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.loadingService.isLoading$.subscribe(loadingState => {
         this.currLoading = loadingState;
         console.log('loading state', loadingState)
-        this.cD.detectChanges();
+        this.changeDetectorRef.detectChanges();
       })
     )
   }
-
 }

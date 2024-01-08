@@ -1,0 +1,39 @@
+<section class="featured-section">
+  <h3>Featured</h3>
+  <div class="featured-main-container">
+    <div class="featured-section-text">
+      <p>
+        Find other interesting content in the
+        <a [routerLink]="['/io-garden']">io-garden</a> or on the
+        <a [routerLink]="['/blog']">blog</a>, use the tag selection below or the 
+        <button 
+          class="clickable-text-pseudo-btn"
+          type="button"
+          (click)="handleSearchBtnClick()"
+        >
+          search
+        </button>.
+        Or just hit the reload button to see another featured post.
+      </p>
+      <button
+        class="btn-accent-flat refresh-btn"
+        (click)="handleRefreshFeaturedBtn()"
+      >
+        reload
+      </button>
+    </div>
+  
+    @if (featuredContentMetaData) {
+      <div class="featured-container">
+        <div class="featured-content">
+          <app-preview-card
+            [metaData]="featuredContentMetaData"
+            imgPosition="top"
+            class="blog-posts-preview-card"
+          >
+          </app-preview-card>
+        </div>
+      </div>
+    }
+  </div>
+</section>

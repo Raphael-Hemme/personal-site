@@ -1,10 +1,17 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Subscription, interval, tap } from 'rxjs';
+import { BehaviorSubject, Subscription, combineLatest, delay, interval, tap } from 'rxjs';
 
 interface DotMatrixEntry {
   isActive: boolean;
   id: string;
+}
+
+interface PositionAndDimensions {
+  left: number;
+  top: number;
+  height: number;
+  rowNum: number;
 }
 
 @Component({
@@ -20,39 +27,50 @@ interface DotMatrixEntry {
 export class ScrollIndicatorComponent implements OnInit, OnDestroy {
 
   public height = 230;
-  public width = 20;
-
   public left = 0;
   public top = 0;
-
-
-  public dotMatrix: DotMatrixEntry[] = [];
 
   private dotMatrix$$ = new BehaviorSubject<DotMatrixEntry[]>([]);
   public dotMatrix$ = this.dotMatrix$$.asObservable();
 
-  private rowHeight = 5;
-  private columnNum = 4;
-  private rowNum = Math.floor(this.height / this.rowHeight);
+  private currPositionAndDimensions$$ = new BehaviorSubject<PositionAndDimensions>(
+    {
+      left: 0,
+      top: 0,
+      height: 0,
+      rowNum: 0
+    }
+  );
+
+  private animationInterval$ = interval(50).pipe(
+    delay(500)
+  );
+
+  private combinedAnimationStream$ = combineLatest([this.animationInterval$, this.currPositionAndDimensions$$])
+
+  private readonly ROW_HEIGHT = 5;
+  private readonly COLUMN_NUM = 4;
 
   private subscriptions = new Subscription();
-  // private animationSubscription
 
   ngOnInit(): void {
-    this.dotMatrix = this.generateInactiveDotMatrix(this.columnNum, this.rowNum);
+    this.startAnimation();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  public updateIndicatorFromProps(props: { left: number, top: number, height: number }): void {
+  public updatePositionAndDimensions(props: { left: number, top: number, height: number }): void {
+    this.currPositionAndDimensions$$.next({
+      left: props.left,
+      top: props.top,
+      height: props.height,
+      rowNum: Math.floor(props.height / this.ROW_HEIGHT)
+    });
     this.left = props.left;
     this.top = props.top;
     this.height = props.height;
-    this.rowNum = Math.floor(this.height / this.rowHeight);
-    // this.startAnimation();
-    this.rebootAnimation();
   }
 
   private generateInactiveDotMatrix(colNum: number, rowNum: number): DotMatrixEntry[] {
@@ -72,17 +90,19 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
 
   private startAnimation(): void {
     this.subscriptions.add(
-      interval(35).pipe(
-        tap((intervalValue) => {
-          const rowIterator = this.getRowIteratorFromIntervalValue(intervalValue);
-          this.dotMatrix$$.next(this.updateDotMatrixInAnimationLoop(rowIterator));
-        })
+      this.combinedAnimationStream$
+      .pipe(
+        delay(500),
+        tap(([intervalValue, posAndDim]) => {
+          const rowIterator = this.getRowIteratorFromIntervalValue(intervalValue, posAndDim);
+          this.dotMatrix$$.next(this.updateDotMatrixInAnimationLoop(rowIterator, posAndDim));
+        }),
       ).subscribe()
     )
   }
 
-  private updateDotMatrixInAnimationLoop(rowIterator: number): DotMatrixEntry[] {
-    return this.generateInactiveDotMatrix(this.columnNum, this.rowNum)
+  private updateDotMatrixInAnimationLoop(rowIterator: number, PosAndDim: PositionAndDimensions): DotMatrixEntry[] {
+    return this.generateInactiveDotMatrix(this.COLUMN_NUM, PosAndDim.rowNum)
       .map((dotMatrixEntry) => {
         const rowIdentifier = dotMatrixEntry.id.split('-')[0];
         if (rowIdentifier === rowIterator.toString()) {
@@ -96,25 +116,13 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
       })
   }
 
-  private getRowIteratorFromIntervalValue(intervalValue: number): number {
+  private getRowIteratorFromIntervalValue(intervalValue: number, posAndDim: PositionAndDimensions): number {
     let result = 0;
-    if (intervalValue >= this.rowNum) {
-      result = intervalValue % this.rowNum - 1;
+    if (intervalValue >= posAndDim.rowNum) {
+      result = intervalValue % (posAndDim.rowNum - 1);
     } else {
       result = intervalValue;
     }
     return result;
-  }
-
-  private rebootAnimation(): void {
-    this.subscriptions.unsubscribe();
-    this.subscriptions = new Subscription();
-    this.startAnimation()
-  }
-
-  public stopAnimation(): void {
-    this.subscriptions.unsubscribe();
-    this.subscriptions = new Subscription();
-    this.dotMatrix$$.next([]);
   }
 }

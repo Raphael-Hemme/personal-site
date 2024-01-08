@@ -1,206 +1,7 @@
-<app-modal *ngIf="resetWarningDialogIsOpen" (modalCloseEvent)="closeResetWarningDialog()">
-  <div class="reset-warning-dialog">
-
-    <h3>attention!</h3>
-    <p>You are about to reset your progress. 
-      This will delete all your previous focus session data. 
-      You can not get it back once you click the reset button below.
-    </p>
-    
-    <div class="reset-warning-dialog-btn-container">
-      <button
-        type="button"
-        (click)="resetProgress()"
-        class="btn-danger-flat reset-progress-btn">
-        reset progress
-      </button>
-
-      <button
-        type="button"
-        (click)="closeResetWarningDialog()"
-        class="btn-light-gray-flat cancel-reset-btn">
-        cancel
-      </button>
-
-    </div>
-  </div>
-</app-modal>
-
-<div class="home-view" *ngIf="currMode === 'HOME'">
-  <div class="statistics" id="statisticsContainer"></div>
-
-  <div class="welcome">
-    <h3>
-      Welcome<span *ngIf="profile.name"> back {{ profile.name }}!</span><span *ngIf="profile.name === ''">!</span>
-    </h3>
-  </div>
-
-  <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
-</div>
-
-
-<div class="focus-view" *ngIf="currMode === 'FOCUS'">
-  <div class="mae-a001-sketch-container">
-      <div id="mae-a001-sketch-wrapper" ></div>
-  </div>
-
-  <button
-    type="button"
-    (click)="session.timerIsRunning ? stopSession() : startSession()"
-    class="btn-accent-flat start-session-btn">
-      {{ session.timerIsRunning ? 'stop' : 'start'}} 
-  </button>
-
-  <div>
-    <p class="remaining-time-display"> 
-      {{ displayTimer }}
-    </p>
-  </div>
-
-  <div class="timer-inputs-and-labels" *ngIf="!session.timerIsRunning">
-    <div>
-      <label for="hours">Hours</label>
-      <input 
-        name="hours" 
-        type="number"
-        min="0"
-        [(ngModel)]="session.timer.hours" 
-        (ngModelChange)="handleModelChangeOnHours()">
-    </div>
-    
-    <div>
-      <label for="minutes">Minutes</label>
-      <input 
-        name="minutes" 
-        type="number" 
-        min="0"
-        [(ngModel)]="session.timer.minutes"
-        (ngModelChange)="handleModelChangeOnMinutes()">
-    </div>
-
-    <div>
-      <label for="seconds">Seconds</label>
-      <input 
-        name="seconds" 
-        type="number"
-        min="0"
-        [(ngModel)]="session.timer.seconds"
-        (ngModelChange)="handleModelChangeOnSeconds()">
-    </div>
-    
-  </div>
-  <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
-</div>
-
-
-<div class="settings-view" *ngIf="currMode === 'SETTINGS'">
-
-  <div class="settings-main">
-
-    <div class="greeting">
-      <h3>Hey<span *ngIf="profile.name"> {{ profile.name }}</span>!</h3>
-    </div>
-  
-    <div class="explainer">
-      <p>
-        None of the information recorded in this program leaves your computer.
-        Everything is stored locally in your browser.<br/><br/>
-      </p>
-      <p *ngIf="profile.name; else enterYourNamePrompt">Below you can change your name and the time frame you want to be displayed in the chart.<br><br></p>
-      <ng-template #enterYourNamePrompt>
-        <p>To make your experience more personal, you can enter your name or nickname.<br/> You can also change the time frame you want to be displayed in the chart.<br><br></p>
-      </ng-template>
-    </div>
-  
-  
-    <div class="name-input-and-label-container">
-      <label for="name">Name</label>
-      <div class="input-wrapper">
-        <input 
-          name="name" 
-          type="text"
-          [(ngModel)]="profile.name"
-          placeholder="How should I call you?">
-      </div>
-    </div>
-
-    <div class="chart-date-range-container">
-      <label for="chartDateRange">Date Range</label>
-      <div class="select-wrapper">
-        <select 
-          name="chartDateRange" 
-          [(ngModel)]="profile.chartDateRangeSetting">
-            <option 
-            *ngFor="let val of dateRangeOptions" 
-            [value]="val"
-            [attr.selected]="val === profile.chartDateRangeSetting ? val : null">
-              {{ val === -1 ? 'Show all' : 'Last ' + val + ' days'}}
-            </option>
-        </select>
-      </div>
-      
-    </div>
-  
-    <div class="reset-btn-container">
-      <button
-        type="button"
-        (click)="openResetWarningDialog()"
-        class="btn-dark-flat reset-progress-btn">
-        reset progress
-      </button>
-    </div>
-    
-  </div>
-
-  <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
-</div>
-
-
-
-<!-- BUTTONS THAT ARE SHARED BETWEEN VIEWS AS "NAV-BAR" TEMPLATE -->
-<ng-template #maeModeNav>
-  <div class="mae-a001-mode-nav">
-
-    <div class="home-mode-btn-container" >
-      <button 
-        *ngIf="currMode !== 'HOME'"
-        type="button"
-        (click)="goIntoHomeMode()"
-        class="btn-light-gray-flat home-mode-btn">
-        <img src="assets/fonts/icons/home_wght500_30_white.svg" 
-          alt="" />
-      </button>
-    </div>
-
-    <div class="focus-mode-btn-container">
-      <button
-        *ngIf="currMode !== 'FOCUS'"
-        type="button"
-        (click)="goIntoFocusMode()"
-        class="btn-accent-flat focus-mode-btn">
-        <img src="assets/fonts/icons/self_improvement_wght500_30_green.svg" 
-          alt="" />
-      </button>
-    </div>
-
-    <div class="settings-mode-btn-container">
-      <button
-        *ngIf="currMode !== 'SETTINGS'"
-        type="button"
-        (click)="goIntoSettingsMode()"
-        class="btn-light-gray-flat settings-mode-btn">
-        <img src="assets/fonts/icons/settings_wght500_30_grey.svg" 
-          alt="" />   
-      </button>
-    </div>
-
-  </div>
-</ng-template>
-
-<ng-template #resetWarningDialog>
-  <div class="reset-warning-dialog-wrapper" *ngIf="resetWarningDialogIsOpen">
+@if(resetWarningDialogIsOpen) {
+  <app-modal (modalCloseEvent)="closeResetWarningDialog()">
     <div class="reset-warning-dialog">
-
+  
       <h3>attention!</h3>
       <p>You are about to reset your progress. 
         This will delete all your previous focus session data. 
@@ -211,18 +12,245 @@
         <button
           type="button"
           (click)="resetProgress()"
-          class="btn-accent-flat reset-progress-btn">
+          class="btn-danger-flat reset-progress-btn">
           reset progress
         </button>
-
+  
         <button
           type="button"
           (click)="closeResetWarningDialog()"
-          class="btn-accent-flat cancel-reset-btn">
+          class="btn-light-gray-flat cancel-reset-btn">
           cancel
         </button>
-
+  
       </div>
     </div>
+  </app-modal>
+}
+
+@if(currMode === 'HOME') {
+  <div class="home-view">
+    <div class="statistics" id="statisticsContainer"></div>
+  
+    <div class="welcome">
+      @if(profile.name) {
+        <h3>Welcome back {{ profile.name }}!</h3>
+      }
+      @else {
+        <h3>Welcome!</h3>
+      }
+    </div>
+  
+    <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
   </div>
+}
+
+@if(currMode === 'FOCUS') {
+  <div class="focus-view">
+    <div class="mae-a001-sketch-container">
+        <div id="mae-a001-sketch-wrapper" ></div>
+    </div>
+  
+    <button
+      type="button"
+      (click)="session.timerIsRunning ? stopSession() : startSession()"
+      class="btn-accent-flat start-session-btn">
+        {{ session.timerIsRunning ? 'stop' : 'start'}} 
+    </button>
+  
+    <div>
+      <p class="remaining-time-display"> 
+        {{ displayTimer }}
+      </p>
+    </div>
+  
+    @if(!session.timerIsRunning) {
+      <div class="timer-inputs-and-labels">
+        <div>
+          <label for="hours">Hours</label>
+          <input 
+            name="hours" 
+            type="number"
+            min="0"
+            [(ngModel)]="session.timer.hours" 
+            (ngModelChange)="handleModelChangeOnHours()">
+        </div>
+        
+        <div>
+          <label for="minutes">Minutes</label>
+          <input 
+            name="minutes" 
+            type="number" 
+            min="0"
+            [(ngModel)]="session.timer.minutes"
+            (ngModelChange)="handleModelChangeOnMinutes()">
+        </div>
+    
+        <div>
+          <label for="seconds">Seconds</label>
+          <input 
+            name="seconds" 
+            type="number"
+            min="0"
+            [(ngModel)]="session.timer.seconds"
+            (ngModelChange)="handleModelChangeOnSeconds()">
+        </div>
+        
+      </div>
+    }
+    <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
+  </div>
+}
+
+@if(currMode === 'SETTINGS') {
+  <div class="settings-view">
+  
+    <div class="settings-main">
+  
+      <div class="greeting">
+        @if(profile.name) {
+          <h3>Hey {{ profile.name }}!</h3>
+        }
+        @else {
+          <h3>Hey!</h3>
+        }
+        
+      </div>
+    
+      <div class="explainer">
+        <p>
+          None of the information recorded in this program leaves your computer.
+          Everything is stored locally in your browser.<br/><br/>
+        </p>
+        @if(profile.name) {
+          <p>Below you can change your name and the time frame you want to be displayed in the chart.<br><br></p>
+        }
+        @else {
+          <p>To make your experience more personal, you can enter your name or nickname.<br/>
+          You can also change the time frame you want to be displayed in the chart.<br><br></p>
+        }
+      </div>
+    
+    
+      <div class="name-input-and-label-container">
+        <label for="name">Name</label>
+        <div class="input-wrapper">
+          <input 
+            name="name" 
+            type="text"
+            [(ngModel)]="profile.name"
+            placeholder="How should I call you?">
+        </div>
+      </div>
+  
+      <div class="chart-date-range-container">
+        <label for="chartDateRange">Date Range</label>
+        <div class="select-wrapper">
+          <select 
+            name="chartDateRange" 
+            [(ngModel)]="profile.chartDateRangeSetting">
+              @for(val of dateRangeOptions; track val) {
+                <option
+                  [value]="val"
+                  [attr.selected]="val === profile.chartDateRangeSetting ? val : null">
+                    {{ val === -1 ? 'Show all' : 'Last ' + val + ' days'}}
+                </option>
+              }
+          </select>
+        </div>
+        
+      </div>
+    
+      <div class="reset-btn-container">
+        <button
+          type="button"
+          (click)="openResetWarningDialog()"
+          class="btn-dark-flat reset-progress-btn">
+          reset progress
+        </button>
+      </div>
+      
+    </div>
+  
+    <ng-container *ngTemplateOutlet="maeModeNav"></ng-container>
+  </div>
+
+}
+
+
+
+<!-- BUTTONS THAT ARE SHARED BETWEEN VIEWS AS "NAV-BAR" TEMPLATE -->
+<ng-template #maeModeNav>
+  <div class="mae-a001-mode-nav">
+
+    <div class="home-mode-btn-container" >
+      @if(currMode !== 'HOME') {
+        <button 
+          type="button"
+          (click)="goIntoHomeMode()"
+          class="btn-light-gray-flat home-mode-btn">
+          <img src="assets/fonts/icons/home_wght500_30_white.svg" 
+            alt="" />
+        </button>
+      }
+    </div>
+
+    @if(currMode !== 'FOCUS') {
+      <div class="focus-mode-btn-container">
+        <button
+          type="button"
+          (click)="goIntoFocusMode()"
+          class="btn-accent-flat focus-mode-btn">
+          <img src="assets/fonts/icons/self_improvement_wght500_30_green.svg" 
+            alt="" />
+        </button>
+      </div>
+    }
+
+    @if(currMode !== 'SETTINGS') {
+      <div class="settings-mode-btn-container">
+        <button
+          type="button"
+          (click)="goIntoSettingsMode()"
+          class="btn-light-gray-flat settings-mode-btn">
+          <img src="assets/fonts/icons/settings_wght500_30_grey.svg" 
+            alt="" />   
+        </button>
+      </div>
+    }
+
+
+  </div>
+</ng-template>
+
+<ng-template #resetWarningDialog>
+  @if (resetWarningDialogIsOpen) {
+    <div class="reset-warning-dialog-wrapper">
+      <div class="reset-warning-dialog">
+  
+        <h3>attention!</h3>
+        <p>You are about to reset your progress. 
+          This will delete all your previous focus session data. 
+          You can not get it back once you click the reset button below.
+        </p>
+        
+        <div class="reset-warning-dialog-btn-container">
+          <button
+            type="button"
+            (click)="resetProgress()"
+            class="btn-accent-flat reset-progress-btn">
+            reset progress
+          </button>
+  
+          <button
+            type="button"
+            (click)="closeResetWarningDialog()"
+            class="btn-accent-flat cancel-reset-btn">
+            cancel
+          </button>
+  
+        </div>
+      </div>
+    </div>
+  }
 </ng-template>

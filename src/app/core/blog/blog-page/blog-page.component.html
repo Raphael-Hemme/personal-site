@@ -2,13 +2,16 @@
   <h1>Blog</h1>
   <h2>Semantic Molecules</h2>
 
-  <div *ngIf="isShowingOverview" class="blog-posts-preview-display">
-    <app-preview-card
-      *ngFor="let post of blogPostsMetaDataSortetByDate"
-      [metaData]="post"
-      [imgPosition]="'left'"
-      class="blog-posts-preview-card">
-    </app-preview-card>
-  </div>
+  @if (isShowingOverview) {
+    <div class="blog-posts-preview-display">
+      @for (post of blogPostsMetaDataSortetByDate; track post.id) {
+        <app-preview-card
+          [metaData]="post"
+          imgPosition="left"
+          class="blog-posts-preview-card">
+        </app-preview-card>
+      }
+    </div>
+  }
 
 </div>
