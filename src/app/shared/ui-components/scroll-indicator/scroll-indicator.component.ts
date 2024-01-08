@@ -12,6 +12,7 @@ interface PositionAndDimensions {
   top: number;
   height: number;
   rowNum: number;
+  animationActive?: boolean;
 }
 
 @Component({
@@ -38,7 +39,8 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
       left: 0,
       top: 0,
       height: 0,
-      rowNum: 0
+      rowNum: 0,
+      animationActive: false
     }
   );
 
@@ -61,12 +63,13 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  public updatePositionAndDimensions(props: { left: number, top: number, height: number }): void {
+  public updatePositionAndDimensions(props: { left: number, top: number, height: number, animationActive: boolean }): void {
     this.currPositionAndDimensions$$.next({
       left: props.left,
       top: props.top,
       height: props.height,
-      rowNum: Math.floor(props.height / this.ROW_HEIGHT)
+      rowNum: Math.floor(props.height / this.ROW_HEIGHT),
+      animationActive: props.animationActive
     });
     this.left = props.left;
     this.top = props.top;
@@ -101,9 +104,11 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
     )
   }
 
-  private updateDotMatrixInAnimationLoop(rowIterator: number, PosAndDim: PositionAndDimensions): DotMatrixEntry[] {
-    return this.generateInactiveDotMatrix(this.COLUMN_NUM, PosAndDim.rowNum)
-      .map((dotMatrixEntry) => {
+  private updateDotMatrixInAnimationLoop(rowIterator: number, posAndDim: PositionAndDimensions): DotMatrixEntry[] {
+    if (!posAndDim.animationActive) {
+      return this.generateInactiveDotMatrix(this.COLUMN_NUM, posAndDim.rowNum)
+    } else {
+      return this.generateInactiveDotMatrix(this.COLUMN_NUM, posAndDim.rowNum).map((dotMatrixEntry) => {
         const rowIdentifier = dotMatrixEntry.id.split('-')[0];
         if (rowIdentifier === rowIterator.toString()) {
           return {
@@ -114,6 +119,7 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
           return dotMatrixEntry
         }
       })
+    }
   }
 
   private getRowIteratorFromIntervalValue(intervalValue: number, posAndDim: PositionAndDimensions): number {

@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ComponentRef, Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { ScrollIndicatorComponent } from './scroll-indicator.component';
-import { Observable, Subscription, fromEvent, take, tap, timer, debounceTime, BehaviorSubject } from 'rxjs';
+import { Observable, Subscription, take, tap, timer, debounceTime, BehaviorSubject } from 'rxjs';
 
 @Directive({
   selector: '[scrollIndicator]',
@@ -19,7 +19,7 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
   private compWidth = 20;
   private tagSelectionListPrevState = false;
 
-  private windowResize$: Observable<any> = fromEvent(window, 'resize');
+  // private windowResize$: Observable<any> = fromEvent(window, 'resize');
   private isMobile = this.breakpointObserver.isMatched('(max-width: 768px)');
 
   private bodyHeightByExpansionResize$$ = new BehaviorSubject<number>(document.body.scrollHeight);
@@ -34,16 +34,6 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
     private readonly breakpointObserver: BreakpointObserver,
     private readonly viewRef: ViewContainerRef,
   ) { 
-    /* this.subscriptions.add(
-      this.windowResize$.pipe(
-        debounceTime(200),
-        tap(() => {
-          this.isMobile = this.breakpointObserver.isMatched('(max-width: 768px)');
-          this.createOrUpdateScrollIndicatorInstance();
-        })
-      ).subscribe()
-    ) */
-
     this.bodyResizeByExpansionObserver.observe(document.body);
 
     this.subscriptions.add(
@@ -51,7 +41,7 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
         debounceTime(50),
         tap(() => {
           this.isMobile = this.breakpointObserver.isMatched('(max-width: 768px)');
-          this.setScrollIndicatorComponentProperties()
+          this.setScrollIndicatorComponentProperties(this.scrollIndicator.tagResultListLength > 1)
         })
         // tap(() => this.createOrUpdateScrollIndicatorInstance())
       ).subscribe()
@@ -71,7 +61,7 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
       && changes['scrollIndicator']?.currentValue?.tagSelectionListIsExpanded !== this.tagSelectionListPrevState
       && changes['scrollIndicator']?.currentValue?.tagResultListIsVisible
     ) {
-      this.setScrollIndicatorComponentProperties();
+      this.setScrollIndicatorComponentProperties(this.scrollIndicator.tagResultListLength > 1);
       this.tagSelectionListPrevState = changes['scrollIndicator']?.currentValue?.tagSelectionListIsExpanded;
     }
   }
@@ -81,17 +71,23 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
   }
 
   private createOrUpdateScrollIndicatorInstance(): void {
-    if (this.componentRef === null) {
+    /* if (!this.componentRef && this.scrollIndicator.tagResultListLength > 1) {
       this.componentRef = this.viewRef.createComponent(ScrollIndicatorComponent);
-      this.setScrollIndicatorComponentProperties();
+      this.setScrollIndicatorComponentProperties(true);
+    } else if (this.componentRef && this.scrollIndicator.tagResultListLength > 1) {
+      this.setScrollIndicatorComponentProperties(true);
     } else {
-      this.setScrollIndicatorComponentProperties();
+      this.setScrollIndicatorComponentProperties(false);
+    } */
+
+    if (!this.componentRef) {
+      this.componentRef = this.viewRef.createComponent(ScrollIndicatorComponent);
     }
+    this.setScrollIndicatorComponentProperties(this.scrollIndicator.tagResultListLength > 1);
   }
 
-  private setScrollIndicatorComponentProperties(): void {
+  private setScrollIndicatorComponentProperties(animationActive: boolean): void {
     if (this.componentRef !== null) {
-      // this.componentRef.instance.stopAnimation();
       timer(500).pipe(
         take(1),
         tap(() => {
@@ -110,12 +106,12 @@ export class ScrollIndicatorDirective implements OnChanges, OnDestroy {
           this.componentRef!.instance.updatePositionAndDimensions({
             left: leftPos,
             top: topPos,
-            height: bottom - top
+            height: bottom - top,
+            animationActive: animationActive
           });
         })
       ).subscribe();
-
-    }
+    } 
   }
 
   private destroy(): void {
