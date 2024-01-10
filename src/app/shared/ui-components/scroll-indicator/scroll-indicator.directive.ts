@@ -132,7 +132,7 @@ export class ScrollIndicatorDirective implements OnInit, OnChanges, OnDestroy {
             // and add scrollY to account for the current scroll-position
             const topPos = top + 5 + window.scrollY;
 
-            this.componentRef!.instance.updatePositionAndDimensions({
+            this.componentRef!.instance.updateOptions({
               left: leftPos,
               top: topPos,
               height: bottom - top,
