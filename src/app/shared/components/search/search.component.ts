@@ -6,6 +6,8 @@ import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { LoadingService } from '../../services/loading-service/loading.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { FormsModule } from '@angular/forms';
+import { IoGardenExperimentMetaData } from '../../services/io-garden-service/io-garden.service';
+import { BlogPostMetaData } from '../../services/blog-service/blog.service';
 
 interface HighlightedSearchIndexEntry extends SearchIndexEntry {
   highlightedSearchTerm: HighlightedSearchTermObj;
@@ -35,6 +37,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   public searchResults: HighlightedSearchIndexEntry[] = [];
   public currPreviewPath = '';
   public currPreviewRoute = '';
+
+  public currPreviewMetaData: IoGardenExperimentMetaData | BlogPostMetaData | null = null;
 
   private subscriptions: Subscription = new Subscription();
 
@@ -129,7 +133,11 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns void
    */
   public handleSearchResultClick(searchResult: SearchResult): void {
+    console.log('searchResult', searchResult);
+    this.currPreviewMetaData = this.searchService.getPreviewMetaData(searchResult.file);
     const fileName = searchResult.file.slice(2);
+    console.log('this.currPreviewMetaData', this.currPreviewMetaData);
+
     this.currPreviewPath = '/assets/' + fileName;
     this.currPreviewRoute = this.getCurrPreviewRoute(searchResult.file);
     this.hideKeyboard();
