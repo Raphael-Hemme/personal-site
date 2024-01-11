@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { BlogPostMetaData, BlogService } from '../blog-service/blog.service';
 import { IoGardenExperimentMetaData, IoGardenService } from '../io-garden-service/io-garden.service';
-import { isNumber, orderBy } from 'lodash-es';
+import { orderBy } from 'lodash-es';
 
 export interface TagInfoObj {
   name: string;
@@ -32,7 +32,6 @@ export class TagMappingService {
    * @param tag - The tag to filter by.
    */
   public toggleSelectionOfTag(tag: string): void {
-    console.log(tag);
     if (this.selectedTags$$.value.includes(tag)) {
       const currSelectedTags = this.selectedTags$$.value
         .filter((selectedTag: string) => selectedTag !== tag);
@@ -48,6 +47,11 @@ export class TagMappingService {
     this.tagSelectionResults$$.next(currResultList);
   }
 
+  /**
+   * Returns a list of results for all selected tags but eliminates duplicate matches.
+   * @param selectedTags - An array of selected tags.
+   * @returns An array of unique results for all selected tags.
+   */
   private retrieveUniqueResultListForAllSelectedTags(
     selectedTags: string[]
   ): (BlogPostMetaData | IoGardenExperimentMetaData)[] {
@@ -61,11 +65,18 @@ export class TagMappingService {
       resultArr.push(...iterationResultArr);
     };
 
+    // Remove duplicates by converting to a set (which only accepts one instance 
+    // of each entry) and back to an array.
     const uniqueRestultArr = [...new Set(resultArr)];
 
     return orderBy(uniqueRestultArr, 'phase' ,'desc');
   }
 
+  /**
+   * Returns the total count of results for a given tag.
+   * @param tag - The tag to get the result count for.
+   * @returns The total count of results for the given tag.
+   */
   public getResultCountForTag(tag: string): number {
     const result = this.blogService.getBlogPostCountByTag(tag) + this.ioGardenService.getIoGardenExperimentCountByTag(tag);
     if (!result || isNaN(result)) {
@@ -75,6 +86,9 @@ export class TagMappingService {
     }
   }
 
+  /**
+   * Resets the tag selection by clearing the selected tags and tag selection results.
+   */
   public resetTagSelection(): void {
     this.selectedTags$$.next([]);
     this.tagSelectionResults$$.next([]);
