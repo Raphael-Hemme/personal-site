@@ -1,13 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
+import { FormsModule } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+
 import { BehaviorSubject, interval, Subscription, tap, throttleTime } from 'rxjs';
 import { DateTime } from 'luxon';
 import p5 from 'p5';
 import { scaleLinear, select, max } from 'd3';
 import { groupBy } from 'lodash-es';
-import { FormsModule } from '@angular/forms';
+
+import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 import { ModalComponent } from '../../../../shared/ui-components/modal/modal.component';
-import { NgTemplateOutlet } from '@angular/common';
 
 interface SessionObj {
   timerIsRunning: boolean;
