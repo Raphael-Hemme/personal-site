@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, debounceTime, fromEvent, switchMap, tap, throttleTime } from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, fromEvent, switchMap, tap } from 'rxjs';
 
 export interface CanvasSizeReturnObj {
   'w': number;
@@ -24,7 +24,7 @@ export class WindowSizeService {
 
   public windowResize$: Observable<any> = fromEvent(window, 'resize')
     .pipe(
-      debounceTime(200)
+      debounceTime(50)
     );
   public currWindowWidth$: BehaviorSubject<number> = new BehaviorSubject(window.innerWidth);
   public currWindowHeight$: BehaviorSubject<number> = new BehaviorSubject(window.innerHeight);
