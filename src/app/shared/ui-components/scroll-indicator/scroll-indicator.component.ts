@@ -190,7 +190,6 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
     } else {
       result = intervalValue % (posAndDim.rowNum - 1);
     }
-    console.log(result);
     return result;
   }
 }
