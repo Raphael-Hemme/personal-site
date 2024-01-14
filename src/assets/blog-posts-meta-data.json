@@ -8,7 +8,7 @@
       "phase": 1,
       "previewImageUrl": "assets/images/blog-preview-images/punchCardPattern-201-100-35.png",
       "tags": [
-        "coding practice",
+        "coding",
         "code highlighting",
         "javascript"
       ],
@@ -47,7 +47,7 @@
       "phase": 1,
       "previewImageUrl": "assets/images/blog-preview-images/punchCardPattern-171-100-35.png",
       "tags": [
-        "coding practice",
+        "coding",
         "resources",
         "p5js",
         "typescript",
@@ -68,7 +68,7 @@
         "angular",
         "javascript",
         "typescript",
-        "coding practice",
+        "coding",
         "resources",
         "rxjs"
       ],
@@ -166,7 +166,7 @@
       "phase": 2,
       "previewImageUrl": "assets/images/blog-preview-images/punchCardPattern-180-100-53.png",
       "tags": [
-        "coding practice",
+        "coding",
         "javascript",
         "arrays",
         "variable reassignment",
@@ -184,11 +184,33 @@
       "phase": 1,
       "previewImageUrl": "assets/images/blog-preview-images/punchCardPattern-209-100-29.png",
       "tags": [
-        "coding practice",
+        "coding",
         "clojure",
         "clojurescript",
         "learning resources",
         "functional programming"
+      ],
+      "isPublished": true,
+      "category": "post"
+    },
+    {
+      "id": "bp-2024-01-14-a",
+      "title": "The Naive Search Preprocessor (TNSP) Project",
+      "abstract": "",
+      "dateOriginal": "2024-01-14",
+      "dateLastEdited": "2024-01-14",
+      "phase": 1,
+      "previewImageUrl": "assets/images/blog-preview-images/punchCardPattern-209-100-29.png",
+      "tags": [
+        "search",
+        "coding",
+        "javascript",
+        "typescript",
+        "node",
+        "rxjs",
+        "project ideas",
+        "projects",
+        "learning"
       ],
       "isPublished": true,
       "category": "post"
