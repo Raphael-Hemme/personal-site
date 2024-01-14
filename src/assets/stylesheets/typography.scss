@@ -234,6 +234,8 @@ button {
     margin: 20px 0;
     font-size: 1.3rem;
     line-height: 1.5;
+    letter-spacing: 0;
+    word-spacing: unset;
 
     @media (min-width: $md) {
       font-size: 1.2rem;
@@ -270,12 +272,20 @@ button {
 
   }
 
-  h3 {
-    color: $accent-dark;
-  }
-  
+  h2, 
   h4 {
     color: $accent-dark;
+  }
+
+  h3 {
+    color: $subtle-one;
+    line-height: 1.5;
+    margin: 30px 0 10px 0;
+  }
+
+  h4 {
+    line-height: 1.5;
+    font-size: 1.3rem;
   }
 
   pre * {
@@ -284,15 +294,6 @@ button {
     line-height: 12px;
   }
 
-  h3 {
-    color: $subtle-one;
-    line-height: 1.5;
-  }
-
-  h4 {
-    line-height: 1.5;
-    font-size: 1.3rem;
-  }
 
   code {
     font-family: 'Roboto Mono', monospace;
