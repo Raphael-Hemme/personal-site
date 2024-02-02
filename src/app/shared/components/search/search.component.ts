@@ -133,11 +133,9 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns void
    */
   public handleSearchResultClick(searchResult: SearchResult): void {
-    console.log('searchResult', searchResult);
+    const filePathFragmentsArr = searchResult.file.split('/');
+    const fileName = filePathFragmentsArr.slice(filePathFragmentsArr.length - 2).join('/');
     this.currPreviewMetaData = this.searchService.getPreviewMetaData(searchResult.file);
-    const fileName = searchResult.file.slice(2);
-    console.log('this.currPreviewMetaData', this.currPreviewMetaData);
-
     this.currPreviewPath = '/assets/' + fileName;
     this.currPreviewRoute = this.getCurrPreviewRoute(searchResult.file);
     this.hideKeyboard();
@@ -173,9 +171,11 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns The current preview route.
    */
   private getCurrPreviewRoute(filePath: string): string {
-    const kind = filePath.replace('./', '').split('/')[0];
-    const subRoute = kind.includes('experiment') ? 'io-garden/experiment/' : 'blog/post/'
-    const rawFileName = filePath.replace('./', '').split('/')[1];
+    // Todo: Refactor this method to be more robust and less error-prone.
+    const filePathFragmentsArr = filePath.split('/');
+    const kind = filePathFragmentsArr.some(el => el.includes('blog-posts')) ? 'blog' : 'experiment';
+    const subRoute = kind === 'experiment' ? 'io-garden/experiment/' : 'blog/post/'
+    const rawFileName = filePathFragmentsArr[filePathFragmentsArr.length - 1];
     const fileName = subRoute === 'io-garden/experiment/' ? rawFileName.replace('-description', '') : rawFileName;
     const result = subRoute + fileName.replace('.md', '');
     return result
