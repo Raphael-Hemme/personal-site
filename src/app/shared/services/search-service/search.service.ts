@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import searchIndex from '../../../../assets/search-index.json';
+import { IoGardenExperimentMetaData, IoGardenService } from '../io-garden-service/io-garden.service';
+import { BlogPostMetaData, BlogService } from '../blog-service/blog.service';
 
 export interface SearchIndexEntry {
   searchTerm: string;
@@ -26,7 +28,10 @@ export class SearchService {
   private searchResults$$ = new BehaviorSubject<SearchIndexEntry[]>([]);
   public searchResults$ = this.searchResults$$.asObservable();
 
-  constructor() { }
+  constructor(
+    private readonly ioGardenService: IoGardenService,
+    private readonly blogService: BlogService
+  ) { }
 
   public search(searchTerm: string): void {
     if (searchTerm) {
@@ -38,6 +43,20 @@ export class SearchService {
       this.searchResults$$.next(searchResults);
     } else {
       this.searchResults$$.next([]);
+    }
+  }
+
+  public getPreviewMetaData(currFilePath: string): IoGardenExperimentMetaData | BlogPostMetaData | null {
+    const id = currFilePath
+      .replace('./', '')
+      .split('/')[1]
+      .replace('.md', '')
+
+    if (currFilePath.includes('io-garden')) {
+      const cleanedIoGardenId = id.replace('-description', '');
+      return this.ioGardenService.getIoGardenMetaDataById(cleanedIoGardenId);
+    } else {
+      return this.blogService.getBlogPostMetaDataById(id);
     }
   }
   

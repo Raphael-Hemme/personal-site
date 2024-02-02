@@ -56,8 +56,11 @@
     </div>
 
     <div class="search-component-result-preview-container">
-      <a href="" [routerLink]="currPreviewRoute">
+      <a href="" [routerLink]="currPreviewRoute" class="search-preview-link">
         <div class="preview-inner-wrapper">
+          @if (currPreviewMetaData) {
+            <h2>{{ currPreviewMetaData.title }}</h2>
+          }
           <markdown [src]="currPreviewPath" class="search-preview-markdown">
           </markdown>
         </div>
