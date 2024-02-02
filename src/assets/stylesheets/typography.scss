@@ -5,22 +5,16 @@
 }
 
 // italiana
-@font-face {
+/* @font-face {
   font-family: 'Italiana';
   src: url('./../fonts/Italiana/Italiana-Regular.ttf') format('truetype');
-}
+} */
 
 // urbanist
 @font-face {
   font-family: 'Urbanist';
   font-style: normal;
   src: url('./../fonts/Urbanist/Urbanist-VariableFont_wght.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Urbanist';
-  font-style: italic;
-  src: url('./../fonts/Urbanist/Urbanist-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
 // Inter
@@ -60,23 +54,21 @@
 h2, h3, h4, h5, h6 {
   // font-family: 'Dosis', sans-serif;
   font-family: 'Urbanist', sans-serif;
+  // font-family: 'Oswald', sans-serif;
 }
 
 h1 {
   // font-family: 'Titillium Web', sans-serif;
   // font-family: 'Koh Santepheap', cursive;
   // font-family: 'Vollkorn', serif;
-  
   // font-family: 'Italiana', serif;
-  font-family: 'Oswald', monospace;
-  // font-size: 5rem;
+  // font-family: 'Urbanist', sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 4rem;
   line-height: 1.5;
   letter-spacing: 0.15rem;
   font-weight: 200;
-  // text-transform: uppercase;
   color: $brand;
-  // color: $light-gray;
   @media (min-width: $md) {
     font-size: 7rem;
     line-height: 1.5;
@@ -91,6 +83,7 @@ h2 {
   margin: 0 0 40px 0;
   font-weight: 300;
   font-family: 'Urbanist', sans-serif;
+  // font-family: 'Oswald', sans-serif;
   color: $white;
   @media (min-width: $md) {
     font-size: 3rem;
