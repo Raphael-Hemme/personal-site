@@ -47,11 +47,9 @@ export class SearchService {
   }
 
   public getPreviewMetaData(currFilePath: string): IoGardenExperimentMetaData | BlogPostMetaData | null {
-    const id = currFilePath
-      .replace('./', '')
-      .split('/')[1]
-      .replace('.md', '')
-
+    const filePathFragmentsArr = currFilePath.split('/');
+    const id = filePathFragmentsArr[filePathFragmentsArr.length - 1].replace('.md', '');
+    
     if (currFilePath.includes('io-garden')) {
       const cleanedIoGardenId = id.replace('-description', '');
       return this.ioGardenService.getIoGardenMetaDataById(cleanedIoGardenId);

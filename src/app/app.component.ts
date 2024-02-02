@@ -100,7 +100,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.loadingService.isLoading$.subscribe(loadingState => {
         this.currLoading = loadingState;
-        console.log('loading state', loadingState)
         this.changeDetectorRef.detectChanges();
       })
     )
