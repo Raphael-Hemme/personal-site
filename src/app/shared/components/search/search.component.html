@@ -9,7 +9,7 @@
     >
       <div class="result-sources-wrapper">
 
-        @for(result of searchResults; track result) {
+        @for(result of reducedSearchResults; track result) {
           <div class="search-component-result-item">
             <h4>
               <span>{{ result.highlightedSearchTerm.pre }}</span>
@@ -24,9 +24,8 @@
                 (click)="handleSearchResultClick(resultEntry)"
                 class="result-source-listing"
               >
-                <span>{{ resultEntry.file }}</span>
-                <span> - line: </span>
-                <span>{{ resultEntry.line }}</span>
+                <span>{{ resultEntry.filePathForDisplay }}</span>
+                <span class="matches-badge">{{ resultEntry.count }}</span>
               </div>
             }
 

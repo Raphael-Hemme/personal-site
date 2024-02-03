@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subscription, filter, tap } from 'rxjs';
-import { SearchIndexEntry, SearchResult, SearchService } from 'src/app/shared/services/search-service/search.service';
+import { ReducedSearchIndexEntry, SearchIndexEntry, SearchResult, SearchService } from 'src/app/shared/services/search-service/search.service';
 import { HostListener, ElementRef } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { LoadingService } from '../../services/loading-service/loading.service';
@@ -10,6 +10,10 @@ import { IoGardenExperimentMetaData } from '../../services/io-garden-service/io-
 import { BlogPostMetaData } from '../../services/blog-service/blog.service';
 
 interface HighlightedSearchIndexEntry extends SearchIndexEntry {
+  highlightedSearchTerm: HighlightedSearchTermObj;
+}
+
+interface ReducedHighlightedSearchIndexEntry extends ReducedSearchIndexEntry {
   highlightedSearchTerm: HighlightedSearchTermObj;
 }
 
@@ -35,6 +39,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public searchInputValue= '';
   public searchResults: HighlightedSearchIndexEntry[] = [];
+  public reducedSearchResults: ReducedHighlightedSearchIndexEntry[] = [];
   public currPreviewPath = '';
   public currPreviewRoute = '';
 
@@ -56,9 +61,10 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.searchService.searchResults$.subscribe((searchResults: SearchIndexEntry[]) => {
-        this.searchResults = searchResults.map(el => {
-          const result: HighlightedSearchIndexEntry = {
+      this.searchService.reducedSearchResults$.subscribe((searchResults: ReducedSearchIndexEntry[]) => {
+        this.reducedSearchResults = searchResults.map(el => {
+          console.log('el', el);
+          const result: ReducedHighlightedSearchIndexEntry = {
             ...el,
             highlightedSearchTerm: this.highlightSearchTerm(el.searchTerm, this.searchInputValue)
           };
