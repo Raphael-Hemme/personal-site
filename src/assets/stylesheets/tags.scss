@@ -81,12 +81,13 @@ ul .tag-disabled {
 // Blog post and io-garden style changes for tags
 
 ul.tag-list-white-bg {
-    .tag-item,
-    .tag-item span  {
-      color: $dark-gray;
+    .tag-item  {
       background-color: $light-gray;
       border-radius: 5px;
       padding: 2px 5px;
+      span {
+        color: $dark-gray;
+      }
     }
     
     .tag-item:hover span,
