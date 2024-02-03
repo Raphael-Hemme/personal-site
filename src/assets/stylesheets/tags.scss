@@ -28,21 +28,6 @@ ul .tag-item span  {
   font-weight: 300;
 }
 
-
-ul .tag-item:hover span,
-ul .tag-item:active span {
-  color: $brand;
-}
-
-.tag-item:hover,
-.tag-item:active,
-ul .tag-item:hover,
-ul .tag-item:active {
-  color: $brand;
-  outline: 1px solid $brand;
-  border-radius: 5px;
-}
-
 .tag-selected,
 ul .tag-selected {
   outline: 1px solid $brand;
@@ -51,7 +36,6 @@ ul .tag-selected {
   span {
     color: $brand;
   }
-  &:hover,
   &:hover {
     color: $dark-gray;
     outline: 1px solid $dark-gray;
@@ -69,13 +53,6 @@ ul .tag-disabled {
   span {
     color: rgb(215, 215, 215);
   }
-  &:hover {
-    color: $light-gray;
-    outline: 1px dotted $light-gray;
-    span {
-      color: $light-gray;
-    }
-  }
 }
 
 // Blog post and io-garden style changes for tags
@@ -90,32 +67,11 @@ ul.tag-list-white-bg {
       }
     }
     
-    .tag-item:hover span,
-    .tag-item:active span {
-      color: $accent;
-      background-color: transparent;
-    }
-    
-    .tag-item:hover,
-    .tag-item:active {
-      color: $accent-light;
-      background-color: rgb(179, 179, 179);
-      outline: 1px solid $accent-light;
-    }
-    
     .tag-selected {
       outline: 1px solid $accent-light;
       color: $accent-light;
       span {
         color: $accent-light;
-      }
-      &:hover,
-      &:hover {
-        color: $dark-gray;
-        outline: 1px solid $dark-gray;
-        span {
-          color: $dark-gray;
-        }
       }
     }
     
@@ -125,6 +81,70 @@ ul.tag-list-white-bg {
       span {
         color: rgb(215, 215, 215);
       }
+    }
+  
+}
+
+// For all the hover styles, to prvent hover styles on touch devices
+
+@media (hover: hover) {
+  ul .tag-item:hover span {
+    color: $brand;
+  }
+
+  .tag-item:hover,
+  ul .tag-item:hover {
+    color: $brand;
+    outline: 1px solid $brand;
+    border-radius: 5px;
+  }
+
+  .tag-selected,
+  ul .tag-selected {
+    &:hover {
+      color: $dark-gray;
+      outline: 1px solid $dark-gray;
+      span {
+        color: $dark-gray;
+      }
+    }
+  }
+
+  .tag-item.tag-disabled,
+  ul .tag-disabled {
+    &:hover {
+      color: $light-gray;
+      outline: 1px dotted $light-gray;
+      span {
+        color: $light-gray;
+      }
+    }
+  }
+
+  ul.tag-list-white-bg {
+    .tag-item:hover span {
+      color: $accent;
+      background-color: transparent;
+    }
+
+    .tag-item:hover {
+      color: $accent-light;
+      background-color: rgb(179, 179, 179);
+      outline: 1px solid $accent-light;
+    }
+
+    .tag-selected {
+      &:hover {
+        color: $dark-gray;
+        outline: 1px solid $dark-gray;
+        span {
+          color: $dark-gray;
+        }
+      }
+    }
+
+    .tag-item.tag-disabled,
+    .tag-disabled {
       &:hover {
         color: $light-gray;
         outline: 1px dotted $light-gray;
@@ -133,5 +153,5 @@ ul.tag-list-white-bg {
         }
       }
     }
-  
+  }
 }
