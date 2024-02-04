@@ -32,9 +32,10 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
     'P5JS',
   ];
   private readonly previewTagNameArr = [
+    'Babashka',
+    'HTMX',
     'Rust',
     'Qwik',
-    'Babashka',
     'D3',
     'Tauri',
     'Deno',
@@ -50,15 +51,14 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
     'Python',
   ];
   private readonly alsoInterestedInTagNameArr = [
-    'creative coding',
-    'generative art',
-    'functional programming',
-    'reactive programming',
-    'cybernetics',
-    'complexity',
-    'logo design',
-    'typography',
-    'mechanical keyboards',
+    'Functional Programming',
+    'Reactive Programming',
+    'Creative coding',
+    'Linux',
+    'Complexity',
+    'Cybernetics',
+    'Logo Design',
+    'Mechanical Keyboards',
   ];
 
   public inFocusTagArr: TagInfoObj[] = [];
@@ -100,8 +100,8 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
 
   public toggleTagSelection(tagObj: TagInfoObj): void {
     this.tagMappingService.toggleSelectionOfTag(tagObj.name.toLowerCase());
-    // this is not the best way to do this because it depends of mutating an object by reference, but it works for now.
     // Todo: refactor this to be more maintainable.
+    //  This is not the best way to do this because it depends on mutating an object by reference, but it works for now.
     tagObj.isActive = !tagObj.isActive;
   }
 

@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BlogPostMetaData, BlogService } from '../../services/blog-service/blog.service';
-import { DataService } from '../../services/data-service/data.service';
 import { Subscription } from 'rxjs';
 import { LoadingService } from '../../services/loading-service/loading.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { TagListComponent } from '../tag-list/tag-list.component';
 import { TagInfoObj } from '../../services/tag-mapping-service/tag-mapping.service';
+import { NavigationService } from '../../services/navigation-service/navigation.service';
 
 @Component({
     selector: 'app-blog-post',
@@ -25,16 +25,13 @@ export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
   public currPostMetaData!: BlogPostMetaData;
   public currPostTags!: TagInfoObj[];
 
-  private originUrl = '';
-
   private subscriptions: Subscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private blogService: BlogService,
-    private dataService: DataService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit(): void {
@@ -45,10 +42,6 @@ export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
         this.currPostMetaData = this.blogService.getBlogPostMetaDataById(this.currPostId);
         this.currPostTags = this.addAdditionalInfoToTagObjsInArr(this.currPostMetaData.tags);
       })
-    );
-
-    this.subscriptions.add(
-      this.dataService.originOfNavigation$.subscribe(origin => this.originUrl = origin)
     );
   }
 
@@ -61,8 +54,7 @@ export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public handleBackBtn() {
-    const currPath = `/${this.originUrl}`;
-    this.router.navigate([currPath]);
+    this.navigationService.navigateBack();
   }
 
   private addAdditionalInfoToTagObjsInArr(tagStrArr: string[]): TagInfoObj[] {
