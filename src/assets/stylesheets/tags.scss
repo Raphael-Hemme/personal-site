@@ -88,12 +88,15 @@ ul.tag-list-white-bg {
 // For all the hover styles, to prvent hover styles on touch devices
 
 @media (hover: hover) {
-  ul .tag-item:hover span {
+  ul .tag-item:hover span,
+  ul .tag-item:active span {
     color: $brand;
   }
 
   .tag-item:hover,
-  ul .tag-item:hover {
+  .tag-item:active,
+  ul .tag-item:hover,
+  ul .tag-item:active {
     color: $brand;
     outline: 1px solid $brand;
     border-radius: 5px;
@@ -101,7 +104,8 @@ ul.tag-list-white-bg {
 
   .tag-selected,
   ul .tag-selected {
-    &:hover {
+    &:hover,
+    &:active {
       color: $dark-gray;
       outline: 1px solid $dark-gray;
       span {
@@ -112,7 +116,8 @@ ul.tag-list-white-bg {
 
   .tag-item.tag-disabled,
   ul .tag-disabled {
-    &:hover {
+    &:hover,
+    &:active {
       color: $light-gray;
       outline: 1px dotted $light-gray;
       span {
@@ -122,12 +127,14 @@ ul.tag-list-white-bg {
   }
 
   ul.tag-list-white-bg {
-    .tag-item:hover span {
+    .tag-item:hover span,
+    .tag-item:active span {
       color: $accent;
       background-color: transparent;
     }
 
-    .tag-item:hover {
+    .tag-item:hover,
+    .tag-item:active {
       color: $accent-light;
       background-color: rgb(179, 179, 179);
       outline: 1px solid $accent-light;
@@ -151,6 +158,21 @@ ul.tag-list-white-bg {
         span {
           color: $light-gray;
         }
+      }
+    }
+  }
+}
+
+// Fix :active and :hover styles being applied and stale on touch devices
+@media (hover: none) {
+  .tag-selected,
+  ul .tag-selected {
+    &:hover,
+    &:active {
+      color: $brand;
+      outline: 1px solid $brand;
+      span {
+        color: brand;
       }
     }
   }
