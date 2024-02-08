@@ -20,6 +20,7 @@ import { SearchComponent } from './shared/components/search/search.component';
 import { SiteMenuComponent } from './shared/ui-components/site-menu/site-menu.component';
 import { LoadingSpinnerComponent } from './shared/ui-components/loading-spinner/loading-spinner.component';
 import { SiteNavBarComponent } from './shared/ui-components/site-nav-bar/site-nav-bar.component';
+import { NavigationService } from './shared/services/navigation-service/navigation.service';
 
 
 @Component({
@@ -59,6 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private menuService: MenuService,
     private changeDetectorRef: ChangeDetectorRef,
     private searchService: SearchService,
+    private navigationService: NavigationService
   ) {}
 
   ngOnInit(): void {

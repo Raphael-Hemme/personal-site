@@ -65,6 +65,10 @@ app-search {
           padding: 5px 0;
           h4 {
             margin: 0;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             span {
               color: $light-gray-hover;
             }
@@ -79,9 +83,21 @@ app-search {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: $light-gray-hover;
             span {
               color: $light-gray-hover;
+            }
+            .matches-badge {
+              width: 4ch;
+              background-color: $accent-light;
+              color: $light-gray;
+              padding: 2px 5px;
+              border-radius: 5px;
+              font-size: 0.8rem;
+              text-align: center;
             }
           }
         }
