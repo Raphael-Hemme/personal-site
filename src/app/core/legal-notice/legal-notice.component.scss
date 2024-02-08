@@ -1,0 +1,24 @@
+@import 'src/styles.scss';
+
+h2 {
+  margin: 40px 0 20px 0;
+  line-height: 1.5;
+}
+
+h3 {
+  margin: 30px 0 20px 0;
+  line-height: 1.5;
+}
+
+h4 {
+  color: $white;
+}
+
+ol li,
+ul li {
+  color: $white;
+}
+
+p {
+  margin: 1rem 0;
+}
