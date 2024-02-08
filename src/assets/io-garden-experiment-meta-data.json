@@ -9,11 +9,13 @@
       "phase": 3,
       "previewImageUrl": "assets/images/io-garden-preview-images/te-a001-preview.png",
       "tags": [
+        "angular",
         "coding",
         "typography",
         "javascript",
+        "typescript",
         "p5js",
-        "procedural design"
+        "creative coding"
       ],
       "isPublished": true,
       "category": "experiment"
@@ -28,8 +30,10 @@
       "phase": 1,
       "previewImageUrl": "assets/images/io-garden-preview-images/cme-a001-preview.png",
       "tags": [
+        "angular",
         "coding",
         "javascript",
+        "typescript",
         "p5js",
         "ui-framework",
         "unusable interface"
@@ -47,10 +51,12 @@
       "phase": 1,
       "previewImageUrl": "assets/images/io-garden-preview-images/le-a001-preview.png",
       "tags": [
+        "angular",
         "coding",
         "javascript",
+        "typescript",
         "p5js",
-        "procedural design",
+        "creative coding",
         "lichen",
         "algorithmic organism"
       ],
@@ -67,10 +73,12 @@
       "phase": 1,
       "previewImageUrl": "assets/images/io-garden-preview-images/le-a002-preview.jpg",
       "tags": [
+        "angular",
         "coding",
         "javascript",
+        "typescript",
         "p5js",
-        "procedural design",
+        "creative coding",
         "lichen",
         "algorithmic organism"
       ],
@@ -87,10 +95,12 @@
       "phase": 3,
       "previewImageUrl": "assets/images/io-garden-preview-images/le-a003-preview.jpg",
       "tags": [
+        "angular",
         "coding",
         "javascript",
+        "typescript",
         "p5js",
-        "procedural design",
+        "creative coding",
         "lichen",
         "algorithmic organism",
         "fractal trees"
@@ -108,9 +118,11 @@
       "phase": 1,
       "previewImageUrl": "assets/images/io-garden-preview-images/pce-a001-preview.png",
       "tags": [
+        "angular",
         "coding",
         "javascript",
-        "p5.js",
+        "typescript",
+        "p5js",
         "procedural design",
         "retro tech",
         "punch card"
@@ -128,8 +140,10 @@
       "phase": 2,
       "previewImageUrl": "assets/images/io-garden-preview-images/mae-a001-preview.png",
       "tags": [
+        "angular",
         "coding",
         "javascript",
+        "typescript",
         "meditation",
         "visualization",
         "p5js",
@@ -137,7 +151,7 @@
         "d3",
         "lodash",
         "luxon",
-        "canvas.js"
+        "canvasjs"
       ],
       "isPublished": true,
       "category": "experiment"

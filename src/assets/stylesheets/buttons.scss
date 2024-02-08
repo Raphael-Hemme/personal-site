@@ -136,3 +136,29 @@
   }
 } */
 
+.clickable-text-pseudo-btn {
+  color: $subtle-three;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 0.05em;
+  cursor: pointer;
+  &:hover {
+    color: $brand;
+  }
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  display: inline;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.02em;
+  word-spacing: 0.16em;
+  @media (min-width: $sm) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 200;
+  }
+}

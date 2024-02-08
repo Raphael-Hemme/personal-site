@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import ioGardenExperimentMetaData from 'src/assets/io-garden-experiment-meta-data.json';
+import { TagInfoObj } from '../tag-mapping-service/tag-mapping.service';
+import { result } from 'lodash-es';
 
 
 export interface IoGardenExperimentMetaData {
@@ -12,7 +14,7 @@ export interface IoGardenExperimentMetaData {
   'dateLastEdited'?: string;
   'phase': number;
   'previewImageUrl': string;
-  'tags': any[];
+  'tags': string[];
   'isPublished': boolean;
   'category': string;
 }
@@ -45,11 +47,35 @@ export class IoGardenService {
     return publishedExperimentArr[randomIndex]
   }
 
-  public getAllIoGardenExperimentTags(): string[] {
+  public getAllIoGardenExperimentTags(): TagInfoObj[] {
     const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
-    const resultArr: string[] = [];
+    const tagStrArr: string[] = [];
     publishedExperimentArr.forEach(entry => {
-      resultArr.push(...entry.tags)
+      tagStrArr.push(...entry.tags)
+    });
+    return tagStrArr.map((tagName: string) => {
+      return {
+        name: tagName,
+        isActive: false,
+        count: tagStrArr.filter(el => el === tagName).length
+      };
+    });;
+  }
+
+  public getAllIoGardenExperimentTagsAndCount(): { name: string, count: number }[] {
+    const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
+    const resultObj: { [key: string]: number } = {};
+    publishedExperimentArr.forEach(entry => {
+      entry.tags.forEach(tag => {
+        if (resultObj[tag]) {
+          resultObj[tag]++;
+        } else {
+          resultObj[tag] = 1;
+        }
+      });
+    });
+    const resultArr = Object.keys(resultObj).map(key => {
+      return { name: key, count: resultObj[key] }
     });
     return resultArr;
   }
@@ -57,5 +83,10 @@ export class IoGardenService {
   public getIoGardenExperimentsByTag(tag: string): IoGardenExperimentMetaData[] {
     const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
     return publishedExperimentArr.filter(el => el.tags.includes(tag));
+  }
+
+  public getIoGardenExperimentCountByTag(tag: string): number {
+    const publishedExperimentArr: IoGardenExperimentMetaData[] = this.getAllIoGardenExperimentsMetaData();
+    return publishedExperimentArr.filter(el => el.tags.includes(tag)).length;
   }
 }

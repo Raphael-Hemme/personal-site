@@ -8,27 +8,30 @@
       click="hideKeyboard()"
     >
       <div class="result-sources-wrapper">
-        <div
-          class="search-component-result-item"
-          *ngFor="let result of searchResults"
-        >
-          <h4>
-            <span>{{ result.highlightedSearchTerm.pre }}</span>
-            <span class="search-component-highlight">{{
-              result.highlightedSearchTerm.match
-            }}</span>
-            <span>{{ result.highlightedSearchTerm.post }}</span>
-          </h4>
-          <div
-            *ngFor="let resultEntry of result.searchResults"
-            (click)="handleSearchResultClick(resultEntry)"
-            class="result-source-listing"
-          >
-            <span>{{ resultEntry.file }}</span>
-            <span> - line: </span>
-            <span>{{ resultEntry.line }}</span>
+
+        @for(result of reducedSearchResults; track result) {
+          <div class="search-component-result-item">
+            <h4>
+              <span>{{ result.highlightedSearchTerm.pre }}</span>
+              <span class="search-component-highlight">{{
+                result.highlightedSearchTerm.match
+              }}</span>
+              <span>{{ result.highlightedSearchTerm.post }}</span>
+            </h4>
+
+            @for(resultEntry of result.searchResults; track resultEntry) {
+              <div
+                (click)="handleSearchResultClick(resultEntry)"
+                class="result-source-listing"
+              >
+                <span>{{ resultEntry.filePathForDisplay }}</span>
+                <span class="matches-badge">{{ resultEntry.count }}</span>
+              </div>
+            }
+
           </div>
-        </div>
+        }
+
       </div>
     </div>
 
@@ -52,8 +55,11 @@
     </div>
 
     <div class="search-component-result-preview-container">
-      <a href="" [routerLink]="currPreviewRoute">
+      <a href="" [routerLink]="currPreviewRoute" class="search-preview-link">
         <div class="preview-inner-wrapper">
+          @if (currPreviewMetaData) {
+            <h2>{{ currPreviewMetaData.title }}</h2>
+          }
           <markdown [src]="currPreviewPath" class="search-preview-markdown">
           </markdown>
         </div>

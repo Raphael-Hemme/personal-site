@@ -1,4 +1,3 @@
-<!-- <div class="blog-post-preview-card image-left-blog-post-preview-card" [ngStyle]="{'background-color': hslBgColorString}"> -->
 <div 
   class="preview-card" 
   [ngClass]="previewOrintationClass"
@@ -11,36 +10,32 @@
   </div>
   <div class="preview-card-meta-container">
     <div class="preview-card-date">
-      <div
-        *ngIf="metaData.dateOriginal"
-        class="preview-card-original-date">
-        <p class="preview-card-date-label">date:</p>
-        <p>{{ metaData.dateOriginal }}</p>
-      </div>
-      <div
-        *ngIf="metaData.dateLastEdited"
-        class="preview-card-updated-date">
-        <p class="preview-card-date-label">updated:</p>
-        <p>{{ metaData.dateLastEdited }}</p>
-      </div>
+      @if (metaData.dateOriginal) {
+        <div class="preview-card-original-date">
+          <p class="preview-card-date-label">date:</p>
+          <p>{{ metaData.dateOriginal }}</p>
+        </div>
+      }
+
+      @if (metaData.dateLastEdited) {
+        <div class="preview-card-updated-date">
+          <p class="preview-card-date-label">updated:</p>
+          <p>{{ metaData.dateLastEdited }}</p>
+        </div>
+      }
     </div>
 
     <div class="preview-card-phase-indicator-container">
-      <div *ngFor="let phaseIcon of phaseIteratorArr"
-      class="preview-card-phase-indicator">
-    </div>
+      @for (phaseIcon of phaseIteratorArr; track phaseIcon) {
+        <div class="preview-card-phase-indicator">
+        </div>
+      }
     </div>
   </div>
   <div class="preview-card-title">
-    <h4 *ngIf="metaData.title">{{ metaData.title }} </h4>
+    @if (metaData.title) {
+      <h4>{{ metaData.title }} </h4>
+    }
   </div>
-  <!-- <div class="preview-card-actions">
-    <button
-      (click)="handlePreviewClick(metaData.id)"
-      type="button"
-      class="btn-accent-flat preview-card-read-btn">
-        read
-    </button>
-  </div> -->
 </div>
 

@@ -80,12 +80,10 @@ export class HorizontalGlitchSketchComponent implements OnInit, OnDestroy {
 
     s.frameRate(15)
     s.pixelDensity(1);
-
-    s.background(this.bgColor[0], this.bgColor[1], this.bgColor[2]);
   }
 
   private drawMethod = (s: p5): void => {
-    s.background(this.bgColor[0], this.bgColor[1], this.bgColor[2])
+    s.clear(0, 0, 0, 0);
     s.image(this.img, this.imgXStart, this.imgYStart, this.imgWidth, this.imgHeight);
 
     if (s.frameCount === 3) {

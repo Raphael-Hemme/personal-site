@@ -2,8 +2,6 @@
   <div id="le-a003-sketch-wrapper"></div>
 </div>
 
-<!-- <div *ngIf="isGrowing" class="is-growing-indicator"></div> -->
-
 <div class="buttons-and-counter-container">
   <div class="buttons-wrapper">
     <button
@@ -33,20 +31,19 @@
   </div>
 </div>
 
-
-
-<!-- <span>isGrowing: {{isGrowing}}</span> -->
-<div *ngIf="growingIsDisabled && showNoGrowWarning" class="growing-disabled-msg">
-  <p>
-    Sorry!<br />
-    Growing the specimen further poses a risk to the integrity of io-garden.<br />
-    Reload and Save are still working.
-    <br />
-    <button
-      type="button"
-      (click)="hideNoGrowWarning()"
-      class="btn-accent-flat hide-no-grow-warning-btn">
-      got it
-    </button>
-  </p>
-</div>
+@if (growingIsDisabled && showNoGrowWarning) {
+  <div class="growing-disabled-msg">
+    <p>
+      Sorry!<br />
+      Growing the specimen further poses a risk to the integrity of io-garden.<br />
+      Reload and Save are still working.
+      <br />
+      <button
+        type="button"
+        (click)="hideNoGrowWarning()"
+        class="btn-accent-flat hide-no-grow-warning-btn">
+        got it
+      </button>
+    </p>
+  </div>
+}

@@ -1,6 +1,6 @@
 @import 'src/styles.scss';
 
-.blog-post-tag-container{
+.tag-list {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -9,10 +9,34 @@
   gap: 5px;
 }
 
-.blog-post-tag-item {
-  background-color: $light-gray;
-  border-radius: 5px;
-  padding: 5px 10px;
-  margin: 0;
-  list-style: none;
+.tag-list-first-row-in-collapsed-state {
+  margin: 0 0 5px 0;
+}
+
+.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-in-out;
+}
+
+.expanded {
+  margin: -4px;
+  padding: 4px;
+  max-height: 1000px;
+  opacity: 1;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-in-out;
+}
+
+.expand-collapse-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .expand-collapse-tag-list-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: 30px;
+  }
 }

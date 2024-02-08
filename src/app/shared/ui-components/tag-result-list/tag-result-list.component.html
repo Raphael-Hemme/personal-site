@@ -1,0 +1,30 @@
+<div
+  class="tag-result-outer-container"
+  [ngClass]="
+    tagResultListIsOpen
+      ? 'tag-result-container-open'
+      : 'tag-result-container-closed'
+  "
+  #tagResultOuterContainer
+  [scrollIndicator]="{
+    tagResultListIsVisible: tagResultEntryIsVisible,
+    tagSelectionListIsExpanded: tagSelectionListIsExpanded,
+    tagResultListLength: tagResultListSelectivelyDelayed.length,
+  }"
+>
+  <div class="tag-result-inner-container">
+    @for (result of tagResultListSelectivelyDelayed; track result.id) {
+      <div 
+        class="tag-selection-result-wrapper" 
+        [ngClass]="tagResultEntryIsVisible ? 'enter' : 'leave'"
+      >
+        <app-preview-card
+          [metaData]="result"
+          imgPosition="left"
+          class="blog-posts-preview-card"
+        >
+        </app-preview-card>
+      </div>
+    }
+  </div>
+</div>

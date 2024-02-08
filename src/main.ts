@@ -8,6 +8,7 @@ import { provideRouter, withPreloading } from '@angular/router';
 import { SecurityContext } from '@angular/core';
 import { provideMarkdown } from 'ngx-markdown';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AppPreloadingStrategy } from './app/routing/app-preloading-strategy';
 
 
@@ -23,6 +24,7 @@ bootstrapApplication(AppComponent, {
       withPreloading(AppPreloadingStrategy)
     ),
     provideHttpClient(),
+    provideAnimationsAsync(),
     provideMarkdown({ 
       sanitize: SecurityContext.NONE,
       loader: HttpClient

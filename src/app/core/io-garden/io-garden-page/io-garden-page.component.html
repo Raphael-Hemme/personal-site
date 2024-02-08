@@ -10,22 +10,9 @@
         <p class="paragraph-regular">
           {{ ioAbstract }}
         </p>
-<!--         <button
-        (click)="toggleIoGardenExplanation()"
-        class="toggle-read-more-btn btn-accent-flat">
-          more
-        </button> -->
       </div>
     </div>
   </section>
-
-<!--   <app-modal 
-    (modalCloseEvent)="toggleIoGardenExplanation()"
-    *ngIf="ioExplanationIsShown">
-      <p class="io-garden-explanation paragraph-regular">
-        {{ ioNameExplainer }}
-      </p>
-  </app-modal> -->
 
   <details class="io-garden-detailed-explanation" #ioGardenDetails>
     <summary class="io-garden-tell-me-more-summary">tell me more.</summary>
@@ -36,19 +23,19 @@
             (click)="closeIoGardenDetailedExplanation()"
             class="close-io-garden-detailed-explanation-btn">
             <span class="close-triangle-character">&#9650;</span>
-            <span> got it.</span>
+            <span>got it.</span>
     </button>
   </details>
 
   <section class="io-garden-bench">
-    <div
-      class="io-garden-experiment-card"
-      *ngFor="let experiment of ioExperimentDataArr">
-        <app-preview-card
-          [metaData]="experiment"
-          [imgPosition]="'left'"
-          class="blog-posts-preview-card">
-        </app-preview-card>
-    </div>
+    @for (experiment of ioExperimentDataArr; track experiment.id) {
+      <div class="io-garden-experiment-card">
+          <app-preview-card
+            [metaData]="experiment"
+            imgPosition="left"
+            class="blog-posts-preview-card">
+          </app-preview-card>
+      </div>
+    }
   </section>
 </div>

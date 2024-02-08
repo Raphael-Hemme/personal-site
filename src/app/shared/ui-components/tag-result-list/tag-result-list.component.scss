@@ -1,0 +1,58 @@
+@import '/src/styles.scss';
+
+.tag-result-outer-container {
+  height: 0;
+  width: 0;
+  border-radius: 10px;
+
+  .tag-result-inner-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    gap: 10px;
+    
+    .tag-selection-result-wrapper {
+      width: calc(100% - 4px);
+      height: 200px;
+      opacity: 0;
+      
+     /*  @media (min-width: 992px) {
+        width: calc(50% - 7px);
+        height: 230px;
+      } */
+    }
+  
+    .enter {
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+  
+    .leave {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+  }
+}
+
+.tag-result-container-open {
+  width: calc(100% + 4px);
+  height: calc(200px + 4px);
+  margin: -2px;
+  padding: 2px;
+  overflow-y: scroll;
+
+  /* @media (min-width: 992px) {
+    height:  calc(230px + 4px);
+  } */
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;;
+}
+
+.tag-result-container-closed {
+  width: 0;
+  height: 0;
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;;
+}
+
+

@@ -65,6 +65,10 @@ app-search {
           padding: 5px 0;
           h4 {
             margin: 0;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             span {
               color: $light-gray-hover;
             }
@@ -79,9 +83,21 @@ app-search {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: $light-gray-hover;
             span {
               color: $light-gray-hover;
+            }
+            .matches-badge {
+              width: 4ch;
+              background-color: $accent-light;
+              color: $light-gray;
+              padding: 2px 5px;
+              border-radius: 5px;
+              font-size: 0.8rem;
+              text-align: center;
             }
           }
         }
@@ -121,47 +137,53 @@ app-search {
       border: 1px solid $light-gray;
       border-radius: 5px;
 
-      .preview-inner-wrapper {
-        overflow: scroll;
-        height: 100%;
-        width: 100%;
-        border-radius: 4px;
+      .search-preview-link {
+        text-decoration: none;
 
-        .search-preview-markdown {
-          p:not(.token), 
-          span:not(.token),
-          em,
-          strong,
-          sub,
-          ul,
-          ol,
-          li,
-          code,
-          pre,
-          blockquote,
-          cite {
-            font-size: 1rem;
-            color: $light-gray-hover;
+        .preview-inner-wrapper {
+          overflow: scroll;
+          height: 100%;
+          width: 100%;
+          border-radius: 4px;
+  
+          .search-preview-markdown {
+            p:not(.token), 
+            span:not(.token),
+            em,
+            strong,
+            sub,
+            ul,
+            ol,
+            li,
+            code,
+            pre,
+            blockquote,
+            cite {
+              font-size: 1rem;
+              color: $light-gray-hover;
+            }
+            h1, h2, h3, h4, h5, h6 {
+              color: $subtle-three;
+            }
+            a,
+            cite,
+            blockquote,
+            sub {
+              font-family: Inter, sans-serif;
+            }
+            a {
+              color: $accent-light;
+              text-decoration: underline;
+              text-underline-offset: 0.15em;
+              text-decoration-thickness: 0.05em;
+            }
+            code {
+              font-family: 'Roboto Mono', monospace;
+              font-size: 0.8rem;
+            }
           }
-          h1, h2, h3, h4, h5, h6 {
-            color: $subtle-three;
-          }
-          a,
-          cite,
-          blockquote,
-          sub {
-            font-family: Inter, sans-serif;
-          }
-          a {
-            color: $accent-light;
-            text-decoration: underline;
-          }
-          code {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.8rem;
-          }
+  
         }
-
       }
     }
 

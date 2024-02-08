@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, fromEvent, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, fromEvent, switchMap, tap } from 'rxjs';
 
 export interface CanvasSizeReturnObj {
   'w': number;
@@ -22,7 +22,10 @@ export class WindowSizeService {
   private currMainContainerWidth = 0;
   private currMainContainerHeight = 0;
 
-  public windowResize$: Observable<any> = fromEvent(window, 'resize');
+  public windowResize$: Observable<any> = fromEvent(window, 'resize')
+    .pipe(
+      debounceTime(50)
+    );
   public currWindowWidth$: BehaviorSubject<number> = new BehaviorSubject(window.innerWidth);
   public currWindowHeight$: BehaviorSubject<number> = new BehaviorSubject(window.innerHeight);
 
@@ -78,23 +81,11 @@ export class WindowSizeService {
     if (window.innerWidth <= 768) {
       result.w = ((window.innerWidth / 100) * canvasConfig.wPercentS) - 20;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentS);
-      console.log('result.w below 769: ', result.w);
-    } else if (window.innerWidth > 768 && window.innerWidth < 1200) {
-      // result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 160;
-      result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
-      console.log('result.w: below 1200', result.w);
     } else {
-      if (!canvasConfig.isSquare) {
-        // 1005px is the hard coded size of the main-content-container on windowInnerwidth of 1200 and up. 
-        // 1005 because it is the dynamic size before the breakpoint gets activated -> prevents size glitches. 
-        result.w = 1005;
-      } else {
-        result.w = (1005 / 100) * canvasConfig.wPercentL;
-      }
-       
+      // result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
+      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 140;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
-    }
+    } 
 
     if (canvasConfig.isSquare) {
       result.h = result.w;

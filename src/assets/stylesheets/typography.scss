@@ -1,6 +1,3 @@
-// dosis
-// oswald
-
 // noto sans mono
 @font-face {
   font-family: 'Noto Sans Mono';
@@ -8,22 +5,16 @@
 }
 
 // italiana
-@font-face {
+/* @font-face {
   font-family: 'Italiana';
   src: url('./../fonts/Italiana/Italiana-Regular.ttf') format('truetype');
-}
+} */
 
 // urbanist
 @font-face {
   font-family: 'Urbanist';
   font-style: normal;
   src: url('./../fonts/Urbanist/Urbanist-VariableFont_wght.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Urbanist';
-  font-style: italic;
-  src: url('./../fonts/Urbanist/Urbanist-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
 // Inter
@@ -45,6 +36,12 @@
   src: url('./../fonts/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  src: url('./../fonts/Oswald/Oswald-VariableFont_wght.ttf') format('truetype');
+}
+
 @import './breakpoints.scss';
 @import './variables.scss';
 
@@ -57,21 +54,21 @@
 h2, h3, h4, h5, h6 {
   // font-family: 'Dosis', sans-serif;
   font-family: 'Urbanist', sans-serif;
+  // font-family: 'Oswald', sans-serif;
 }
 
 h1 {
   // font-family: 'Titillium Web', sans-serif;
   // font-family: 'Koh Santepheap', cursive;
   // font-family: 'Vollkorn', serif;
-  font-family: 'Italiana', serif;
-  // font-size: 5rem;
+  // font-family: 'Italiana', serif;
+  // font-family: 'Urbanist', sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 4rem;
   line-height: 1.5;
   letter-spacing: 0.15rem;
-  font-weight: 400;
-  // text-transform: uppercase;
+  font-weight: 200;
   color: $brand;
-  // color: $light-gray;
   @media (min-width: $md) {
     font-size: 7rem;
     line-height: 1.5;
@@ -86,6 +83,7 @@ h2 {
   margin: 0 0 40px 0;
   font-weight: 300;
   font-family: 'Urbanist', sans-serif;
+  // font-family: 'Oswald', sans-serif;
   color: $white;
   @media (min-width: $md) {
     font-size: 3rem;
@@ -101,7 +99,7 @@ h3 {
   margin: 0 0 30px 0;
   font-weight: 300;
   // color: $accent;
-  color: $accent-dark;
+  color: $white;
   @media (min-width: $md) {
     font-size: 1.8rem;
   }
@@ -113,17 +111,25 @@ h4 {
   margin: 0 0 15px 0;
   font-weight: 400;
   letter-spacing: 1.7px;
-  color: $accent-dark;
+  // color: $accent-dark;
+  color: $brand;
   @media (min-width: $md) {
     font-size: 1.3rem;
     line-height: 1.2;
   }
 }
 
+h5 {
+  font-size: 1rem;
+  line-height: 1.2;
+  margin: 0 0 15px 0;
+}
+
 
 p,
 button,
-ol li, ul li,
+ol li,
+ul li,
 table,
 label,
 input,
@@ -133,15 +139,22 @@ select option {
   font-weight: 300;
   font-size: 1.2rem;
   line-height: 1.5rem;
-  @media (min-width: $md) {
-    font-size: 1.2rem;
-    line-height: 1.8rem;
+  @media (min-width: $sm) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 200;
   }
 }
 
 a {
   // color: $accent;
-  color: $accent-dark;
+  color: $subtle-three;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 0.05em;
+  &:hover {
+    color: $brand;
+  }
 }
 
 button span .mat-icon,
@@ -151,6 +164,8 @@ button span .mat-icon,
 
 p {
   color: $white;
+  letter-spacing: 0.02em;
+  word-spacing: 0.16em;
 }
 
 li p {
@@ -218,6 +233,8 @@ button {
     margin: 20px 0;
     font-size: 1.3rem;
     line-height: 1.5;
+    letter-spacing: 0;
+    word-spacing: unset;
 
     @media (min-width: $md) {
       font-size: 1.2rem;
@@ -251,6 +268,23 @@ button {
         }
       }
     }
+
+  }
+
+  h2, 
+  h4 {
+    color: $accent-dark;
+  }
+
+  h3 {
+    color: $subtle-one;
+    line-height: 1.5;
+    margin: 30px 0 10px 0;
+  }
+
+  h4 {
+    line-height: 1.5;
+    font-size: 1.3rem;
   }
 
   pre * {
@@ -259,15 +293,6 @@ button {
     line-height: 12px;
   }
 
-  h3 {
-    color: $subtle-one;
-    line-height: 1.5;
-  }
-
-  h4 {
-    line-height: 1.5;
-    font-size: 1.3rem;
-  }
 
   code {
     font-family: 'Roboto Mono', monospace;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 import blogPostsMetaData from 'src/assets/blog-posts-meta-data.json';
+import { TagInfoObj } from '../tag-mapping-service/tag-mapping.service';
 
 
 export interface BlogPostMetaData {
@@ -13,7 +13,7 @@ export interface BlogPostMetaData {
   'dateLastEdited'?: string;
   'phase': number;
   'previewImageUrl': string;
-  'tags': any[];
+  'tags': string[];
   'isPublished': boolean;
   'category': string;
 }
@@ -46,17 +46,29 @@ export class BlogService {
     return publishedPostsArr[randomIndex]
   }
 
-  public getAllBlogTags(): string[] {
+  public getAllBlogTags(): TagInfoObj[] {
     const publishedPostsArr: BlogPostMetaData[] = this.getAllBlogPostsMetaData();
-    const resultArr: string[] = [];
+    const tagStrArr: string[] = [];
     publishedPostsArr.forEach((entry: BlogPostMetaData) => {
-      resultArr.push(...entry.tags)
+      tagStrArr.push(...entry.tags)
     });
-    return resultArr;
+
+    return tagStrArr.map((tagName: string) => {
+      return {
+        name: tagName,
+        isActive: false,
+        count: tagStrArr.filter(el => el === tagName).length
+      };
+    });
   }
 
-  public getIoGardenExperimentsByTag(tag: string): BlogPostMetaData[] {
+  public getBlogPostsByTag(tag: string): BlogPostMetaData[] {
     const publishedPostsArr: BlogPostMetaData[] = this.getAllBlogPostsMetaData();
     return publishedPostsArr.filter(el => el.tags.includes(tag));
+  }
+
+  public getBlogPostCountByTag(tag: string): number {
+    const publishedExperimentArr: BlogPostMetaData[] = this.getAllBlogPostsMetaData();
+    return publishedExperimentArr.filter(el => el.tags.includes(tag)).length;
   }
 }

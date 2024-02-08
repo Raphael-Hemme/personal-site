@@ -1,7 +1,106 @@
-<ul class="blog-post-tag-container">
-  <li
-    class="blog-post-tag-item"
-    *ngFor="let tagItem of tags">
-      {{ tagItem }}
-</li>
-</ul>
+@if (options.isExpandable) {
+  <ul 
+    class="tag-list tag-list-first-row-in-collapsed-state" 
+    [ngClass]="options.isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
+  >
+    @for (tagItem of tagArr.slice(0, options.numOfTagsInExpandPreview); track tagItem.name) {
+    <li
+      class="tag-item"
+      [ngClass]="{
+        'tag-selected': tagItem.isActive,
+        'tag-disabled': tagItem.count < 1
+      }"
+      (click)="selectTag(tagItem)"
+    >
+      <span>{{ tagItem.name }}</span>
+      @if (options.tagsDisplayMatchCount) {
+        <span> | {{ tagItem.count }}</span>
+      }
+    </li>
+    }
+  </ul>
+
+  <div class="expand-list" [ngClass]="isExpanded ? 'expanded' : 'collapsed'">
+    <ul 
+      class="tag-list"
+      [ngClass]="options.isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
+    >
+      @for (tagItem of tagArr.slice(options.numOfTagsInExpandPreview); track tagItem.name) {
+      <li
+        class="tag-item"
+        [ngClass]="{
+          'tag-selected': tagItem.isActive,
+          'tag-disabled': tagItem.count < 1
+        }"
+        (click)="selectTag(tagItem)"
+      >
+        <span>{{ tagItem.name }}</span>
+        @if (options.tagsDisplayMatchCount) {
+        <span> | {{ tagItem.count }}</span>
+        }
+      </li>
+      }
+    </ul>
+
+  </div>
+
+  <div class="expand-collapse-btn-wrapper">
+    @if (isExpanded) {
+      <button 
+        (click)="toggleIsExpanded()"
+        class="expand-collapse-tag-list-btn"
+      >
+          <!-- expand less arrow -->
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            height="30" 
+            viewBox="0 -960 960 960" 
+            width="30" 
+            fill="rgba(186, 255, 41, 1)"
+          >
+            <path d="m296-345-56-56 240-240 240 240-56 56-184-184-184 184Z"/>
+          </svg>
+      </button>
+    }
+    @else {
+      <button 
+        (click)="toggleIsExpanded()"
+        class="expand-collapse-tag-list-btn"
+      >
+          <!-- expand more arrow -->
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            height="30" 
+            viewBox="0 -960 960 960" 
+            width="30" 
+            fill="rgba(186, 255, 41, 1)"
+          >
+            <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+          </svg>
+      </button>
+    }
+  </div>
+} 
+
+@else {
+  <ul 
+    class="tag-list"
+    [ngClass]="options.isDisplayedOnWhiteBg ? 'tag-list-white-bg' : ''"
+  >
+    @for (tagItem of tagArr; track tagItem.name) {
+    <li
+      class="tag-item"
+      [ngClass]="{
+        'tag-selected': tagItem.isActive,
+        'tag-disabled': tagItem.count < 1
+      }"
+      (click)="selectTag(tagItem)"
+    >
+      <span>{{ tagItem.name }}</span>
+      @if (options.tagsDisplayMatchCount) {
+        <span> | {{ tagItem.count }}</span>
+      }
+    </li>
+    }
+  </ul>
+}

@@ -8,43 +8,29 @@
 @import './assets/stylesheets/breakpoints.scss';
 @import './assets/stylesheets/variables.scss';
 
-
-// still not sure why this is the only way to get permanantly rid of the loading screen 
-// and why removing the element will put it back in at a weired space inside the dom
-:root {
-  --loading-screen-display: block;
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-a {
+/* a {
   text-decoration: none;
-}
-
-/* html, body {
-  height: 100%;
-} */
-
-/* body {
-  background-color: $subtle-one;
-} */
-
-/* body {
-  min-height: 100vh;
-  background-size: 15px 15px;
-  background-color: $subtle-one;
-  background-image: radial-gradient(
-    circle,
-    #9b9b9bce 0.5px,
-    rgba(143, 207, 197, 0) 1px
-  );
 } */
 
 body {
+  min-height: 100vh;
+  background-size: 30px 30px;
+  background-color: $subtle-two;
+  background-image: radial-gradient(
+    circle,
+    #c3c3c3ce 0.5px,
+    rgba(143, 207, 197, 0) 1px
+  );
+  -webkit-overflow-scrolling: touch;
+}
+
+/* body {
   min-height: 100vh;
   background: $subtle-two;
   // background: $subtle-one;
@@ -54,7 +40,7 @@ body {
   // background: $dark-gray;
   // background-color: rgba(39,45, 55, 1);
   // background: linear-gradient(180deg, $subtle-one 0%, $subtle-two 100%);
-}
+} */
 
 li {
   margin: 0 0 0 30px;

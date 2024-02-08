@@ -41,12 +41,10 @@ export class SiteMenuComponent implements OnInit, OnDestroy {
       this.windowSizeService.windowResize$
       .pipe(
         tap(() => {
-          // console.log('adding resize animation stopper')
           this.menuClass += ' resize-animation-stopper'
         }),
         delay(500)
       ).subscribe(() => {
-        // console.log('removing resize animation stopper')
         this.menuClass = this.menuClass.replace(' resize-animation-stopper', '')
       })
     );
