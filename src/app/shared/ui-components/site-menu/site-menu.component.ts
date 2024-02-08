@@ -118,6 +118,18 @@ export class SiteMenuComponent implements OnInit, OnDestroy {
     this.menuService.closeMenu();
   }
 
+  public handleLegalNoticeBtn(): void {
+    this.router.navigate(['/legal-notice']);
+    window.scroll(0, 0);
+    this.menuService.closeMenu();
+  }
+
+  public handlePrivacyPolicyBtn(): void {
+    this.router.navigate(['/privacy-policy']);
+    window.scroll(0, 0);
+    this.menuService.closeMenu();
+  }
+
   public handleSerchBtn(): void {
     this.searchService.openSearch();
     this.menuService.closeMenu();

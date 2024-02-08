@@ -87,7 +87,6 @@
   width: 100%;
   cursor: pointer;
   color: $white;
-  // color: $accent;
   font-size: 2rem;
   font-weight: 200;
   list-style-type: none;
@@ -97,12 +96,23 @@
   justify-content: center;
   @media (min-width: 768px) {
     font-size: 2rem;
-    margin: 40px 0 0 0;
   }
 }
 
 .nav-list .nav-item:first-child {
   margin: 0 0 60px 0;
+}
+
+.nav-list .nav-item:nth-last-child(3) {
+  position: absolute;
+  bottom: calc(60px + 2 * (24px + 40px)); // 60px from bottom + 2 * 24px for the height of the last two items + 2 * 40px margin to the lasst item
+  left: 0;
+}
+
+.nav-list .nav-item:nth-last-child(2) {
+  position: absolute;
+  bottom: calc(60px + 24px + 40px); // 60px from bottom + 24px for the height of the last item + 40px margin to the lasst item
+  left: 0;
 }
 
 .nav-list .nav-item:last-child {
