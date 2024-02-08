@@ -8,6 +8,18 @@ export const ROOTROUTES: Routes = [
     data: { preload: true }
   },
   { 
+    path: 'privacy-policy', 
+    loadComponent: () => import('../core/privacy-policy/privacy-policy.component')
+      .then(x => x.PrivacyPolicyComponent),
+    data: { preload: true }
+  },
+  { 
+    path: 'legal-notice', 
+    loadComponent: () => import('../core/legal-notice/legal-notice.component')
+      .then(x => x.LegalNoticeComponent),
+    data: { preload: true }
+  },
+  { 
     path: 'blog', 
     loadComponent: () => import('../core/blog/blog-page/blog-page.component')
       .then(x => x.BlogPageComponent),
