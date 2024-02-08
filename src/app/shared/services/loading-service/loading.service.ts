@@ -18,7 +18,8 @@ export type ViewInitSignalValue =
   | 'IO-GARDEN-EXPERIMENT'
   | 'HOME'
   | 'PAGE-NOT-FOUND'
-  | 'LEGAL-NOTICE';
+  | 'LEGAL-NOTICE'
+  | 'PRIVACY-POLICY';
 
 @Injectable({
   providedIn: 'root',
