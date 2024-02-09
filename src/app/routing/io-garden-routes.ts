@@ -38,12 +38,6 @@ export const IOGARDENROUTES: Routes = [
     data: { preload: false }
   },
   { 
-    path: 'mae-a001', 
-    loadComponent: () => import('../core/io-garden/components/mae-a001/mae-a001.component')
-      .then(x => x.MaeA001Component),
-    data: { preload: false }
-  },
-  { 
     path: '**', 
     redirectTo: '**' 
   },
