@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MenuService } from '../../services/menu-service/menu.service';
 import { Router } from '@angular/router';
+import { NavigationService } from '../../services/navigation-service/navigation.service';
 
 @Component({
   selector: 'app-site-nav-bar',
@@ -17,7 +18,8 @@ export class SiteNavBarComponent {
 
   constructor(
     private readonly menuService: MenuService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly navigationService: NavigationService
   ) {}
 
   public openSiteMenu(): void {
@@ -28,5 +30,9 @@ export class SiteNavBarComponent {
     this.menuService.closeMenu();
     this.router.navigate(['/'])
     window.scroll(0, 0);
+  }
+
+  public handleBackButtonClick() {
+    this.navigationService.navigateBack();
   }
 }

@@ -15,22 +15,27 @@ header {
   align-items: center;
   gap: 10px;
   @media (min-width: 576px) {
+    background-color: transparent;
+    backdrop-filter: blur(1px);
     position: fixed;
     top: 20px;
     right: 20px;
     width: 48px;
-    height: 102px;
+    height: 150px;
     padding: 5px;
     border-radius: 10px;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    // border: 1px solid $brand;
   }
 }
 
 
-.menu-burger-btn {
+.menu-burger-btn,
+.back-btn {
   height: 38px;
+  min-height: 38px;
   width: 38px;
   background-color: transparent;
   border: 0.7px solid $brand;
