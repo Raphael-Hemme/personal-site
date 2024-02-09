@@ -213,5 +213,30 @@
       ],
       "isPublished": true,
       "category": "post"
+    },
+    {
+      "id": "bp-2022-07-18-a",
+      "title": "Meditation App Experiment A001",
+      "abstract": "",
+      "dateOriginal": "2022-07-18",
+      "dateLastEdited": "2024-02-09",
+      "phase": 2,
+      "previewImageUrl": "assets/images/blog-preview-images/mae-a001-preview.png",
+      "tags": [
+        "angular",
+        "coding",
+        "javascript",
+        "typescript",
+        "meditation",
+        "visualization",
+        "p5js",
+        "rxjs",
+        "d3",
+        "lodash",
+        "luxon",
+        "canvasjs"
+      ],
+      "isPublished": true,
+      "category": "post"
     }
   ]
