@@ -31,6 +31,7 @@
   <button
     (click)="handleBackButtonClick()"
     class="back-btn"
+    [ngClass]="backBtnIsVisible ? 'visible' : 'invisible'"
     type="button">
       <img src="assets/fonts/icons/arrow_back_wght400_24_green.svg"
         aria-hidden="true" 

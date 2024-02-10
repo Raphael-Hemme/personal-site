@@ -16,11 +16,19 @@ import { NavigationService } from '../../services/navigation-service/navigation.
 export class SiteNavBarComponent {
   @Input() public smallLogoIsVisible = false;
 
+  public backBtnIsVisible = false;
+
   constructor(
     private readonly menuService: MenuService,
     private readonly router: Router,
     private readonly navigationService: NavigationService
   ) {}
+
+  ngOnInit () {
+    this.navigationService.currRoute$.subscribe((route) => {
+      this.backBtnIsVisible = route !== '/';
+    });
+  }
 
   public openSiteMenu(): void {
     this.menuService.openMenu();
