@@ -23,12 +23,20 @@ export class NavigationService {
         this.currRoute$$.next(event.url);
       })
     )
-    .subscribe((event) => {
-      console.log('event', event);
-    });
-   }
+    .subscribe();
+  }
 
-   public navigateBack(): void {
-     this.router.navigate([this.lastRoute$$.value]);
-   }
+  public navigateBack(): void {
+    let blogAndIoGardenSegmentRegex = /\/post\/.*|\/experiment\/.*/;
+    // root/blog/post/blog-post-id
+    // root/io-garden/experiment/experiment-id
+    const currRoute = this.currRoute$$.value
+    if (this.lastRoute$$.value) {
+      const targetRoute = this.lastRoute$$.value.includes(this.currRoute$$.value) ? '' : this.lastRoute$$.value;
+      this.router.navigate([targetRoute]);
+    } else {
+      const parentPath = currRoute.replace(blogAndIoGardenSegmentRegex, '');
+      this.router.navigate([parentPath]);
+    }
+  }
 }
