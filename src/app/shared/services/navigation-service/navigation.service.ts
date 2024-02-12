@@ -35,8 +35,26 @@ export class NavigationService {
       const targetRoute = this.lastRoute$$.value.includes(this.currRoute$$.value) ? '' : this.lastRoute$$.value;
       this.router.navigate([targetRoute]);
     } else {
-      const parentPath = currRoute.replace(blogAndIoGardenSegmentRegex, '');
+      let parentPath = blogAndIoGardenSegmentRegex.test(currRoute)
+        ? currRoute.replace(blogAndIoGardenSegmentRegex, '')
+        : '';
       this.router.navigate([parentPath]);
     }
+  }
+
+  public navigateForward(): void {
+    this.router.navigate([this.lastRoute$$.value]);
+  }
+
+  public checkIfForwardNavIsAllowed(currRoute: string): boolean {
+    const excludedPathsRegex = /\/post\/.*|\/experiment\/.*|\/about.*|\/privacy-policy.*|\/legal-notice.*/;
+
+    const result = !(
+      excludedPathsRegex.test(currRoute) ||
+      currRoute === '' ||
+      currRoute === '/' ||
+      !this.lastRoute$$.value.includes(this.currRoute$$.value)
+    );
+    return result;
   }
 }

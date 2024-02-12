@@ -17,6 +17,7 @@ export class SiteNavBarComponent {
   @Input() public smallLogoIsVisible = false;
 
   public backBtnIsVisible = false;
+  public forwardBtnIsVisible = false;
 
   constructor(
     private readonly menuService: MenuService,
@@ -27,6 +28,7 @@ export class SiteNavBarComponent {
   ngOnInit () {
     this.navigationService.currRoute$.subscribe((route) => {
       this.backBtnIsVisible = route !== '/';
+      this.forwardBtnIsVisible = this.navigationService.checkIfForwardNavIsAllowed(route);
     });
   }
 
@@ -40,7 +42,11 @@ export class SiteNavBarComponent {
     window.scroll(0, 0);
   }
 
-  public handleBackButtonClick() {
+  public handleBackButtonClick(): void {
     this.navigationService.navigateBack();
+  }
+
+  public handleForwardBtnClick(): void {
+    this.navigationService.navigateForward();
   }
 }

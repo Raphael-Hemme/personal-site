@@ -35,7 +35,8 @@ header {
 
 
 .menu-burger-btn,
-.back-btn {
+.back-btn,
+.forward-btn {
   height: 38px;
   min-height: 38px;
   width: 38px;
@@ -67,8 +68,6 @@ header {
     opacity: 0;
   }
 }
-
-
 
 .visible {
   height: 44px;
