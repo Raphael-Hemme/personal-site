@@ -20,7 +20,8 @@ import { SearchComponent } from './shared/components/search/search.component';
 import { SiteMenuComponent } from './shared/ui-components/site-menu/site-menu.component';
 import { LoadingSpinnerComponent } from './shared/ui-components/loading-spinner/loading-spinner.component';
 import { SiteNavBarComponent } from './shared/ui-components/site-nav-bar/site-nav-bar.component';
-import { NavigationService } from './shared/services/navigation-service/navigation.service';
+import { BreadcrumbObj, NavigationService } from './shared/services/navigation-service/navigation.service';
+import { BreadcrumbComponent } from './shared/ui-components/breadcrumb/breadcrumb.component';
 
 
 @Component({
@@ -35,7 +36,8 @@ import { NavigationService } from './shared/services/navigation-service/navigati
       SearchComponent, 
       AsyncPipe,
       LoadingSpinnerComponent,
-      SiteNavBarComponent
+      SiteNavBarComponent,
+      BreadcrumbComponent
     ]
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -49,6 +51,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription = new Subscription()
   public currLoading = true;
+
+  public breadcrumbArr: BreadcrumbObj[] = [];
 
   public readonly searchComponentIsVisible$ = this.searchService.searchComponentIsVisible$;
   public readonly isLoading$ = this.loadingService.isLoading$;
@@ -68,7 +72,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.router.events
         .pipe(
           filter((e): e is NavigationEnd => e instanceof NavigationEnd),
-          map(e => { return e }))
+          map(e => { return e }),
+        )
         .subscribe(() => {
           this.currRoute.next(this.location.path());
       })

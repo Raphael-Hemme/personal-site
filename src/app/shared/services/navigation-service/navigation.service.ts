@@ -1,60 +1,93 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, filter, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+  filter,
+  switchMap,
+  tap,
+} from 'rxjs';
+
+export type BreadcrumbObj = {
+  displayStr: string;
+  link: string;
+  index: number;
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
+  private pathSegmentArr$$ = new BehaviorSubject<string>('');
+  public pathSegmentArr$ = this.pathSegmentArr$$.asObservable();
+  private breadcrumbsArr$$ = new BehaviorSubject<BreadcrumbObj[]>([]);
+  public breadcrumbsArr$ = this.breadcrumbsArr$$.asObservable();
 
-  private currRoute$$ = new BehaviorSubject<string>('');
-  public currRoute$ = this.currRoute$$.asObservable();
-  private lastRoute$$ = new BehaviorSubject<string>('');
-  public lastRoute$ = this.lastRoute$$.asObservable();
+  private breadcrumbsAreVisible$$ = new BehaviorSubject<boolean>(false);
+  public breadcrumbsAreVisible$ = this.breadcrumbsAreVisible$$.asObservable();
 
-  constructor(
-    private router: Router
-  ) {
-    this.router.events
-    .pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-      tap((event: NavigationEnd) => {
-        this.lastRoute$$.next(this.currRoute$$.value);
-        this.currRoute$$.next(event.url);
-      })
-    )
-    .subscribe();
+  private subscriptions = new Subscription();
+
+  constructor(private router: Router) {}
+
+  public checkIfBreadCrumbsShouldBeVisible(currRoute: string): boolean {
+    console.log('currRoute: ', currRoute);
+    return currRoute !== '' && currRoute !== '/';
   }
 
-  public navigateBack(): void {
-    let blogAndIoGardenSegmentRegex = /\/post\/.*|\/experiment\/.*/;
-    // root/blog/post/blog-post-id
-    // root/io-garden/experiment/experiment-id
-    const currRoute = this.currRoute$$.value
-    if (this.lastRoute$$.value) {
-      const targetRoute = this.lastRoute$$.value.includes(this.currRoute$$.value) ? '' : this.lastRoute$$.value;
-      this.router.navigate([targetRoute]);
+  public getBreadcrumbsArr(): Observable<BreadcrumbObj[]> {
+    return this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      tap((event: NavigationEnd) => {
+        this.breadcrumbsAreVisible$$.next(
+          this.checkIfBreadCrumbsShouldBeVisible(event.url)
+        );
+      }),
+      tap((event: NavigationEnd) => {
+        const rawBreadcrumbArr = this.generateRawBreadcrumbArr(event.url);
+        this.breadcrumbsArr$$.next(
+          this.generateFinalBreadcrumbArr(rawBreadcrumbArr)
+        );
+      }),
+      switchMap(() => this.breadcrumbsArr$$)
+    );
+  }
+
+  private generateRawBreadcrumbArr(currRoute: string): string[] {
+    const blogAndIoGardenSegmentRegex = /\/post\/.*|\/experiment\/.*/;
+
+    if (blogAndIoGardenSegmentRegex.test(currRoute)) {
+      const result = currRoute.split('/').slice(0, 2);
+
+      result.push(currRoute.split('/').slice(2).join('/'));
+
+      return result;
     } else {
-      let parentPath = blogAndIoGardenSegmentRegex.test(currRoute)
-        ? currRoute.replace(blogAndIoGardenSegmentRegex, '')
-        : '';
-      this.router.navigate([parentPath]);
+      return currRoute.split('/');
     }
   }
 
-  public navigateForward(): void {
-    this.router.navigate([this.lastRoute$$.value]);
-  }
-
-  public checkIfForwardNavIsAllowed(currRoute: string): boolean {
-    const excludedPathsRegex = /\/post\/.*|\/experiment\/.*|\/about.*|\/privacy-policy.*|\/legal-notice.*/;
-
-    const result = !(
-      excludedPathsRegex.test(currRoute) ||
-      currRoute === '' ||
-      currRoute === '/' ||
-      !this.lastRoute$$.value.includes(this.currRoute$$.value)
-    );
-    return result;
+  private generateFinalBreadcrumbArr(routeSegments: string[]): BreadcrumbObj[] {
+    return routeSegments
+      .map((el: string, i: number, arr: string[]) => {
+        return {
+          displayStr: el ? el : '~',
+          link: arr.slice(0, i + 1).join('/'),
+          index: i,
+        };
+      })
+      .reduce((arr: BreadcrumbObj[], el: BreadcrumbObj, i: number) => {
+        arr.push(el);
+        if (i % 1 === 0) {
+          arr.push({
+            displayStr: ' / ',
+            link: 'NONE',
+            index: i,
+          });
+        }
+        return arr;
+      }, [])
+      .slice(0, -1);
   }
 }

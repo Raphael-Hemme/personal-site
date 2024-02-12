@@ -6,7 +6,6 @@ import { LoadingService } from '../../services/loading-service/loading.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { TagListComponent } from '../tag-list/tag-list.component';
 import { TagInfoObj } from '../../services/tag-mapping-service/tag-mapping.service';
-import { NavigationService } from '../../services/navigation-service/navigation.service';
 
 @Component({
     selector: 'app-blog-post',
@@ -31,7 +30,6 @@ export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private blogService: BlogService,
     private loadingService: LoadingService,
-    private navigationService: NavigationService
   ) { }
 
   ngOnInit(): void {
@@ -51,10 +49,6 @@ export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  public handleBackBtn() {
-    this.navigationService.navigateBack();
   }
 
   private addAdditionalInfoToTagObjsInArr(tagStrArr: string[]): TagInfoObj[] {

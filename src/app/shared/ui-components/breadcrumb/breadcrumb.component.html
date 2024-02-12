@@ -1,0 +1,16 @@
+@if (breadcrumbsAreVisible) {
+  <nav class="breadcrumbs">
+    <ol>
+      @for (seg of breadcrumbArr; track seg.index) {
+        @if (seg.link === 'NONE') {
+          <li class="crumb-divider">{{ seg.displayStr }}</li>
+        }
+        @else {
+          <li class="crumb">
+            <a [routerLink]="seg.link">{{ seg.displayStr }}</a>
+          </li>
+        }
+      }
+    </ol>
+  </nav>
+}

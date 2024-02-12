@@ -25,13 +25,6 @@ export class SiteNavBarComponent {
     private readonly navigationService: NavigationService
   ) {}
 
-  ngOnInit () {
-    this.navigationService.currRoute$.subscribe((route) => {
-      this.backBtnIsVisible = route !== '/';
-      this.forwardBtnIsVisible = this.navigationService.checkIfForwardNavIsAllowed(route);
-    });
-  }
-
   public openSiteMenu(): void {
     this.menuService.openMenu();
   }
@@ -40,13 +33,5 @@ export class SiteNavBarComponent {
     this.menuService.closeMenu();
     this.router.navigate(['/'])
     window.scroll(0, 0);
-  }
-
-  public handleBackButtonClick(): void {
-    this.navigationService.navigateBack();
-  }
-
-  public handleForwardBtnClick(): void {
-    this.navigationService.navigateForward();
   }
 }
