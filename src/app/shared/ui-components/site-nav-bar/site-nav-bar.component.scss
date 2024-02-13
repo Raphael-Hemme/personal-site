@@ -1,7 +1,8 @@
 @import '/src/styles.scss';
 
 header {
-  position: sticky;
+  // position: sticky;
+  position: fixed;
   z-index: 100;
   top: 0;
   width: 100%;
@@ -19,13 +20,12 @@ header {
     top: 20px;
     right: 20px;
     width: 48px;
-    height: 150px;
+    height: 105px;
     padding: 5px;
     border-radius: 10px;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    // border: 1px solid $brand;
   }
   @media (min-width: $sm) {
     background-color: transparent;
