@@ -70,24 +70,29 @@ export class NavigationService {
 
   private generateFinalBreadcrumbArr(routeSegments: string[]): BreadcrumbObj[] {
     return routeSegments
-      .map((el: string, i: number, arr: string[]) => {
-        return {
-          displayStr: el ? el : '~',
-          link: arr.slice(0, i + 1).join('/'),
-          index: i,
-        };
-      })
-      .reduce((arr: BreadcrumbObj[], el: BreadcrumbObj, i: number) => {
-        arr.push(el);
-        if (i % 1 === 0) {
-          arr.push({
-            displayStr: ' / ',
-            link: 'NONE',
-            index: i,
-          });
-        }
-        return arr;
-      }, [])
+      .map((el: string, i: number, arr: string[]) => this.generateBreadcrumbObj(el, i, arr))
+      .reduce((arr: BreadcrumbObj[], el: BreadcrumbObj, i: number) => this.insertSlashReducer(arr, el, i), [])
       .slice(0, -1);
+  }
+
+  private generateBreadcrumbObj(pathFragString: string, i: number, segMentArr: string[]): BreadcrumbObj {
+    return {
+      displayStr: pathFragString ? pathFragString : '~',
+      link: segMentArr.slice(0, i + 1).join('/'),
+      index: i,
+    };
+  }
+
+  private insertSlashReducer(breadcrumbsArr: BreadcrumbObj[], el: BreadcrumbObj, i: number): BreadcrumbObj[] {
+    const arr = breadcrumbsArr.slice();
+    arr.push(el);
+    if (i % 1 === 0) {
+      arr.push({
+        displayStr: ' / ',
+        link: 'NONE',
+        index: i,
+      });
+    }
+    return arr;
   }
 }
