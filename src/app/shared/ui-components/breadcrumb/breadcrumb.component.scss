@@ -29,28 +29,19 @@
   display: inline-block;
   padding: 0;
   margin: 0.2ch;
-  // color: $light-gray-hover;
   a {
     padding: 2px 0.5ch;
     color: $brand;
-    // font-size: 1rem;
     font-size: 0.8rem;
-    // font-family: Oswald, sans-serif;
     font-family: Roboto Mono, sans-serif;
     text-decoration: none;
-    // letter-spacing: 0.05em;
     border-radius: 5px;
     border-radius: 5px;
     @media (min-width: $sm) {
       padding: 2px 1ch;
       font-weight: 300;
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: $brand;
-    }
-    &:hover {
-      color: $accent-hover;
-      // outline: 0.5px solid $brand;
-      font-weight: 300;
     }
   }
 }
@@ -62,5 +53,19 @@ ol li.crumb-divider {
   @media (min-width: $sm) {
     font-size: 1.3rem;
     font-weight: 300;
+  }
+}
+
+@media (hover: hover) {
+  .crumb:hover a {
+    color: $accent-hover;
+    font-weight: 300;
+  }
+}
+
+@media (hover: none) {
+  .crumb:hover a {
+    color: $brand;
+    font-weight: unset;
   }
 }
