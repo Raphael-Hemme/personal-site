@@ -7,8 +7,11 @@
 .blog-post-container {
   width: 100%;
   background-color: $white;
-  padding: 20px 30px;
+  padding: 20px 10px;
   border-radius: 10px;
+  @media (min-width: $md) {
+    padding: 20px 30px;
+  }
 }
 
 .blog-post-nav-bar {
