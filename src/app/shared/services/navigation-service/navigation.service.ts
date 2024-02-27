@@ -3,7 +3,6 @@ import { NavigationEnd, Router } from '@angular/router';
 import {
   BehaviorSubject,
   Observable,
-  Subscription,
   filter,
   switchMap,
   tap,
@@ -27,12 +26,9 @@ export class NavigationService {
   private breadcrumbsAreVisible$$ = new BehaviorSubject<boolean>(false);
   public breadcrumbsAreVisible$ = this.breadcrumbsAreVisible$$.asObservable();
 
-  private subscriptions = new Subscription();
-
   constructor(private router: Router) {}
 
   public checkIfBreadCrumbsShouldBeVisible(currRoute: string): boolean {
-    console.log('currRoute: ', currRoute);
     return currRoute !== '' && currRoute !== '/';
   }
 
@@ -59,7 +55,6 @@ export class NavigationService {
 
     if (blogAndIoGardenSegmentRegex.test(currRoute)) {
       const result = currRoute.split('/').slice(0, 2);
-
       result.push(currRoute.split('/').slice(2).join('/'));
 
       return result;
