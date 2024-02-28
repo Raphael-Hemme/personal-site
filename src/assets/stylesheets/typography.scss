@@ -227,6 +227,12 @@ button {
 // Special classes for blog-posts and experiment descriptions generated from markdown by ngx-markdown  
 .experiment-description-markdown,
 .blog-post-markdown {
+  p {
+    text-align: justify;
+    text-align-last: left;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
   p, span, ul, ol, em {
     font-family: 'Inter', sans-serif;
     color: $dark-gray;
@@ -297,6 +303,8 @@ button {
   code {
     font-family: 'Roboto Mono', monospace;
     font-size: 1rem;
+    text-align: unset;
+    text-align-last: unset;
   }
 
   strong {

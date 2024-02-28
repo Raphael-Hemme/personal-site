@@ -1,0 +1,71 @@
+@import '/src/styles.scss';
+
+.breadcrumbs {
+  position: fixed;
+  top: 5px;
+  z-index: 100;
+  width: calc(100% - 100px);
+  @media (min-width: $sm) {
+    width: 48px;
+    top: 150px;
+    left: calc(100vw - 68px);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.breadcrumbs ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0.6rem 0 0.8rem 0;
+  list-style-type: none;
+}
+
+.crumb,
+.crumb-divider {
+  display: inline-block;
+  padding: 0;
+  margin: 0.2ch;
+  a {
+    padding: 2px 0.5ch;
+    color: $brand;
+    font-size: 0.8rem;
+    font-family: Roboto Mono, sans-serif;
+    text-decoration: none;
+    border-radius: 5px;
+    border-radius: 5px;
+    @media (min-width: $sm) {
+      padding: 2px 1ch;
+      font-weight: 300;
+      font-size: 1rem;
+      color: $brand;
+    }
+  }
+}
+
+ol li.crumb-divider {
+  font-family: Roboto Mono, sans-serif;
+  color: $light-gray-hover;
+  font-size: 1.1rem;
+  @media (min-width: $sm) {
+    font-size: 1.3rem;
+    font-weight: 300;
+  }
+}
+
+@media (hover: hover) {
+  .crumb:hover a {
+    color: $accent-hover;
+    font-weight: 300;
+  }
+}
+
+@media (hover: none) {
+  .crumb:hover a {
+    color: $brand;
+    font-weight: unset;
+  }
+}

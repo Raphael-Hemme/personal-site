@@ -54,11 +54,6 @@ export class IoGardenExperimentContainerComponent implements OnInit, AfterViewIn
     this.subscriptions.unsubscribe();
   }
 
-  public handleBackBtn() {
-    const currPath = `/${this.originUrl}`;
-    this.router.navigate([currPath]);
-  }
-
   private extractIdFromUrl(): string {
     const fullUrl = this.router.url;
     const urlAsArr = fullUrl.split('/')

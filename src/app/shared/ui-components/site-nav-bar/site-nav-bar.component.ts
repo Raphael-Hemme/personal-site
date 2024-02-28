@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MenuService } from '../../services/menu-service/menu.service';
 import { Router } from '@angular/router';
+import { NavigationService } from '../../services/navigation-service/navigation.service';
 
 @Component({
   selector: 'app-site-nav-bar',
@@ -15,9 +16,13 @@ import { Router } from '@angular/router';
 export class SiteNavBarComponent {
   @Input() public smallLogoIsVisible = false;
 
+  public backBtnIsVisible = false;
+  public forwardBtnIsVisible = false;
+
   constructor(
     private readonly menuService: MenuService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly navigationService: NavigationService
   ) {}
 
   public openSiteMenu(): void {

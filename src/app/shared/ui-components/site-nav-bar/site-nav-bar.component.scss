@@ -1,7 +1,7 @@
 @import '/src/styles.scss';
 
 header {
-  position: sticky;
+  position: fixed;
   z-index: 100;
   top: 0;
   width: 100%;
@@ -19,18 +19,24 @@ header {
     top: 20px;
     right: 20px;
     width: 48px;
-    height: 102px;
+    height: 105px;
     padding: 5px;
     border-radius: 10px;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
   }
+  @media (min-width: $sm) {
+    background-color: transparent;
+    backdrop-filter: blur(0.5px);
+  }
 }
 
-
-.menu-burger-btn {
+.menu-burger-btn,
+.back-btn,
+.forward-btn {
   height: 38px;
+  min-height: 38px;
   width: 38px;
   background-color: transparent;
   border: 0.7px solid $brand;
@@ -48,9 +54,6 @@ header {
 .menu-logo-btn {
   border: none;
   background-color: transparent;
-  // height: 44px;
-  // height: 0;
-  // opacity: 0;
   margin: 0;
   @media (min-width: 576px) {
     margin: -10px 0 0 0;
@@ -59,35 +62,51 @@ header {
   display: flex;
   align-items: center;
   .logo-small {
-    // cursor: pointer;
     height: 0;
     opacity: 0;
-    // border-radius: 10px;
   }
-  &.visible {
-    height: 44px;
-    margin: 0;
+}
+
+.visible {
+  height: 44px;
+  margin: 0;
+  opacity: 1;
+  transition: height 150ms ease-in-out, opacity 300ms ease-in-out, margin 100ms ease-in-out;
+  .logo-small {
+    height: 41px;
     opacity: 1;
-    transition: height 150ms ease-in-out, opacity 300ms ease-in-out, margin 100ms ease-in-out;
-    .logo-small {
-      // cursor: pointer;
-      height: 41px;
-      opacity: 1;
-      transition: height 150ms ease-in-out, opacity 300ms ease-in-out;
-      // border-radius: 10px;
-    }
+    transition: height 150ms ease-in-out, opacity 300ms ease-in-out;
   }
-  &.invisible {
+}
+.invisible {
+  height: 0;
+  margin: -10px 0 0 0;
+  opacity: 0;
+  transition: height 150ms ease-in-out, opacity 300ms ease-in-out, margin 100ms ease-in-out;
+  .logo-small {
     height: 0;
-    margin: -10px 0 0 0;
     opacity: 0;
-    transition: height 150ms ease-in-out, opacity 300ms ease-in-out, margin 100ms ease-in-out;
-    .logo-small {
-      // cursor: pointer;
-      height: 0;
-      opacity: 0;
-      transition: height 150ms ease-in-out, opacity 300ms ease-in-out;
-      // border-radius: 10px;
-    }
+    transition: height 150ms ease-in-out, opacity 300ms ease-in-out;
+  }
+}
+
+.mobile-header-background-bottom-frame {
+  position: fixed;
+  z-index: 100;
+  top: 57px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 9px;
+
+  #right-corner {
+    transform: rotate(90deg);
+  }
+
+  @media (min-width: 576px) {
+    display: none;
   }
 }

@@ -1,21 +1,20 @@
 <header [ngClass]="smallLogoIsVisible ? 'header-background' : ''">
-  <!-- @if (smallLogoIsVisible) { -->
-    <button 
-      class="menu-logo-btn"
-      type="button"
-      (click)="handleLogoClick()"
-      [ngClass]="smallLogoIsVisible ? 'visible' : 'invisible'"
-    >
-      <img
-        src="assets/images/own-logo/rh-logo-06-green-small.png"
-        class="logo-small"
-        alt="logo and home button"
-        role="presentation"
-        aria-hidden="true" 
-        focusable="false"/>
-      <span class="visually-hidden">home</span>
-    </button>
-  <!-- } -->
+  <button 
+    class="menu-logo-btn"
+    type="button"
+    (click)="handleLogoClick()"
+    [ngClass]="smallLogoIsVisible ? 'visible' : 'invisible'"
+  >
+    <img
+      src="assets/images/own-logo/rh-logo-06-green-small.png"
+      class="logo-small"
+      alt="logo and home button"
+      role="presentation"
+      aria-hidden="true" 
+      focusable="false"/>
+    <span class="visually-hidden">home</span>
+  </button>
+
 
   <button
     (click)="openSiteMenu()"
@@ -29,3 +28,14 @@
       <span class="visually-hidden">menu</span>
   </button>
 </header>
+
+<div class="mobile-header-background-bottom-frame">
+  <svg height="100%" viewBox="0 0 20 20" version="1.1" xml:space="preserve" id="left-corner">
+    <path d="M20,0.038C17.78,0.045 15.572,0.404 13.472,1.129C10.691,2.09 8.136,3.674 6.031,5.73C3.841,7.869 2.15,10.506 1.132,13.394C0.394,15.487 0.022,17.691 0,19.909L0,20L0,20L0,0L20,0L20,0.038Z" 
+    style="fill:rgba(63,162,164,0.9);"/>
+  </svg>
+  <svg height="100%" viewBox="0 0 20 20" version="1.1" xml:space="preserve" id="right-corner">
+    <path d="M20,0.038C17.78,0.045 15.572,0.404 13.472,1.129C10.691,2.09 8.136,3.674 6.031,5.73C3.841,7.869 2.15,10.506 1.132,13.394C0.394,15.487 0.022,17.691 0,19.909L0,20L0,20L0,0L20,0L20,0.038Z" 
+      style="fill:rgba(63,162,164, 0.9);"/>
+  </svg>
+</div>

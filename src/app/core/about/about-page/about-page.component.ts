@@ -58,6 +58,8 @@ export class AboutPageComponent implements OnInit, AfterViewInit {
     'Complexity',
     'Cybernetics',
     'Logo Design',
+    'Meditation',
+    'Buddhist Philosophy',
     'Mechanical Keyboards',
   ];
 
