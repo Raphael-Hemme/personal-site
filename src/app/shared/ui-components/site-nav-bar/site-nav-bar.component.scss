@@ -91,3 +91,24 @@ header {
     transition: height 150ms ease-in-out, opacity 300ms ease-in-out;
   }
 }
+
+.mobile-header-background-bottom-frame {
+  position: fixed;
+  z-index: 100;
+  top: 57px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 9px;
+
+  #right-corner {
+    transform: rotate(90deg);
+  }
+
+  @media (min-width: 576px) {
+    display: none;
+  }
+}
