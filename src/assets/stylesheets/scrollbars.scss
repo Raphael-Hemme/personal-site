@@ -1,0 +1,33 @@
+// Adapted from https://gist.github.com/spemer/a0e218bbb45433bd611e68446523a00b
+
+.scrollbar {
+  scrollbar-gutter: stable;
+}
+
+.scrollbar::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px;
+  z-index: 100;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 8px;
+  border: none;
+}
+
+.scrollbar::-webkit-scrollbar-button {
+  display: none;
+}
+
+.scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.5);
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color:rgba(255,255,255,0.5);
+}
