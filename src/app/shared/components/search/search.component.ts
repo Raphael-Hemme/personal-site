@@ -63,7 +63,6 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.add(
       this.searchService.reducedSearchResults$.subscribe((searchResults: ReducedSearchIndexEntry[]) => {
         this.reducedSearchResults = searchResults.map(el => {
-          console.log('el', el);
           const result: ReducedHighlightedSearchIndexEntry = {
             ...el,
             highlightedSearchTerm: this.highlightSearchTerm(el.searchTerm, this.searchInputValue)
