@@ -33,7 +33,7 @@ export class WindowSizeService {
     .pipe(
       debounceTime(50)
     );
-  public currWindowWidth$: BehaviorSubject<number> = new BehaviorSubject(window.innerWidth);
+  public currWindowWidth$: BehaviorSubject<number> = new BehaviorSubject(this.getContentContainerWidth());
   public currWindowHeight$: BehaviorSubject<number> = new BehaviorSubject(window.innerHeight);
 
   constructor() { }
@@ -80,7 +80,7 @@ export class WindowSizeService {
   }
 
   public calculateCanvasSize(canvasConfig: CanvasConfigObj): CanvasSizeReturnObj {
-    const contentContainerWidth = document.getElementById('sidenavContentContainer')?.offsetWidth ?? window.innerWidth;
+    const contentContainerWidth = this.getContentContainerWidth();
 
     const result = {
       w: 0,
@@ -100,5 +100,9 @@ export class WindowSizeService {
     }
     
     return result
+  }
+
+  private getContentContainerWidth(): number {
+    return document.getElementById('sidenavContentContainer')?.offsetWidth ?? window.innerWidth;
   }
 }
