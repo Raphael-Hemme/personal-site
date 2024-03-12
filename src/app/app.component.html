@@ -1,4 +1,6 @@
-<div class="app-component-container scrollbar" [ngClass]="(searchComponentIsVisible$ | async) ? 'no-scroll' : ''">
+<div class="app-component-container scrollbar" 
+     [ngClass]="(searchComponentIsVisible$ | async) ? 'no-scroll' : ''"
+>
   @if (!currLoading) {
     <app-site-nav-bar [smallLogoIsVisible]="smallLogoIsVisible"></app-site-nav-bar>
   }
@@ -9,7 +11,7 @@
 
   <app-site-menu></app-site-menu>
 
-  <div class="sidenav-content-container">
+  <div class="sidenav-content-container" id="sidenavContentContainer">
     <main class="main-content-container" #mainContentContainer>
       <!-- <app-breadcrumb></app-breadcrumb> -->
       <router-outlet></router-outlet>

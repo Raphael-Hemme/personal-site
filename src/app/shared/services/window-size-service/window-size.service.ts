@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, debounceTime, fromEvent, switchMap, tap } from 'rxjs';
+import { 
+  BehaviorSubject, 
+  Observable, 
+  debounceTime, 
+  fromEvent, 
+  switchMap, 
+  tap 
+} from 'rxjs';
 
 export interface CanvasSizeReturnObj {
   'w': number;
@@ -73,17 +80,18 @@ export class WindowSizeService {
   }
 
   public calculateCanvasSize(canvasConfig: CanvasConfigObj): CanvasSizeReturnObj {
+    const contentContainerWidth = document.getElementById('sidenavContentContainer')?.offsetWidth ?? window.innerWidth;
+
     const result = {
       w: 0,
       h: 0
     }
     
-    if (window.innerWidth <= 768) {
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentS) - 20;
+    if (contentContainerWidth <= 768) {
+      result.w = ((contentContainerWidth / 100) * canvasConfig.wPercentS) - 20;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentS);
     } else {
-      // result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 140;
+      result.w = ((contentContainerWidth / 100) * canvasConfig.wPercentL) - 140;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
     } 
 
