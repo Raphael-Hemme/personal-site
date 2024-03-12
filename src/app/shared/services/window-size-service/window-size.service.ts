@@ -38,7 +38,7 @@ export class WindowSizeService {
 
   constructor() { }
 
-  public getCurrentWindowInnerWidth(): number {
+/*   public getCurrentWindowInnerWidth(): number {
     return window.innerWidth;
   }
 
@@ -51,7 +51,7 @@ export class WindowSizeService {
         return this.currWindowWidth$
       })
     )
-  }
+  } */
 
   public setCurrentMainContainerWidth(value: number): void {
     this.currMainContainerWidth = value;
@@ -103,6 +103,15 @@ export class WindowSizeService {
   }
 
   private getContentContainerWidth(): number {
-    return document.getElementById('sidenavContentContainer')?.offsetWidth ?? window.innerWidth;
+    const userAgent = navigator.userAgent;
+    const isWindows = userAgent.search('Windows') !== -1;
+
+    const actualWidth = document.getElementById('sidenavContentContainer')?.offsetWidth ?? window.innerWidth;
+
+    if (isWindows && !actualWidth) {
+      return window.innerWidth - 16;
+    } else {
+      return actualWidth
+    }
   }
 }
