@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, debounceTime, fromEvent, switchMap, tap } from 'rxjs';
+import { 
+  BehaviorSubject, 
+  Observable, 
+  debounceTime, 
+  fromEvent, 
+  switchMap, 
+  tap 
+} from 'rxjs';
 
 export interface CanvasSizeReturnObj {
   'w': number;
@@ -26,12 +33,12 @@ export class WindowSizeService {
     .pipe(
       debounceTime(50)
     );
-  public currWindowWidth$: BehaviorSubject<number> = new BehaviorSubject(window.innerWidth);
+  public currWindowWidth$: BehaviorSubject<number> = new BehaviorSubject(this.getContentContainerWidth());
   public currWindowHeight$: BehaviorSubject<number> = new BehaviorSubject(window.innerHeight);
 
   constructor() { }
 
-  public getCurrentWindowInnerWidth(): number {
+/*   public getCurrentWindowInnerWidth(): number {
     return window.innerWidth;
   }
 
@@ -44,7 +51,7 @@ export class WindowSizeService {
         return this.currWindowWidth$
       })
     )
-  }
+  } */
 
   public setCurrentMainContainerWidth(value: number): void {
     this.currMainContainerWidth = value;
@@ -73,17 +80,18 @@ export class WindowSizeService {
   }
 
   public calculateCanvasSize(canvasConfig: CanvasConfigObj): CanvasSizeReturnObj {
+    const contentContainerWidth = this.getContentContainerWidth();
+
     const result = {
       w: 0,
       h: 0
     }
     
-    if (window.innerWidth <= 768) {
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentS) - 20;
+    if (contentContainerWidth <= 768) {
+      result.w = ((contentContainerWidth / 100) * canvasConfig.wPercentS) - 20;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentS);
     } else {
-      // result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 195;
-      result.w = ((window.innerWidth / 100) * canvasConfig.wPercentL) - 140;
+      result.w = ((contentContainerWidth / 100) * canvasConfig.wPercentL) - 140;
       result.h = ((window.innerHeight / 100) * canvasConfig.hPercentL);
     } 
 
@@ -92,5 +100,18 @@ export class WindowSizeService {
     }
     
     return result
+  }
+
+  private getContentContainerWidth(): number {
+    const userAgent = navigator.userAgent;
+    const isWindows = userAgent.search('Windows') !== -1;
+
+    const actualWidth = document.getElementById('sidenavContentContainer')?.offsetWidth ?? window.innerWidth;
+
+    if (isWindows && !actualWidth) {
+      return window.innerWidth - 16;
+    } else {
+      return actualWidth
+    }
   }
 }

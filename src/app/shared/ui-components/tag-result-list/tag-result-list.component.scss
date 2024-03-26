@@ -17,11 +17,6 @@
       width: calc(100% - 4px);
       height: 200px;
       opacity: 0;
-      
-     /*  @media (min-width: 992px) {
-        width: calc(50% - 7px);
-        height: 230px;
-      } */
     }
   
     .enter {
@@ -42,10 +37,6 @@
   margin: -2px;
   padding: 2px;
   overflow-y: scroll;
-
-  /* @media (min-width: 992px) {
-    height:  calc(230px + 4px);
-  } */
   transition: width 0.3s ease-in-out, height 0.3s ease-in-out;;
 }
 

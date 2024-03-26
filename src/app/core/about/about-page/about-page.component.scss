@@ -185,12 +185,11 @@ $portrait-transition: filter 0.3s ease-in-out;
   height: min-content;
   max-height: 204px; // card height + padding for the border / outline
   width: 100%;
+  padding: 2px;
   @media (min-width: $md) {
     height: min-content;
     max-height: 234px; // card height + padding for the border / outline
   }
-  overflow-y: scroll;
-  padding: 2px;
 }
 
 .about-image {
