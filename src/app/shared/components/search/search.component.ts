@@ -86,9 +86,6 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
         this.closeSearch();
       })
     )
-
-    // trying to get uncompressed gz file content
-    this.searchService.unzipSearchIndex().then(res => console.log('got it 2:', res[2]))
   }
 
   /**

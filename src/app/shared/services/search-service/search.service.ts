@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { decompressSync } from 'fflate';
 
-import searchIndex from '../../../../assets/search-index.json';
+// import searchIndex from '../../../../assets/search-index.json';
 import { IoGardenExperimentMetaData, IoGardenService } from '../io-garden-service/io-garden.service';
 import { BlogPostMetaData, BlogService } from '../blog-service/blog.service';
 
-import { decompressSync } from 'fflate';
 
 export interface SearchIndexEntry {
   searchTerm: string;
@@ -35,7 +35,7 @@ export class SearchService {
   private searchComponentIsVisible$$ = new BehaviorSubject<boolean>(false);
   public searchComponentIsVisible$ = this.searchComponentIsVisible$$.asObservable();
 
-  private searchIndexArr: SearchIndexEntry[] = searchIndex as SearchIndexEntry[];
+  private searchIndexArr!: SearchIndexEntry[];
 
   private searchResults$$ = new BehaviorSubject<SearchIndexEntry[]>([]);
   public searchResults$ = this.searchResults$$.asObservable();
@@ -46,7 +46,9 @@ export class SearchService {
   constructor(
     private readonly ioGardenService: IoGardenService,
     private readonly blogService: BlogService
-  ) { }
+  ) {
+    this.bootSearchIndex()
+  }
 
   public search(searchTerm: string): void {
     if (searchTerm) {
@@ -136,7 +138,11 @@ export class SearchService {
     }
   }
 
-  public async unzipSearchIndex(): Promise<any[]> {
+  /**
+   * Unzips the search index file and returns an array of SearchIndexEntry objects.
+   * @returns A Promise that resolves to an array of SearchIndexEntry objects.
+   */
+  private async unzipSearchIndex(): Promise<SearchIndexEntry[]> {
     const compressed = new Uint8Array(
       // @ts-ignore
       await fetch('/assets/search-index.gz').then(res => res.arrayBuffer())
@@ -144,7 +150,15 @@ export class SearchService {
     const decompressed = decompressSync(compressed);
     const decompressedStr = new TextDecoder().decode(decompressed);
     const data = JSON.parse(decompressedStr);
-    console.log(data[0]);
     return data;
+  }
+
+  /**
+   * Boots the search index by unzipping it and assigning the result to the searchIndexArr property.
+   */
+  private bootSearchIndex(): void {
+    this.unzipSearchIndex()
+      .then(indexArr => this.searchIndexArr = indexArr)
+      .catch(err => console.error(err));
   }
 }
