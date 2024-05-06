@@ -5,6 +5,8 @@ import searchIndex from '../../../../assets/search-index.json';
 import { IoGardenExperimentMetaData, IoGardenService } from '../io-garden-service/io-garden.service';
 import { BlogPostMetaData, BlogService } from '../blog-service/blog.service';
 
+import { decompressSync } from 'fflate';
+
 export interface SearchIndexEntry {
   searchTerm: string;
   searchResults: SearchResult[];
@@ -132,5 +134,17 @@ export class SearchService {
     } else {
       return filePath;
     }
+  }
+
+  public async unzipSearchIndex(): Promise<any[]> {
+    const compressed = new Uint8Array(
+      // @ts-ignore
+      await fetch('/assets/search-index.gz').then(res => res.arrayBuffer())
+    );
+    const decompressed = decompressSync(compressed);
+    const decompressedStr = new TextDecoder().decode(decompressed);
+    const data = JSON.parse(decompressedStr);
+    console.log(data[0]);
+    return data;
   }
 }
