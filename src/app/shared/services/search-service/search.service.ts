@@ -143,11 +143,8 @@ export class SearchService {
    * @returns A Promise that resolves to an array of SearchIndexEntry objects.
    */
   private async unzipSearchIndex(): Promise<SearchIndexEntry[]> {
-    const compressed = new Uint8Array(
-      // @ts-ignore
-      await fetch('/assets/search-index.gz').then(res => res.arrayBuffer())
-    );
-    const decompressed = decompressSync(compressed);
+    const compressed = await fetch('/assets/search-index.gz').then((res: Response) => res.arrayBuffer());
+    const decompressed = decompressSync(new Uint8Array(compressed));
     const decompressedStr = new TextDecoder().decode(decompressed);
     const data = JSON.parse(decompressedStr);
     return data;
