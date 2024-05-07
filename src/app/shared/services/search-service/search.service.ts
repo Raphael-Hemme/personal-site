@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { decompressSync } from 'fflate';
 
-import searchIndex from '../../../../assets/search-index.json';
+// import searchIndex from '../../../../assets/search-index.json';
 import { IoGardenExperimentMetaData, IoGardenService } from '../io-garden-service/io-garden.service';
 import { BlogPostMetaData, BlogService } from '../blog-service/blog.service';
+
 
 export interface SearchIndexEntry {
   searchTerm: string;
@@ -33,7 +35,7 @@ export class SearchService {
   private searchComponentIsVisible$$ = new BehaviorSubject<boolean>(false);
   public searchComponentIsVisible$ = this.searchComponentIsVisible$$.asObservable();
 
-  private searchIndexArr: SearchIndexEntry[] = searchIndex as SearchIndexEntry[];
+  private searchIndexArr!: SearchIndexEntry[];
 
   private searchResults$$ = new BehaviorSubject<SearchIndexEntry[]>([]);
   public searchResults$ = this.searchResults$$.asObservable();
@@ -44,7 +46,9 @@ export class SearchService {
   constructor(
     private readonly ioGardenService: IoGardenService,
     private readonly blogService: BlogService
-  ) { }
+  ) {
+    this.bootSearchIndex()
+  }
 
   public search(searchTerm: string): void {
     if (searchTerm) {
@@ -112,25 +116,53 @@ export class SearchService {
     });
   }
 
-  private reduceSearchResultsByFile(acc: SearchResult[]): ReducedSearchResult[] {
-    const reducedSearchResults: ReducedSearchResult[] = [];
-    acc.forEach(el => {
-      const idx = reducedSearchResults.findIndex(reducedEl => reducedEl.file === el.file);
-      if (idx === -1) {
-        reducedSearchResults.push({ ...el, count: 1 });
-      } else {
-        reducedSearchResults[idx].count++;
-      }
-    });
-    return reducedSearchResults;
+  /**
+   * Reduces over the input searchResults input array to add a total count of matching search results per file to each search result.
+   * @param inputArr - The search results array to be reduced.
+   * @returns An array of reduced search results.
+   */
+  private reduceSearchResultsByFile(inputArr: SearchResult[]): ReducedSearchResult[] {
+    return inputArr.reduce((reducedSearchResults: ReducedSearchResult[], el: SearchResult) => {
+        return reducedSearchResults.some(reducedEl => reducedEl.file === el.file)
+            ? reducedSearchResults.map(reducedEl => reducedEl.file === el.file ? { ...reducedEl, count: reducedEl.count + 1 } : reducedEl)
+            : [...reducedSearchResults, { ...el, count: 1 }];
+    }, []);
   }
 
-  private abbreviateFilePath(filePath: string): string {
-    const MAX_LENGTH = 40;
-    if (filePath.length > MAX_LENGTH) {
-      return '...' + filePath.slice(filePath.length - MAX_LENGTH);
+
+  /**
+   * Abbreviates the given file path if it exceeds the maximum length.
+   * If the file path is shorter than or equal to the maximum length, it is returned as is.
+   * @param filePath - The file path to be abbreviated.
+   * @param maxLength - The maximum length of the abbreviated file path. Default is 40.
+   * @returns The abbreviated file path.
+   */
+  private abbreviateFilePath(filePath: string, maxLength: number = 40): string {
+    if (filePath.length > maxLength) {
+      return '...' + filePath.slice(filePath.length -maxLength);
     } else {
       return filePath;
     }
+  }
+
+  /**
+   * Unzips the search index file and returns an array of SearchIndexEntry objects.
+   * @returns A Promise that resolves to an array of SearchIndexEntry objects.
+   */
+  private async unzipSearchIndex(): Promise<SearchIndexEntry[]> {
+    const compressed = await fetch('/assets/search-index.gz').then((res: Response) => res.arrayBuffer());
+    const decompressed = decompressSync(new Uint8Array(compressed));
+    const decompressedStr = new TextDecoder().decode(decompressed);
+    const data = JSON.parse(decompressedStr);
+    return data;
+  }
+
+  /**
+   * Boots the search index by unzipping it and assigning the result to the searchIndexArr property.
+   */
+  private bootSearchIndex(): void {
+    this.unzipSearchIndex()
+      .then(indexArr => this.searchIndexArr = indexArr)
+      .catch(err => console.error(err));
   }
 }
