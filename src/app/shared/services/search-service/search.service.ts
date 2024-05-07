@@ -116,23 +116,30 @@ export class SearchService {
     });
   }
 
-  private reduceSearchResultsByFile(acc: SearchResult[]): ReducedSearchResult[] {
-    const reducedSearchResults: ReducedSearchResult[] = [];
-    acc.forEach(el => {
-      const idx = reducedSearchResults.findIndex(reducedEl => reducedEl.file === el.file);
-      if (idx === -1) {
-        reducedSearchResults.push({ ...el, count: 1 });
-      } else {
-        reducedSearchResults[idx].count++;
-      }
-    });
-    return reducedSearchResults;
+  /**
+   * Reduces over the input searchResults input array to add a total count of matching search results per file to each search result.
+   * @param inputArr - The search results array to be reduced.
+   * @returns An array of reduced search results.
+   */
+  private reduceSearchResultsByFile(inputArr: SearchResult[]): ReducedSearchResult[] {
+    return inputArr.reduce((reducedSearchResults: ReducedSearchResult[], el: SearchResult) => {
+        return reducedSearchResults.some(reducedEl => reducedEl.file === el.file)
+            ? reducedSearchResults.map(reducedEl => reducedEl.file === el.file ? { ...reducedEl, count: reducedEl.count + 1 } : reducedEl)
+            : [...reducedSearchResults, { ...el, count: 1 }];
+    }, []);
   }
 
-  private abbreviateFilePath(filePath: string): string {
-    const MAX_LENGTH = 40;
-    if (filePath.length > MAX_LENGTH) {
-      return '...' + filePath.slice(filePath.length - MAX_LENGTH);
+
+  /**
+   * Abbreviates the given file path if it exceeds the maximum length.
+   * If the file path is shorter than or equal to the maximum length, it is returned as is.
+   * @param filePath - The file path to be abbreviated.
+   * @param maxLength - The maximum length of the abbreviated file path. Default is 40.
+   * @returns The abbreviated file path.
+   */
+  private abbreviateFilePath(filePath: string, maxLength: number = 40): string {
+    if (filePath.length > maxLength) {
+      return '...' + filePath.slice(filePath.length -maxLength);
     } else {
       return filePath;
     }
