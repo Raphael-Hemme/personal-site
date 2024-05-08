@@ -12,13 +12,13 @@ export interface SearchIndexEntry {
   searchResults: SearchResult[];
 };
 
-export interface SearchResult {
+export type SearchResult = {
   file: string; 
   filePathForDisplay: string;
   line: number;
 }
 
-export interface ReducedSearchResult extends SearchResult {
+export type ReducedSearchResult = SearchResult & {
   count: number;
 }
 
@@ -32,10 +32,10 @@ export interface ReducedSearchIndexEntry {
 })
 export class SearchService {
 
+  private searchIndexArr!: SearchIndexEntry[];
+
   private searchComponentIsVisible$$ = new BehaviorSubject<boolean>(false);
   public searchComponentIsVisible$ = this.searchComponentIsVisible$$.asObservable();
-
-  private searchIndexArr!: SearchIndexEntry[];
 
   private searchResults$$ = new BehaviorSubject<SearchIndexEntry[]>([]);
   public searchResults$ = this.searchResults$$.asObservable();
@@ -123,9 +123,9 @@ export class SearchService {
    */
   private reduceSearchResultsByFile(inputArr: SearchResult[]): ReducedSearchResult[] {
     return inputArr.reduce((reducedSearchResults: ReducedSearchResult[], el: SearchResult) => {
-        return reducedSearchResults.some(reducedEl => reducedEl.file === el.file)
-            ? reducedSearchResults.map(reducedEl => reducedEl.file === el.file ? { ...reducedEl, count: reducedEl.count + 1 } : reducedEl)
-            : [...reducedSearchResults, { ...el, count: 1 }];
+      return reducedSearchResults.some(reducedEl => reducedEl.file === el.file)
+        ? reducedSearchResults.map(reducedEl => reducedEl.file === el.file ? { ...reducedEl, count: reducedEl.count + 1 } : reducedEl)
+        : [...reducedSearchResults, { ...el, count: 1 }];
     }, []);
   }
 
@@ -138,11 +138,9 @@ export class SearchService {
    * @returns The abbreviated file path.
    */
   private abbreviateFilePath(filePath: string, maxLength: number = 40): string {
-    if (filePath.length > maxLength) {
-      return '...' + filePath.slice(filePath.length -maxLength);
-    } else {
-      return filePath;
-    }
+    return filePath.length > maxLength
+      ? '...' + filePath.slice(filePath.length -maxLength)
+      : filePath;
   }
 
   /**
