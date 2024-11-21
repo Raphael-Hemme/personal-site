@@ -21,12 +21,11 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/raphaelhemme"
+              "base": "dist/raphaelhemme",
+              "browser": ""
             },
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -54,9 +53,7 @@
             ],
             "browser": "src/main.ts",
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "."
-              ]
+              "includePaths": ["."]
             }
           },
           "configurations": {
@@ -116,15 +113,9 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [
-            ]
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
+            "scripts": []
           }
         }
       }
@@ -134,4 +125,3 @@
     "analytics": false
   }
 }
-
