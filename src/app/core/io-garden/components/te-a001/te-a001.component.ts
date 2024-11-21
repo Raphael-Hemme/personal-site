@@ -12,11 +12,11 @@ interface LineObj {
 }
 
 @Component({
-    selector: 'app-te-a001',
-    templateUrl: './te-a001.component.html',
-    styleUrls: ['./te-a001.component.scss'],
-    standalone: true,
-    imports: [FormsModule],
+  selector: 'app-te-a001',
+  templateUrl: './te-a001.component.html',
+  styleUrls: ['./te-a001.component.scss'],
+  standalone: true,
+  imports: [FormsModule],
 })
 export class TeA001Component implements OnInit, OnDestroy {
   public canvWidth = 500;
@@ -68,7 +68,7 @@ export class TeA001Component implements OnInit, OnDestroy {
       };
 
       s.draw = () => {
-        s.frameCount === 1 ?? s.translate(0, 10);
+        s.frameCount === 1 && s.translate(0, 10);
 
         s.background(50);
         this.drawString(s, this.inputText);
@@ -85,20 +85,20 @@ export class TeA001Component implements OnInit, OnDestroy {
 
   private drawString(s: p5, inputStr: string) {
     // split inputStr into array of strings for each line.
-    const gap = 20
+    const gap = 20;
     const lineHeight = 120;
     const charWidth = 100;
-    let currLine  = 1;
+    let currLine = 1;
     const lineStrArr = inputStr.split('\n');
     for (const [i, line] of lineStrArr.entries()) {
       const currYOffset = currLine < 2 ? gap : (currLine - 1) * lineHeight + gap;
       for (const [j, char] of line.split('').entries()) {
-        const currXOffset = j < 1 ? gap : j * charWidth + gap;;
+        const currXOffset = j < 1 ? gap : j * charWidth + gap;
         const currCharCode = char.toLowerCase().charCodeAt(0);
         if (this.chars.has(currCharCode)) {
           s.push();
-            s.translate(currXOffset, currYOffset);
-            this.drawChar(s, this.chars.get(currCharCode));
+          s.translate(currXOffset, currYOffset);
+          this.drawChar(s, this.chars.get(currCharCode));
           s.pop();
         }
       }
@@ -115,14 +115,14 @@ export class TeA001Component implements OnInit, OnDestroy {
         const maxLines = s.int(s.random(3, 6));
         const padding = 10;
         const charSize = 100;
-        
+
         // Generate the starting line with extra padding
         let startingLine = this.generateRandomLine(s, 15, 85); // 15% padding
         this.allCurrLines = [startingLine];
-        
+
         // First iteration: extend 1 to 2 lines from the starting line
         this.extendLinesFromLine(s, startingLine, this.allCurrLines, 2);
-        
+
         this.chars.set(currCharCode, this.allCurrLines);
       }
     }
@@ -143,18 +143,18 @@ export class TeA001Component implements OnInit, OnDestroy {
   }
 
   /// newest approach
-  
+
   private generateRandomLine(s: p5, padding: number, size: number): LineObj {
     let x1, y1, x2, y2, orientation, strokeWidth;
     let rand = s.random();
-    if (rand < 1/3) {
+    if (rand < 1 / 3) {
       // horizontal - potentially shorter but thicker
       x1 = s.random(padding, size - 30); // Allowing for potentially shorter lines
       x2 = s.random(x1 + 10, size); // Ensuring at least some minimal length
       y1 = y2 = s.random(padding, size);
       orientation = 'horizontal';
       strokeWidth = s.int(s.random(3, 6)); // Thicker lines for horizontal
-    } else if (rand < 2/3) {
+    } else if (rand < 2 / 3) {
       // vertical - average thickness
       y1 = s.random(padding, size);
       y2 = s.random(y1, size);
@@ -165,7 +165,7 @@ export class TeA001Component implements OnInit, OnDestroy {
       // diagonal - with a higher chance of being longer
       let startPoint = s.createVector(s.random(padding, size), s.random(padding, size));
       let angle = s.random([s.QUARTER_PI, -s.QUARTER_PI]); // 45 degrees or -45 degrees
-      let minLength = size/2; // Ensuring diagonals are longer on average
+      let minLength = size / 2; // Ensuring diagonals are longer on average
       let maxLength = size - s.max(startPoint.x, startPoint.y) - padding;
       let length = s.random(minLength, maxLength);
       let endPoint = p5.Vector.fromAngle(angle).setMag(length).add(startPoint);
@@ -176,18 +176,18 @@ export class TeA001Component implements OnInit, OnDestroy {
       orientation = 'diagonal';
       strokeWidth = s.int(s.random(1, 4)); // Variable thickness for diagonal
     }
-  
-    return { 
+
+    return {
       start: s.createVector(x1, y1),
       end: s.createVector(x2, y2),
       orientation: orientation as 'horizontal' | 'vertical' | 'diagonal',
-      strokeWidth: strokeWidth
+      strokeWidth: strokeWidth,
     };
   }
-  
+
   private extendLinesFromLine(s: p5, l: LineObj, allLines: LineObj[], depth: number): void {
     if (depth > 2) return; // Limit recursion depth
-  
+
     let numLinesToExtend = s.int(s.random(2, 5)); // 2 to 5 lines
     for (let i = 0; i < numLinesToExtend; i++) {
       // Choose a random point along the line
@@ -196,17 +196,18 @@ export class TeA001Component implements OnInit, OnDestroy {
       // Generate a new line starting from this point
       let newLine = this.generateRandomLineFromPoint(s, pointOnLine, 10, 90, l.orientation);
       this.allCurrLines.push(newLine);
-  
+
       // Recursive call for the new line
-      if (s.random() < 0.7) { // 50% chance to extend further
+      if (s.random() < 0.7) {
+        // 50% chance to extend further
         this.extendLinesFromLine(s, newLine, this.allCurrLines, depth + 1);
       }
     }
   }
-  
+
   generateRandomLineFromPoint(
     s: p5,
-    point: p5.Vector, 
+    point: p5.Vector,
     padding: number,
     size: number,
     excludeOrientation: 'horizontal' | 'vertical' | 'diagonal'
@@ -219,33 +220,33 @@ export class TeA001Component implements OnInit, OnDestroy {
       if (rand < 0.5) {
         orientation = 'vertical';
         y2 = s.random(padding, size);
-        return { 
+        return {
           start: point,
           end: s.createVector(point.x, y2),
           orientation: orientation,
-          strokeWidth: s.int(s.random(1, 2)) // Thinnest lines for vertical
+          strokeWidth: s.int(s.random(1, 2)), // Thinnest lines for vertical
         };
       } else {
         orientation = 'diagonal';
         let angle = s.random([s.QUARTER_PI, -s.QUARTER_PI]);
         let length = s.random(10, size - s.max(point.x, point.y));
         let endPoint = p5.Vector.fromAngle(angle).setMag(length).add(point);
-        return { 
-          start: point, 
-          end: endPoint, 
+        return {
+          start: point,
+          end: endPoint,
           orientation: orientation,
-          strokeWidth: s.int(s.random(1, 4)) // Variable thickness for diagonal
+          strokeWidth: s.int(s.random(1, 4)), // Variable thickness for diagonal
         };
       }
     } else if (excludeOrientation === 'vertical') {
       // horizontal or diagonal
       orientation = 'horizontal';
       x2 = s.random(padding, size);
-      return { 
+      return {
         start: point,
         end: s.createVector(x2, point.y),
         orientation: orientation,
-        strokeWidth: s.int(s.random(1, 4))
+        strokeWidth: s.int(s.random(1, 4)),
       };
     } else {
       // horizontal or vertical
@@ -253,20 +254,20 @@ export class TeA001Component implements OnInit, OnDestroy {
       if (rand < 0.5) {
         orientation = 'horizontal';
         x2 = s.random(padding, size);
-        return { 
+        return {
           start: point,
-          end: s.createVector(x2, point.y), 
+          end: s.createVector(x2, point.y),
           orientation: orientation,
-          strokeWidth: s.int(s.random(1, 4)) // Thicker lines for horizontal
+          strokeWidth: s.int(s.random(1, 4)), // Thicker lines for horizontal
         };
       } else {
         orientation = 'vertical';
         y2 = s.random(padding, size);
-        return { 
+        return {
           start: point,
           end: s.createVector(point.x, y2),
           orientation: orientation,
-          strokeWidth: s.int(s.random(1, 2)) // Thinnest lines for vertical
+          strokeWidth: s.int(s.random(1, 2)), // Thinnest lines for vertical
         };
       }
     }

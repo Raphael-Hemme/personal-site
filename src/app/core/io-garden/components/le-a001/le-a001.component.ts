@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as p5 from 'p5';
+import p5 from 'p5';
 import { Subscription } from 'rxjs';
 import { WindowSizeService } from 'src/app/shared/services/window-size-service/window-size.service';
 
@@ -13,9 +13,9 @@ interface CellObj {
   y: number;
   size: number;
   color: {
-    fill: number[];
-    stroke: number[] | null
-  }
+    fill: [number, number, number, number?];
+    stroke: [number, number, number, number?] | null;
+  };
 }
 
 interface CellConfigObj {
@@ -24,9 +24,9 @@ interface CellConfigObj {
   minSize: number;
   maxSize: number;
   color: {
-    fill: number[];
-    stroke: number[] | null;
-  }
+    fill: [number, number, number, number?];
+    stroke: [number, number, number, number?] | null;
+  };
 }
 
 interface SubCellConfigObj {
@@ -37,19 +37,18 @@ interface SubCellConfigObj {
   minSize: number;
   maxSize: number;
   color: {
-    fill: number[];
-    stroke: number[] | null;
-  }
+    fill: [number, number, number, number?];
+    stroke: [number, number, number, number?] | null;
+  };
 }
 
 @Component({
-    selector: 'app-le-a001',
-    templateUrl: './le-a001.component.html',
-    styleUrls: ['./le-a001.component.scss'],
-    standalone: true
+  selector: 'app-le-a001',
+  templateUrl: './le-a001.component.html',
+  styleUrls: ['./le-a001.component.scss'],
+  standalone: true,
 })
 export class LeA001Component implements OnInit, OnDestroy {
-
   public canvas: any;
 
   private cellsArr: CellObj[][] = [];
@@ -62,19 +61,16 @@ export class LeA001Component implements OnInit, OnDestroy {
 
   private subscriptions: Subscription = new Subscription();
 
-  constructor(
-    private windowSizeService: WindowSizeService
-  ) { }
+  constructor(private windowSizeService: WindowSizeService) {}
 
   ngOnInit() {
-
     const canvasConfig = {
-      'isSquare': true,
-      'wPercentS': 100,
-      'wPercentL': 70,
-      'hPercentS': 100,
-      'hPercentL': 100
-    }
+      isSquare: true,
+      wPercentS: 100,
+      wPercentL: 70,
+      hPercentS: 100,
+      hPercentL: 100,
+    };
 
     const canvSizeObj = this.windowSizeService.calculateCanvasSize(canvasConfig);
     this.canvWidth = canvSizeObj.w;
@@ -86,17 +82,16 @@ export class LeA001Component implements OnInit, OnDestroy {
       })
     );
 
-    const sketch = (s: any) => {
-
+    const sketch = (s: p5) => {
       s.setup = () => {
         let canvas2 = s.createCanvas(this.canvWidth, this.canvHeight);
         canvas2.parent('le-a001-sketch-wrapper');
-      }
+      };
 
       s.draw = () => {
         this.setupDotArrays(s);
         s.background(100);
-        s.colorMode(s.RGBA)
+        s.colorMode(s.RGB);
 
         for (let cellArr of this.cellsArrReordered) {
           // console.log('cellArr.length', cellArr.length);
@@ -127,7 +122,7 @@ export class LeA001Component implements OnInit, OnDestroy {
 
         s.noFill();
         s.noLoop();
-      }
+      };
     };
 
     this.canvas = new p5(sketch);
@@ -144,7 +139,7 @@ export class LeA001Component implements OnInit, OnDestroy {
   }
 
   private makeCells = (cellConfigObj: CellConfigObj, s: p5): CellObj[] => {
-    const internalDotArr = []
+    const internalDotArr = [];
     //   choose random radius and angle from the center
     for (var i = 0; i < cellConfigObj.number; i++) {
       const a = s.random(0, 2 * s.PI);
@@ -162,14 +157,14 @@ export class LeA001Component implements OnInit, OnDestroy {
         size: s.random(cellConfigObj.minSize, cellConfigObj.maxSize),
         color: {
           fill: cellConfigObj.color.fill,
-          stroke: cellConfigObj.color.stroke
-        }
+          stroke: cellConfigObj.color.stroke,
+        },
       };
 
       internalDotArr.push(newDot);
     }
     return internalDotArr;
-  }
+  };
 
   private makeSubCells = (subCellConfigObj: SubCellConfigObj, s: p5): CellObj[] => {
     const amount = s.random(0, subCellConfigObj.maxAmount);
@@ -177,7 +172,6 @@ export class LeA001Component implements OnInit, OnDestroy {
 
     //   choose random radius and angle from the center
     for (var i = 0; i < amount; i++) {
-
       const a = s.random(0, 2 * s.PI);
       const r = s.random(5, subCellConfigObj.rRange);
 
@@ -190,191 +184,245 @@ export class LeA001Component implements OnInit, OnDestroy {
         size: size,
         color: {
           fill: subCellConfigObj.color.fill,
-          stroke: subCellConfigObj.color.stroke
-        }
+          stroke: subCellConfigObj.color.stroke,
+        },
       };
       subCells.push(newDot);
     }
     return subCells;
-  }
+  };
 
   private generateTextureBase(s: p5): void {
-    this.textureArr.push(this.makeCells({
-      number: 9000,
-      maxRadius: s.width / 2 - s.width / 5,
-      minSize: 1,
-      maxSize: 1,
-      color: {
-        fill: [0, 0, 0, 30],
-        stroke: null
-      }
-    }, s))
+    this.textureArr.push(
+      this.makeCells(
+        {
+          number: 9000,
+          maxRadius: s.width / 2 - s.width / 5,
+          minSize: 1,
+          maxSize: 1,
+          color: {
+            fill: [0, 0, 0, 30],
+            stroke: null,
+          },
+        },
+        s
+      )
+    );
 
-    this.textureArr.push(this.makeCells({
-      number: 8000,
-      maxRadius: s.width / 2 - s.width / 5,
-      minSize: 1,
-      maxSize: 1,
-      color: {
-        fill: [200, 200, 200, 30],
-        stroke: null
-      }
-    }, s))
+    this.textureArr.push(
+      this.makeCells(
+        {
+          number: 8000,
+          maxRadius: s.width / 2 - s.width / 5,
+          minSize: 1,
+          maxSize: 1,
+          color: {
+            fill: [200, 200, 200, 30],
+            stroke: null,
+          },
+        },
+        s
+      )
+    );
   }
 
   private setupDotArrays(s: p5): void {
-    this.cellsArr.forEach(arr => arr.splice(0, arr.length - 1))
-    this.textureArr.forEach(arr => arr.splice(0, arr.length - 1))
+    this.cellsArr.forEach((arr) => arr.splice(0, arr.length - 1));
+    this.textureArr.forEach((arr) => arr.splice(0, arr.length - 1));
 
-    this.cellsArr[0] = this.makeCells({
-      number: 200,
-      maxRadius: s.width / 6,
-      minSize: s.width / 66.7,
-      maxSize: s.width / 66.7,
-      color: {
-        fill: [135, 87, 14, 200],
-        stroke: [110, 86, 36, 200]
-      }
-    }, s);
-
-    this.cellsArr[1] = this.cellsArr[0]
-      .map(el => this.makeSubCells({
-        centerX: el.x,
-        centerY: el.y,
-        maxAmount: 10,
-        rRange: s.width / 30,
-        minSize: s.width / 60,
-        maxSize: s.width / 25,
-        color: {
-          fill: [163, 118, 21, 80],
-          stroke: null
-          // stroke: [120, 91, 29, 150]
-        }
-      }, s))
-      .flat();
-
-    this.cellsArr[2] = this.cellsArr[1]
-      .map(el => this.makeSubCells({
-        centerX: el.x,
-        centerY: el.y,
-        maxAmount: 2,
-        rRange: s.width / 50,
-        minSize: s.width / 150,
-        maxSize: s.width / 60,
-        color: {
-          // fill: [0, 255, 0, 255],
-          fill: [196, 152, 39, 160],
-          stroke: [133, 91, 19, 110]
-        }
-      }, s))
-      .flat();
-
-    this.cellsArr[3] = this.makeCells({
-      number: 50,
-      maxRadius: s.width / 20,
-      minSize: 1,
-      maxSize: s.width / 75,
-      color: {
-        fill: [174, 134, 36, 100],
-        stroke: null
-      }
-    }, s);
-
-    this.cellsArr[4] = this.cellsArr[3]
-      .map(el => this.makeSubCells({
-        centerX: el.x,
-        centerY: el.y,
-        maxAmount: 30,
-        rRange: s.width / 60,
-        minSize: s.width / 200,
-        maxSize: s.width / 40,
-        color: {
-          fill: [122, 102, 67, 30],
-          stroke: null
-        }
-      }, s))
-      .flat();
-
-    this.cellsArr[5] = this.makeCells({
-      number: 100,
-      maxRadius: s.width / 8.6,
-      minSize: 1,
-      maxSize: 1,
-      color: {
-        fill: [0, 0, 0, 0],
-        stroke: null
-      }
-    }, s);
-
-    this.cellsArr[6] = this.cellsArr[5]
-      .map(el => this.makeSubCells({
-        centerX: el.x,
-        centerY: el.y,
-        maxAmount: 10,
-        rRange: s.width / 40,
+    this.cellsArr[0] = this.makeCells(
+      {
+        number: 200,
+        maxRadius: s.width / 6,
         minSize: s.width / 66.7,
         maxSize: s.width / 66.7,
         color: {
-          fill: [179, 139, 37, 170],
-          stroke: [161, 125, 33, 90, 170]
-        }
-      }, s))
+          fill: [135, 87, 14, 200],
+          stroke: [110, 86, 36, 200],
+        },
+      },
+      s
+    );
+
+    this.cellsArr[1] = this.cellsArr[0]
+      .map((el) =>
+        this.makeSubCells(
+          {
+            centerX: el.x,
+            centerY: el.y,
+            maxAmount: 10,
+            rRange: s.width / 30,
+            minSize: s.width / 60,
+            maxSize: s.width / 25,
+            color: {
+              fill: [163, 118, 21, 80],
+              stroke: null,
+              // stroke: [120, 91, 29, 150]
+            },
+          },
+          s
+        )
+      )
       .flat();
 
-    this.cellsArr[7] = this.makeCells({
-      number: 300,
-      maxRadius: s.width / 4.3,
-      minSize: 1,
-      maxSize: 5,
-      color: {
-        fill: [163, 118, 21, 200],
-        stroke: null
-      }
-    }, s);
+    this.cellsArr[2] = this.cellsArr[1]
+      .map((el) =>
+        this.makeSubCells(
+          {
+            centerX: el.x,
+            centerY: el.y,
+            maxAmount: 2,
+            rRange: s.width / 50,
+            minSize: s.width / 150,
+            maxSize: s.width / 60,
+            color: {
+              // fill: [0, 255, 0, 255],
+              fill: [196, 152, 39, 160],
+              stroke: [133, 91, 19, 110],
+            },
+          },
+          s
+        )
+      )
+      .flat();
 
-    this.cellsArr[7] = this.makeCells({
-      number: 300,
-      maxRadius: s.width / 4.3,
-      minSize: 1,
-      maxSize: 5,
-      color: {
-        fill: [163, 118, 21, 200],
-        stroke: null
-      }
-    }, s);
+    this.cellsArr[3] = this.makeCells(
+      {
+        number: 50,
+        maxRadius: s.width / 20,
+        minSize: 1,
+        maxSize: s.width / 75,
+        color: {
+          fill: [174, 134, 36, 100],
+          stroke: null,
+        },
+      },
+      s
+    );
 
-    this.cellsArr[8] = this.makeCells({
-      number: 300,
-      maxRadius: s.width / 20,
-      minSize: 1,
-      maxSize: 14,
-      color: {
-        fill: [100, 100, 100, 170],
-        stroke: null
-      }
-    }, s);
+    this.cellsArr[4] = this.cellsArr[3]
+      .map((el) =>
+        this.makeSubCells(
+          {
+            centerX: el.x,
+            centerY: el.y,
+            maxAmount: 30,
+            rRange: s.width / 60,
+            minSize: s.width / 200,
+            maxSize: s.width / 40,
+            color: {
+              fill: [122, 102, 67, 30],
+              stroke: null,
+            },
+          },
+          s
+        )
+      )
+      .flat();
 
-    this.cellsArr[9] = this.makeCells({
-      number: 150,
-      maxRadius: s.width / 60,
-      minSize: 1,
-      maxSize: 14,
-      color: {
-        fill: [100, 100, 100, 170],
-        stroke: null
-      }
-    }, s);
+    this.cellsArr[5] = this.makeCells(
+      {
+        number: 100,
+        maxRadius: s.width / 8.6,
+        minSize: 1,
+        maxSize: 1,
+        color: {
+          fill: [0, 0, 0, 0],
+          stroke: null,
+        },
+      },
+      s
+    );
 
-    this.cellsArr[10] = this.makeCells({
-      number: 50,
-      maxRadius: s.width / 100,
-      minSize: 1,
-      maxSize: 16,
-      color: {
-        fill: [100, 100, 100, 150],
-        stroke: null
-      }
-    }, s);
+    this.cellsArr[6] = this.cellsArr[5]
+      .map((el) =>
+        this.makeSubCells(
+          {
+            centerX: el.x,
+            centerY: el.y,
+            maxAmount: 10,
+            rRange: s.width / 40,
+            minSize: s.width / 66.7,
+            maxSize: s.width / 66.7,
+            color: {
+              fill: [179, 139, 37, 170],
+              stroke: [161, 125, 33, 90],
+            },
+          },
+          s
+        )
+      )
+      .flat();
+
+    this.cellsArr[7] = this.makeCells(
+      {
+        number: 300,
+        maxRadius: s.width / 4.3,
+        minSize: 1,
+        maxSize: 5,
+        color: {
+          fill: [163, 118, 21, 200],
+          stroke: null,
+        },
+      },
+      s
+    );
+
+    this.cellsArr[7] = this.makeCells(
+      {
+        number: 300,
+        maxRadius: s.width / 4.3,
+        minSize: 1,
+        maxSize: 5,
+        color: {
+          fill: [163, 118, 21, 200],
+          stroke: null,
+        },
+      },
+      s
+    );
+
+    this.cellsArr[8] = this.makeCells(
+      {
+        number: 300,
+        maxRadius: s.width / 20,
+        minSize: 1,
+        maxSize: 14,
+        color: {
+          fill: [100, 100, 100, 170],
+          stroke: null,
+        },
+      },
+      s
+    );
+
+    this.cellsArr[9] = this.makeCells(
+      {
+        number: 150,
+        maxRadius: s.width / 60,
+        minSize: 1,
+        maxSize: 14,
+        color: {
+          fill: [100, 100, 100, 170],
+          stroke: null,
+        },
+      },
+      s
+    );
+
+    this.cellsArr[10] = this.makeCells(
+      {
+        number: 50,
+        maxRadius: s.width / 100,
+        minSize: 1,
+        maxSize: 16,
+        color: {
+          fill: [100, 100, 100, 150],
+          stroke: null,
+        },
+      },
+      s
+    );
 
     this.cellsArrReordered = [
       this.cellsArr[1],
@@ -388,9 +436,8 @@ export class LeA001Component implements OnInit, OnDestroy {
       this.cellsArr[8],
       this.cellsArr[9],
       this.cellsArr[10],
-    ]
+    ];
 
     this.generateTextureBase(s);
   }
-
 }
