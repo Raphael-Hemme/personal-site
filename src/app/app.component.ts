@@ -28,16 +28,15 @@ import { BreadcrumbComponent } from './shared/ui-components/breadcrumb/breadcrum
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: true,
     imports: [
-      NgClass, 
-      SiteMenuComponent, 
-      RouterOutlet, 
-      SearchComponent, 
-      AsyncPipe,
-      LoadingSpinnerComponent,
-      SiteNavBarComponent,
-      BreadcrumbComponent
+        NgClass,
+        SiteMenuComponent,
+        RouterOutlet,
+        SearchComponent,
+        AsyncPipe,
+        LoadingSpinnerComponent,
+        SiteNavBarComponent,
+        BreadcrumbComponent
     ]
 })
 export class AppComponent implements OnInit, OnDestroy {

@@ -16,7 +16,6 @@ import { NgClass } from '@angular/common';
     selector: 'app-site-menu',
     templateUrl: './site-menu.component.html',
     styleUrls: ['./site-menu.component.scss'],
-    standalone: true,
     imports: [NgClass]
 })
 export class SiteMenuComponent implements OnInit, OnDestroy {

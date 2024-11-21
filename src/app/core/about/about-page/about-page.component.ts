@@ -6,11 +6,10 @@ import { TagResultListComponent } from 'src/app/shared/ui-components/tag-result-
 
 
 @Component({
-  selector: 'app-about-page',
-  templateUrl: './about-page.component.html',
-  styleUrls: ['./about-page.component.scss'],
-  standalone: true,
-  imports: [NgClass, AsyncPipe, TagResultListComponent],
+    selector: 'app-about-page',
+    templateUrl: './about-page.component.html',
+    styleUrls: ['./about-page.component.scss'],
+    imports: [NgClass, AsyncPipe, TagResultListComponent]
 })
 export class AboutPageComponent implements OnInit, AfterViewInit {
   @Input() isFullAboutComponent = true;

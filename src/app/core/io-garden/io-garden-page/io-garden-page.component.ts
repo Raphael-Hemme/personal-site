@@ -7,7 +7,6 @@ import { PreviewCardComponent } from '../../../shared/ui-components/preview-card
     selector: 'app-io-garden-page',
     templateUrl: './io-garden-page.component.html',
     styleUrls: ['./io-garden-page.component.scss'],
-    standalone: true,
     imports: [PreviewCardComponent]
 })
 export class IoGardenPageComponent implements OnInit, AfterViewInit {

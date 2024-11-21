@@ -8,7 +8,6 @@ import { PreviewCardComponent } from '../../../shared/ui-components/preview-card
     selector: 'app-blog-page',
     templateUrl: './blog-page.component.html',
     styleUrls: ['./blog-page.component.scss'],
-    standalone: true,
     imports: [PreviewCardComponent]
 })
 export class BlogPageComponent implements OnInit, AfterViewInit {

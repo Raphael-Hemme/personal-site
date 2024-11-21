@@ -23,11 +23,10 @@ interface PositionAndDimensions {
 }
 
 @Component({
-  selector: 'app-scroll-indicator',
-  standalone: true,
-  imports: [NgClass, AsyncPipe],
-  templateUrl: './scroll-indicator.component.html',
-  styleUrl: './scroll-indicator.component.scss',
+    selector: 'app-scroll-indicator',
+    imports: [NgClass, AsyncPipe],
+    templateUrl: './scroll-indicator.component.html',
+    styleUrl: './scroll-indicator.component.scss'
 })
 export class ScrollIndicatorComponent implements OnInit, OnDestroy {
   public height = 230;

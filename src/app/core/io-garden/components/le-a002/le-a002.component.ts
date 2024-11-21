@@ -64,11 +64,10 @@ class Cell {
 }
 
 @Component({
-  selector: 'app-le-a002',
-  templateUrl: './le-a002.component.html',
-  styleUrls: ['./le-a002.component.scss'],
-  standalone: true,
-  imports: [NgClass],
+    selector: 'app-le-a002',
+    templateUrl: './le-a002.component.html',
+    styleUrls: ['./le-a002.component.scss'],
+    imports: [NgClass]
 })
 export class LeA002Component implements OnInit, OnDestroy {
   public canvas: any;

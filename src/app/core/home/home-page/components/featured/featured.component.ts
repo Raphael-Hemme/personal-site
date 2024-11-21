@@ -5,14 +5,13 @@ import { IoGardenExperimentMetaData } from 'src/app/shared/services/io-garden-se
 import { PreviewCardComponent } from 'src/app/shared/ui-components/preview-card/preview-card.component';
 
 @Component({
-  selector: 'app-featured',
-  standalone: true,
-  imports: [
-    RouterLink,
-    PreviewCardComponent,
-  ],
-  templateUrl: './featured.component.html',
-  styleUrl: './featured.component.scss'
+    selector: 'app-featured',
+    imports: [
+        RouterLink,
+        PreviewCardComponent,
+    ],
+    templateUrl: './featured.component.html',
+    styleUrl: './featured.component.scss'
 })
 export class FeaturedComponent {
 

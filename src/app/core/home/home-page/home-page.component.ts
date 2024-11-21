@@ -25,17 +25,16 @@ interface CountObj {
     selector: 'app-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
-    standalone: true,
     imports: [
-      RouterLink,
-      NgClass,
-      AboutPageComponent,
-      HorizontalGlitchSketchComponent,
-      FeaturedComponent,
-      PreviewCardComponent,
-      TagResultListComponent,
-      TagListComponent,
-      LoadingSpinnerComponent
+        RouterLink,
+        NgClass,
+        AboutPageComponent,
+        HorizontalGlitchSketchComponent,
+        FeaturedComponent,
+        PreviewCardComponent,
+        TagResultListComponent,
+        TagListComponent,
+        LoadingSpinnerComponent
     ]
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {

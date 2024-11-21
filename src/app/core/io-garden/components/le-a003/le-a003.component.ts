@@ -8,7 +8,6 @@ import { DateTime } from 'luxon'
     selector: 'app-le-a003',
     templateUrl: './le-a003.component.html',
     styleUrls: ['./le-a003.component.scss'],
-    standalone: true,
     imports: []
 })
 export class LeA003Component implements OnInit, OnDestroy {

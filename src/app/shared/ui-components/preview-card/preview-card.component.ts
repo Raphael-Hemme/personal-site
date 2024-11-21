@@ -13,7 +13,6 @@ type ImgOrientationClass = 'image-top-preview-card' | 'image-left-preview-card' 
     selector: 'app-preview-card',
     templateUrl: './preview-card.component.html',
     styleUrls: ['./preview-card.component.scss'],
-    standalone: true,
     imports: [NgClass]
 })
 export class PreviewCardComponent implements OnInit, OnChanges {

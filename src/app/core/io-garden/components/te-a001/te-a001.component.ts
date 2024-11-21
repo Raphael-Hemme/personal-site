@@ -12,11 +12,10 @@ interface LineObj {
 }
 
 @Component({
-  selector: 'app-te-a001',
-  templateUrl: './te-a001.component.html',
-  styleUrls: ['./te-a001.component.scss'],
-  standalone: true,
-  imports: [FormsModule],
+    selector: 'app-te-a001',
+    templateUrl: './te-a001.component.html',
+    styleUrls: ['./te-a001.component.scss'],
+    imports: [FormsModule]
 })
 export class TeA001Component implements OnInit, OnDestroy {
   public canvWidth = 500;

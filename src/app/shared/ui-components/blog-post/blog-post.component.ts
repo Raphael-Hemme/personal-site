@@ -11,10 +11,9 @@ import { TagInfoObj } from '../../services/tag-mapping-service/tag-mapping.servi
     selector: 'app-blog-post',
     templateUrl: './blog-post.component.html',
     styleUrls: ['./blog-post.component.scss'],
-    standalone: true,
     imports: [
-      TagListComponent,
-      MarkdownModule
+        TagListComponent,
+        MarkdownModule
     ]
 })
 export class BlogPostComponent implements OnInit, AfterViewInit, OnDestroy {
