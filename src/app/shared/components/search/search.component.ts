@@ -28,12 +28,11 @@ interface HighlightedSearchTermObj {
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [
         FormsModule,
         RouterLink,
         MarkdownModule,
-    ],
+    ]
 })
 export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 

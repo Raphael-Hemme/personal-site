@@ -7,15 +7,14 @@ import { take, tap, timer } from 'rxjs';
 import { ScrollIndicatorDirective } from '../scroll-indicator/scroll-indicator.directive';
 
 @Component({
-  selector: 'app-tag-result-list',
-  templateUrl: './tag-result-list.component.html',
-  styleUrl: './tag-result-list.component.scss',
-  standalone: true,
-  imports: [ 
-    NgClass,
-    PreviewCardComponent,
-    ScrollIndicatorDirective,
-  ],
+    selector: 'app-tag-result-list',
+    templateUrl: './tag-result-list.component.html',
+    styleUrl: './tag-result-list.component.scss',
+    imports: [
+        NgClass,
+        PreviewCardComponent,
+        ScrollIndicatorDirective,
+    ]
 })
 export class TagResultListComponent implements OnChanges {
 

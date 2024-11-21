@@ -14,10 +14,9 @@ export interface TagListOptions {
     selector: 'app-tag-list',
     templateUrl: './tag-list.component.html',
     styleUrls: ['./tag-list.component.scss'],
-    standalone: true,
     imports: [
-      NgClass,
-      TooltipDirective
+        NgClass,
+        TooltipDirective
     ]
 })
 export class TagListComponent {

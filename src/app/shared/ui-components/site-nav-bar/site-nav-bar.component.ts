@@ -5,13 +5,12 @@ import { Router } from '@angular/router';
 import { NavigationService } from '../../services/navigation-service/navigation.service';
 
 @Component({
-  selector: 'app-site-nav-bar',
-  standalone: true,
-  imports: [
-    NgClass
-  ],
-  templateUrl: './site-nav-bar.component.html',
-  styleUrl: './site-nav-bar.component.scss'
+    selector: 'app-site-nav-bar',
+    imports: [
+        NgClass
+    ],
+    templateUrl: './site-nav-bar.component.html',
+    styleUrl: './site-nav-bar.component.scss'
 })
 export class SiteNavBarComponent {
   @Input() public smallLogoIsVisible = false;

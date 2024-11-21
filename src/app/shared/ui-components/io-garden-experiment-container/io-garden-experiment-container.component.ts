@@ -12,11 +12,10 @@ import { NgClass } from '@angular/common';
     selector: 'app-io-garden-experiment-container',
     templateUrl: './io-garden-experiment-container.component.html',
     styleUrls: ['./io-garden-experiment-container.component.scss'],
-    standalone: true,
     imports: [
-      NgClass, 
-      RouterOutlet, 
-      MarkdownModule
+        NgClass,
+        RouterOutlet,
+        MarkdownModule
     ]
 })
 export class IoGardenExperimentContainerComponent implements OnInit, AfterViewInit, OnDestroy {

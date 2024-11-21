@@ -4,11 +4,10 @@ import { BreadcrumbObj, NavigationService } from '../../services/navigation-serv
 import { Subscription, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-breadcrumb',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './breadcrumb.component.html',
-  styleUrl: './breadcrumb.component.scss'
+    selector: 'app-breadcrumb',
+    imports: [RouterLink],
+    templateUrl: './breadcrumb.component.html',
+    styleUrl: './breadcrumb.component.scss'
 })
 export class BreadcrumbComponent implements OnInit, OnDestroy{
 
