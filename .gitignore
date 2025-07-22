@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Coding Agents
+agent_plans/*
+!agent_plans/.gitkeep
